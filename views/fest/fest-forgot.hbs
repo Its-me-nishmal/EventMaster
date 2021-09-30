@@ -1,0 +1,94 @@
+<section>
+    <div class="container">
+        <div class="admin-login">
+            <div class="admin-login-border">
+                <div class="admin-login-header">
+                    <img class="admin-login-union-logo" src="/images/images/nsa-online-ping.png" alt="union logo">
+                </div>
+                <h3 class="admin-login-head" style="font-size: 17px; color:rgb(92, 92, 92)">Forgot fest password</h3>
+                <hr class="admin-login-hr">
+                <div class="admin-login-content">
+                    <form action="/fest-admin/fest-forgot-password/{{FestId}}" autocomplete="off" method="POST">
+                        <div class="admin-login-form">
+                            <label for="">Fest ID</label>
+                            <input type="text" name="FestId" required>
+                        </div>
+
+                        <p style="font-size: 15px; color:rgb(94, 94, 94); font-style:italic; text-align:center">Submit
+                            FestId and receive the new password from the alert box</p>
+                        <div class="admin-login-form">
+                            <button type="submit">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+            {{#if FestIdError}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5 id="loginErr">{{FestIdError}}</h5>
+                    </div>
+                    <audio id="alertAudio" autoplay hidden src=""></audio>
+                </div>
+            </div>
+            {{/if}}
+            {{#if forgotPassword}}
+            <p id="forgetPasswordHidden" hidden>{{forgotPassword}}</p>
+
+            <script>
+                var Password = document.getElementById('forgetPasswordHidden').innerHTML
+                var newPassword = "New password : " +  Password 
+                alert(newPassword)
+            </script>
+            {{/if}}
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function showPassword() {
+        var x = document.getElementById("Password");
+        var i = document.getElementById("Icon");
+
+        if (x.type === "password") {
+            x.type = "text"
+            i.className = "bi bi-eye-slash-fill"
+
+        } else {
+            x.type = "password"
+            i.className = "bi bi-eye-fill"
+        }
+    }
+
+    function closeAlet() {
+
+        var alert_box = document.getElementById('close')
+        alert_box.style.display = "none"
+
+    }
+
+
+</script>
+
+<script>
+    var loginErr = document.getElementById("loginErr").innerHTML
+    var audio = document.getElementById('alertAudio')
+
+    if (loginErr === "Invalid email address") {
+        audio.src = '/audio/alert/invalid.mp3'
+
+    } else if (loginErr === "Incorrect password") {
+        audio.src = '/audio/alert/incurrenct.mp3'
+    }
+</script>

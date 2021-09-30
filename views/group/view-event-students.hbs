@@ -1,0 +1,210 @@
+<section>
+    <div class="group-container">
+        <div class="allGroupStudents-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">{{EventId}} - {{EventName}} / View student</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div class="groups-content">
+
+
+                <div class="gorup-content-events">
+                    {{#if EventStudents}}
+                    <div class="allStudents-SessionOne">
+                        <p>Create new student this event :</p>
+                        {{#if StudentActiveNull}}
+                        <a href=""><button style="background-color:var(--color-delete);"><i
+                                    class="bi bi-hourglass-bottom"></i> Time end</button></a>
+                        {{else}}
+                        <a href="/group/students/{{SessionName}}/add-students"><button><i
+                                    class="bi bi-plus-circle-dotted"></i> Add</button></a>
+                        {{/if}}
+                    </div>
+                    <div class="allStudents-SessionTwo">
+                        <table id="AllStudents" class="auto-index">
+                            <thead>
+                                <tr>
+                                    <th class="StudentsTable-TR-Slno">Sl no</th>
+                                    <th class="StudentsTable-TR-ChestNo">Chest no</th>
+                                    <th class="StudentsTable-TR-ChestNo">CIC no</th>
+                                    <th class="StudentsTable-TR-CIC">Full name </th>
+                                    <th class="StudentsTable-TR-Control">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each EventStudents}}
+                                <tr>
+                                    <td class="StudentsTable-TD-Slno"></td>
+                                    <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                    <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+                                    <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
+                                    <td><a href="/group/events/{{../SessionName}}/{{../CategoryName}}/all-events/{{../EventId}}-{{../EventName}}/all-students/{{this.ChestNo}}/delete-event"
+                                            onclick="return confirm('Are you want to delete - {{this.FullName}} - this event ?')"><button
+                                                class="pointCateoryDeletButton"> <i
+                                                    class="bi bi-trash"></i></button></a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <div class="pointTable-printbutton">
+                            <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                                    class="bi bi-printer-fill"></i>
+                                Print</button>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="GroupStudentsZero">
+                        <div class="pointTabel-div">
+
+                            <p>You have not added any students this event ...</p>
+                            {{#if StudentActiveNull}}
+                            <button style="background-color:var(--color-delete);"><i class="bi bi-hourglass-bottom"></i>
+                                Time
+                                end </button>
+                            {{else}}
+                            <a href="/group/events/{{SessionName}}/{{CategoryName}}/{{EventId}}-{{EventName}}">
+                                <button style="margin-left: 70px;"><i class="bi bi-plus-circle-dotted"></i> Add
+                                    students</button>
+                            </a>
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+
+                        <table class="auto-index print-Table">
+                            <thead>
+
+                                <tr>
+                                    <th class="StudentsTable-TR-Slno">Sl no</th>
+                                    <th class="StudentsTable-TR-ChestNo">Chest no</th>
+                                    <th class="StudentsTable-TR-CIC">CIC no</th>
+                                    <th class="StudentsTable-TR-Name">FullName</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if EventStudents}}
+                                {{#each EventStudents}}
+                                <tr>
+                                    <td class="StudentsTable-TD-Slno"></td>
+                                    <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                    <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+
+                                    <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
+
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <div class="pointTable-nodataDiv">
+                                    <p style="text-align: center;">No data available...</p>
+                                </div>
+                                {{/if}}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{FestDetails.FestName}} </h2>
+                    <h4>FestID : {{FestDetails.FestId}}</h4>
+                    <p> Fest Date :{{FestDetails.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - {{SessionName}} / {{CategoryName}} / ( {{EventId}} - {{EventName}} ) - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#AllStudents').DataTable();
+    });
+</script>
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Events').className = "nav-links-a nav-links-active"
+
+</script>

@@ -1,0 +1,81 @@
+<section>
+    <div class="group-container">
+        <div class="allCategory-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Events / Choose events</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div class="allcategorycontentDiv">
+                <div class="allCategory-content">
+                    {{#if checkstudentCount}}
+                    {{#each allItemCategorys}}
+
+                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category1}}">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.SessionName}} - {{this.Category1}}</h4>
+                            <p>{{this.StageCount}}</p>
+                        </div>
+                    </a>
+                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category2}}">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.SessionName}} - {{this.Category2}}</h4>
+                            <p>{{this.OffStageCount}}</p>
+                        </div>
+                    </a>
+
+                    {{/each}}
+                    {{else}}
+                    <div class="GroupStudentsZero">
+                        <div class="pointTabel-div">
+                            <div class="pointTable-IconDiv">
+                                <i class="bi bi-emoji-frown"></i>
+                            </div>
+                            <p>You have not added any students... </p>
+                            <a href="/group/students">
+                                <button><i class="bi bi-plus-circle-dotted"></i> Create students</button>
+                            </a>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            {{!-- events with students details --}}
+             {{#if checkstudentCount}}
+            <div style="margin-top: 10px;" class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Events / Events with students</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div class="allcategorycontentDiv">
+                <div class="allCategory-content">
+                   
+                    {{#each allItemCategorys}}
+
+                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category1}}/all-events">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.SessionName}} - {{this.Category1}}</h4>
+                            <p>{{this.StageCount}}</p>
+                        </div>
+                    </a>
+                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category2}}/all-events">
+                        <div  class="allGroupCatetory-items">
+                            <h4>{{this.SessionName}} - {{this.Category2}}</h4>
+                            <p>{{this.OffStageCount}}</p>
+                        </div>
+                    </a>
+
+                    {{/each}}
+                    
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Events').className = "nav-links-a nav-links-active"
+
+</script>

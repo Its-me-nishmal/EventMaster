@@ -1,0 +1,99 @@
+<section>
+    <div class="group-container">
+        <div class="groupLogin-mainDiv">
+            <div class="groupLogin-border">
+                <div class="admin-login-header">
+                    <img class="admin-login-union-logo" src="/images/images/nsaonline-blue.png" alt="union logo">
+                </div>
+                <h3 class="admin-login-head">Group login</h3>
+                <hr>
+                <div id="loginform"  class="admin-login-content">
+                    <form action="/group/login" method="POST">
+                        <div class="admin-login-form">
+                            <label for="">Group ID</label>
+                            <input type="text" name="GroupId" id="" required autofocus>
+                        </div>
+                        <div class="admin-login-form">
+                            <label for="">Password</label>
+                            <input type="password" name="Password" id="Password" required>
+                            <i id="Icon" style="color: var(--color-blueDark2);" class="bi bi-eye-fill"
+                                onclick="showPassword()"></i>
+                        </div>
+                        
+                            <p style="color: blue; cursor:pointer" onclick="forgetShow()">forgot password ?</p>
+                        
+                        <div class="admin-login-form">
+                            <button style="background-color: var(--color-blueDark);" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div style="display: none;" id="fogetpassword" class="admin-login-content">
+                    <div class="GforgetHeader">
+                        <h4>Fogrgot password</h4>
+                    </div>
+                    <div class="GfogetCountent">
+                        <p>You do not have a forgot password option. Contact Fest Convenor to recover your password. </p>
+                    </div>
+                    <div class="GforgetClosebutton">
+                        <button onclick="forgetClose()">OK</button>
+                    </div>
+                </div>
+            </div>
+            {{#if grouploginErr}}
+            <div class="groupAlertBorder">
+                <div class="groupAlert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="groupAlertHead">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4>Login failed !</h4>
+                </div>
+                <div class="groupAletCountent">
+                    <h5>{{grouploginErr}}</h5>
+                </div>
+
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function showPassword() {
+        var x = document.getElementById("Password");
+        var i = document.getElementById("Icon");
+
+        if (x.type === "password") {
+            x.type = "text"
+            i.className = "bi bi-eye-slash-fill"
+
+        } else {
+            x.type = "password"
+            i.className = "bi bi-eye-fill"
+        }
+    }
+
+    function closeAlet() {
+
+        var alert_box = document.getElementById('close')
+        alert_box.style.display = "none"
+
+    }
+
+
+</script>
+
+<script>
+    foget = document.getElementById('fogetpassword')
+    loginform = document.getElementById('loginform')
+    function forgetShow(){
+        loginform.style.display = 'none'
+        foget.style.display ='block'
+    }
+    function forgetClose(){
+        loginform.style.display = 'block'
+        foget.style.display = 'none'
+    }
+</script>

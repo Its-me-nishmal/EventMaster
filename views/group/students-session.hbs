@@ -1,0 +1,30 @@
+<section>
+    <div class="group-container">
+        <div class="allCategory-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Students / All sessions</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div class="allCategory-content">
+                {{#each AllSessions}}
+                {{#if this.status}}
+                <a id="mainDiv" href="/group/students/{{this.SessionName}}">
+                    <div class="allGroupCatetory-items">
+                        <h4>{{this.SessionName}}</h4>
+                        <p>{{StudentsCount}}</p>
+                    </div>
+                </a>
+                {{/if}}
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Students').className = "nav-links-a nav-links-active"
+
+</script>

@@ -1,0 +1,49 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">{{SessionName}} / {{ Category}} / {{EventName}} / students</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="allEventDiv">
+                    <table id="allEvent-table" class="auto-index">
+                        <thead>
+                            <tr>
+                                <th>Sl no</th>
+                                <th>Chest No</th>
+                                <th>CIC No</th>
+                                <th>Name</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each EventStudents}}
+                            <tr>
+                                <td></td>
+                                <!--leave it blank-->
+                                <td>{{this.ChestNo}}</td>
+                                <td>{{this.CicNo}}</td>
+                                <td>{{this.FullName}}</td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('groups').className = "sidebarmenus sidebarmenus-active"
+</script>

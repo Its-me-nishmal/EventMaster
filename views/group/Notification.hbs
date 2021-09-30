@@ -1,0 +1,209 @@
+<section>
+    <div class="group-container">
+        <div class="allGroupStudents-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Notifications </h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            {{#if FullNotifications.[0]}}
+           
+            <div class="GNotification-all-controll">
+                <p></p>
+                
+                <button onclick="allread('{{GroupDetails.GroupId}}')"
+                    style="background-color: rgb(0, 137, 172); color:white" class="button"><i
+                        class="bi bi-eye-fill"></i> all read</button>
+
+
+            </div>
+            <p id="GroupId" hidden>{{GroupDetails.GroupId}}</p>
+            <div class="GNotificationMainDiv">
+
+                {{#each FullNotifications}}
+                {{#if this.Clear}}
+                {{else}}
+                <div id="MessageBorder{{MessageId}}" {{#if this.Read}} style="background-color: rgb(210, 241, 255);"
+                    {{/if}} class="GNotificationBorder">
+                    <p class="MessageId" hidden>{{MessageId}}</p>
+                    <p id="MessageType{{MessageId}}" hidden>{{this.Type}}</p>
+                    <p id="Link{{MessageId}}" hidden>{{this.Link}}</p>
+
+                    <a id="Atag{{this.MessageId}}"
+                        onclick="readControll('{{../GroupDetails.GroupId}}','{{MessageId}}')">
+                        <div class="one">
+                            <div>
+                                <div id class="IconDiv">
+                                    <i id="Icon{{MessageId}}" class="bi bi-bell-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two">
+                            <h4 style="color: rgb(0, 100, 158); ">{{this.Header}}</h4>
+                            <p id="messageContent">{{this.Message}}</p>
+                        </div>
+                    </a>
+                    <div class="GNotificationDate">
+                        <h5>{{this.MessageDate}}</h5>
+                    </div>
+                    <div class="three">
+                        <i onclick="showTools('{{this.MessageId}}')" class="bi bi-three-dots"></i>
+                    </div>
+                    <div id="{{this.MessageId}}" style="display: none;">
+                        <div class="messageTools">
+                            {{#if this.Read}}
+                            <div id="MessageViewTool{{MessageId}}">
+                                <div title="Set read"
+                                    onclick="readControll('{{../GroupDetails.GroupId}}','{{MessageId}}')"
+                                    style="background-color: rgb(1, 124, 224);">
+                                    <i class="bi bi-eye-fill"></i>
+                                </div>
+                            </div>
+                            {{/if}}
+                            <div>
+                                <div title="Clear"
+                                    onclick="ClearControll('{{../GroupDetails.GroupId}}','{{MessageId}}')"
+                                    style="background-color: var(--color-delete);">
+                                    <i class="bi bi-trash-fill"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <i onclick="hideTools('{{this.MessageId}}')" class="bi bi-x-lg closeIcon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+                {{!-- --}}
+
+            </div>
+            {{else}}
+            <div class="GroupStudentsZero">
+                <div class="pointTabel-div">
+                    <div class="pointTable-IconDiv">
+                        <i class="bi bi-emoji-frown"></i>
+                    </div>
+                    <p>Empty notifications</p>
+                    
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+{{!-- active page --}}
+<script>
+    var current = document.getElementById('G-Notification').className = "nav-links-a nav-links-active"
+</script>
+
+{{!-- tool show/ Hide --}}
+<script>
+    function showTools(MessageId) {
+
+        var tools = document.getElementById(MessageId)
+        tools.style.display = "block"
+    }
+    function hideTools(MessageId) {
+        var tool = document.getElementById(MessageId)
+        tool.style.display = "none"
+    }
+</script>
+{{!-- Notification Icon Change --}}
+<script>
+    var id = document.getElementsByClassName('MessageId')
+    for (let i = 0; i < id.length; i++) {
+        var thisId = id[i].outerText
+        var Mtype = document.getElementById('MessageType' + thisId).innerHTML
+        var MLink = document.getElementById('Link' + thisId).innerHTML
+        var icon = document.getElementById('Icon' + thisId)
+        var Atage = document.getElementById('Atag' + thisId)
+        if (Mtype === "Notific_One") {
+            icon.className = 'bi bi-person-fill'
+            Atage.setAttribute("href", "/group/notification/" + thisId + "/view")
+        } else if (Mtype === "Notific_Full") {
+            icon.className = 'bi bi-people-fill'
+            Atage.setAttribute("href", "/group/notification/" + thisId + "/view")
+        } else {
+            icon.className = 'bi bi-bell-fill'
+            Atage.setAttribute("href", MLink)
+        }
+
+    }
+</script>
+{{!-- Notification View --}}
+<script>
+    var GroupId = document.getElementById('GroupId').innerHTML
+
+    $.ajax({
+        url: '/group/saw-notification',
+        data: {
+            GroupId
+        },
+        method: 'post',
+        success: () => {
+
+        }
+    })
+
+</script>
+
+{{!-- Notification Read one --}}
+<script>
+    function readControll(GroupId, MessageId) {
+        var MessageBorder = document.getElementById('MessageBorder' + MessageId)
+        var MessageViewTool = document.getElementById('MessageViewTool' + MessageId)
+        $.ajax({
+            url: '/group/read-one-notification',
+            data: {
+                GroupId,
+                MessageId
+            },
+            method: 'post',
+            success: (response) => {
+                MessageBorder.style.backgroundColor = 'lightgray'
+                MessageViewTool.style.display = 'none'
+            }
+        })
+    }
+</script>
+
+{{!-- Notification Clear one --}}
+<script>
+    function ClearControll(GroupId, MessageId) {
+        var MessageBorder = document.getElementById('MessageBorder' + MessageId)
+
+
+        $.ajax({
+            url: '/group/clear-one-notification',
+            data: {
+                GroupId,
+                MessageId
+            },
+            method: 'post',
+            success: (response) => {
+                MessageBorder.style.display = 'none'
+
+            }
+        })
+    }
+</script>
+
+{{!-- Notification Read Full --}}
+<script>
+    function allread(GroupId) {
+        $.ajax({
+            url: '/group/read-full-notification',
+            data: {
+                GroupId,
+
+            },
+            method: 'post',
+            success: (response) => {
+                location.reload()
+            }
+        })
+    }
+</script>

@@ -1,0 +1,64 @@
+<section>
+    <div class="admin-header-container">
+        <div class="admin-header-div-main">
+            <div>
+                <a href="/fest-admin"> <img class="admin-header-image" src="/images/images/nsa-online.png"
+                        alt="union logo"> </a>
+            </div>
+            <div class="admin-header-buttons">
+                {{#if festHeader}}
+                 <a id="festHeader" class="sidebarMenueButton" onclick="showSidebar()" style="text-decoration: none;">
+                    <div class="admin-header-login ">
+                       <i class="bi bi-layout-sidebar-inset"></i>
+                        <h4 class="create-fest">Sidebar</h4>
+                    </div>
+                </a>
+                {{/if}}
+                {{#if admin}}
+                <a href="/fest-admin/create-fest-page1" style="text-decoration: none;">
+                    <div class="create-fest-button-border" onclick="return confirm('Are you want create new fest ?')">
+                        <i class="bi bi-plus-lg"></i>
+                        <h4 class="create-fest">Create new fest</h4>
+                    </div>
+                </a>
+
+                <a href="/fest-admin/settings" style="text-decoration: none;">
+                    <div class="admin-header-login">
+                      <i style="font-size: 18px;" class="bi bi-gear-wide-connected"></i>
+                        <h4 class="create-fest">Settings</h4>
+                    </div>
+                </a>
+               {{else}}{{#if createAccout}}
+                    <a href="/fest-admin/settings" style="text-decoration: none;">
+                    <div class="admin-header-login">
+                      <i style="font-size: 18px;" class="bi bi-gear-wide-connected"></i>
+                        <h4 class="create-fest">Settings</h4>
+                    </div>
+                </a>
+               {{else}}
+
+                <a href="/fest-admin/login" style="text-decoration: none;">
+                    <div class="admin-header-login">
+                        <i class="bi bi-door-open"></i>
+                        <h4 class="create-fest">LogIn</h4>
+                    </div>
+                </a>
+                {{/if}}{{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function showSidebar(){
+        var sidebar = document.getElementById('sidebar')
+        var festHeader = document.getElementById('festHeader')
+        var closeButton = document.getElementById('closeIcon')
+        
+        
+        sidebar.className = "sidebarboarder-onClick-menu";
+        closeButton.className = "bi bi-x-lg sidebarheaderCloseIcon-onClick-menu"
+        festHeader.className = "sidebarMenueButton-onClick-menu"
+        
+    }
+</script>

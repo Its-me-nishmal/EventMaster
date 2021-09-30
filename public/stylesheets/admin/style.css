@@ -1,0 +1,2202 @@
+/*................................................. admin Header */
+
+.admin-header-container {
+    background-color: var(--color-one);
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    z-index: 5;
+}
+
+.admin-header-div-main {
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-header-image {
+    width: 130px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.create-fest-button-border {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-two);
+    border-radius: 100px;
+    padding: 3px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.create-fest-button-border:hover {
+    background-color: rgb(173, 0, 72);
+}
+
+.admin-header-login i, .create-fest-button-border i {
+    color: var(--color-two);
+    background-color: gainsboro;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 100%;
+}
+
+.create-fest {
+    color: white;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.admin-header-buttons {
+    display: flex;
+}
+
+.admin-header-login {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-two);
+    border-radius: 100px;
+    padding: 3px;
+    padding-right: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.create-fest-header-hr {
+    margin-top: 20px;
+    border: none;
+    border-top: 1px solid var(--color-four);
+}
+
+/* .................................... admin login */
+
+.admin-login {
+    height: 91vh;
+}
+
+.admin-login-border {
+    background-color: rgb(253, 205, 227);
+    width: 330px;
+    /* margin-top: 20px; */
+    padding: 25px;
+    border-radius: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 20px 0px rgba(255, 36, 145, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 36, 145, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(255, 36, 145, 0.78);
+}
+
+.admin-login-union-logo {
+    width: 160px;
+}
+
+.admin-login-header {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-login-head {
+    color: black;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.admin-login-form input {
+    width: 100%;
+    border: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 50px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-top: 3px;
+    margin-bottom: 16px;
+}
+
+.admin-login-form label {
+    font-weight: bold;
+    margin-left: 5px;
+    color: rgb(44, 44, 44);
+}
+
+.admin-login-content {
+    padding-top: 16px;
+}
+
+.admin-login-content p {
+    margin: 0;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.admin-login-hr {
+    border: none;
+    border-top: 1px solid var(--color-one);
+}
+
+.admin-login-form button {
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--color-one);
+    color: white;
+    border-radius: 50px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.admin-login-form button:active {
+    background-color: var(--color-two);
+}
+
+.admin-login-form i {
+    position: absolute;
+    font-size: 20px;
+    color: var(--color-two);
+    margin-top: 12px;
+    margin-left: -32px;
+    cursor: pointer;
+}
+
+/* .................................... Create fest - session one */
+
+.create-fest-border {
+    background-color: var(--color-three);
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 30px;
+    box-shadow: rgb(196, 196, 196) 1px 1px 10px .5px;
+    margin-bottom: 30px;
+}
+
+.create-fest-session-counter {
+    background-color: rgb(182, 182, 182);
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    border-radius: 100px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    z-index: 1;
+    margin-top: 10px;
+}
+
+.create-fest-session-count div {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.create-fest-session-line1 {
+    background-color: rgb(182, 182, 182);
+    width: 200px;
+    height: 3px;
+    position: absolute;
+    margin-top: 32px;
+}
+
+.create-fest-session-line2 {
+    background-color: var(--color-five);
+    width: 34px;
+    height: 3px;
+    position: absolute;
+}
+
+.create-fest-heading {
+    text-align: center;
+    color: var(--color-two);
+}
+
+.create-fest-sessionOne {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.CFsessionOne-header {
+    color: black;
+    margin-bottom: 10px;
+}
+
+.CFsessionOne, .CFsessionTwo {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.CFsessionOne .label {
+    width: 220px;
+    color: rgb(82, 82, 82);
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.CFsessionOne .inputDiv {
+    width: 100%;
+    padding-right: 20px;
+    position: relative;
+}
+
+.CFsessionOne .inputDiv input {
+    width: 100%;
+    padding: 11px;
+    font-size: 16px;
+    color: rgb(54, 54, 54);
+    border-radius: 100px;
+    border: solid 1px black;
+}
+
+.CFsessionOne .inputDiv select {
+    width: 100%;
+    padding: 11px;
+    font-size: 16px;
+    color: rgb(54, 54, 54);
+    border-radius: 100px;
+    border: solid 1px black;
+}
+
+.CFsessionOne .inputDiv i {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    font-size: 20px;
+    color: var(--color-two);
+    cursor: pointer;
+}
+
+.CFsessionOneNextButton {
+    width: 140px;
+    height: 45px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 100px;
+    border: none;
+    background-color: var(--color-four);
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.CFsessionOneNextButton:active {
+    background-color: #4e0028;
+}
+
+.CFsessionOneNext {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.create-fest-header-hr {
+    margin-top: 20px;
+    border: none;
+    border-top: 1px solid var(--color-four);
+}
+
+/* .................................... Create fest - session Two */
+
+.CFsessionTwo table {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.CFsessionTwo tr {
+    height: 50px;
+    position: relative;
+}
+
+.CFsessionTwogroupNumberTDHead {
+    background-color: rgb(172, 172, 172);
+    width: 140px;
+    border-radius: 100px;
+    font-size: 17px;
+}
+
+.CFsessionTwoAddButtonTD {
+    background-color: rgb(6, 122, 199);
+    color: white;
+    width: 120px;
+    border-radius: 100px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.CFsessionTwo tr th input {
+    width: 100%;
+    height: 42px;
+    border-radius: 100px;
+    border: black 1px solid;
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.CFsessionTwo tr th input {
+    width: 100%;
+    height: 42px;
+    border-radius: 100px;
+    border: black 1px solid;
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.CFsessionTwoInputTDHead {
+    padding-right: 37px;
+    padding-left: 5px;
+}
+
+.CFsessionTwoNumberTD {
+    background-color: rgb(172, 172, 172);
+    width: 140px;
+    border-radius: 100px;
+    font-size: 17px;
+}
+
+.CFsessionTwoInputResaltTD {
+    padding-right: 37px;
+    padding-left: 5px;
+}
+
+.CFsessionTwoDeleteButtonTD {
+    background-color: rgb(189, 8, 2);
+    color: white;
+    width: 120px;
+    border-radius: 100px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.CFsessionTwoInputResaltTD input {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid black;
+    border-radius: 100px;
+}
+
+.createGrop-infermathion span {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.createGrop-infermathion p {
+    word-break: break-all;
+    color: #4e4e4e;
+    margin-bottom: -15px;
+}
+
+/* ........................................crate fest - session 3 */
+
+.CFsessionThreeAddButtonTD {
+    background-color: rgb(0, 134, 29);
+    color: white;
+    width: 120px;
+    border-radius: 100px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.CFsessionThreeDeleteButtonTD {
+    background-color: var(--color-delete);
+    color: white;
+    width: 120px;
+    border-radius: 100px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sessionThreeAddButton {
+    background-color: gray;
+    width: 140px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 100px;
+}
+
+.sessionThree table {
+    width: 100%;
+}
+
+.sessionThreeTextInput input, .sessionThreeTextSelet select {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 100px;
+    border: 1px black solid;
+}
+
+/* ........................................crate fest - session 4 */
+
+.session4-div {
+    padding-left: 20px;
+}
+
+.session4StageLabel {
+    margin-left: 100px;
+    width: 150px;
+}
+
+.checkboxWrapper {
+    width: 70px;
+    height: 36px;
+    position: relative;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    background: rgb(207, 207, 207);
+}
+
+.checkboxWrapper label {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 30px;
+    height: 30px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    background: #4e4e4e;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.checkboxWrapper svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.checkboxWrapper input[type=checkbox] {
+    display: none;
+}
+
+.checkboxWrapper input[type=checkbox]:checked+label {
+    left: 37px;
+    background: var(--color-two);
+}
+
+.checkboxWrapper input[type=checkbox]:checked+label .checkmark path {
+    opacity: 1;
+    stroke-dashoffset: 0px;
+}
+
+.checkboxWrapper input[type=checkbox]:checked+label .cross path {
+    opacity: 0;
+    stroke-dashoffset: 13px;
+}
+
+/* ................................... Home page */
+
+.adminHome-section-one {
+    padding-top: 20px;
+}
+
+.adminHome-sectin-one-SubHeading {
+    color: rgb(61, 61, 61);
+}
+
+.adminHome-section-one hr {
+    margin-top: 1px;
+    border: none;
+    border-top: 1px var(--color-two) solid;
+}
+
+.adminHome-section-one-Fest {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+.adminHome-section-one-Div-main {
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: rgb(250, 217, 228);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.adminHome-section-one-Div-main:hover {
+    background-color: rgb(248, 186, 207);
+}
+
+.adminHome-section-one-Div-main:active {
+    background-color: rgb(248, 166, 193);
+}
+
+.adminHome-section-one-Image {
+    width: 100%;
+    overflow: auto;
+    height: auto;
+    border-radius: 15px;
+}
+
+.adminHome-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.adminHome-section-one-discription {
+    text-align: center;
+}
+
+.adminHome-section-one-discription h4 {
+    color: var(--color-two);
+    font-size: 17px;
+    margin-top: 7px;
+}
+
+.adminHome-section-one-discription p {
+    font-size: 15px;
+    margin-top: 1px;
+    color: rgb(46, 46, 46);
+}
+
+.adminHome-section-one-Fest a {
+    text-decoration: none;
+}
+
+.emptyFest {
+    background-color: rgb(223, 223, 223);
+    width: 100%;
+    height: 150px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.emptyFest i {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.emptyFest h3 {
+    display: flex;
+    align-items: center;
+}
+
+/*...................................... Fest login Popup */
+
+@keyframes festLoginPopup {
+    0% {
+        top: 0%;
+    }
+    100% {
+        top: 50%;
+    }
+}
+
+.festLoginPopupDiv {
+    background-color: rgb(255, 189, 219);
+    z-index: 2;
+    padding-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px 0px rgba(161, 161, 161, 0.78);
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(117, 117, 117, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(122, 122, 122, 0.78);
+    border: var(--color-one) solid 1px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    animation: festLoginPopup;
+    animation-duration: 1s;
+    transition: ease-in-out;
+}
+
+.fest-login-header {
+    display: flex;
+    justify-content: center;
+}
+
+.fest-login-head {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.fest-login-hr {
+    border: none;
+    border-top: 1px solid rgb(255, 133, 174);
+}
+
+.fest-login-form input {
+    width: 100%;
+    border: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 50px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-top: 3px;
+    margin-bottom: 16px;
+}
+
+.fest-login-form label {
+    font-weight: bold;
+    margin-left: 5px;
+    color: rgb(255, 255, 255);
+}
+
+.fest-login-form button {
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--color-one);
+    color: white;
+    border-radius: 50px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.fest-login-form button:active {
+    background-color: var(--color-two);
+}
+
+.fest-login-form i {
+    position: absolute;
+    font-size: 20px;
+    color: var(--color-two);
+    margin-top: 12px;
+    margin-left: -32px;
+    cursor: pointer;
+}
+
+.festLogin-closeIcon {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 22px;
+    color: rgb(71, 71, 71);
+    cursor: pointer;
+}
+
+.festForgetClass {
+    font-size: 13px;
+    color: rgb(11, 11, 192);
+    cursor: pointer;
+}
+
+/* .................................... fest side bar */
+
+.sidebarborder {
+    width: 200px;
+    height: 100vh;
+    background-color: var(--color-four);
+    position: fixed;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: ease-in-out 0.6s;
+    overflow-x: auto;
+    z-index: 4;
+}
+
+.sidebarborder::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgb(255, 219, 236);
+}
+
+/* Track */
+
+.sidebarborder::-webkit-scrollbar-track {
+    background-color: var(--color-four);
+}
+
+/* Handle */
+
+.sidebarborder::-webkit-scrollbar-thumb {
+    background: rgb(255, 115, 169);
+    border-radius: 20px;
+    border-right: 2px solid var(--color-four);
+}
+
+.sidebarheader {
+    padding-top: 65px;
+    position: relative;
+}
+
+.sidebarheaderlogoDiv {
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+}
+
+.sidebarheaderLogo {
+    border-radius: 100px;
+    width: 110px;
+}
+
+.sidebarheader-festName {
+    text-align: center;
+    color: white;
+    overflow-wrap: break-word;
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+.sidebarheader-festID {
+    text-align: center;
+    color: white;
+    margin-top: 1px;
+    font-size: 14px;
+}
+
+.sidebarheaderCloseIcon {
+    font-size: 22px;
+    color: rgb(194, 194, 194);
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+.sidebarheader-hr {
+    border: none;
+    border-top: 1px solid rgb(255, 0, 98);
+    margin-top: -5px;
+}
+
+.sidebarcontent-border {
+    width: 100%;
+}
+
+.sidebarmenus {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 11px;
+    box-sizing: border-box;
+    font-size: 17px;
+    align-items: center;
+    border-bottom: 1px solid rgb(65, 65, 65);
+}
+
+.sidebarmenus i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.sidebarmenus:hover {
+    background-color: rgb(184, 0, 86);
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.sidebarmenus-active {
+    background-color: white;
+    color: rgb(184, 0, 86);
+    border-radius: 5px;
+    border: none;
+}
+
+.sidebarMenueButton {
+    display: none;
+}
+
+/* .................................. point table */
+
+.pointTable-header {
+    padding-top: 10px;
+}
+
+.pointTable-header hr {
+    margin-top: 2px;
+    border: none;
+    border-top: solid 1px var(--color-two);
+}
+
+.pointTable-addButton {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pointTable-addButton button {
+    border: none;
+    background-color: var(--color-add);
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer
+}
+
+.pointTable-addButton i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.pointTable-addButton button:active {
+    background-color: rgb(0, 114, 9);
+}
+
+.pointTable-all {
+    width: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-top: 5px;
+    z-index: -1;
+}
+
+.pointTable-all thead th {
+    background-color: var(--color-tableHead);
+    color: white;
+}
+
+.pointTable-all tr:nth-child(even) {
+    background-color: #dbeeff;
+}
+
+#pointTable td, #pointTable th {
+    text-align: center;
+    border: 0.5px solid #c2c2c2;
+    ;
+    padding: 8px;
+}
+
+.pointTable-nodataDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 81vh;
+    background-image: url(/images/images/bg2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.pointTabel-div p {
+    margin: 0;
+    align-items: center;
+}
+
+.pointTabel-div button {
+    padding-left: 25px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: var(--color-add);
+    color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-left: 27px;
+    box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78)
+}
+
+.pointTabel-div button:hover {
+    background-color: rgb(0, 114, 9);
+}
+
+.pointTabel-div button:active {
+    background-color: rgb(1, 104, 9);
+}
+
+.pointTabel-div i {
+    font-size: 22px;
+    margin-right: 7px;
+}
+
+.pointCateoryDeletButton {
+    border: none;
+    font-size: 18px;
+    background-color: var(--color-delete);
+    color: white;
+    padding: 8px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+/* ..................................... add point table */
+
+.addPointTable-content {
+    margin-top: 20px;
+}
+
+/* ..........................................  Events */
+
+.eventHeaderDiv {
+    background-color: lightgray;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 17px;
+    border-radius: 5px;
+    color: black;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.eventHeaderDiv span {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    background-color: var(--color-two);
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 100px;
+    font-size: 15px;
+}
+
+.add-eventsDiv table {
+    width: 100%;
+}
+
+.add-event-firstInput {
+    width: 50%;
+}
+
+.add-event-SecondInput {
+    width: 20%;
+}
+
+.add-event-thirdInput {
+    width: 13%;
+}
+
+.add-event-firstInput input {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 13px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px black solid;
+}
+
+.add-event-SecondInput select {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 13px;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1px black solid;
+}
+
+.add-event-thirdInput input {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 13px;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1px black solid;
+}
+
+.add-event-button button {
+    width: 100%;
+    font-size: 18px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 13px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 100px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none;
+    background-color: var(--color-add);
+    color: white;
+    border: 1px var(--color-add) solid;
+}
+
+.add-event-button button:active {
+    background-color: rgb(0, 82, 0);
+}
+
+.allEventDiv {
+    padding-top: 10px;
+    overflow-y: auto;
+}
+
+.allEventDiv thead {
+    background-color: var(--color-tableHead);
+    color: white;
+}
+
+.allEventDiv td, .allEventDiv th {
+    border: 0.5px solid #c2c2c2;
+    ;
+    padding: 4px;
+    text-align: center;
+}
+
+.allEventDiv tr:nth-child(even) {
+    background-color: #dbeeff;
+}
+
+.add-event-button img {
+    width: 21px;
+    margin-right: 10px;
+}
+
+@keyframes addEventSuccessAmination {
+    0% {
+        top: -75px;
+    }
+    30% {
+        top: 150px;
+        opacity: 1;
+    }
+    90% {
+        top: 150px;
+        opacity: .1;
+    }
+    100% {
+        top: 150px;
+        opacity: 0;
+    }
+}
+
+.addEventSuccess {
+    background-color: rgb(53, 163, 77);
+    position: absolute;
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 12px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    color: white;
+    left: 50%;
+    top: -75px;
+    transform: translate(-50%);
+    animation: addEventSuccessAmination;
+    animation-duration: 3s;
+    transition: ease-out;
+}
+
+.addEventSuccess i {
+    background-color: rgb(0, 126, 67);
+    color: white;
+    padding: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 100px;
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.addEventFestDiv {
+    width: 100%;
+}
+
+.addEventFestDiv select {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 50px;
+    box-sizing: border-box;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+}
+
+/* All Groups  */
+
+.allGroupsTableDiv {
+    padding-top: 25px;
+    overflow-y: auto;
+}
+
+.allGroupsTableDiv table {
+    width: 100%;
+}
+
+.allGroupsTableDiv thead {
+    background-color: var(--color-tableHead);
+    color: white;
+}
+
+.allGroupsTableDiv th, .allGroupsTableDiv td {
+    text-align: center;
+    border: 0.5px solid #c2c2c2;
+    ;
+    padding: 4px;
+}
+
+.allGroupsTableDiv tr:nth-child(even) {
+    background-color: #dbeeff;
+}
+
+.allGroupsConfiermButton, .allGroupsViewButton {
+    font-size: 15px;
+    border: none;
+    background-color: var(--color-add);
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.allGroupsViewButton {
+    background-color: var(--color-view);
+}
+
+.allGroupsViewButton:active {
+    background-color: rgb(29, 29, 29);
+}
+
+.allGroupsConfiermButton:active {
+    background-color: rgb(2, 97, 22);
+}
+
+.allGroupsPasswordShowTd {
+    padding: 0;
+}
+
+.allGroupPasswordShow {
+    width: 100%;
+}
+
+/* ........................................ Control panel */
+
+.controlpanel-subhead {
+    display: flex;
+    padding-top: 10px;
+    color: var(--color-two);
+}
+
+.controlpanel-subhead i {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.controlPanel-ItemDiv {
+    margin-top: 15px;
+}
+
+.cPanel-checkboxWrapper {
+    width: 40px;
+    height: 13px;
+    position: relative;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 100px;
+    background: rgb(180, 180, 180);
+}
+
+.cPanel-checkboxWrapper label {
+    position: absolute;
+    left: -3px;
+    top: -4px;
+    width: 21px;
+    height: 21px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    background: #4e4e4e;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.cPanel-checkboxWrapper svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.cPanel-checkboxWrapper input[type=checkbox] {
+    display: none;
+}
+
+.cPanel-checkboxWrapper input[type=checkbox]:checked+label {
+    left: 19px;
+    background: var(--color-two);
+}
+
+.cPanel-checkboxWrapper input[type=checkbox]:checked+label .cPanel-checkmark path {
+    opacity: 1;
+    stroke-dashoffset: 0px;
+}
+
+.cPanel-checkboxWrapper input[type=checkbox]:checked+label .cPanel-cross path {
+    opacity: 0;
+    stroke-dashoffset: 13px;
+}
+
+.cotrolpanel-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+}
+
+.controlPane-Group-subDiv {
+    padding-left: 30px;
+}
+
+.cotrolpanel-items>label>span {
+    color: rgb(116, 115, 115);
+    font-style: italic;
+}
+
+/* ............................ Settings */
+
+.settings-content {
+    width: 100%;
+}
+
+.settings-items {
+    background-color: lightgray;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    margin: 5px;
+    border-radius: 7px;
+    cursor: pointer;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.settings-items h4>i {
+    font-size: 22px;
+    margin-right: 5px;
+    color: black;
+}
+
+.settings-items h4 {
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.settings-items>i {
+    color: gray;
+    font-size: 24px;
+}
+
+.settings-sessions-change-Button {
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--color-blueDark2);
+    color: white;
+    font-size: 15px;
+}
+
+.settings-sessions-change-Button:active {
+    background-color: var(--color-blueDark);
+}
+
+.Students-setting-Input-Event>input {
+    font-size: 16px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100px;
+    border: 1px black solid;
+    border-radius: 100px;
+}
+
+.Students-setting-Input-Event button {
+    font-size: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    background-color: var(--color-blueDark2);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Students-setting-Input-Event button:active {
+    background-color: var(--color-blueDark);
+}
+
+.fest-profile-settings-item-content {
+    background-color: rgb(201, 201, 201);
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    margin: 5px;
+    z-index: -5;
+    border-radius: 7px;
+    cursor: pointer;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.fest-profile-settings-session1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.profile-Image-main-Div img {
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.profile-Image-main-Div input {
+    display: block;
+    background-color: #7c7c7c;
+    width: 202px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 3px;
+    color: white;
+}
+
+.profile-Image-main-Div button {
+    display: block;
+    background-color: var(--color-add);
+    width: 202px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 6px;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.profile-Image-main-Div button:active {
+    background-color: rgb(2, 83, 2);
+}
+
+.IconRotate90Y {
+    transform: rotateY(-90deg);
+}
+
+.festDetialsEditsubDiv {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.FestDetailsEditLapToggle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.festDetialsEditsubDiv input {
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    border: 1px solid black;
+    margin-top: 3px;
+    width: 100%;
+    display: block;
+}
+
+.festDetialsEditsubDiv select {
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    border: 1px solid black;
+    margin-top: 3px;
+    width: 100%;
+    display: block;
+}
+
+.FestDetailsEditSubmitDiv {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.FestDetailsEditSubmitDiv button {
+    border: none;
+    font-size: 16px;
+    padding: 8px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 10px;
+    background-color: var(--color-two);
+    color: white;
+    cursor: pointer;
+}
+
+.FestDetailsEditSubmitDiv button:active {
+    background-color: var(--color-one);
+}
+
+.festDetialsEditsubDiv i {
+    position: absolute;
+    right: 20px;
+    top: 28px;
+    color: var(--color-two);
+}
+
+/* ................................................ Admin Settings */
+
+.admin-Settings {
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.adminLogOut {
+    position: absolute;
+    right: 30px;
+    top: 100px;
+}
+
+.adminLogOut button {
+    background-color: var(--color-delete);
+    border: none;
+    font-size: 16px;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.admin-profile {
+    background-color: #fac4d6;
+    margin-top: 20px;
+    padding-top: 25px;
+    border-radius: 20px;
+    z-index: -1;
+}
+
+.admin-profile hr {
+    width: 95%;
+    border: none;
+    border-top: 1px solid var(--color-two);
+}
+
+.admin-profile>h2 {
+    text-align: center;
+    color: var(--color-one);
+}
+
+.admin-profile>p {
+    text-align: center;
+    color: var(--color-one);
+    margin-top: 0;
+}
+
+.admin-details {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10px;
+}
+
+.admin-details-1 {
+    padding-left: 10px;
+}
+
+.admin-details-2 {
+    margin-left: 40px;
+}
+
+.admin-details-sessions {
+    display: flex;
+}
+
+.admin-details-2>p>i {
+    color: rgb(94, 94, 247);
+    cursor: pointer;
+}
+
+.admin-Settings>.admin-profile>.changePasswordHead {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+/* ........... print Button .............................. */
+
+.print-button {
+    border: none;
+    background-color: rgb(0, 112, 156);
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 7px;
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.print-button i {
+    margin-right: 5px;
+}
+
+.pointTable-printbutton {
+    display: flex;
+    justify-content: center;
+}
+
+/* ..................................... View Groups */
+
+.view-group-border {
+    background-color: #fac4d6;
+    border-radius: 18px;
+}
+
+.view-group-border .headers {
+    background-color: rgb(243, 28, 82);
+    display: flex;
+    justify-content: space-around;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.view-group-border .headers>div {
+    display: flex;
+    color: white;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    background-color: rgb(243, 28, 82);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.view-group-border .headers .active {
+    background-color: #4e4e4e;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.view-group-border .headers>div>i {
+    margin-right: 5px;
+}
+
+.view-group-border .content .subHeader {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.gorup-content-header {
+    background-color: rgb(189, 189, 189);
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.gorup-content-header p {
+    margin: 0;
+    margin-top: 5px;
+}
+
+/* ..................... Forgot password */
+
+.forgotborder {
+    background-color: #ececec;
+    width: 500px;
+    height: auto;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    padding-bottom: 25px;
+    border-radius: 15px;
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+}
+
+.forgotborder h2 {
+    font-weight: normal;
+    text-align: center;
+    color: rgb(117, 117, 117);
+}
+
+.forgotContent {
+    margin-top: 25px;
+}
+
+.forgotContent input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid rgb(71, 71, 71);
+    border-radius: 100px;
+    margin-top: 5px;
+}
+
+.forgotContent label {
+    padding-left: 10px;
+}
+
+.forgotContent p {
+    text-align: justify;
+}
+
+.forgotFooter {
+    margin-top: 15px;
+}
+
+.forgotFooter .fotgotButtons {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.forgotFooter .fotgotButtons button {
+    border: none;
+    font-size: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+    background-color: rgb(0, 120, 218);
+    color: white;
+    cursor: pointer;
+}
+
+/* Program shedule */
+
+.programSheduleDiv table {
+    width: 100%;
+}
+
+.programSheduleDiv tr> :first-child {
+    width: 40%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: black solid 1px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+}
+
+.programSheduleDiv tr> :nth-child(2) {
+    width: 30%;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: black solid 1px;
+}
+
+.programSheduleDiv tr> :last-child {
+    background-color: var(--color-add);
+    text-align: center;
+    width: 30%;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    cursor: pointer;
+}
+
+.programSheduleDiv tr> :last-child button {
+    background-color: var(--color-add);
+    font-size: 18px;
+    color: white;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    cursor: pointer;
+    height: 100%;
+}
+
+.programSheduleDiv input, .programSheduleDiv button {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    font-size: 15px;
+}
+
+.programSheduleDiv input:focus {
+    outline: none;
+}
+
+/* NOTIFICATION */
+
+.AdminNotification-mainDiv .notificationBoarder {
+    padding: 10px;
+}
+
+.multi .notificationButton {
+    background-color: rgb(3, 151, 70);
+    color: white;
+    margin-right: 5px;
+}
+
+.AdminNotification-mainDiv .notificationBoarder .chooseGroupInput {
+    display: flex;
+    margin-top: -10px;
+}
+
+.AdminNotification-mainDiv .notificationBoarder .chooseGroupInput>button {
+    width: 10%;
+    box-sizing: border-box;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--color-add);
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.notificationConternt>div {
+    margin-top: -5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px rgb(190, 190, 190) solid;
+}
+
+.notificationConternt>div input {
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 50px;
+    border: 1px solid black;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.notificationConternt>div textarea {
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 20px;
+    border: 1px solid black;
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: 100%;
+    min-height: 35px;
+    min-width: 100%;
+}
+
+.notificationConternt>div>div {
+    display: flex;
+    justify-content: end;
+}
+
+.notificationConternt>div>div button {
+    background-color: #066b99;
+    color: white;
+}
+
+.AllNotificationViewTd i {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Add mark */
+
+.addMarkBorder .inputsDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.addMarkBorder .chestNoTd {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border: 1px solid black;
+}
+
+.addMarkBorder .GradeOneTd {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border: 1px solid black;
+}
+
+.addMarkBorder .GradeTwoTd {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border: 1px solid black;
+}
+
+.addMarkBorder .markSubmitButton {
+    border-radius: 100px;
+    background-color: var(--color-add);
+}
+
+.addMarkBorder .chestNoTd input, .addMarkBorder .GradeOneTd select, .addMarkBorder .GradeTwoTd select {
+    border: none;
+    outline: none;
+    width: 100px;
+    font-size: 16px;
+    background: none;
+}
+
+.addMarkBorder .markSubmitButton button {
+    border: none;
+    background: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.addMarkBorder .markSubmitButton :active {
+    border-radius: 100px;
+    background-color: rgb(0, 73, 0);
+}
+
+.markSubmitButton .action:active {
+    color: rgb(167, 167, 167);
+}
+
+/* Result */
+
+.resultCountent {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content:space-between; */
+}
+
+.fivteen {
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.Twenty-five {
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.resultBorder {
+    width: 100%;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
+    /* background-color: yellowgreen; */
+    padding: 10px;
+    box-sizing: border-box;
+    min-width: 200px;
+}
+
+.resultContentBoreder .graphDiv {
+    display: flex;
+    height: 160px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* width */
+
+.resultContentBoreder .graphDiv::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+}
+
+/* Track */
+
+.resultContentBoreder .graphDiv::-webkit-scrollbar-track {
+    background: #cecece;
+}
+
+/* Handle */
+
+.resultContentBoreder .graphDiv::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+
+.resultContentBoreder .graphDiv::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.resultContentBoreder .graphOneDiv {
+    min-width: 245px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.resultContentBoreder .graphTwoDiv {
+    min-width: 245px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultContentBoreder .graphTwoDiv p {
+    margin: 0;
+    margin-top: 8px;
+}
+
+.resultContentBoreder .graphTwoDiv p span {
+    margin: 0;
+    margin-top: 8px;
+    font-weight: bold;
+    color: #0a9499;
+    font-size: 17px;
+}
+
+.resultContentBoreder .headerDiv {
+    color: rgb(107, 107, 107);
+    text-align: center;
+    margin-top: 5px;
+    border-top: 1px rgb(255, 205, 224) solid;
+}
+
+.resultContentBoreder .headdingmodel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.resultContentBoreder .headdingmodel h4 {
+    color: rgb(73, 73, 73);
+}
+
+.resultContentBoreder .headdingmodel h4>i {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.resultContentBoreder .headdingmodel>i {
+    color: rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.group-baise-mark {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.resultContentBoreder .normel-div {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultContentBoreder .normel-div h1 {
+    font-size: 50px;
+}
+
+.resultContentBoreder .normel-div h4 {
+    color: gray;
+}
+
+.group-baise-mark>:nth-child(1) h1 {
+    color: #004a8f;
+}
+
+.group-baise-mark>:nth-child(2) h1 {
+    color: #e00096;
+}
+
+.group-baise-mark>:nth-child(3) h1 {
+    color: #742b01;
+}
+
+.group-baise-mark>:nth-child(4) h1 {
+    color: #01742d;
+}
+
+.group-baise-mark>:nth-child(5) h1 {
+    color: #006f83;
+}
+
+.group-baise-mark>:nth-child(6) h1 {
+    color: #7a0039;
+}
+#chartdiv {
+    width: 100%;
+    height: 360px;
+  }
+
+
+/* Scroll bar in Result page */
+
+/* width */
+
+.scrollbar-result::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+}
+
+/* Track */
+
+.scrollbar-result::-webkit-scrollbar-track {
+    background: #cecece;
+}
+
+/* Handle */
+
+.scrollbar-result::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+
+.scrollbar-result::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

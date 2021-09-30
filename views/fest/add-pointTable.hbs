@@ -1,0 +1,89 @@
+<section>
+    <div class="fest-container">
+        <div class="addpointtable-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Add point category</h4>
+                <hr>
+            </div>
+            <div class="addPointTable-content">
+                <form action="/fest-admin/{{FestDetails.FestId}}/point-table/add-table" method="POST">
+                    <div id="create-fest-page2">
+
+                        <input type="text" hidden name="FestId" value="{{FestDetails.FestId}}">
+
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Category name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" name="CategoryName" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">1st </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="P1" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">2nd </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="P2" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">3rd </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="P3" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">A grade </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="A" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">B grade </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="B" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">C grade </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="C" required>
+                            </div>
+                        </div>
+
+
+                        <div class="CFsessionOneNext">
+                            <button type="submit" class="CFsessionOneNextButton"><i class="bi bi-check-lg"></i> Submit
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('point-table').className = "sidebarmenus sidebarmenus-active"
+
+</script>

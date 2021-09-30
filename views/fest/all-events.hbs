@@ -1,0 +1,254 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+
+
+         
+
+            {{#if EventDeleteError}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ EventDeleteError}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}}
+          
+            <div class="events-content">
+          
+            </div>
+            <div  class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">{{FestDetails.Session}} / {{FestDetails.Category}} All
+                    events
+                </h4>
+                <hr>
+            </div>
+              {{#if allEvents.[0]}}
+             <div class="pointTable-addButton">
+                    <p>Create new event :</p>
+                    <a href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
+                        <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
+                    </a>
+                </div>
+            <div class="allEventDiv">
+                <table id="allEvent-table" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>Sl no</th>
+                            <th>Event name</th>
+                            <th>Event ID</th>
+                            <th>Point category</th>
+                            <th>Type </th>
+                            <th>Limit of Student</th>
+                            <th>Students</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each allEvents}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            <td>{{this.EventName}}</td>
+                            <td>{{EventId}}</td>
+                            <td>{{this.PointCategoryName}}</td>
+                            <td>{{this.TypeOfEvent}}</td>
+                            <td>{{this.EventLimit}}</td>
+                            <td class="StudentsTable-TD-Control"><a
+                                    href="/fest-admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}-{{this.EventName}}/all-students"><i
+                                        class="bi bi-eye-fill"></i>
+                                    View</a>
+                            </td>
+                            <td><a href="/fest-admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}/delete-event"
+                                    onclick="return confirm('Are you want to delete this event ?')"><button
+                                        class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="pointTable-printbutton">
+                <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                        class="bi bi-printer-fill"></i>
+                    Print</button>
+            </div>
+            {{else}}
+            <div class="pointTable-nodataDiv">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-emoji-frown"></i>
+                        </div>
+                        <p>You have not created any events...</p>
+                        <a href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
+                            <button style="margin-left: 40px;"><i class="bi bi-plus-circle-dotted"></i> Create event</button>
+                        </a>
+                    </div>
+                </div>
+            {{/if}}
+
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+                        {{#if categoryNull}}
+                        <div class="pointTable-nodataDiv">
+                            <p style="text-align: center;">No data available...</p>
+                        </div>
+                        {{else}}
+                        <table class="auto-index print-Table">
+                            {{#if allEvents.[0]}}
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Event name</th>
+                                    <th>Event ID</th>
+                                    <th>Point category</th>
+                                    <th>Type</th>
+                                    <th>Limit of Student</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each allEvents}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.EventName}}</td>
+                                    <td>{{EventId}}</td>
+                                    <td>{{this.PointCategoryName}}</td>
+                                    <td>{{this.TypeOfEvent}}</td>
+                                    <td>{{this.EventLimit}}</td>
+
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                            </tbody>
+                            <div class="pointTable-nodataDiv">
+                                <p style="text-align: center;">No data available...</p>
+                            </div>
+
+                            {{/if}}
+                        </table>
+                        {{/if}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{FestDetails.FestName}} </h2>
+                    <h4>FestID : {{FestDetails.FestId}}</h4>
+                    <p> Fest Date :{{FestDetails.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - {{FestDetails.Session}} / {{FestDetails.Category}}
+                Events - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+
+
+
+</div>
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+
+<script>
+
+    function checkEventnamedot() {
+        var a = "'"
+        var form = document.getElementById('eventAddForm')
+        var eventInptValue = document.getElementById('eventNameInput').value
+        
+        for(let i = 0; i<eventInptValue.length; i++){
+            if(eventInptValue[i] === a){
+                alert('Apostrophe are not allowed')
+                return false;
+                break;
+               
+            }
+           
+        }
+    }
+</script>

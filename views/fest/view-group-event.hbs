@@ -1,0 +1,55 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">{{SessionName}} / {{ Category}} / Events</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="allEventDiv">
+                    <table id="allEvent-table" class="auto-index">
+                        <thead>
+                            <tr>
+                                <th>Sl no</th>
+                                <th>Event name</th>
+                                <th>Event ID</th>
+                                <th>Point category</th>
+                                <th>Limit of Student</th>
+                                <th>Students</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each allEvents}}
+                            <tr>
+                                <td></td>
+                                <!--leave it blank-->
+                                <td>{{this.EventName}}</td>
+                                <td>{{EventId}}</td>
+                                <td>{{this.PointCategoryName}}</td>
+                                <td>{{this.EventLimit}}</td>
+                                <td class="StudentsTable-TD-Control"><a
+                                        href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupId}}/{{../SessionName}}/{{../Category}}/Events/{{this.EventId}}/{{this.EventName}}/students"><i
+                                            class="bi bi-eye-fill"></i>
+                                        View</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('groups').className = "sidebarmenus sidebarmenus-active"
+</script>

@@ -1,0 +1,33 @@
+<section>
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+            <a href="/group">
+                 <img class="nav-title-logo" src="/images/images/nsa-online.png" alt="union logo"> 
+               
+
+            </a>
+        </div>
+        {{#if group}}
+        <div class="nav-btn">
+            <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+
+        <div class="nav-links">
+            <a id="G-Home" class="nav-links-a" href="/group">Home</a>
+            <a id="G-Students" class="nav-links-a" href="/group/students">Students</a>
+            <a id="G-Events" class="nav-links-a" href="/group/events">Events</a>
+            <a id="G-Notification" style="position: relative;" class="nav-links-a"
+                href="/group/notification">Notification {{#if NewNotifi_Count}} <span id="NotificationCount"
+                    class="NotificationCount">{{NewNotifi_Count}}</span>{{/if}}</a>
+            <a id="G-Other" class="nav-links-a" href="/group/other">Other</a>
+
+        </div>
+
+        {{/if}}
+    </div>
+</section>

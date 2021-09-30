@@ -1,0 +1,40 @@
+<section>
+    <div class="fest-container">
+        <div class="AdminNotification-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">View notification </h4>
+                <hr>
+            </div>
+            <div>
+                <div class="notificationBoarder">
+                    <div class="GNotificationView">
+                        <div class="veiwNotification-border">
+                            <div class="viewGnotifi-content">
+                                <h3>{{Message.Header}}</h3>
+                                <h5><i class="bi bi-calendar3"></i> {{Message.MessageDate}}</h5>
+                                <pre>{{Message.Message}}</pre>
+                            </div>
+                            <div class="viewGNofifi-footer">
+                                {{#if Message.Link}}
+                                <a href="{{Message.Link}}"> <button class="button"><i class="bi bi-folder-symlink"></i>
+                                        Go to</button></a>
+                                {{else}}
+                                <a href=""></a>
+                                {{/if}}
+                                <div>
+                                    <h5>by,</h5>
+                                    <h4>{{FestDetails.FestConvener}}</h4>
+                                    <h5>(Fest convener, {{FestDetails.FestName}})</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+</script>

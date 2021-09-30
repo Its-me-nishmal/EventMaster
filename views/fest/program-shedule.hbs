@@ -1,0 +1,81 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Program schedule / Create </h4>
+                <hr>
+            </div>
+            <div>
+                <div class="programSheduleDiv">
+                    <table>
+                        <form action="/fest-admin/{{FestDetails.FestId}}/program-schedule/add" method="POST"
+                            enctype="multipart/form-data">
+                            <tr>
+                                <td><input type="text" name="title" placeholder="Title" required></td>
+                                <td><input type="file" name="programShedule" accept="application/pdf "
+                                        title="support PDF only" required></td>
+                                <td><button type="submit"><i class="bi bi-plus-lg"></i> Add</button></td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px;" class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Program schedules</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="programScheduleAllDiv">
+                    <div class="allEventDiv">
+                        <table id="new-table" class="auto-index">
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Title</th>
+                                    <th>View</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each allSchedules}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td style="text-align: start;">{{this.Title}}</td>
+                                    <td><a href="/files/program-schedules/{{this.FestId}}{{this.Title}}.pdf"><button
+                                                style="background-color: rgb(13, 137, 175);"
+                                                class="pointCateoryDeletButton"> <i
+                                                    class="bi bi-file-earmark-pdf-fill"></i></button></a></td>
+                                    <td><a href="/fest-admin/{{this.FestId}}/program-schedules/{{this.Title}}-{{this.Sdl_Id}}/delete"
+                                            onclick="return confirm('Are you want to delete this program schedule ?')"><button
+                                                class="pointCateoryDeletButton"> <i
+                                                    class="bi bi-trash"></i></button></a>
+                                    </td>
+                                </tr>
+
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#new-table').DataTable();
+    });
+</script>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>

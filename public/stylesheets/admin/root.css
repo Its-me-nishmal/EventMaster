@@ -1,0 +1,12 @@
+:root {
+  --color-one: rgb(94, 0, 44);
+  --color-two: rgb(207, 4, 89);
+  --color-three: rgb(233, 233, 233);
+  --color-four: rgb(139, 0, 65);
+  --color-five: rgb(92, 148, 3);
+  --color-add: rgb(0, 134, 11);
+  --color-delete: rgb(189, 8, 2);
+  --color-tableHead: #0489aa;
+  --color-view: #444444;
+  --color-edit: rgb(0, 135, 197);
+}

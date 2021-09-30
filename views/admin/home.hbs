@@ -1,0 +1,204 @@
+<section>
+    <div class="container">
+        <div class="adminHome-section-one">
+            <h4 class="adminHome-sectin-one-SubHeading">Latest fest - ({{CurrentYear}})</h4>
+            <p hidden id="LoginFestFestId">{{LoginFest.FestId}}</p>
+            <hr>
+            <div class="adminHome-div">
+                {{#each latestFest}}
+                <div class="adminHome-section-one-Fest">
+
+                    <div class="adminHome-section-one-Div-main" onclick="festLogin('{{this.FestId}}')">
+                        <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
+                            onerror="this.onerror=null;callfun(this);" alt="fest-logo">
+                        <div class="adminHome-section-one-discription">
+                            <h4>{{this.FestName}}</h4>
+                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span></p>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                {{/each}}
+                {{#if latestFestZero}}
+                <div class="emptyFest">
+                    <h3><i class="bi bi-inbox-fill"></i> Latest fests empty</h3>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div id="FestLoginPopup">
+
+        </div>
+        {{#if festLoginErr}}
+        <div id="close" class="Alert-box-border">
+            <div>
+                <div class="Alert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="Alert-box-header">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4>Login failed !</h4>
+                </div>
+                <div class="alert-box-content">
+                    <h5>{{festLoginErr}}</h5>
+                </div>
+                {{!-- <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio> --}}
+                <audio autoplay hidden src="/audio/alert/incurrenct.mp3"></audio>
+            </div>
+        </div>
+        {{/if}}
+        <div class="adminHome-section-one">
+            <h4 class="adminHome-sectin-one-SubHeading">All Fests</h4>
+            <hr>
+            <div class="adminHome-div">
+
+                {{#each allFest}}
+                <div class="adminHome-section-one-Fest">
+
+
+                    <div class="adminHome-section-one-Div-main" onclick="festLogin('{{this.FestId}}')">
+                        <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
+                            onerror="this.onerror=null;callfun(this);" alt="fest-logo">
+                        <div class="adminHome-section-one-discription">
+                            <h4>{{this.FestName}}</h4>
+                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span></p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{#if allFestZero}}
+                <div class="emptyFest">
+                    <h3><i class="bi bi-inbox-fill"></i> No fests</h3>
+                </div>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+   
+
+    {{!-- <div id="pre-loader"></div> --}}
+    {{!-- <script>
+        var loader = document.getElementById("pre-loader");
+        window.addEventListener("load",function(){
+            loader.style.display = 'none'
+          
+        })
+    </script> --}}
+</section>
+
+
+
+
+{{!-- fest login popup --}}
+<script>
+    function festLogin(FestId) {
+
+        const mainDiv = document.getElementById('FestLoginPopup');
+        const loginFest = document.getElementById('LoginFestFestId').innerHTML
+        const borderDiv = document.createElement("div")
+        const ImageDiv = document.createElement("div")
+        const Image = document.createElement("img")
+        const h3 = document.createElement("h3")
+        const hr = document.createElement("hr")
+        const ContentDiv = document.createElement("div")
+        const form = document.createElement("form")
+        const formDiv1 = document.createElement("div")
+        const formDiv2 = document.createElement("div")
+        const label = document.createElement("label")
+        const input = document.createElement("input")
+        const i = document.createElement("i")
+        const button = document.createElement("button")
+        const CloseIcon = document.createElement("i")
+        const a = document.createElement("a")
+        const a1 = document.getElementById('adminHome-section-one-Fest')
+        const forget = document.createElement("a");
+        var loginFestId = parseInt(loginFest)
+        
+        if (FestId == loginFest) {
+            location.href = "/fest-admin/" + FestId + "/home";
+
+        } else {
+            borderDiv.className = "festLoginPopupDiv";
+            ImageDiv.className = "admin-login-header";
+            Image.className = "admin-login-union-logo";
+            Image.src = "/images/images/nsa-online-ping.png";
+            Image.alt = "Union-Logo";
+            h3.className = "admin-login-head";
+            h3.innerHTML = "Fest login";
+            hr.className = "admin-login-hr";
+            ContentDiv.className = "admin-login-content";
+            form.action = "/fest-admin/" + FestId + "/home";
+            form.method = "POST";
+            formDiv1.className = "admin-login-form";
+            formDiv2.className = "admin-login-form";
+            label.innerHTML = "Password";
+            input.type = "password";
+            input.name = "Password";
+            input.id = "Password";
+            input.autofocus = "true"
+            input.required = "true"
+            i.id = "Icon";
+            i.className = "bi bi-eye-fill";
+            button.type = "submit";
+            button.innerHTML = "Login";
+            CloseIcon.className = "bi bi-x-lg festLogin-closeIcon"
+            forget.innerHTML ="Forgot password ?"
+            forget.className ='festForgetClass'
+            forget.href = "/fest-admin/fest-forgot-password/45554"+FestId+"/5485454"
+            i.onclick = function () {
+                var x = document.getElementById("Password");
+                var i = document.getElementById("Icon");
+
+                if (x.type === "password") {
+                    x.type = "text"
+                    i.className = "bi bi-eye-slash-fill"
+
+                } else {
+                    x.type = "password"
+                    i.className = "bi bi-eye-fill"
+                }
+            }
+            CloseIcon.onclick = function () {
+
+                var div = this.parentElement;
+                div.remove();
+            }
+
+
+
+            mainDiv.appendChild(borderDiv)
+            borderDiv.appendChild(ImageDiv)
+            borderDiv.appendChild(CloseIcon)
+            borderDiv.appendChild(h3)
+            borderDiv.appendChild(hr)
+            borderDiv.appendChild(ContentDiv)
+            ImageDiv.appendChild(Image)
+            ContentDiv.appendChild(form)
+            form.appendChild(formDiv1)
+            form.appendChild(formDiv2)
+            formDiv1.appendChild(label)
+            formDiv1.appendChild(input)
+            formDiv1.appendChild(i)
+            formDiv1.appendChild(forget)
+            formDiv2.appendChild(button)
+
+
+
+
+        }
+
+
+    }
+</script>
+
+
+<script>
+    function callfun(obj) {
+        var noimg = "/images/images/fest logo demo.jpg";
+        obj.src = noimg;
+    }
+</script>
+

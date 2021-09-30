@@ -1,0 +1,163 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Settings / Sessions</h4>
+                <hr>
+            </div>
+            <div class="sessions-settings-content">
+                <div class="controlPanel-ItemDiv">
+                    <div class="controlpanel-subhead">
+                        <i class="bi bi-arrow-right"></i>
+                        <h4>Events quantity</h4>
+                    </div>
+                    <div class="controlpanel-session-content">
+
+                        {{#each allSessions}}
+                        {{#if this.status}}
+                        <div class="controlPane-Group-subDiv">
+                            <div style="margin-top: 5px;" class="controlpanel-subhead">
+                                <i style="color: rgb(253, 68, 161);" class="bi bi-caret-right-fill"></i>
+                                <h4 id="SessionName" style="color: rgb(253, 68, 161);">{{this.SessionName}}</h4>
+                            </div>
+
+                            <form action="/fest-admin/{{../FestDetails.FestId}}/settings/sessions/eventsquantity"
+                                method="POST">
+                                <input type="text" value="{{this.SessionName}}" name="SessionName" hidden>
+                                <div class="controlpanel-session-content">
+
+                                    <div class="cotrolpanel-items">
+
+                                        <label for=""> Stage events per student
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <input type="number" name="StageEventCount" required
+                                                value="{{this.StageEventCount}}" placeholder="Nill">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="controlpanel-session-content">
+                                    <div class="cotrolpanel-items">
+
+                                        <label for=""> Off stage events per student
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <input type="number" name="OffStageEventCount" required
+                                                value="{{this.OffStageEventCount}}" placeholder="Nill">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {{!-- General Events --}}
+                                {{#if this.GeneralStageEventCount}} 
+                                <div style="display: block;" id="div{{this.SessionName}}">
+                                    {{else}} 
+                                <div style="display: none;" id="div{{this.SessionName}}">
+
+                                     {{/if}}
+                                    <div class="controlpanel-session-content">
+
+                                        <div class="cotrolpanel-items">
+
+                                            <label for=""> General Stage events per student
+                                            </label>
+                                            <div class="Students-setting-Input-Event">
+                                                <input type="number" name="GeneralStageEventCount"
+                                                    id="stage{{this.SessionName}}" value="{{this.GeneralStageEventCount}}" placeholder="Nill">
+                                            </div>
+                                        </div>
+                                        <div class="controlpanel-session-content">
+                                            
+                                            <div class="cotrolpanel-items">
+
+                                                <label for=""> Gereral Off stage events per student
+                                                </label>
+                                                <div class="Students-setting-Input-Event">
+                                                    <input type="number" name="GeneralOffStageEventCount"
+                                                        id="Offstage{{this.SessionName}}" value="{{this.GeneralOffStageEventCount}}" placeholder="Nill">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="controlpanel-session-content">
+
+                                    <div class="cotrolpanel-items">
+
+                                        <label for=""> Whether to include general events ?
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <div class="cPanel-checkboxWrapper">
+                                                <input type="checkbox" onclick="onGeneralCount('{{this.SessionName}}')"
+                                                    id="{{this.SessionName}}" {{#if this.GeneralStageEventCount}} {{else}} checked {{/if}}  />
+                                                <label for="{{this.SessionName}}">
+                                                    <svg class="cPanel-cross" width="30" height="30">
+                                                    </svg>
+                                                    <svg class="cPanel-checkmark" width="30" height="30">
+                                                    </svg>
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="controlpanel-session-content">
+
+                                    <div style="border: none;" class="cotrolpanel-items">
+                                        <label for="">
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <button type="submit" onclick="alertShow()" >Submit events quantity</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+<script>
+    function onGeneralCount(SessionName) {
+        var divid = document.getElementById("div" + SessionName)
+        var input1 = document.getElementById("stage" + SessionName)
+        var input2 = document.getElementById("Offstage" + SessionName)
+       
+        if (divid.style.display === "none") {
+            divid.style.display = "block"
+            
+
+        } else if (divid.style.display === "block") {
+            divid.style.display = "none"
+            input1.value = ""
+            input2.value = ""
+            
+        }
+    }
+</script>
+
+<script>
+    function alertShow(){
+        alert('save changes')
+    }
+</script>

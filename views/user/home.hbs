@@ -1,0 +1,42 @@
+<section>
+    <div class="group-container">
+        <div class="userHomeHeightControl">
+            
+            {{#if activeFest}}
+            <div class="GeneralHome">
+                <div class="nsa-logo">
+                    <img src="/images/fest-logo/{{activeFest.FestId}}.jpg"  onerror="this.onerror=null;callfun(this);" alt="Fest logo">
+                </div>
+                <div class="fest-home-contant">
+                   
+                    <h2  style="color: rgb(0, 133, 66);">{{activeFest.FestName}}</h2>
+                    <h3>Fest ID : {{activeFest.FestId}} | Fest Date : {{activeFest.FestDate}}</h3>
+                    <h4> {{#each activeFestGroups}} {{this.GroupName}} | {{/each}}  </h4>
+                    
+                    <p>Result not published...</p>
+                </div>
+            </div>
+            {{else}}
+                 <div class="GeneralHome">
+                <div class="nsa-logo">
+                    <img src="/images/images/nsa-icon.png" alt="nsa logo">
+                </div>
+                <div class="contant">
+                    <h2  style="color: rgb(0, 133, 66);">Noorul huda Student Association (NSA)</h2>
+                    <h3>Runby: Majma'a Shree-ath & Arts College</h3>
+                    <h4>Rahmath nagar, Kavanur P.O, Areekode, Malappuram</h4>
+                    
+                    <p>Fest not activated...</p>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+<script>
+    function callfun(obj) {
+        var noimg = "/images/images/fest logo demo.jpg";
+        obj.src = noimg;
+    }
+</script>

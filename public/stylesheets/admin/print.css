@@ -1,0 +1,129 @@
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+/* ..............................................Print Header */
+.printTable-border {
+  width: 100%;
+}
+
+.printHeader,
+.print-header-space {
+  width: 100%;
+  height: 105px;
+}
+
+.print-header-space {
+  position: fixed;
+  top: 0;
+  border-bottom: 2px solid black;
+}
+
+.print-header-conternt {
+  display: flex;
+  align-items: center;
+
+  height: 80px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.print-header-conternt img {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  margin-left: 15px;
+}
+
+.print-header-conternt > div {
+  display: flex;
+}
+
+.print-header-conternt > div > div {
+  margin-left: 10px;
+}
+
+.print-header-conternt > div > div > p {
+  margin: 0;
+  padding: 0;
+}
+
+.print-header-conternt > div > div > h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.print-header-conternt > div > div > h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.print-header-conternt > .sessionTwo > div {
+  text-align: end;
+  margin-right: 15px;
+  align-content: center;
+}
+
+.print-page-headline h4 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-top: 3px;
+}
+
+/*............................................... Print footer */
+
+.printFooter,
+.print-footer-space {
+  width: 100%;
+  height: 30px;
+}
+
+.print-footer-space {
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+
+.print-footer-space i {
+  margin-right: 5px;
+}
+
+.print-footer-space p {
+  margin-right: 5px;
+}
+
+/* ................................................. FOR TABLE SL NO */
+body {
+  counter-reset: Serial;
+  /* Set the Serial counter to 0 */
+}
+
+table {
+  border-collapse: separate;
+}
+
+.auto-index td:first-child:before {
+  counter-increment: Serial;
+  /* Increment the Serial counter */
+  content: counter(Serial);
+  /* Display the counter */
+}
+
+/* ............................................. Table style */
+.print-Table {
+  width: 100%;
+  text-align: center;
+}
+.print-Table td,
+th {
+  border: 1px solid black;
+}
+.print-Table th {
+  background-color: #4d4d4d;
+  -webkit-print-color-adjust: exact;
+  color: white;
+}

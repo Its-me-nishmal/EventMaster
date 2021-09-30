@@ -1,0 +1,192 @@
+<section>
+    <div class="container">
+        <div class="create-fest-border">
+            <div>
+                <h3 class="create-fest-heading">Create new fest</h3>
+                <div class="create-fest-session-count">
+                    <div>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">1</span>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">2</span>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">3</span>
+                        <span class="create-fest-session-counter">4</span>
+
+                        <span class="create-fest-session-line1"><span style="width: 165px;"
+                                class="create-fest-session-line2"></span></span>
+
+
+                    </div>
+                    <hr class="create-fest-header-hr">
+                </div>
+                <div class="create-fest-content">
+                    <form action="/fest-admin/create-fest-page4" method="POST" id="sessionOneForm">
+                        <p id="SessionCount" hidden>{{NumberSessions}} </p>
+                        <input type="text" name="FestId" id="FestId" value="{{FestId}}" hidden>
+                        <div id="create-fest-sessionTwo" class="create-fest-sessionTwo">
+                            <div id="create-fest-sessionOne" class="create-fest-sessionOne">
+
+                                <h3 class="CFsessionOne-header">Session deatails</h3>
+                                <div class="sessionThree">
+                                    <table class="auto-index">
+                                        <thead>
+                                            <tr>
+                                                <th class="sessionThreeAddButton">Add {{NumberSessions}}
+                                                    sessions</th>
+                                                <th class="sessionThreeTextInput"><input type="text" id="sessionName"
+                                                        placeholder="Enter session name here...">
+
+                                                </th>
+                                                <th class="sessionThreeTextSelet">
+                                                    {{!-- <select id="sessionStatus">
+                                                        <option value="NonGeneral">Non General
+                                                        </option>
+                                                        <option value="">General
+                                                        </option>
+
+                                                    </select> --}}
+                                                    <input type="text" id="sessionStatus" value="NonGeneral" hidden >
+                                                </th>
+                                                <th class="CFsessionThreeAddButtonTD" onclick="newElement()">
+                                                    <i class="bi bi-plus-lg"></i>
+                                                    Add
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody">
+
+
+                                        </tbody>
+                                    </table>
+                                    <div style="margin-top: 15px;">
+                                        
+                                    <input type="checkbox" value="GENERAL" name="SessionName" >
+                                    <label for="">Include General</label>
+                                    </div>
+                                </div>
+                                <div class="createGrop-infermathion">
+                                    <p><span>*</span> This information is valuable and you will not be able to edit it
+                                        once Fest is created</p>
+                                </div>
+                                <div class="CFsessionOneNext">
+                                    <button type="button" id="nextButton" class="CFsessionOneNextButton"
+                                        onclick="clickcheck()">Next <i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+
+        var tr = document.createElement("tr");
+        var numberTd = document.createElement("th");
+        var inputTd1 = document.createElement("th");
+        var inputTd2 = document.createElement("th");
+        var input1 = document.createElement("input");
+        var input2 = document.createElement("input");
+        var inputValue1 = document.getElementById('sessionName').value;
+        var inputValue2 = document.getElementById('sessionStatus').value;
+        var deleteTD = document.createElement("th");
+        var iconI = document.createElement("i");
+
+        tr.id = "trTage"
+        numberTd.className = "sessionThreeAddButton";
+        inputTd1.className = "sessionThreeTextInput";
+        inputTd2.className = "sessionThreeTextInput";
+        deleteTD.className = "CFsessionThreeDeleteButtonTD";
+        iconI.className = "bi bi-x-lg";
+        input1.type = "text";
+        input2.type = "text";
+        input1.placeholder = "Null";
+        input2.placeholder = "General";
+        input1.value = inputValue1;
+        input2.value = inputValue2;
+        input1.name = "SessionName";
+        input2.name = "Status";
+        input1.readOnly = 'true';
+        input2.readOnly = 'true';
+        input2.style.display = 'none'
+        deleteTD.onclick = function () {
+            var div = this.parentElement;
+            div.remove();
+        }
+
+
+        tr.appendChild(numberTd);
+        tr.appendChild(inputTd1);
+        tr.appendChild(inputTd2);
+        tr.appendChild(deleteTD);
+        inputTd1.appendChild(input1);
+        inputTd2.appendChild(input2);
+        deleteTD.appendChild(iconI);
+
+
+        if (inputValue1 === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("tbody").appendChild(tr);
+
+        }
+        document.getElementById('sessionName').value = "";
+
+    }
+
+    // check click group name 
+
+    function clickcheck() {
+        var tbody = document.getElementById("tbody");
+        var childNotdLenth = tbody.childNodes.length;
+        var childInputLength = childNotdLenth - 1
+        var NextButton = document.getElementById('nextButton');
+        var GroupCount = document.getElementById('SessionCount').innerText
+        var CountInit = parseInt(GroupCount)
+
+
+
+
+        if (childInputLength === CountInit) {
+            NextButton.type = "submit";
+
+
+        } else if (childInputLength === 0) {
+            alert("You have not even created a session !")
+        } else if (childInputLength > CountInit) {
+            alert("You cannot create more than " + CountInit + " sessions")
+
+        } else if (childInputLength < CountInit) {
+            alert("You must create " + CountInit + " sessions")
+
+        } else {
+            alert("Create " + CountInit + "sessions...")
+
+        }
+
+    }
+</script>
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    .auto-index tbody tr th:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>

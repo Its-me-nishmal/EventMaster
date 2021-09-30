@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="icon" href="/images/images/nsa-icon.png" type="png/jpg" sizes="16*16">
+  <link rel='stylesheet' href='/stylesheets/admin/style.css' />
+  <link rel='stylesheet' href='/stylesheets/admin/media.css' />
+  <link rel='stylesheet' href='/stylesheets/admin/root.css' />
+  <link rel='stylesheet' href='/stylesheets/group/root.css' />
+  <link rel='stylesheet' href='/stylesheets/group/style.css' />
+  <link rel='stylesheet' href='/stylesheets/group/media.css' />
+  <link rel='stylesheet' href='/stylesheets/user/style.css' />
+  <link rel='stylesheet' href='/stylesheets/user/graph.css' />
+  <link rel='stylesheet' href='/stylesheets/user/media.css' />
+  <link rel='stylesheet' href='/stylesheets/user/root.css' />
+  <script src="/javascripts/print.js"></script>
+  <script src="/javascripts/javascript.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+</head>
+{{!-- 3.5.1 --}}
+
+<body>
+  {{#if adminHeader}}
+  {{>admin-header}}
+  {{else}}{{#if groupHeader}}
+  {{>group-header}}
+  {{else}}
+  {{!-- {{>user-header}} --}}
+  {{/if}}{{/if}}
+  {{#if festHeader}}
+  {{>fest-header}}
+  {{/if}}
+  {{{body}}}
+  {{!-- {{>admin-footer}} --}}
+</body>
+
+</html>

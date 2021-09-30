@@ -1,0 +1,154 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">{{FestDetails.Session}} / {{FestDetails.Category}} / Add
+                    student
+                </h4>
+                <hr>
+            </div>
+            {{#if EventAlreadyUsedError}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ EventAlreadyUsedError}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}} {{#if StudentStageCountOver}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ StudentStageCountOver}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}} {{#if StudentTotalCountOver}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ StudentTotalCountOver}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}} {{#if EventLimitError}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ EventLimitError}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}} {{#if ChestNOError}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5>{{ ChestNOError}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}} {{#if Success}}
+            <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
+                <div class="groupAlert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4>Success !</h4>
+                </div>
+                <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
+                    <h5>{{Success}}</h5>
+                </div>
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+            </div>
+            {{/if}}
+
+
+            <div>
+                <div class="AddGroupStudetns-Div">
+                    <form action="/fest-admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students" method="POST">
+                        <div class="addStudetns-form">
+                            <div> <label for="">Event ID :</label></div>
+                            <div><input type="text" name="EventId" value="{{EventId}}" readonly
+                                    style="cursor: not-allowed;  background-color:rgb(211, 211, 211)"></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Event :</label></div>
+                            <div><input type="text" value="{{EventName}}" readonly
+                                    style="cursor: not-allowed;  background-color:rgb(211, 211, 211)"></div>
+                        </div>
+
+                        <input type="text" name="FestId" value="{{FestDetails.FestId}}" hidden>
+                        <input type="text" name="SessionName" value="{{SessionName}}" hidden>
+                        <input type="text" name="Category" value="{{CategoryName}}" hidden>
+
+
+                        <div class="addStudetns-form">
+                            <div> <label for="">Group ID :</label></div>
+                            <div><input type="number" name="GroupId" placeholder="type here..." required></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Chest No :</label></div>
+                            <div><input type="number" name="ChestNo" placeholder="type here..." required></div>
+                        </div>
+                        <div class="addStudetns-form-Button">
+                            <button style="background-color: var(--color-two);" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>

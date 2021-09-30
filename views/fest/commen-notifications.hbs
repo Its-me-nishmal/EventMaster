@@ -1,0 +1,66 @@
+<section>
+    <div class="fest-container">
+        <div class="AdminNotification-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">All notification / Commen</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="notificationBoarder">
+                    <div class="allGroupsTableDiv">
+                        <table id="allGroup-table" class="auto-index">
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Date</th>
+                                    <th>Message header</th>
+                                    <th>Control</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                {{#each CommenNotifications.Notifications}}
+                                {{#if this.Full}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.MessageDate}}</td>
+                                    <td>{{this.Header}}</td>
+                                   <td>
+                                       <a title="user view" href="/fest-admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{this.MessageId}}/view"
+                                   ><button style="background-color: var(--color-view);"
+                                        class="pointCateoryDeletButton"> <i class="bi bi-eye-fill"></i></button></a>
+                                       <a href="/fest-admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{this.MessageId}}/delete"
+                                    onclick="return confirm('Are you want to delete this message ?')"><button
+                                        class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
+                            </td>
+                                   
+
+                                </tr>
+                                {{/if}}
+
+                                {{/each}}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+</script>
+
+
+{{!-- table jqury --}}
+<script>
+    $(document).ready(function () {
+        $('#allGroup-table').DataTable();
+    });
+</script>

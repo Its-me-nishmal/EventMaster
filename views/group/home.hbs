@@ -1,0 +1,110 @@
+<section>
+    <div class="group-container">
+        <div class="allCategory-mainDiv">
+            {{#if letestThreeNotifications.[0]}}
+            <div style="margin-top: 15px;" class="NotificationScroll">
+                <div class="latestUpdated">
+                    <h4>Latest updates</h4>
+                </div>
+                <marquee behavior="scroll" scrollamount="8" direction="left" onmouseover="this.stop()"
+                    onmouseout="this.start()">
+                    {{#each letestThreeNotifications}}
+                    <img src="/images/images/new1.gif" alt=""> 
+                    <a href="{{this.Link}}">{{this.Header}}</a> <span>|</span>
+                    {{/each}}
+                </marquee>
+            </div>
+            {{/if}}
+            <div class="groupProfileborder">
+                <div class="ImageDiv">
+                    <img src="/images/fest-logo/{{GroupDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                        alt="Fest logo">
+                </div>
+                <div class="Content">
+                    <div class="festContent">
+                        <div class="festContentBorder">
+                            <h3>Fest details</h3>
+                            <div class="header">
+                                <p>Tittle </p>
+                                <p>Fest ID </p>
+                                <p>Convener </p>
+                                <p>Date </p>
+
+                            </div>
+                            <div class="answer">
+                                <p>: {{FestDetails.FestName}}</p>
+                                <p>: {{FestDetails.FestId}}</p>
+                                <p>: {{FestDetails.FestConvener}}</p>
+                                <p>: {{FestDetails.FestDate}}</p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="festContentBorder">
+                            <h3>Group details</h3>
+                            <div class="header">
+                                <p>Tittle </p>
+                                <p>Group ID </p>
+                                <p>Convener </p>
+                                <p>Total Students </p>
+
+                            </div>
+                            <div class="answer">
+                                <p>: {{GroupDetails.GroupName}}</p>
+                                <p>: {{GroupDetails.GroupId}}</p>
+                                <p>: {{GroupDetails.Convener}}</p>
+                                <p>: {{studentsCount}}</p>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="margin-top: 15px;" class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Programe Schedules</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div>
+                <div class="otherContentDiv">
+                    {{#if allSchedules}}
+                    {{#each allSchedules}}
+                    <div style=" padding-top: 8px; padding-bottom: 8px; " class="otherItems">
+                        <div style="display: flex; align-items:center">
+                            <i style="margin-right: 5px; margin-right:15px" class="bi bi-calendar3-week-fill"></i>
+                            <p style="text-align: start;"> {{this.Title}} </p>
+                        </div>
+                        <a href="/files/program-schedules/{{this.FestId}}{{this.Title}}.pdf"> <button
+                                class="print-button"><i class="bi bi-download"></i> Download</button></a>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <div class="GroupProgrmShedulEmpty">
+                        <p><i class="bi bi-calendar-x-fill"></i> Not Program Schedules</p>
+                    </div>
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Home').className = "nav-links-a nav-links-active"
+</script>
+
+
+<script>
+    function callfun(obj) {
+        var noimg = "/images/images/fest logo demo.jpg";
+        obj.src = noimg;
+    }
+</script>

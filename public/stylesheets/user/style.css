@@ -1,0 +1,186 @@
+*{
+
+     font-family: 'Trebuchet MS',  Arial, sans-serif; 
+    /* font-family: "Rubik",-apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;; */
+
+}
+body{
+    margin: 0 0;
+    padding: 0 0;
+    overflow-x: hidden;
+}
+a{
+    text-decoration: none;
+    
+}
+/* #pre-loader{
+    background: #000 url(/images/images/loading2.gif) no-repeat center center;
+    background-size: 100px;
+   width: 100%;
+   height: 100vh;
+    position: absolute;
+    top: 0;
+   z-index: 100;
+
+} */
+.button{
+    font-size: 16px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+
+/* .............................Alert box */
+.Alert-box-border{
+    background-color: rgb(253, 196, 196);
+    position: absolute;
+    width: 320px;
+    right: 10px;
+    top: -50px;
+    display: flex;
+    z-index: 4;
+    border-left: rgb(189, 3, 3) 4px solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 16px;
+    animation-name: alertInOut;
+    animation-duration: 6s;
+    transition: ease-in-out;
+
+}
+.Alert-box-header{
+    display: flex;
+}
+.Alert-box-close-button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: rgb(112, 112, 112);
+    cursor: pointer;
+}
+.Alert-box-header{
+    color: rgb(201, 1, 1);
+    margin-bottom: 8px;
+    margin-left: 4px;
+    margin-top: 8px;
+}
+.Alert-box-header i{
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+.alert-box-content h5{
+    color: rgb(117, 51, 51);
+    margin-left: 5px;
+    
+}
+
+@keyframes alertInOut {
+    0% {
+        top: 70px;
+        right: -350px;
+    }
+    20%{
+
+        top: 70px;
+        right: 10px;
+    }
+    50% {
+        top: 70px;
+        right: 10px;
+    }
+    80%{
+        top: 70px;
+        right: 10px;
+    }
+    100%{
+        top: 70px;
+        right: -350px;
+    }
+  }
+ 
+  
+/* TABLE SL NO  */
+
+body {
+    counter-reset: Serial;
+    /* Set the Serial counter to 0 */
+}
+
+table {
+    border-collapse: separate;
+}
+
+.auto-index td:first-child:before {
+    counter-increment: Serial;
+    /* Increment the Serial counter */
+    content: counter(Serial);
+    /* Display the counter */
+}
+
+/* .................... User Header */
+
+.GorupLogin-Button{
+    background-color: rgb(4, 77, 22);;
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+    margin-right: 25px;
+    padding: 2px;
+    padding-right: 8px;
+    color: white;
+    border-radius: 100px;
+}
+.GorupLogin-Button i{
+    background-color: rgb(38, 189, 113);;
+    padding: 7px;
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 100px;
+}
+.group-container .nsa-logo{
+    display: flex;
+    justify-content: center;
+}
+.group-container .nsa-logo img{
+    width: 160px;
+    border-radius: 100%;
+    border: 1px rgb(66, 66, 66) solid;
+    margin-bottom: 15px;
+}
+.group-container .contant{
+   text-align: center;
+}
+.group-container .contant p{
+   font-style: italic;
+   color: rgb(82, 82, 82);
+   margin-top: 60px;
+}
+.userHomeHeightControl{
+    min-height:92vh;
+    width: 100%;
+}
+.GeneralHome{
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);  
+}
+.group-container .fest-home-contant{
+    text-align: center;
+}
+.group-container .fest-home-contant p{
+     font-style: italic;
+     color: rgb(82, 82, 82);
+     margin-top: 60px;
+}

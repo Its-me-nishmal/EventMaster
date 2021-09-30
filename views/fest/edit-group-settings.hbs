@@ -1,0 +1,53 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Settings / Edit group</h4>
+                <hr>
+            </div>
+            <div class="addPointTable-content">
+                <form action="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/edit-group/" method="POST">
+                    <div id="create-fest-page2">
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Group ID </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input style="background-color: gainsboro; cursor:not-allowed" type="text"
+                                    value="{{GroupDetailsWithName.GroupId}}" readonly name="GroupId">
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Group name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{GroupDetailsWithName.GroupName}}" name="GroupName" required>
+                            </div>
+                        </div>
+
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Converner name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{GroupDetailsWithName.Convener}}" name="Convener" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOneNext">
+                            <button type="submit" class="CFsessionOneNextButton"><i class="bi bi-check-lg"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>
