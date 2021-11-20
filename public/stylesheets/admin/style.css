@@ -2615,3 +2615,31 @@
     font-weight: normal;
     
 }
+/* 404 error */
+.errorPage{
+    display: flex;
+    height: 91vh;
+    align-items: center;
+}
+.errorPage div{
+    width: 100%;
+}
+.errorPage .Image{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.errorPage .Image img{
+   width: 300px;
+}
+.errorPage .conternt{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.errorPage .conternt div{
+    width: fit-content;
+   
+}
+
+    
