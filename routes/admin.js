@@ -84,7 +84,20 @@ router.post('/settings/change-password', verifyAdminLogin, (req, res) => {
     }
 
   })
-})
+});
+
+router.get('/create-new-account-for-admin',(req,res)=>{
+  res.render('admin/create-account')
+  });
+
+router.post('/create-new-account-for-admin',(req,res)=>{
+  adminHelpers.createAccout(req.body).then(()=>{
+    res.redirect('/fest-admin')
+  })
+  });
+
+
+
 router.get('/forgot-password', (req, res) => {
   if(req.session.Error){
     res.render('admin/forgot-password', { "loginErr": req.session.Error, title: 'Admin login', adminHeader: true })
