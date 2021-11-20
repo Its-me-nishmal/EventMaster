@@ -1,0 +1,109 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Edit Toppers view / For {{result.SubType}}
+                </h4>
+                <hr>
+            </div>
+            <div id="manual3" class="fest-profile-settings-item-content">
+                <div class="fest-profile-settings-session2  ">
+                    <div class="FestDetailsEditDiv">
+                        <form action="/fest-admin/{{FestDetails.FestId}}/mark/toppers/edit/{{result._id}}"
+                            method="POST">
+                            <div class="FestDetailsEditLapToggle">
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Fest Id</label>
+                                    <input type="text" name="FestId" value="{{FestDetails.FestId}}" readonly
+                                        style="cursor: not-allowed;">
+
+                                </div>
+                                <input style="display: none;" type="text" name="id" value="{{result._id}}" required>
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Group ID</label>
+                                    <input type="text" name="GroupId" value="{{result.GroupId}}" required>
+                                    <small style="color: rgb(179, 0, 0); font-style:italic;">Write the correct
+                                        spelling</small>
+
+                                </div>
+                                {{#if result.Session}}
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Session name</label>
+                                    <input type="text" name="SessionName" value="{{result.SessionName}}" required>
+                                    <small style="color: rgb(179, 0, 0); font-style:italic;">Write the correct
+                                        spelling</small>
+                                </div>
+                                {{/if}}
+                                {{#if result.Student}}
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Session name</label>
+                                    <input type="text" name="SessionName" value="{{result.SessionName}}" required>
+                                    <small style="color: rgb(179, 0, 0); font-style:italic;">Write the correct
+                                        spelling</small>
+                                </div>
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Chest no</label>
+                                    <input type="number" name="ChestNo" value="{{result.ChestNo}}" required>
+                                </div>
+                                {{/if}}
+                  
+                               
+                                <div class="festDetialsEditsubDiv">
+                                    <label for="">Title </label>
+                                    <input type="text" name="Title" value="{{result.Title}}" required>
+                                </div>
+
+                               
+                            </div>
+                            <div class="FestDetailsEditSubmitDiv">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            {{#if Error}}
+            <div id="close" class="Alert-box-border">
+                <div>
+                    <div class="Alert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="Alert-box-header">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Error !</h4>
+                    </div>
+                    <div class="alert-box-content">
+                        <h5 id="loginErr">{{Error}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+                </div>
+            </div>
+            {{/if}}
+            {{#if Success}}
+            <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
+                <div class="groupAlert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4> Success !</h4>
+                </div>
+                <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
+                    <h5>{{Success}}</h5>
+                </div>
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+</section>
+
+{{!-- active button --}}
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+</script>

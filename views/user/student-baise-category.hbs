@@ -1,0 +1,42 @@
+<section>
+    <div class="group-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Student baise result / {{GroupDetails.GroupName}}</h4>
+                <hr>
+            </div>
+        </div>
+        <div class="event-baise-result-Div">
+           
+
+            <div id="SessionChart" class="events-content" style="margin-top: 15px;  ">
+               
+                {{#each AllSessions}}
+                 {{#if this.status}}
+                <div class="events-content">
+                    <a href="/{{../userDetails.FestId}}/result/student-baise/{{../GroupDetails.GroupId}}/{{this.SessionName}}/Students">
+                        <div class="eventHeaderDiv">
+                           
+                            <h4>{{this.SessionName}} </h4>
+                           
+                            <span style="background-color: var(--color-green-one);">{{StudentsCount}}</span>
+                        </div>
+                    </a>
+
+                </div>
+                {{/if}}
+                {{/each}}
+
+
+                
+            </div>
+            
+        </div>
+
+
+
+
+    </div>
+</section>
+
+

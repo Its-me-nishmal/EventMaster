@@ -29,11 +29,11 @@
                         </div>
                     </div>
                     <div class="cotrolpanel-items">
-                        <label for=""> Status of result <span>({{#if Fest.userStatus}} Active {{else}} Deactive {{/if}}
+                        <label for=""> Status of result <span>({{#if Fest.resultStatus}} Active {{else}} Deactive {{/if}}
                                 )</span> </label>
                         <div class="cPanel-checkboxWrapper">
-                            <input type="checkbox" onclick="activeUsr('{{FestDetails.FestId}}')" id="resultActivated"
-                                {{#if Fest.userStatus}} checked {{/if}} />
+                            <input type="checkbox" onclick="activeResult('{{FestDetails.FestId}}')" id="resultActivated"
+                                {{#if Fest.resultStatus}} checked {{/if}} />
                             <label for="resultActivated">
                                 <svg class="cPanel-cross" width="30" height="30">
                                 </svg>
@@ -134,95 +134,8 @@
 
                 </div>
             </div>
-            {{!-- <div class="controlPanel-ItemDiv">
-                <div class="controlpanel-subhead">
-                    <i class="bi bi-arrow-right"></i>
-                    <h4>Students</h4>
-                </div>
-                <div class="controlpanel-session-content">
-                    {{#each allGroups}}
-                    <div class="controlPane-Group-subDiv">
-                        <div style="margin-top: 5px;" class="controlpanel-subhead">
-                            <i style="color: rgb(253, 68, 161);" class="bi bi-caret-right-fill"></i>
-                            <h4 style="color: rgb(253, 68, 161);">{{this.GroupName}}</h4>
-                        </div>
-
-                        <div class="cotrolpanel-items">
-                            <label for="">Activate group</label>
-                            <div class="cPanel-checkboxWrapper">
-                                <input type="checkbox" id="{{this.GroupName}}" {{#if this.GroupId}} checked {{/if}} />
-                                <label for="{{this.GroupName}}">
-                                    <svg class="cPanel-cross" width="30" height="30">
-                                    </svg>
-                                    <svg class="cPanel-checkmark" width="30" height="30">
-                                    </svg>
-                                </label>
-
-                            </div>
-                        </div>
-                        {{#if this.GroupId}}
-                        <div class="cotrolpanel-items">
-                            <label for="">Activate sessions</label>
-                            <div class="cPanel-checkboxWrapper">
-                                <input type="checkbox" onclick="activeSession('{{this.FestId}}','{{this.GroupId}}')"
-                                    id="{{this.GroupName}}1" {{#if this.Session1.SlNo}} checked {{/if}} />
-                                <label for="{{this.GroupName}}1">
-                                    <svg class="cPanel-cross" width="30" height="30">
-                                    </svg>
-                                    <svg class="cPanel-checkmark" width="30" height="30">
-                                    </svg>
-                                </label>
-
-                            </div>
-                        </div>
-                        {{/if}}
-                    </div>
-                    {{/each}}
-
-                </div>
-            </div> --}}
-            <div class="controlPanel-ItemDiv">
-                <div class="controlpanel-subhead">
-                    <i class="bi bi-arrow-right"></i>
-                    <h4>Point table</h4>
-                </div>
-                <div class="controlpanel-session-content">
-                    <div class="cotrolpanel-items">
-                        <label for="">Active add student</label>
-                        <div class="cPanel-checkboxWrapper">
-                            <input type="checkbox" id="myCheckbox1" checked />
-                            <label for="myCheckbox1">
-                                <svg class="cPanel-cross" width="30" height="30">
-                                </svg>
-                                <svg class="cPanel-checkmark" width="30" height="30">
-                                </svg>
-                            </label>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="controlPanel-ItemDiv">
-                <div class="controlpanel-subhead">
-                    <i class="bi bi-arrow-right"></i>
-                    <h4>Events</h4>
-                </div>
-                <div class="controlpanel-session-content">
-                    <div class="cotrolpanel-items">
-                        <label for="">Active add student</label>
-                        <div class="cPanel-checkboxWrapper">
-                            <input type="checkbox" id="myCheckbox1" checked />
-                            <label for="myCheckbox1">
-                                <svg class="cPanel-cross" width="30" height="30">
-                                </svg>
-                                <svg class="cPanel-checkmark" width="30" height="30">
-                                </svg>
-                            </label>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
+      
         </div>
     </div>
 </section>
@@ -302,6 +215,7 @@
         })
     }
 </script>
+
 <script>
     function ShowEditOption(FestId, GroupId) {
 
@@ -341,6 +255,30 @@
                     location.reload()
                 } else if (result.userStatusOff) {
                     alert('user Detactivated !')
+                    location.reload()
+                }
+            }
+        })
+    }
+</script>
+
+ 
+<script>
+    function  activeResult(FestId) {
+
+        $.ajax({
+            url: '/fest-admin/activeResult',
+            data: {
+                FestId: FestId
+
+            },
+            method: 'post',
+            success: (result) => {
+                if (result.resultStatusOn) {
+                    alert('Result activated !')
+                    location.reload()
+                } else if (result.resultStatusOff) {
+                    alert('Result Detactivated !')
                     location.reload()
                 }
             }

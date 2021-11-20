@@ -16,7 +16,12 @@
                     <a id="mainDiv"
                         href="/fest-admin/{{../FestDetails.FestId}}/mark/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.TypeOfEvent}}/{{this.EventId}}-{{this.EventName}}/add-mark">
                         <div class="allGroupCatetory-items">
-                            <h4>{{this.EventName}} <span style="font-style: italic; color:gray">({{this.EventId}})</span> </h4>
+                            <h4>{{this.EventName}} <span style="font-style: italic; color:gray">({{this.EventId}})</span>
+                            {{#if this.Result}}
+                            <span><i style="font-size: 16px; color:rgb(0, 97, 21);"
+                            title="Result published" class="bi bi-check-circle-fill"></i></span>
+                            {{/if}}
+                            </h4>
                             <p style="background: none; color:black"><i class="bi bi-chevron-right"></i></p>
                         </div>
                     </a>

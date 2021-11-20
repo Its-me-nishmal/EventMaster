@@ -1,0 +1,635 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
+
+
+<section>
+    <div class="group-container">
+
+        <div id="ResultMaintDiv" class="evets-MainDiv">
+
+            <div class="CFsessionOne searchbarSticky" style="margin-top: 10px; ">
+                <div class="inputDiv">
+                    <input id="searchInput" type="text" placeholder="Search your Name or Chest number or CIC number..."
+                        name="CategoryName">
+                    <i onclick="SearchStudentEvent('{{userDetails.FestId}}')"
+                        style="top: 5px; right:2px; color:white; background-color:var(--color-green-one);"
+                        class="bi bi-search searchIcon-resultPage"></i>
+                </div>
+            </div>
+            {{!-- search bottom buttomn --}}
+            <div id="myBtn" onclick="topFunction()" class="searchBottomButton">
+                <i class="bi bi-search"></i>
+            </div>
+
+            {{!-- --}}
+            <div id="SessionChart">
+                <div class="resultCountent">
+                    {{!-- Result Status --}}
+                    <div class="fivteen">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv">
+                                    <div class="graphOneDiv">
+                                        <div>
+                                            <section>
+                                                <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862"
+                                                    width="145" height="145">
+                                                    <circle class="circle-chart__background" stroke="#efefef"
+                                                        stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431"
+                                                        r="15.91549431" />
+                                                    <circle class="circle-chart__circle" stroke="#00acc1"
+                                                        stroke-width="2"
+                                                        stroke-dasharray="{{PercentageTotalResultPublised}},100"
+                                                        stroke-linecap="round" fill="none" cx="16.91549431"
+                                                        cy="16.91549431" r="15.91549431" />
+                                                    <g class="circle-chart__info">
+                                                        <text style="" class="circle-chart__percent" x="16.91549431"
+                                                            y="17" alignment-baseline="central" text-anchor="middle"
+                                                            font-size="8">{{PercentageTotalResultPublised}}%</text>
+
+                                                    </g>
+                                                </svg>
+                                            </section>
+
+                                        </div>
+                                    </div>
+                                    <div class="graphTwoDiv">
+                                        <div>
+                                            <div>
+                                                <p>Total Events : <span>{{TotalEventsCount}}</span></p>
+                                                <p>Published : <span>{{PublisedResultCount}}</span></p>
+                                                <p>Pending : <span>{{PendingResultCount}}</span></p>
+                                                <a href="/{{userDetails.FestId}}/result/result-status"><button
+                                                        class="button RTotalButton">See more</button></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>Result status</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Percentage View --}}
+                    <div class="fivteen">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv" style="width: 100%;  justify-content:center">
+                                    <div style="">
+                                        <canvas id="myChart" style="width:300px;"></canvas>
+
+                                    </div>
+
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>Percentage View</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Group baise marks --}}
+                    <div class="group-baise-mark scrollbar-result">
+                        {{#each totalGroupsMark}}
+                        <div class="Twenty-five" style="width:100%;">
+                            <div class="resultBorder">
+                                <div class="resultContentBoreder">
+                                    <div class="normel-div ">
+                                        <div style="text-align: center;">
+                                            <h4>Total point</h4>
+                                            <h1>{{this.TotalMark}}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="headerDiv">
+                                        <h4>{{this.GroupName}}</h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+
+
+                    </div>
+                    {{!-- Session Baise chart --}}
+                    <div class="fivteen" style="width: 100%;">
+                        <div class="resultBorder ">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv">
+                                    <div class="normel-div ">
+                                        <div id="legend-example-3">
+                                            <table id="animations-example-3" class="charts-css column multiple show-4-secondary-axes hide-data show-labels data-spacing-5
+                                                show-data-on-hover">
+                                                <caption> Front End Developer Salary </caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row"> Continent </th>
+                                                        <th scope="col"> 2000 </th>
+                                                        <th scope="col"> 2005 </th>
+                                                        <th scope="col"> 2010 </th>
+                                                        <th scope="col"> 2015 </th>
+                                                        <th scope="col"> 2020 </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="SessionBaiseChart">
+                                                    {{#each sessionBaiseMarkList}}
+                                                    <tr>
+                                                        <th scope="row">{{this.GroupName}} </th>
+                                                        {{#each this.Sessions}}
+                                                        <td style="--size:calc( {{this.TotalEventMark}} / 1500 );"><span
+                                                                class="data"> {{this.TotalEventMark}}
+                                                            </span></td>
+
+                                                        {{/each}}
+                                                    </tr>
+                                                    {{/each}}
+
+                                                </tbody>
+                                            </table>
+                                            <ul class="charts-css legend legend-circle ">
+                                                {{#each sessionBaiseMarkList.[0].Sessions}}
+                                                <li> {{this.SessionName}} </li>
+                                                {{/each}}
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>Session Table</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- dgfdgfdgfgfg --}}
+
+                    {{!-- Event baise result --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/event-baise">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Event baise result</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Student base result --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/student-baise">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Student baise result</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Other mark Result --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/other-mark">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Other mark view</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Topper --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/toppers">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Toppers view</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Grand winner (Group) --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/grand-winner-group">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-trophy-fill"></i> Grand winner (Group)</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Grand winner (Student) --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/{{userDetails.FestId}}/result/grand-winner-student">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-trophy-fill"></i> Grand winner (Student)</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Next Header --}}
+                    <div class="pointTable-header" style="width:100%">
+                        <h4 class="adminHome-sectin-one-SubHeading">Group baise result</h4>
+                        <hr>
+                    </div>
+
+                    {{!-- Group baise Full Result --}}
+                    {{#each sessionBaiseMarkList}}
+                    <div class="fivteen" style="width: 100%;">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv">
+                                    {{!-- Session Define --}}
+                                    {{#each this.Sessions}}
+                                    <div class="fivteen ResultGroupFullDiv">
+                                        <h4>{{this.SessionName}}</h4>
+                                        <div class="ResultGroupFullContent">
+                                            <h4>Stage total : <span>{{this.StageEventsMark}}</span></h4>
+
+                                            <h4>Off Stage total : <span>{{this.OffStageEventsMark}}</span></h4>
+
+                                            <h4>Other mark total : <span>{{this.OtherMark}}</span></h4>
+
+                                        </div>
+                                        <div class="ResultGRoupFullBottom">
+                                            <h4>Total Mark :</h4>
+                                            <h3>{{this.TotalEventMark}}</h3>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>{{this.GroupName}}</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                   
+                    {{!-- --}}
+                </div>
+
+            </div>
+            <div id="searchResultDiv" class="searchResultDiv" style="display:none;">
+                <div class="searchResultHeader">
+                    <h3 id="foundResultCount">Found 0 results</h3>
+                    <p onclick="closeResult()"><i class="bi bi-x-lg"></i></p>
+                </div>
+                <div id="searchContent">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{{!-- Chart Result - session result --}}
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['', 'ULA', 'ALIYA', 'ULYA', 'GENERAL', 'kdf', 'ldfs',],
+            ['Kerala', 100, 700, 300, 500, 500, 500],
+            ['Thamilnadu', 170, 460, 250, 10, 500, 500],
+            ['2016', 660, 120, 300, 100, 500, 500],
+            ['2017', 103, 540, 350, 500, 500, 500],
+            ['2018', 103, 540, 350, 500, 500, 500]
+        ]);
+
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data,);
+    }
+</script>
+
+{{!-- time result - all group --}}
+
+<script>
+    /**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ * 
+ * For more information visit:
+ * https://www.amcharts.com/
+ * 
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
+
+    // Themes begin
+    am4core.useTheme(am4themes_material);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+    //
+
+    // Increase contrast by taking evey second color
+    chart.colors.step = 2;
+
+    // Add data
+    chart.data = generateChartData();
+
+    // Create axes
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 50;
+
+    // Create series
+    function createAxisAndSeries(field, name, opposite, bullet) {
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        if (chart.yAxes.indexOf(valueAxis) != 0) {
+            valueAxis.syncWithAxis = chart.yAxes.getIndex(0);
+        }
+
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.valueY = field;
+        series.dataFields.dateX = "date";
+        series.strokeWidth = 2;
+        series.yAxis = valueAxis;
+        series.name = name;
+        series.tooltipText = "{name}: [bold]{valueY}[/]";
+        series.tensionX = 0.8;
+        series.showOnInit = true;
+
+        var interfaceColors = new am4core.InterfaceColorSet();
+
+        switch (bullet) {
+            case "triangle":
+                var bullet = series.bullets.push(new am4charts.Bullet());
+                bullet.width = 12;
+                bullet.height = 12;
+                bullet.horizontalCenter = "middle";
+                bullet.verticalCenter = "middle";
+
+                var triangle = bullet.createChild(am4core.Triangle);
+                triangle.stroke = interfaceColors.getFor("background");
+                triangle.strokeWidth = 2;
+                triangle.direction = "top";
+                triangle.width = 12;
+                triangle.height = 12;
+                break;
+            case "rectangle":
+                var bullet = series.bullets.push(new am4charts.Bullet());
+                bullet.width = 10;
+                bullet.height = 10;
+                bullet.horizontalCenter = "middle";
+                bullet.verticalCenter = "middle";
+
+                var rectangle = bullet.createChild(am4core.Rectangle);
+                rectangle.stroke = interfaceColors.getFor("background");
+                rectangle.strokeWidth = 2;
+                rectangle.width = 10;
+                rectangle.height = 10;
+                break;
+            default:
+                var bullet = series.bullets.push(new am4charts.CircleBullet());
+                bullet.circle.stroke = interfaceColors.getFor("background");
+                bullet.circle.strokeWidth = 2;
+                break;
+        }
+
+        valueAxis.renderer.line.strokeOpacity = 1;
+        valueAxis.renderer.line.strokeWidth = 2;
+        valueAxis.renderer.line.stroke = series.stroke;
+        valueAxis.renderer.labels.template.fill = series.stroke;
+        valueAxis.renderer.opposite = opposite;
+    }
+
+    createAxisAndSeries("visits", "Visdits", false, "circle");
+    createAxisAndSeries("views", "Views", true, "triangle");
+    createAxisAndSeries("hits", "Hits", true, "rectangle");
+
+    // Add legend
+    chart.legend = new am4charts.Legend();
+
+    // Add cursor
+    chart.cursor = new am4charts.XYCursor();
+
+    // generate some random data, quite different range
+    function generateChartData() {
+        var chartData = [];
+        var firstDate = new Date();
+        firstDate.setDate(firstDate.getDate() - 100);
+        firstDate.setHours(0, 0, 0, 0);
+
+        var visits = 0;
+        var hits = 0;
+        var views = 0;
+
+        for (var i = 0; i < 15; i++) {
+            // we create date objects here. In your data, you can have date strings
+            // and then set format of your dates using chart.dataDateFormat property,
+            // however when possible, use date objects, as this will speed up chart rendering.
+            var newDate = new Date(firstDate);
+            newDate.setDate(newDate.getDate() + i);
+
+            visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+            hits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+            views += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+
+            chartData.push({
+                date: newDate,
+                visits: visits,
+                hits: hits,
+                views: views
+            });
+        }
+        return chartData;
+    }
+</script>
+
+
+{{!-- Total mark Graph --}}
+
+<script>
+
+    var xValues = ["{{totalGroupsMark.[0].GroupName}}", "{{totalGroupsMark.[1].GroupName}}", "{{totalGroupsMark.[2].GroupName}}", "{{totalGroupsMark.[3].GroupName}}", "{{totalGroupsMark.[4].GroupName}}", "{{totalGroupsMark.[5].GroupName}}"];
+    var yValues = ["{{totalGroupsMark.[0].Percetage}}", "{{totalGroupsMark.[1].Percetage}}", "{{totalGroupsMark.[2].Percetage}}", "{{totalGroupsMark.[3].Percetage}}", "{{totalGroupsMark.[4].Percetage}}", "{{totalGroupsMark.[5].Percetage}}"];
+    var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#e8c3b9",
+        "#1e7145",
+        "#7b5797",
+
+    ];
+
+    new Chart("myChart", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        }
+
+    });
+</script>
+
+<script>
+    //Get the button
+    var mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+    var rootElement = document.documentElement;
+
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    }
+</script>
+
+
+{{!-- Search Event --}}
+
+<script>
+
+    var boarderDiv = document.getElementById('searchResultDiv')
+    var mainDiv = document.getElementById('searchContent')
+    var Session = document.getElementById('SessionChart')
+    var resultCount = document.getElementById('foundResultCount')
+    var Input = document.getElementById('searchInput')
+
+
+    // no such result
+    const nunBorder = document.createElement("div");
+    const h2 = document.createElement("h2")
+
+    nunBorder.className = "noSuchResult";
+
+    nunBorder.appendChild(h2)
+
+    // Full Result
+
+
+    function SearchStudentEvent(FestId) {
+      
+        let searchValue = document.getElementById("searchInput").value
+        $.ajax({
+            url: '/search-student-events',
+            data: {
+                FestId,
+                searchValue
+            },
+            method: 'post',
+            success: (searchResult) => {
+                console.log(searchResult)
+                if (searchResult[0]) {
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    resultCount.innerHTML = "Found " + searchResult.length + " results"
+                    mainDiv.innerHTML = null
+
+                    searchResult.forEach(myFunction)
+                    function myFunction(item, index) {
+                        const a = document.createElement("a")
+                        const R_BoarderDiv = document.createElement("div")
+                        const R_Header = document.createElement("div")
+                        const h3 = document.createElement("h3")
+                        const h4_1 = document.createElement("h4")
+                        const h4_2 = document.createElement("h4")
+                        const R_Bottom = document.createElement("div")
+
+                        a.href = "/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo +"/events"
+                        R_BoarderDiv.className = "searchResultOne"
+                        R_Header.className = "header"
+                        R_Bottom.className = "Bottom"
+                        h3.innerHTML = item.ChestNo + " - " + item.FullName
+
+                        h4_2.innerHTML = item.GroupId + " / " + item.GroupName + " / " + item.SessionName + " / CIC No : " + item.CicNo
+
+                        mainDiv.appendChild(a)
+                        a.appendChild(R_BoarderDiv)
+                        R_BoarderDiv.appendChild(R_Header)
+                        R_Header.appendChild(h3)
+                        R_Header.appendChild(h4_1)
+                        R_BoarderDiv.appendChild(R_Bottom)
+                        R_Bottom.appendChild(h4_2)
+
+
+                    }
+
+
+
+
+                } else if (searchResult === 0) {
+                    resultCount.innerHTML = "Found 0 results"
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    mainDiv.innerHTML = null
+                    mainDiv.appendChild(nunBorder)
+                    h2.innerHTML = "Search something"
+                } else {
+                    resultCount.innerHTML = "Found 0 results"
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    mainDiv.innerHTML = null
+                    mainDiv.appendChild(nunBorder)
+                    h2.innerHTML = "No such result"
+
+                }
+            }
+        })
+    }
+
+    function closeResult() {
+        Session.style.display = 'block'
+        boarderDiv.style.display = 'none'
+        Input.value = ""
+    }
+</script>

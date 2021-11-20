@@ -1,10 +1,251 @@
 <section>
     <div class="fest-container">
-        <div class="admin-Settings">
-            <div class="admin-profile">
-                <a href="/fest-admin/{{FestDetails.FestId}}/logout">LogOut</a>
+        <div class="fest-home">
+            {{!-- Alert --}}
+            {{#if PointCategory.status}}
+            <div class="alert-fest-home">
+                <div class="alert">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <h4>Create point category before creating an event !</h4>
+                </div>
             </div>
+            {{/if}}
+            {{#if sessionactive.pending}}
+            <div class="alert-fest-home">
+                <div class="alert">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <h4>The session is not active in {{sessionactive.pending}} groups</h4>
+                </div>
+            </div>
+            {{/if}}
+            {{!-- Header --}}
+            <div class="header-fest-home">
+                <div class="groupProfileborder" style="background: none; margin-top:25px">
+                    <div class="Content" style="padding: 0;">
+                        <div class="festContent">
+                            <div class="festContentBorder" style="border-color: var(--color-two);">
+                                <h3 style="background-color: white;">Fest details</h3>
+                                <div class="header">
+                                    <p>Tittle </p>
+                                    <p>Fest ID </p>
+                                    <p>Convener </p>
+                                    <p>Date </p>
+
+                                </div>
+                                <div class="answer">
+                                    <p>: {{FestDetails.FestName}}</p>
+                                    <p>: {{FestDetails.FestId}}</p>
+                                    <p>: {{FestDetails.FestConvener}}</p>
+                                    <p>: {{FestDetails.FestDate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- Status --}}
+            <div class="status-fest-home">
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Status of user</h4>
+                                {{#if StatusUserResult.user}}
+                                <button style=" " class="button">ON</button>
+                                {{else}}
+                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">OFF</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Status of result</h4>
+                                {{#if StatusUserResult.result}}
+                                <button style="" class="button">ON</button>
+                                {{else}}
+                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">OFF</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#each sessionactive}}
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>{{this.GroupName}} session status</h4>
+                                {{#if this.Session}}
+                                <button style="" class="button">Active</button>
+                                {{else}}
+                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">Deactive</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Status of Fest</h4>
+                                {{#if FestFullDetails.festStatus}}
+                                <button style="" class="button">YES</button>
+                                {{else}}
+                                <button style="color: rgb(0, 124, 161); background-color:rgb(205, 243, 255); border-color:rgb(0, 124, 161);" class="button">Renning</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Content --}}
+
+            <div class="content-fest-home" style="margin-top: 10px;">
+
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 48, 104); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{FestDetails.NumberGroups}}<i class="bi bi-slack"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Groups</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 100, 70); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{FestDetails.NumberSessions}}<i class="bi bi-subtract"></i></h1>
+                            </div>
+                            <div class="content"
+                                style="display: flex; align-items:center; justify-content:space-between;">
+                                <h4>Total Sessions </h4>
+                                <span style="font-size: 12px; font-style:italic; opacity:.5;">Without General</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(146, 2, 2); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{totalStudentsDetails.totalCount}}<i class="bi bi-people-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Students</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(55, 0, 92); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{EventDetails.TotalEvents}}<i class="bi bi-calendar2-event-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Events</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 68, 9); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{PointCategory.count}}<i class="bi bi-bookmarks-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Point category</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(148, 0, 57); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{EventDetails.Published}}<i class="bi bi-bar-chart-line-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Published results<span style="margin-left: 10px; color:rgb(0, 230, 0);"><i
+                                            class="bi bi-chevron-double-up"></i>{{EventDetails.Percentage}}%</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 87, 122); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{EventDetails.Pending}}<i class="bi bi-stoplights-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Pending results</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five" style="cursor: pointer;">
+                    <a href="">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(80, 82, 83); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{totalStudentsDetails.StudnetWithOutCount}}<i class="bi bi-folder-x"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Student without program</h4>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+            </div>
+
+
+
+
+
         </div>
+
+        {{!-- <div class="Twenty-five">
+            <div class="resultBorder" style="height: auto;">
+                <a href="/{{userDetails.FestId}}/result/event-baise">
+                    <div class="resultContentBoreder">
+                        <div class="headdingmodel">
+                            <h4><i class="bi bi-pie-chart-fill"></i> Event baise result</h4>
+                            <i class="bi bi-chevron-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div> --}}
+
+
 
 
 

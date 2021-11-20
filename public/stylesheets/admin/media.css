@@ -246,6 +246,9 @@
   .sidebarMenueButton-onClick-close {
     display: block;
   }
+  .searchResult .searchResultOne .header h4{
+    display: none;
+  }
 }
 
 @media (max-width: 500px) /* all mobile */ {
@@ -264,6 +267,9 @@
   }
   .Twenty-five {
     width: 100%;
+  }
+  .searchResult .searchResultOne .header h4{
+    display: none;
   }
 }
 
@@ -343,5 +349,8 @@
   }
   .sidebarMenueButton-onClick-close {
     display: block;
+  }
+  .searchResult .searchResultOne .header h4{
+    display: none;
   }
 }

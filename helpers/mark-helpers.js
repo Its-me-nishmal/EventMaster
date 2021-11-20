@@ -2,6 +2,7 @@ var db = require('../config/connection')
 var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const { response } = require('express')
+var ObjectId = require('mongodb').ObjectId;
 
 
 
@@ -46,7 +47,7 @@ module.exports = {
             let Place = {}
             let Grade = {}
             let StudentMark = parseInt(0)
-            console.log(Session, 'indivigul session');
+
             // Place and Grade creation
             if (body.places === "1st") {
                 Place.name = "1st"
@@ -76,9 +77,25 @@ module.exports = {
             }
 
 
+
             // if Stage
             if (Category === "Stage") {
+
                 let event = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, "StageItem.EventId": EventId })
+
+                // tick in event table this event mark added
+                const tickEventItem = await db.get().collection(collection.ITEM_COLLECTION).updateOne({
+                    FestId, StageItem: {
+                        $elemMatch: {
+                            EventId: EventId
+
+                        }
+                    }
+                }, {
+                    $set: {
+                        "StageItem.$.Result": true,
+                    }
+                })
 
                 // checking student event mark before or after add mark
                 for (let i = 0; i < studentSession.StageEvents.length; i++) {
@@ -231,38 +248,38 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session1.SessionName": "GENERAL" }, {
 
                             $set: {
-                                "Session1.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session1.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
 
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session2.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session2.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session2.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session3.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session3.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session3.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session4.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session4.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session4.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session5.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session5.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session5.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session6.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session6.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session6.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
@@ -272,6 +289,23 @@ module.exports = {
 
             } else if (Category === "Off Stage") {
                 let event = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, "OffstageItem.EventId": EventId })
+
+
+                // tick in event table this event mark added
+                const tickEventItem = await db.get().collection(collection.ITEM_COLLECTION).updateOne({
+                    FestId, OffstageItem: {
+                        $elemMatch: {
+                            EventId: EventId
+
+                        }
+                    }
+                }, {
+                    $set: {
+                        "OffstageItem.$.Result": true,
+                    }
+                })
+
+
                 // checking student event mark before or after add mark
                 for (let i = 0; i < studentSession.OffStageEvents.length; i++) {
                     if (studentSession.OffStageEvents[i].EventId === EventId) {
@@ -423,38 +457,38 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session1.SessionName": "GENERAL" }, {
 
                             $set: {
-                                "Session1.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session1.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
 
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session2.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session2.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session2.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session3.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session3.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session3.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session4.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session4.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session4.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session5.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session5.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session5.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session6.SessionName": "GENERAL" }, {
                             $set: {
-                                "Session6.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                                "Session6.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                                 GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                             }
                         })
@@ -473,7 +507,7 @@ module.exports = {
             let pointCategory = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ FestId, categoryName: body.pointCategory })
             let groupDetails = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId, GroupId: body.GroupId })
             let AllSessions = [groupDetails.Session1, groupDetails.Session2, groupDetails.Session3, groupDetails.Session4, groupDetails.Session5, groupDetails.Session6]
-            console.log(Session, 'group session');
+
             let Place = {}
             let Grade = {}
             let StudentMark = parseInt(0)
@@ -509,6 +543,20 @@ module.exports = {
 
             // if Stage
             if (Category === "Stage") {
+
+                // tick in event table this event mark added
+                const tickEventItem = await db.get().collection(collection.ITEM_COLLECTION).updateOne({
+                    FestId, StageItem: {
+                        $elemMatch: {
+                            EventId: EventId
+
+                        }
+                    }
+                }, {
+                    $set: {
+                        "StageItem.$.Result": true,
+                    }
+                })
 
                 let studentSession = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId: body.GroupId, ChestNo: Stage[0].ChestNo, })
                 let event = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, "StageItem.EventId": EventId })
@@ -717,7 +765,22 @@ module.exports = {
                 }
 
             } else if (Category === "Off Stage") {
-                console.log(StudentMark, 'student');
+
+                // tick in event table this event mark added
+                const tickEventItem = await db.get().collection(collection.ITEM_COLLECTION).updateOne({
+                    FestId, OffstageItem: {
+                        $elemMatch: {
+                            EventId: EventId
+
+                        }
+                    }
+                }, {
+                    $set: {
+                        "OffstageItem.$.Result": true,
+                    }
+                })
+
+
                 let studentSession = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, FestId, GroupId: body.GroupId, ChestNo: OffStage[0].ChestNo, })
                 let event = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, "OffstageItem.EventId": EventId })
                 // checking student event mark before or after add mark
@@ -728,7 +791,7 @@ module.exports = {
                         }
                     }
                 }
-                console.log(StudentMark, 'student2');
+
                 // If Nongeneral
                 if (event.SessionName === "GENERAL") {
 
@@ -927,10 +990,10 @@ module.exports = {
 
                 }
             }
-        
+
         })
 
-},
+    },
 
     getAllCategorysWithFestIdOnly: (FestId) => {
         return new Promise((resolve, reject) => {
@@ -941,65 +1004,246 @@ module.exports = {
 
     },
 
-        addOtherMark: (body) => {
-            return new Promise(async (resolve, reject) => {
-                if (body.GroupId && body.SessionName && body.ChestNo) {
-                    let checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
-                    if (checkStudent) {
-                        body.SubType = 'Student',
-                            body.Type = 'Mark'
-                        await db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
-                            resolve(response)
-                        })
-                    } else {
-
-                        resolve()
-                    }
-                } else if (body.GroupId && body.SessionName && body.ChestNo === undefined) {
-                    body.SubType = 'Session'
-                    body.Type = 'Mark'
-                    db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+    addOtherMark: (body) => {
+        return new Promise(async (resolve, reject) => {
+            if (body.GroupId && body.SessionName && body.ChestNo) {
+                let checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
+                if (checkStudent) {
+                    body.SubType = 'Student',
+                        body.Type = 'Mark'
+                    await db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
                         resolve(response)
                     })
-                } else if (body.GroupId && body.SessionName === undefined && body.ChestNo === undefined) {
-                    body.SubType = 'Group'
-                    body.Type = 'Mark'
-                    db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+                } else {
+
+                    resolve()
+                }
+            } else if (body.GroupId && body.SessionName && body.ChestNo === undefined) {
+                body.SubType = 'Session'
+                body.Type = 'Mark'
+                db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+                    resolve(response)
+                })
+            } else if (body.GroupId && body.SessionName === undefined && body.ChestNo === undefined) {
+                body.SubType = 'Group'
+                body.Type = 'Mark'
+                db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+                    resolve(response)
+                })
+            }
+        })
+
+    },
+
+    addToppers: (body) => {
+        return new Promise(async (resolve, reject) => {
+            if (body.GroupId && body.SessionName && body.ChestNo) {
+                let checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
+                if (checkStudent) {
+                    body.SubType = 'Student',
+                        body.Type = 'Toppers'
+                    await db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
                         resolve(response)
+                    })
+                } else {
+
+                    resolve()
+                }
+            } else if (body.GroupId && body.SessionName && body.ChestNo === undefined) {
+                body.SubType = 'Session'
+                body.Type = 'Toppers'
+                db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+                    resolve(response)
+                })
+            } else if (body.GroupId && body.SessionName === undefined && body.ChestNo === undefined) {
+                body.SubType = 'Group'
+                body.Type = 'Toppers'
+                db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
+                    resolve(response)
+                })
+            }
+        })
+
+    },
+
+    getOneOtherMark: (FestId, id) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.OTHER_MARK_COLLECTION).findOne({ FestId, _id: ObjectId(id) }).then((response) => {
+
+                if (response.SubType == "Group") {
+                    response.Group = true
+                } else if (response.SubType == "Session") {
+                    response.Session = true
+                } else if (response.SubType == "Student") {
+                    response.Student = true
+                }
+
+                if (response.places == "1st") {
+                    response.One = true
+                } else if (response.places == "2nd") {
+                    response.Two = true
+                } else if (response.places == "3rd") {
+                    response.Three = true
+                }
+
+                if (response.grades == "A") {
+                    response.A = true
+                } else if (response.grades == "B") {
+                    response.B = true
+                } else if (response.grades == "C") {
+                    response.C = true
+                }
+                resolve(response);
+            })
+        })
+
+    },
+
+    editOneOtherMark: (FestId, body) => {
+        return new Promise(async (resolve, reject) => {
+            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId, GroupId: body.GroupId })
+            let Status = null
+            if (Group) {
+                if (body.SessionName && body.ChestNo) {
+                    let Session = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, SessionName: body.SessionName })
+                    if (Session) {
+                        let Student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
+                        if (Student) {
+                            Status = true
+                        } else {
+                            resolve({ StudentError: true })
+                        }
+                    } else {
+                        resolve({ SessionError: true })
+                    }
+                } else if (body.SessionName) {
+                    let Session = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, SessionName: body.SessionName })
+                    if (Session) {
+                        Status = true
+                    } else {
+                        resolve({ SessionError: true })
+                    }
+                } else {
+                    Status = true
+                }
+                if (Status) {
+                    await db.get().collection(collection.OTHER_MARK_COLLECTION).updateOne({ FestId, _id: ObjectId(body.id) }, {
+                        $set: {
+                            GroupId: body.GroupId,
+                            SessionName: body.SessionName,
+                            ChestNo: body.ChestNo,
+                            Title: body.Title,
+                            places: body.places,
+                            grades: body.grades,
+                            TotalMark: body.TotalMark
+                        }
+                    }).then(() => {
+                        resolve()
                     })
                 }
+            } else {
+                resolve({ GroupIdError: true })
+            }
+        })
+    },
+
+    RemoveOneOtherMark:(FestId, id)=>{
+        return new Promise(async(resolve, reject) => {
+            let status = await  db.get().collection(collection.OTHER_MARK_COLLECTION).findOne({FestId,_id:ObjectId(id)})
+            let SubType = status.SubType
+            console.log(SubType);
+          await  db.get().collection(collection.OTHER_MARK_COLLECTION).deleteOne({FestId,_id:ObjectId(id)}).then((status)=>{
+                if(SubType == "Group"){
+                    resolve({Group:true})
+                }else if(SubType == "Session"){
+                    resolve({Session:true})
+                }else if(SubType == "Student"){
+                    resolve({Student:true})
+                }
             })
+        })
+    },
 
-        },
+    getOneToppers: (FestId, id) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.OTHER_MARK_COLLECTION).findOne({ FestId, _id: ObjectId(id) }).then((response) => {
 
-            addToppers: (body) => {
-                return new Promise(async (resolve, reject) => {
-                    if (body.GroupId && body.SessionName && body.ChestNo) {
-                        let checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
-                        if (checkStudent) {
-                            body.SubType = 'Student',
-                                body.Type = 'Toppers'
-                            await db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
-                                resolve(response)
-                            })
+                if (response.SubType == "Group") {
+                    response.Group = true
+                } else if (response.SubType == "Session") {
+                    response.Session = true
+                } else if (response.SubType == "Student") {
+                    response.Student = true
+                }
+                resolve(response);
+            })
+        })
+    },
+
+    editOneToppers: (FestId, body) => {
+        return new Promise(async (resolve, reject) => {
+            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId, GroupId: body.GroupId })
+            let Status = null
+            if (Group) {
+                if (body.SessionName && body.ChestNo) {
+                    let Session = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, SessionName: body.SessionName })
+                    if (Session) {
+                        let Student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId: body.GroupId, SessionName: body.SessionName, ChestNo: body.ChestNo })
+                        if (Student) {
+                            Status = true
                         } else {
-
-                            resolve()
+                            resolve({ StudentError: true })
                         }
-                    } else if (body.GroupId && body.SessionName && body.ChestNo === undefined) {
-                        body.SubType = 'Session'
-                        body.Type = 'Toppers'
-                        db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
-                            resolve(response)
-                        })
-                    } else if (body.GroupId && body.SessionName === undefined && body.ChestNo === undefined) {
-                        body.SubType = 'Group'
-                        body.Type = 'Toppers'
-                        db.get().collection(collection.OTHER_MARK_COLLECTION).insertOne(body).then((response) => {
-                            resolve(response)
-                        })
+                    } else {
+                        resolve({ SessionError: true })
                     }
-                })
+                } else if (body.SessionName) {
+                    let Session = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, SessionName: body.SessionName })
+                    if (Session) {
+                        Status = true
+                    } else {
+                        resolve({ SessionError: true })
+                    }
+                } else {
+                    Status = true
+                }
+                if (Status) {
+                    await db.get().collection(collection.OTHER_MARK_COLLECTION).updateOne({ FestId, _id: ObjectId(body.id) }, {
+                        $set: {
+                            GroupId: body.GroupId,
+                            SessionName: body.SessionName,
+                            ChestNo: body.ChestNo,
+                            Title: body.Title
+                           
+                        }
+                    }).then(() => {
+                        resolve()
+                    })
+                }
+            } else {
+                resolve({ GroupIdError: true })
+            }
+        })
+    },
 
-            },
+    RemoveOneToppers:(FestId, id)=>{
+        return new Promise(async(resolve, reject) => {
+            let status = await  db.get().collection(collection.OTHER_MARK_COLLECTION).findOne({FestId,_id:ObjectId(id)})
+            let SubType = status.SubType
+           
+          await  db.get().collection(collection.OTHER_MARK_COLLECTION).deleteOne({FestId,_id:ObjectId(id)}).then((status)=>{
+                if(SubType == "Group"){
+                    resolve({Group:true})
+                }else if(SubType == "Session"){
+                    resolve({Session:true})
+                }else if(SubType == "Student"){
+                    resolve({Student:true})
+                }
+            })
+        })
+    },
+
+
+
+
 }

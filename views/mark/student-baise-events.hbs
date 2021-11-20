@@ -1,0 +1,355 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Student baise result / {{GroupDetails.GroupName}} /
+                    {{SessionName}}
+
+                </h4>
+                <hr>
+            </div>
+            <div class="events-content">
+                <div class="gorup-content-header">
+                    <div class="session1">
+                        <h3> {{studentEvents.CicNo}} - {{studentEvents.FullName}} ({{studentEvents.ChestNo}})</h3>
+                    </div>
+                </div>
+                <div class="allEventDiv">
+                    <table id="allEvent-table" class="auto-index" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Sl no</th>
+                                <th>Event ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Section</th>
+                                <th>Place</th>
+                                <th>Grade</th>
+                                <th>TotalMark</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody class="ResultChart">
+
+                            {{#each studentEvents.StageEvents}}
+                            <tr>
+                                <td></td>
+                                <!--leave it blank-->
+                                <td>{{this.EventId}}</td>
+                                <td>{{this.EventName}}</td>
+                                <td>STAGE</td>
+                                <td>{{this.status}}</td>
+                                <td><span class="P{{this.Place}}">{{this.Place}}</span></td>
+                                <td><span class="{{this.Grade}}">{{this.Grade}}</span></td>
+                                <td><span>{{this.Mark}}</span></td>
+                            </tr>
+                            {{/each}}
+
+                            {{#each studentEvents.OffStageEvents}}
+                            <tr>
+                                <td></td>
+                                <!--leave it blank-->
+                                <td>{{this.EventId}}</td>
+                                <td>{{this.EventName}}</td>
+                                <td>OFF STAGE</td>
+                                <td>{{this.status}}</td>
+                                <td><span class="P{{this.Place}}">{{this.Place}}</span></td>
+                                <td><span class="{{this.Grade}}">{{this.Grade}}</span></td>
+                                <td><span>{{this.Mark}}</span></td>
+                            </tr>
+                            {{/each}}
+                            {{#if studentEvents.OtherMark.[0]}}
+                            {{#each studentEvents.OtherMark}}
+                            <tr>
+                                <td></td>
+                                <!--leave it blank-->
+                                <td> - </td>
+                                <td>{{this.Title}}</td>
+                                <td>OTHER MARK</td>
+                                <td> - </td>
+                                <td><span class="P{{this.places}}">{{this.places}}</span></td>
+                                <td><span class="{{this.grades}}">{{this.grades}}</span></td>
+                                <td><span>{{this.TotalMark}}</span></td>
+                            </tr>
+                            {{/each}}
+                            {{/if}}
+                            {{#if studentEvents.StageEvents.[0]}}
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="2">Stage Mark :</td>
+                                <td colspan="1"><span id="StageMark"
+                                        style="font-weight: bold;">{{studentEvents.StageEventsMark}}</span></td>
+                                <td colspan="1">Off stage Mark :</td>
+                                <td colspan="1"><span id="OffStageMark"
+                                        style="font-weight: bold;">{{studentEvents.OffStageEventsMark}}</span></td>
+                                <td colspan="2">Other Mark :</td>
+                                <td colspan="1"><span id="OtherMark"
+                                        style="font-weight: bold;">{{studentEvents.OtherMarkTotal}}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="8">
+                                    <h3 id="Total">Total Mark : </h3>
+                                </td>
+                            </tr>
+                            {{else}}
+                            {{#if studentEvents.OffStageEvents.[0]}}
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="2">Stage Mark :</td>
+                                <td colspan="2"><span id="StageMark"
+                                        style="font-weight: bold;">{{studentEvents.StageEventsMark}}</span></td>
+                                <td colspan="2">Off stage Mark :</td>
+                                <td colspan="2"><span id="OffStageMark"
+                                        style="font-weight: bold;">{{studentEvents.OffStageEventsMark}}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="8">
+                                    <h3 id="Total">Total Mark : </h3>
+                                </td>
+                            </tr>
+                            {{else}}
+
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td colspan="8">No events</td>
+                            </tr>
+                            {{/if}} {{/if}}
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pointTable-printbutton" style="margin-top: 15px;">
+                    <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                            class="bi bi-printer-fill"></i>
+                        Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+
+
+                        <table class="auto-index print-Table">
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Event ID</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Section</th>
+                                    <th>Place</th>
+                                    <th>Grade</th>
+                                    <th>TotalMark</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody class="ResultChart">
+
+                                {{#each studentEvents.StageEvents}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.EventId}}</td>
+                                    <td>{{this.EventName}}</td>
+                                    <td>STAGE</td>
+                                    <td>{{this.status}}</td>
+                                    <td><span class="P{{this.Place}}">{{this.Place}}</span></td>
+                                    <td><span class="{{this.Grade}}">{{this.Grade}}</span></td>
+                                    <td><span>{{this.Mark}}</span></td>
+                                </tr>
+                                {{/each}}
+
+                                {{#each studentEvents.OffStageEvents}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.EventId}}</td>
+                                    <td>{{this.EventName}}</td>
+                                    <td>OFF STAGE</td>
+                                    <td>{{this.status}}</td>
+                                    <td><span class="P{{this.Place}}">{{this.Place}}</span></td>
+                                    <td><span class="{{this.Grade}}">{{this.Grade}}</span></td>
+                                    <td><span>{{this.Mark}}</span></td>
+                                </tr>
+                                {{/each}}
+                                {{#if studentEvents.OtherMark.[0]}}
+                                {{#each studentEvents.OtherMark}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td> - </td>
+                                    <td>{{this.Title}}</td>
+                                    <td>OTHER MARK</td>
+                                    <td> - </td>
+                                    <td><span class="P{{this.places}}">{{this.places}}</span></td>
+                                    <td><span class="{{this.grades}}">{{this.grades}}</span></td>
+                                    <td><span>{{this.TotalMark}}</span></td>
+                                </tr>
+                                {{/each}}
+                                {{/if}}
+                                {{#if studentEvents.StageEvents.[0]}}
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2">Stage Mark :</td>
+                                    <td colspan="1"><span id="StageMark"
+                                            style="font-weight: bold;">{{studentEvents.StageEventsMark}}</span></td>
+                                    <td colspan="1">Off stage Mark :</td>
+                                    <td colspan="1"><span id="OffStageMark"
+                                            style="font-weight: bold;">{{studentEvents.OffStageEventsMark}}</span></td>
+                                    <td colspan="2">Other Mark :</td>
+                                    <td colspan="1"><span id="OtherMark"
+                                            style="font-weight: bold;">{{studentEvents.OtherMarkTotal}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="8">
+                                        <h3 id="Total">Total Mark : </h3>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                {{#if studentEvents.OffStageEvents.[0]}}
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2">Stage Mark :</td>
+                                    <td colspan="2"><span
+                                            style="font-weight: bold;">{{studentEvents.StageEventsMark}}</span></td>
+                                    <td colspan="2">Off stage Mark :</td>
+                                    <td colspan="2"><span
+                                            style="font-weight: bold;">{{studentEvents.OffStageEventsMark}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="8">
+                                        <h3 id="PrintTotal">Total Mark : </h3>
+                                    </td>
+                                </tr>
+                                {{else}}
+
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="8">No events</td>
+                                </tr>
+                                {{/if}} {{/if}}
+
+
+
+                            </tbody>
+                        </table>
+                        <script>
+                            var totalDiv = document.getElementById('Total')
+                            var PrintTotal = document.getElementById('PrintTotal')
+                            var stage = parseInt(document.getElementById('StageMark').innerHTML)
+                            var Offstage = parseInt(document.getElementById('OffStageMark').innerHTML)
+                            var OtherMark = parseInt(document.getElementById('OtherMark').innerHTML)
+                            let Total = stage + Offstage + OtherMark
+                            totalDiv.innerHTML = "Total Mark : " + Total
+                            PrintTotal.innerHTML = "Total Mark : " + Total
+                        </script>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{FestDetails.FestName}} </h2>
+                    <h4>FestID : {{FestDetails.FestId}}</h4>
+                    <p> Fest Date :{{FestDetails.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - Result - {{FestDetails.Session}} / {{FestDetails.Category}} /
+                {{studentEvents.ChestNo}} - {{studentEvents.FullName}} - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+
+</div>
+
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+</script>

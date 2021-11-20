@@ -6,7 +6,8 @@
                 </h4>
                 <hr>
             </div>
-             <div class="AddGroupStudents-content">
+            <div class="AddGroupStudents-content">
+
                 {{#if StudentActiveNull }}
                 <div class="GroupStudentsZero">
                     <div class="pointTabel-div">
@@ -17,11 +18,30 @@
                     </div>
                 </div>
                 {{else}}
+                {{#if groupSessionStatus.status}}
+               
+                {{else}}
+                <div class="alert-fest-home">
+                    <div class="alert">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <h4>This group session not activated</h4>
+                    </div>
+                </div>
+                <div class="alert-fest-home">
+                    <div class="alert"
+                        style="    background-color: rgb(255, 184, 184);  border-color: rgb(189, 0, 0); ">
+                        <i  style="color: rgb(189, 0, 0);" class="bi bi-x-circle-fill"></i>
+                        <h4 style="color: rgb(189, 0, 0);">Do not create new students</h4>
+                    </div>
+                </div>
+                {{/if}}
                 <div class="AddGroupStudetns-Div">
-                    <form action="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students/add-student" method="POST">
+                    <form
+                        action="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students/add-student"
+                        method="POST">
                         <div class="addStudetns-form">
                             <div> <label for="">CIC No :</label></div>
-                            <div><input type="number" name="CicNo" autofocus required></div>
+                            <div><input type="text" name="CicNo" autofocus required></div>
                         </div>
                         <div class="addStudetns-form">
                             <div> <label for="">Full name :</label></div>

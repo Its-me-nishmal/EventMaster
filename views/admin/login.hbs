@@ -43,6 +43,21 @@
                 </div>
             </div>
             {{/if}}
+            {{#if Success}}
+             <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
+                <div class="groupAlert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4>Changed !</h4>
+                </div>
+                <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
+                    <h5>{{Success}}</h5>
+                </div>
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+            </div>
+            {{/if}}
 
         </div>
     </div>
@@ -78,10 +93,10 @@
     var audio = document.getElementById('alertAudio')
   
     if(loginErr === "Invalid email address"){
-        audio.src = '/audio/alert/invalid.mp3'
+        audio.src = '/audio/alert/error alert.mp3'
        
     }else if(loginErr === "Incorrect password"){
-         audio.src = '/audio/alert/incurrenct.mp3'
+         audio.src = '/audio/alert/error alert.mp3'
     }
 </script>
 

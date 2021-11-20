@@ -7,6 +7,7 @@ var adminHelpers = require('../helpers/admin-helpers')
 var festHelpers = require('../helpers/fest-helpers');
 const groupHelpers = require('../helpers/group-helpers');
 const markHelpers = require('../helpers/mark-helpers')
+const resultHelpers = require('../helpers/result-helpers')
 
 const verifyAdminLogin = (req, res, next) => {
   if (req.session.admin) {
@@ -41,31 +42,32 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
   if (req.session.festLoginErr) {
     res.render('admin/home', {
       title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
-      "festLoginErr": req.session.festLoginErr, CurrentYear
+      "festLoginErr": req.session.festLoginErr, CurrentYear, footer: true
     })
     req.session.festLoginErr = false
   } else if (req.session.fest) {
     res.render('admin/home', {
       title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
-      LoginFest, CurrentYear
+      LoginFest, CurrentYear, footer: true
     })
   } else {
 
-    res.render('admin/home', { title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear })
+    res.render('admin/home', { title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
   }
 });
 
 router.get('/settings', verifyAdminLogin, async (req, res) => {
   let Admin = await adminHelpers.getAdminDetails()
+
   let adminDetails = Admin[0]
   if (req.session.passwordChangeErr) {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr })
+    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
     req.session.passwordChangeErr = false
   } else if (req.session.passwordChangeSuccess) {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess })
+    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
     req.session.passwordChangeSuccess = false
   } else {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails })
+    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, footer: true })
 
   }
 });
@@ -83,8 +85,75 @@ router.post('/settings/change-password', verifyAdminLogin, (req, res) => {
 
   })
 })
+router.get('/forgot-password', (req, res) => {
+  if(req.session.Error){
+    res.render('admin/forgot-password', { "loginErr": req.session.Error, title: 'Admin login', adminHeader: true })
+    req.session.Error = false
+  }else{
+    res.render('admin/forgot-password', {  title: 'Admin login', adminHeader: true })
+  }
+})
 
 
+router.post('/forgot-password', (req, res) => {
+  adminHelpers.sendOtpMail(req.body).then((response) => {
+    if(response.EmailErr){
+      req.session.Error = "Invalid e-mail address"
+      res.redirect('/fest-admin/forgot-password')
+    }else if(response){
+      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId)
+    }
+    res.redirect('/')
+  })
+})
+
+router.get('/forgot-password/otp/:EmailId',(req,res)=>{
+  let EmailId = req.params.EmailId
+  if(req.session.Error){
+    res.render('admin/otp', {title: 'Admin login', adminHeader: true,EmailId,"loginErr":req.session.Error})
+    req.session.Error =false
+  }else[
+    res.render('admin/otp', {title: 'Admin login', adminHeader: true,EmailId, })
+
+  ]
+});
+
+router.post('/forgot-password/otp/:EmailId',(req,res)=>{
+  let EmailId = req.params.EmailId
+  adminHelpers.checkOTP(req.body).then((result)=>{
+    if(result.Error){
+      req.session.Error = "OTP not match"
+      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId)
+    }else{
+      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId+"/"+req.body.otp)
+    }
+  })
+});
+
+router.get('/forgot-password/otp/:EmailId/:otp',(req,res)=>{
+  let EmailId = req.params.EmailId
+  let otp = req.params.otp
+  let body ={
+    EmailId ,
+    otp
+  }
+  adminHelpers.checkOTP(body).then((result)=>{
+    if(result.Error){
+      req.session.Error = "OTP not match"
+      res.redirect('/fest-admin/login')
+    }else{
+      res.render('admin/new-password',{title: 'Admin login', adminHeader: true,EmailId})
+    }
+  })
+
+});
+
+router.post('/settings/new-password',(req,res)=>{
+  adminHelpers.newadminPassword(req.body).then((response)=>{
+    req.session.Success = "Password Changed"
+    res.redirect('/fest-admin/login')
+  })
+})
 /* Login - LogOut */
 router.get('/login', (req, res) => {
 
@@ -93,6 +162,9 @@ router.get('/login', (req, res) => {
   } else if (req.session.loginErr) {
     res.render('admin/login', { "loginErr": req.session.loginErr, title: 'Admin login', adminHeader: true })
     req.session.loginErr = false
+  } else if (req.session.Success) {
+    res.render('admin/login', { "Success": req.session.Success, title: 'Admin login', adminHeader: true })
+    req.session.Success = false
   } else {
     res.render('admin/login', { adminHeader: true, title: 'Admin login' })
   }
@@ -189,10 +261,7 @@ router.post('/fest-forgot-password/:FestId', verifyAdminLogin, (req, res) => {
 
 });
 
-router.get('/forgot-password', (req, res) => {
 
-  res.render('admin/forgot-password', { "loginErr": req.session.loginErr, title: 'Admin login', adminHeader: true })
-})
 
 /* Fest - Home */
 router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
@@ -200,12 +269,12 @@ router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
 
   festHelpers.FestLogin(FestId, req.body).then((response) => {
     if (response.festDetails) {
-
       req.session.fest = true
       req.session.festPasswordErr = false
       req.session.festLoginErr = false
       req.session.fest = response.festDetails
       var FestDetails = req.session.fest
+
       res.render('fest/fest-dashboard', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails })
     } else {
       req.session.festPasswordErr = true
@@ -215,9 +284,39 @@ router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
   })
 });
 
-router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, (req, res) => {
+router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, async (req, res) => {
   let FestDetails = req.session.fest
-  res.render('fest/fest-dashboard', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails })
+  // Checking
+  var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
+  let FestFullDetails = await festHelpers.getFestDetails(FestDetails.FestId)
+  let PointCategory = {}
+  PointCategory.count = allPointCategory.length
+  if (PointCategory.count == undefined) {
+    PointCategory.status = true
+    PointCategory.count = 0
+  }
+  let sessionactive = await festHelpers.sessionActiveDetails(FestDetails.FestId)
+  let StatusUserResult = await festHelpers.StatusUserResult(FestDetails.FestId)
+  let totalStudentsDetails = await festHelpers.totalStudentsDetails(FestDetails.FestId)
+  let EventDetails = await festHelpers.AlleventDetails(FestDetails.FestId)
+  EventDetails.Percentage = (EventDetails.Published / EventDetails.TotalEvents) * 100
+
+  // cut after dot
+  var a = EventDetails.Percentage.toString()
+  if (a === "NaN") {
+    a = "0"
+  }
+  var num = a.indexOf(".");
+  if (num == -1) {
+    EventDetails.Percentage = a
+  } else {
+    EventDetails.Percentage = a.slice(0, num)
+  }
+
+  res.render('fest/fest-dashboard', {
+    title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, PointCategory,
+    sessionactive, StatusUserResult, totalStudentsDetails, FestFullDetails, EventDetails
+  })
 });
 
 router.get('/:FestId/logout', verifyFestLogin, verifyAdminLogin, (req, res) => {
@@ -231,7 +330,7 @@ router.get('/:FestId/logout', verifyFestLogin, verifyAdminLogin, (req, res) => {
 
 });
 
-/* Fest - Events */
+/*  Events */
 router.get('/:FestId/events', verifyFestLogin, verifyAdminLogin, async (req, res) => {
   let FestDetails = req.session.fest
   var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
@@ -568,25 +667,28 @@ router.get('/:FsetId/groups/:GroupId/:SessionName/students', verifyAdminLogin, v
   }
 });
 
-router.get('/:FsetId/groups/:GroupId/:SessionName/students/add-student', verifyAdminLogin, verifyFestLogin, (req, res) => {
+router.get('/:FsetId/groups/:GroupId/:SessionName/students/add-student', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   var FestDetails = req.session.fest
   var GroupId = req.params.GroupId
   let SessionName = req.params.SessionName
+  let groupSessionStatus = await festHelpers.groupSessionStatus(FestDetails.FestId, GroupId)
+  console.log(groupSessionStatus);
   if (req.session.cicNOError) {
     res.render('fest/add-students', {
       title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, GroupId,
-      "cicNOError": req.session.cicNOError
+      "cicNOError": req.session.cicNOError, groupSessionStatus
     })
     req.session.cicNOError = false
   } else if (req.session.cicNoSuccess) {
     res.render('fest/add-students', {
       title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, GroupId,
-      "cicNoSuccess": req.session.cicNoSuccess
+      "cicNoSuccess": req.session.cicNoSuccess, groupSessionStatus
     })
     req.session.cicNoSuccess = false
   } else {
     res.render('fest/add-students', {
-      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, GroupId
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, GroupId,
+      groupSessionStatus
     })
   }
 });
@@ -722,13 +824,19 @@ router.post('/OnEvents', (req, res, next) => {
     res.json(result)
   })
 });
+
+router.post('/activeResult', (req, res, next) => {
+  festHelpers.activeResult(req.body).then((result) => {
+
+    res.json(result)
+  })
+});
 router.post('/activeUser', (req, res, next) => {
   festHelpers.activeUser(req.body).then((result) => {
 
     res.json(result)
   })
 });
-
 // Settings
 
 router.get('/:FestId/settings/fest-profile', verifyFestLogin, verifyAdminLogin, async (req, res) => {
@@ -840,6 +948,13 @@ router.get('/:FestId/settings/fest-profile/delete-fest', verifyFestLogin, verify
     })
 
   })
+});
+
+router.get('/:FestId/settings/fest-profile/fest-status', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestId = req.params.FestId
+  festHelpers.changeFestStatus(FestId).then(() => {
+    res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+  })
 })
 
 router.get('/:FestId/settings', verifyFestLogin, verifyAdminLogin, (req, res) => {
@@ -866,18 +981,23 @@ router.post('/:FestId/settings/sessions/eventsquantity', verifyFestLogin, verify
 })
 
 
-router.get('/:FestId/settings/students', verifyFestLogin, verifyAdminLogin, async (req, res) => {
-  let FestDetails = req.session.fest
 
-  res.render('fest/students-settings', {
-    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+
+
+// Other
+router.get('/:FestId/student/student-without-program', verifyFestLogin, verifyAdminLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  let totalStudentsDetails = await festHelpers.totalStudentsDetails(FestDetails.FestId)
+
+
+
+  res.render('fest/student-without-program', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, totalStudentsDetails
 
   })
 });
 
 
-
-// Other
 router.get('/:FestId/program-schedule', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   FestDetails = req.session.fest
   let allSchedules = await festHelpers.getAllProgramSchedules(FestDetails.FestId)
@@ -1062,7 +1182,7 @@ router.get('/:FestId/mark/:Session-:Category/:TypeOfEvent/:EventId-:EventName/ad
       }
     }
   }
- 
+
   res.render('mark/add-mark', {
     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, EventId, Session
     , EventName, EventStudents, Individual, Group, AllGroups, EventId, pointCategory
@@ -1202,12 +1322,409 @@ router.post('/:FestId/mark/add_toppers', verifyAdminLogin, verifyFestLogin, (req
 
 router.get('/:FestId/result', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   var FestDetails = req.session.fest
-  
+  let TotalEventsCount = await resultHelpers.TotalEventCount(FestDetails.FestId)
+  let PublisedResultCount = await resultHelpers.PublisedResultCount(FestDetails.FestId)
+  let PendingResultCount = TotalEventsCount - PublisedResultCount
+  let PercentageTotalResultPublised = (PublisedResultCount / TotalEventsCount) * 100
+
+  // cut after dot
+  var a = PercentageTotalResultPublised.toString()
+  if (a === "NaN") {
+    a = "0"
+  }
+  var num = a.indexOf(".");
+  if (num == -1) {
+    PercentageTotalResultPublised = a
+  } else {
+    PercentageTotalResultPublised = a.slice(0, num)
+  }
+  let totalGroupsMark = await resultHelpers.totalGroupsMark(FestDetails.FestId)
+  let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(FestDetails.FestId)
 
   res.render('mark/result-home', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, TotalEventsCount, PublisedResultCount,
+    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList
+  })
+});
+
+router.get('/:FestId/result/event-baise', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
+  var categoryNull = allPointCategory == true
+  var allItemCategorys = await festHelpers.getAllItemCategory(FestDetails.FestId)
+
+  res.render('mark/event-baise', {
     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+    allItemCategorys, categoryNull
+  })
+});
+
+router.get('/:FestId/result/event-baise/:Session/:Category', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  var Category = req.params.Category
+  var Session = req.params.Session
+  FestDetails.Session = Session
+  FestDetails.Category = Category
+  var allEvents = await festHelpers.getAllEvents(FestDetails)
+
+  res.render('mark/event-sessions', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, Category, Session,
+    allEvents
+  })
+});
+
+router.get('/:FestId/result/event-baise/:Session/:Category/:EventId-:EventName', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  var Category = req.params.Category
+  var Session = req.params.Session
+  var EventId = req.params.EventId
+  var EventName = req.params.EventName
+  let EventStudents = await resultHelpers.getEventBaiseStudentsMark(FestDetails.FestId, Session, Category, EventId)
+  res.render('mark/event-baise-student', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, Category, Session,
+    EventId, EventName, EventStudents
+  })
+});
+
+router.post('/search-event-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  resultHelpers.searchEvent(req.body).then((searchResult) => {
+    res.json(searchResult)
+  })
+});
+
+router.get('/:FestId/result/student-baise', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  var FestDetails = req.session.fest
+  var AllGroups = await festHelpers.getAllGroups(FestDetails.FestId)
+
+  res.render('mark/student-baise', { title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, AllGroups })
+});
+
+router.get('/:FestId/result/student-baise/:GroupId', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  var FestDetails = req.session.fest
+  var GroupId = req.params.GroupId
+  let GroupDetails = await groupHelpers.getGroupDetails(GroupId, FestDetails.FestId)
+  let result = await groupHelpers.getAllCategorys(GroupDetails)
+  let AllSessions = []
+  if (result.Session6 !== undefined) {
+    AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5, result.Session6]
+  } else if (result.Session2 === undefined) {
+    AllSessions = [result.Session1]
+  } else if (result.Session3 === undefined) {
+    AllSessions = [result.Session1, result.Session2]
+  } else if (result.Session4 === undefined) {
+    AllSessions = [result.Session1, result.Session2, result.Session3]
+  } else if (result.Session5 === undefined) {
+    AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4]
+  } else if (result.Session6 === undefined) {
+    AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5]
+  }
+
+
+  res.render('mark/student-baise-category', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+    GroupDetails, AllSessions,
+  })
+});
+
+router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  var FestDetails = req.session.fest
+  var GroupId = req.params.GroupId
+  let GroupDetails = await groupHelpers.getGroupDetails(GroupId, FestDetails.FestId)
+  let SessionName = req.params.SessionName
+  let AllStudents = await groupHelpers.getAllStudents(SessionName, GroupDetails)
+
+  res.render('mark/student-baise-students', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+    GroupDetails, AllStudents, SessionName,
+  })
+});
+
+router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestNo', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  var FestDetails = req.session.fest
+  var GroupId = req.params.GroupId
+  let SessionName = req.params.SessionName
+  let ChestNo = req.params.ChestNo
+  let GroupDetails = await groupHelpers.getGroupDetails(GroupId, FestDetails.FestId)
+  let studentEvents = await festHelpers.getOneStudentEvents(FestDetails.FestId, GroupId, SessionName, ChestNo)
+
+
+  res.render('mark/student-baise-events', {
+    title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, studentEvents, GroupId,
+    GroupDetails
+  })
+});
+
+router.post('/search-student-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  resultHelpers.searchStudent(req.body).then((searchResult) => {
+    res.json(searchResult)
+  })
+});
+
+router.get('/:FestId/result/other-mark', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  res.render('mark/other-mark-home', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, })
+});
+
+router.get('/:FestId/result/other-mark/group/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Group = true
+  resultHelpers.getGroupOtherMarkResult(FestDetails.FestId).then((result) => {
+
+    res.render('mark/other-mark-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Group
+    })
+  })
+
+});
+
+router.get('/:FestId/result/other-mark/session/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Session = true
+  resultHelpers.getSessionOtherMarkResult(FestDetails.FestId).then((result) => {
+
+    res.render('mark/other-mark-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Session
+    })
+  })
+
+});
+router.get('/:FestId/result/other-mark/student/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Student = true
+  resultHelpers.getStudentOtherMarkResult(FestDetails.FestId).then((result) => {
+
+    res.render('mark/other-mark-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Student
+    })
+  })
+
+});
+
+router.post('/search-other-mark-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  resultHelpers.searchOtherMark(req.body).then((searchResult) => {
+    console.log(searchResult);
+    res.json(searchResult)
+  })
+});
+
+router.get('/:FestId/mark/other-mark/edit/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+
+  markHelpers.getOneOtherMark(FestDetails.FestId, id).then((result) => {
+    if (req.session.Success) {
+      res.render('mark/edit-other-mark', {
+        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result,
+        "Success": req.session.Success
+      })
+      req.session.Success = false
+    } else if (req.session.Error) {
+      res.render('mark/edit-other-mark', {
+        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result,
+        "Error": req.session.Error
+      })
+      req.session.Error = false
+    } else {
+      res.render('mark/edit-other-mark', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result })
+    }
+  })
+});
+
+router.post('/:FestId/mark/other-mark/edit/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+  markHelpers.editOneOtherMark(FestDetails.FestId, req.body).then((result) => {
+    if (result == undefined) {
+      req.session.Success = "Edit Successfully"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+    } else if (result.StudentError) {
+      req.session.Error = "Chest number not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+    } else if (result.SessionError) {
+      req.session.Error = "Session name not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+    } else if (result.GroupIdError) {
+      req.session.Error = "Group ID not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+    }
+  })
+});
+
+router.get('/:FestId/mark/other-mark/delete/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+  markHelpers.RemoveOneOtherMark(FestDetails.FestId, id).then((result) => {
+    console.log(result);
+    if (result.Group) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/group/view-result')
+    } else if (result.Session) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/session/view-result')
+    } else if (result.Student) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/student/view-result')
+
+    }
   })
 });
 
 
+router.get('/:FestId/result/toppers', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  res.render('mark/toppers-home', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, })
+});
+
+
+router.get('/:FestId/result/toppers/group/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Group = true
+  resultHelpers.getGroupToppersResult(FestDetails.FestId).then((result) => {
+    res.render('mark/toppers-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Group
+    })
+  })
+
+});
+
+router.get('/:FestId/result/toppers/session/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Session = true
+  resultHelpers.getSessionToppersResult(FestDetails.FestId).then((result) => {
+
+    res.render('mark/toppers-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Session
+    })
+  })
+
+});
+
+router.get('/:FestId/result/toppers/student/view-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  var Student = true
+  resultHelpers.getStudentToppersResult(FestDetails.FestId).then((result) => {
+
+    res.render('mark/toppers-result', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      result, Student
+    })
+  })
+
+});
+
+router.post('/search-toppers-view', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  resultHelpers.searchToppers(req.body).then((searchResult) => {
+    console.log(searchResult);
+    res.json(searchResult)
+  })
+});
+
+
+router.get('/:FestId/mark/toppers/edit/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+
+  markHelpers.getOneToppers(FestDetails.FestId, id).then((result) => {
+    if (req.session.Success) {
+      res.render('mark/edit-toppers', {
+        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result,
+        "Success": req.session.Success
+      })
+      req.session.Success = false
+    } else if (req.session.Error) {
+      res.render('mark/edit-toppers', {
+        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result,
+        "Error": req.session.Error
+      })
+      req.session.Error = false
+    } else {
+      res.render('mark/edit-toppers', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, id, result })
+    }
+  })
+});
+
+
+router.post('/:FestId/mark/toppers/edit/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+  markHelpers.editOneToppers(FestDetails.FestId, req.body).then((result) => {
+    if (result == undefined) {
+      req.session.Success = "Edit Successfully"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+    } else if (result.StudentError) {
+      req.session.Error = "Chest number not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+    } else if (result.SessionError) {
+      req.session.Error = "Session name not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+    } else if (result.GroupIdError) {
+      req.session.Error = "Group ID not match"
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+    }
+  })
+});
+
+
+router.get('/:FestId/mark/toppers/delete/:id', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  let id = req.params.id
+  markHelpers.RemoveOneToppers(FestDetails.FestId, id).then((result) => {
+
+    if (result.Group) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/group/view-result')
+    } else if (result.Session) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/session/view-result')
+    } else if (result.Student) {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/student/view-result')
+
+    }
+  })
+});
+
+router.get('/:FestId/result/grand-winner-group', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(FestDetails.FestId)
+  let totalGroupsMark = await resultHelpers.totalGroupsMark(FestDetails.FestId)
+
+  await resultHelpers.GrandWinnerGroup(FestDetails.FestId, sessionBaiseMarkList, totalGroupsMark).then((result) => {
+
+    res.render('mark/grand-winner-group', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, result })
+  })
+});
+router.get('/:FestId/result/grand-winner-student', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(FestDetails.FestId)
+  await resultHelpers.GrandWinnerStudent(FestDetails.FestId, sessionBaiseMarkList).then((result) => {
+    res.render('mark/grand-winner-student', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, result })
+  })
+});
+
+router.get('/:FestId/result/result-status', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  resultHelpers.resultFullStatus(FestDetails.FestId).then((result) => {
+    res.render('mark/result-status', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, result })
+  })
+});
+
+
+
+
+
+
+
+
+
+// Demmi
+
+router.get('/create', (req, res) => {
+  res.render('admin/create', { title: "Create admin", adminHeader: true, })
+});
+
+router.post('/create', (req, res) => {
+  adminHelpers.createAccout(req.body).then((response) => {
+    res.redirect('/fest-admin')
+  })
+});
 module.exports = router;

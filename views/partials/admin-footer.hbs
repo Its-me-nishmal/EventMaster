@@ -1,10 +1,48 @@
 <footer>
-    <div class="footer"></div>
+    <div class="container" style="padding-top: 45px;">
+        <div class="footerContent">
+            <div class="Image">
+                <div>
+                    <img src="/images/images/nsa-online.png" alt="nsa Logo">
+                </div>
+                <div class="icons">
+                    <div>
+                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-telegram"></i></a>
+                        <a href=""><i class="bi bi-twitter"></i></a>
+                        <a href=""><i class="bi bi-whatsapp"></i></a>
+
+                        <a href=""><i class="bi bi-instagram"></i></a>
+                        <a href=""><i class="bi bi-envelope-open-fill"></i></a>
+                        <a href=""><i class="bi bi-youtube"></i></i></a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="body">
+                <h2>Noorul huda Student Association (NSA)</h2>
+                <h4>Noorul huda Students Association , generally abbreviated as NSA , is a student union of Majma'a
+                    Shareeath and Arts College students. It is governed by annually elected delegates from students of
+                    the campus under the entire control of an advisory board.Our direction and ideas are led by our
+                    teachers and student members.
+                    We’re called the Students’ Union because that’s what we are; a union of students. It’s the issues
+                    that matter to students that drive us. Here, students can feel assured that their views count, their
+                    voice is strong, and together we’ll use them to make student life even better.</h4>
+            </div>
+
+        </div>
+        <div class="footerBottom">
+            <div>
+                <h4>Copyright © 2021 - <span id="currentyear"></span> NSAOnline. All Rights Reserved</h4>
+                <h4>Created by : <a style="color: rgb(236, 236, 236);" href="http://wa.me/+919567148324"
+                        target="_blank">Dreams_art</a></h4>
+            </div>
+        </div>
+    </div>
 </footer>
-<style>
-    .footer{
-        width: 100%;
-        height: 100px;
-        background-color: rgb(78, 78, 78);
-    }
-</style>
+
+<script>
+    var newDate = new Date();
+    var Year = newDate.getFullYear();
+    var span = document.getElementById('currentyear').innerHTML = Year
+</script>

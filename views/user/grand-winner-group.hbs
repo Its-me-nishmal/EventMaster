@@ -1,0 +1,185 @@
+<section>
+    <div class="group-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Grand winner (Group)</h4>
+                <hr>
+            </div>
+        </div>
+        <div>
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;" >
+                {{!-- Group --}}
+                {{#each result.Group}}
+                <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(255, 202, 242); min-width:250px"
+                        class="resultBorder">
+                        <div class="winnerTitle">
+                            <h4>Group baise</h4>
+                        </div>
+                        <div class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(184, 0, 92);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{!-- Session1 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session1.[0]}}
+                {{#each result.Session1}}
+                <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(202, 255, 213); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(0, 122, 24);" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(25, 230, 66);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(1, 114, 23);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+            {{!-- Session2 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session2.[0]}}
+                {{#each result.Session2}}
+                <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(195, 233, 255); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(0, 86, 136);" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(14, 144, 219);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(4, 66, 102);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+            {{!-- Session3 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session3.[0]}}
+                {{#each result.Session3}}
+               <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(255, 238, 202); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(136, 93, 0);" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(226, 161, 21);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(80, 55, 0);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+            {{!-- Session4 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session4.[0]}}
+                {{#each result.Session4}}
+               <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(255, 202, 211); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(134, 0, 22);" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(221, 41, 71);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(95, 0, 16);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+            {{!-- Session 5 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session5.[0]}}
+                {{#each result.Session5}}
+                <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(202, 255, 230); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(0, 128, 68)" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(44, 226, 81);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(0, 94, 50)">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+            {{!-- Session6 --}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#if result.Session6.[0]}}
+                {{#each result.Session6}}
+               <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1; background-color:rgb(234, 202, 255); min-width:250px"
+                        class="resultBorder">
+                        <div style="background-color: rgb(89, 0, 148);" class="winnerTitle">
+                            <h4>{{this.SessionName}} baise</h4>
+                        </div>
+                        <div style="background-color: rgb(154, 48, 224);" class="winnerPrice">
+                            <h1 style="color: white;">{{this.Place}}<sup>{{this.Place2}}</sup></h1>
+                        </div>
+                        <div class="winnerContent">
+                            <h1 style="color: rgb(57, 0, 95);">{{this.TotalMark}}</h1>
+                            <h2>{{this.GroupName}}</h2>
+                            <h4>ID : {{this.GroupId}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.Description}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+          
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+
+</script>

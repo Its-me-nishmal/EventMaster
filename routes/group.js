@@ -34,7 +34,7 @@ router.get('/', verifyGroupLogin, async function (req, res, next) {
   
   res.render('group/home', {
     title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, FestDetails, studentsCount,
-    allSchedules, NewNotifi_Count, letestThreeNotifications
+    allSchedules, NewNotifi_Count, letestThreeNotifications,footer:true
   })
 });
 
@@ -77,12 +77,10 @@ router.post('/login', (req, res) => {
 
 router.get('/logOut', verifyGroupLogin, (req, res) => {
   req.session.group = null
+  if(req.session.user){
+    req.session.user.GroupId = null
+  }
   res.redirect('/group/login')
-});
-
-router.get('/forgetpassword', (req, res) => {
-
-  res.render('group/login')
 });
 
 

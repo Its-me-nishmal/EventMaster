@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Product Sans'; 
+    font-family: 'Product Sans';
     font-style: normal;
     font-weight: 400;
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
@@ -10,9 +10,9 @@
 .nav {
     height: 55px;
     width: 100%;
-    background-color:var(--color-blueDark);
+    background-color: var(--color-blueDark);
     position: relative;
-    
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +21,7 @@
 }
 
 .nav-title {
-    
+
     font-family: 'Product Sans';
     font-size: 25px;
     color: #fff;
@@ -30,6 +30,7 @@
     font-weight: bold;
     letter-spacing: 2px;
 }
+
 .nav-title-logo {
     padding: 10px 10px 10px 10px;
     margin-left: 20px;
@@ -41,12 +42,13 @@
 }
 
 .nav>.nav-links {
-  
+
     float: right;
     font-size: 18px;
     margin-right: 25px;
 }
-.nav>.nav-links .NotificationCount{
+
+.nav>.nav-links .NotificationCount {
     background-color: rgb(207, 0, 0);
     color: white;
     font-size: 13px;
@@ -72,17 +74,18 @@
     border-radius: 7px;
 }
 
-.nav-links-active{
+.nav-links-active {
     color: rgb(158, 167, 255);
     border-radius: 7px;
 }
+
 .nav>#nav-check {
     display: none;
 }
 
 /* ................................ Login */
 
-.groupLogin-border{
+.groupLogin-border {
     background-color: var(--color-bluelight);
     width: 350px;
     padding-top: 30px;
@@ -94,14 +97,15 @@
     position: absolute;
     top: 55%;
     left: 50%;
-    transform: translate(-50%,-50%) ;
+    transform: translate(-50%, -50%);
     box-shadow: 0px 0px 20px 0px rgba(255, 36, 145, 0.78);
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 238, 255, 0.78);
     -moz-box-shadow: 0px 0px 20px 0px rgba(255, 36, 145, 0.78);
-   
+
 
 }
-.groupLogin-header h2{
+
+.groupLogin-header h2 {
     text-align: center;
     font-family: 'Product Sans';
     font-weight: bold;
@@ -110,37 +114,42 @@
     color: var(--color-blueDark);
 
 }
-.groupLogin-header h4{
+
+.groupLogin-header h4 {
     text-align: center;
     font-size: 17px;
 }
-.groupLogin-border hr{
+
+.groupLogin-border hr {
     border: none;
     border-top: 1.5px var(--color-blueDark) solid;
 }
 
 /* ............................................  Gorup Alert Box */
-.groupAlertHead{
+.groupAlertHead {
     display: flex;
     color: rgb(201, 1, 1);
     align-items: center;
 }
-.groupAlertHead i{
+
+.groupAlertHead i {
     margin-right: 5px;
-  
+
 }
-.groupAletCountent{
+
+.groupAletCountent {
     padding-top: 3px;
     color: rgb(117, 51, 51);
 }
-.groupAlertBorder{
-   
+
+.groupAlertBorder {
+
     width: 250px;
     padding-top: 12px;
     padding-bottom: 16px;
     padding-left: 21px;
     background-color: rgb(253, 196, 196);
-   
+
     border-left: rgb(189, 3, 3) 4px solid;
     position: absolute;
     right: -300px;
@@ -149,33 +158,38 @@
     animation-duration: 5s;
     transition: ease-in-out;
     z-index: 10;
-   
+
 }
 
 @keyframes GroupalertInOut {
     0% {
         right: -300px;
-    top: 65px;
+        top: 65px;
     }
-    30%{
+
+    30% {
 
         right: 10px;
-    top: 65px;
+        top: 65px;
     }
+
     50% {
         right: 10px;
         top: 65px;
     }
-    70%{
+
+    70% {
         right: 10px;
         top: 65px;
     }
-    100%{
+
+    100% {
         right: -300px;
-    top: 65px;
+        top: 65px;
     }
-  }
-.groupAlert-box-close-button{
+}
+
+.groupAlert-box-close-button {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -184,17 +198,18 @@
 }
 
 /* ............................ Students - all Category */
-.GroupAllCategory-header{
+.GroupAllCategory-header {
     padding-top: 10px;
 }
-.GroupAllCategory-header hr{
+
+.GroupAllCategory-header hr {
     margin-top: 2px;
     border: none;
     border-top: solid 1px var(--color-blueDark2);
 }
 
 
-.allGroupCatetory-items{
+.allGroupCatetory-items {
     background-color: lightgray;
     width: 48%;
     display: inline-flex;
@@ -209,7 +224,8 @@
     cursor: pointer;
     color: black;
 }
-.allGroupCatetory-items p{
+
+.allGroupCatetory-items p {
     background-color: var(--color-blueDark2);
     color: white;
     padding-left: 8px;
@@ -218,29 +234,32 @@
     padding-bottom: 1px;
     border-radius: 50px;
 }
+
 /* .......................... Students - All Students */
-.GroupStudentsZero{
+.GroupStudentsZero {
     background-image: url(/images/images/bg6.png);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position:bottom;
+    background-position: bottom;
     width: 100%;
     height: 84vh;
     display: flex;
     justify-content: center;
     align-items: center;
-   
+
 }
+
 /* ........................... Students -Add students */
-.AddGroupStudetns-Div{
-   
+.AddGroupStudetns-Div {
+
     width: 400px;
     position: absolute;
     left: 50%;
     top: 55%;
-    transform: translate(-50%,-50%);
-   
+    transform: translate(-50%, -50%);
+
 }
+
 .addStudetns-form {
     display: flex;
     padding-left: 20px;
@@ -248,21 +267,22 @@
     padding-top: 15px;
     align-items: center;
     margin-top: -10px;
-    
-    
+
+
 }
-.addStudetns-form :first-child{
+
+.addStudetns-form :first-child {
     width: 25%;
     height: 35px;
     padding-top: 13px;
- 
+
 }
 
-.addStudetns-form :last-child{
-    width: 75%;  
+.addStudetns-form :last-child {
+    width: 75%;
 }
 
-.addStudetns-form :last-child input{
+.addStudetns-form :last-child input {
     width: 100%;
     border: 1px solid black;
     border-radius: 50px;
@@ -272,16 +292,18 @@
     padding-right: 15px;
     font-size: 16px;
 }
-.addStudetns-form-Button{
+
+.addStudetns-form-Button {
     display: flex;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 15px;
     align-items: center;
     margin-top: -10px;
-    float:right;
+    float: right;
 }
-.addStudetns-form-Button button{
+
+.addStudetns-form-Button button {
     width: 150px;
     height: 40px;
     font-size: 16px;
@@ -293,30 +315,36 @@
     margin-top: 2px;
 
 }
-.addStudetns-form-Button button:active{
+
+.addStudetns-form-Button button:active {
     background-color: var(--color-blueDark);
 }
-.pointTable-IconDiv{
+
+.pointTable-IconDiv {
     display: flex;
     justify-content: center;
 }
-.pointTable-IconDiv>i{
+
+.pointTable-IconDiv>i {
     font-size: 65px;
     color: rgb(92, 92, 92);
-   
-    
+
+
 }
-.pointTabel-div>p{
+
+.pointTabel-div>p {
     margin-top: 10px;
     text-align: center;
 }
+
 /* .......................... Students - All Students */
-.allStudents-SessionOne{
+.allStudents-SessionOne {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
-.allStudents-SessionOne button{
+
+.allStudents-SessionOne button {
     border: none;
     padding-left: 20px;
     padding-right: 20px;
@@ -328,45 +356,55 @@
     margin-left: 8px;
     cursor: pointer;
 }
-.allStudents-SessionOne i{
+
+.allStudents-SessionOne i {
     font-size: 20px;
-    
-}
-.allStudents-SessionOne button:active{
-    background-color: rgb(2, 110, 2);
-}
-.allStudents-SessionTwo{
-    margin-top: 10px;
-    
+
 }
 
-.allStudents-SessionTwo{
+.allStudents-SessionOne button:active {
+    background-color: rgb(2, 110, 2);
+}
+
+.allStudents-SessionTwo {
+    margin-top: 10px;
+
+}
+
+.allStudents-SessionTwo {
     width: 100%;
-    overflow:auto;
+    overflow: auto;
     box-sizing: border-box;
     margin-top: 10px;
 }
-.allStudents-SessionTwo thead th{
+
+.allStudents-SessionTwo thead th {
     background-color: var(--color-tableHead);
     color: white;
 }
-.allStudents-SessionTwo tr:nth-child(even){
+
+.allStudents-SessionTwo tr:nth-child(even) {
     background-color: #dbeeff;
-   
+
 }
-.allStudents-SessionTwo td, .allStudents-SessionTwo th{
+
+.allStudents-SessionTwo td, .allStudents-SessionTwo th {
     text-align: center;
-    border: 0.5px solid #c2c2c2;;
+    border: 0.5px solid #c2c2c2;
+    ;
     padding: 8px;
 }
-.StudentsTable-TD-Control{
+
+.StudentsTable-TD-Control {
     display: flex;
     justify-content: center;
 }
-.editDisabledoption{
+
+.editDisabledoption {
     background-color: yellowgreen;
 }
-.StudentsTable-TD-Control a{
+
+.StudentsTable-TD-Control a {
     background-color: rgb(104, 103, 103);
     padding-left: 15px;
     padding-right: 15px;
@@ -376,43 +414,51 @@
     color: white;
     margin-right: 5px;
 }
-.StudentsTable-TD-Control a:active{
+
+.StudentsTable-TD-Control a:active {
     background-color: rgb(71, 71, 71);
 }
-.StudentsTable-TD-Control>a>i{
+
+.StudentsTable-TD-Control>a>i {
     font-size: 17px;
-    
+
 }
+
 /* ........................... HOme ............*/
 
-.groupProfileborder{
+.groupProfileborder {
     background-color: rgb(171, 217, 238);
     display: flex;
     margin-top: 15px;
     border-radius: 20px;
 }
-.groupProfileborder .ImageDiv{
+
+.groupProfileborder .ImageDiv {
     width: 35%;
     padding: 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
 }
-.groupProfileborder .ImageDiv img{
+
+.groupProfileborder .ImageDiv img {
     width: 100%;
     border-radius: 700px;
 }
-.groupProfileborder .Content{
-    
+
+.groupProfileborder .Content {
+
     width: 100%;
     padding: 15px;
     padding-top: 25px;
     box-sizing: border-box;
 }
-.groupProfileborder .Content .festContent{
-  margin-bottom: 20px;
+
+.groupProfileborder .Content .festContent {
+    margin-bottom: 20px;
 }
-.groupProfileborder .Content .festContentBorder{
+
+.groupProfileborder .Content .festContentBorder {
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -422,19 +468,21 @@
     display: flex;
 
 }
-.groupProfileborder .Content .festContentBorder h3{
+
+.groupProfileborder .Content .festContentBorder h3 {
     position: absolute;
     background-color: rgb(171, 217, 238);
     top: -14px;
     padding-left: 5px;
     padding-right: 5px;
-    
+
 }
-.groupProfileborder .Content .festContentBorder .header{
+
+.groupProfileborder .Content .festContentBorder .header {
     width: 30%;
 }
 
-.GroupProgrmShedulEmpty{
+.GroupProgrmShedulEmpty {
     background-color: rgb(219, 219, 219);
     width: 100%;
     height: 150px;
@@ -443,43 +491,49 @@
     padding-top: 55px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    
+
 }
 
-.NotificationScroll{
+.NotificationScroll {
     width: 100%;
     height: 35px;
     background-color: rgb(240, 240, 240);
     border-radius: 5px;
     display: flex;
     align-items: center;
-    
-    
+
+
 }
-.NotificationScroll marquee{
+
+.NotificationScroll marquee {
     display: flex;
     align-items: center;
-   
-    
+
+
 }
-.NotificationScroll img{
+
+.NotificationScroll img {
     margin-left: 10px;
-   
-    
+
+
 }
-.NotificationScroll a{
+
+.NotificationScroll a {
     color: black;
 }
-.NotificationScroll a:hover{
+
+.NotificationScroll a:hover {
     color: rgb(1, 137, 179);
     font-weight: bold;
 }
-.NotificationScroll span{
+
+.NotificationScroll span {
     margin-left: 10px;
     font-size: 22px;
     color: rgb(153, 153, 153);
 }
-.latestUpdated{
+
+.latestUpdated {
     position: absolute;
     background-color: var(--color-blueDark);
     color: white;
@@ -493,18 +547,20 @@
     border-bottom-left-radius: 5px;
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%);
 }
+
 /* Other  */
 
-.otherContentDiv{
+.otherContentDiv {
     width: 100%;
 
-     
+
 }
-.otherItems{
+
+.otherItems {
     background-color: rgb(170, 170, 170);
-    box-sizing: border-box;  
+    box-sizing: border-box;
     display: flex;
-    justify-content:space-between ;
+    justify-content: space-between;
     padding-top: 18px;
     padding-bottom: 18px;
     padding-left: 17px;
@@ -515,38 +571,46 @@
     color: black;
     align-items: center;
 }
-.otherItems p{
+
+.otherItems p {
     margin: 0;
 }
-.otherItems h4 >i{
+
+.otherItems h4>i {
     font-size: 20px;
 }
-.otherItems >i{
+
+.otherItems>i {
     color: black;
     font-size: 20px;
 }
+
 /* forget password */
-.GforgetHeader h4{
+.GforgetHeader h4 {
     text-align: center;
     color: rgb(100, 100, 100);
-    
+
 }
-.GfogetCountent{
-   
+
+.GfogetCountent {
+
     margin-top: 30px;
     padding: 10px;
-    
+
 }
-.GfogetCountent p{
+
+.GfogetCountent p {
     font-size: 15px;
     text-align: center;
-   
+
 }
-.GforgetClosebutton{
+
+.GforgetClosebutton {
     display: flex;
     justify-content: center;
 }
-.GforgetClosebutton button{
+
+.GforgetClosebutton button {
     border: none;
     font-size: 16px;
     padding-top: 6px;
@@ -559,59 +623,68 @@
     color: white;
     cursor: pointer;
 }
+
 /* NOtification */
-.GNotificationMainDiv{
+.GNotificationMainDiv {
     display: flex;
     flex-wrap: wrap;
 }
-.GNotificationMainDiv a{
-   display: flex;
-   width: 100%;
+
+.GNotificationMainDiv a {
+    display: flex;
+    width: 100%;
 }
-.GNotificationBorder{
+
+.GNotificationBorder {
     width: 100%;
     height: 65px;
-    background-color:lightgray;
+    background-color: lightgray;
     margin-top: 8px;
     border-radius: 10px;
     box-sizing: border-box;
     margin-left: 4px;
     margin-right: 4px;
-    display: flex;  
+    display: flex;
     padding: 8px;
-     overflow:hidden; 
+    overflow: hidden;
     position: relative;
 }
-.GNotificationBorder .one i{
+
+.GNotificationBorder .one i {
     color: white;
     font-size: 30px;
 
 }
-.GNotificationBorder .one{
-   display: flex;
-   justify-content: center;
-   align-items: center;
+
+.GNotificationBorder .one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
-.GNotificationBorder .IconDiv{
+
+.GNotificationBorder .IconDiv {
     background-color: rgb(66, 66, 66);
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 100%;
-    
+
 }
-.GNotificationBorder .two{
+
+.GNotificationBorder .two {
     padding-left: 10px;
     width: 100%;
 
 }
-.GNotificationBorder h4{
-   color: rgb(47, 48, 56);
+
+.GNotificationBorder h4 {
+    color: rgb(47, 48, 56);
 
 }
-.GNotificationBorder .two p{
+
+.GNotificationBorder .two p {
     margin: 0;
     margin-top: 2px;
     font-size: 14px;
@@ -619,21 +692,25 @@
     text-align: justify;
     color: rgb(39, 39, 39);
 }
-.GNotificationBorder .three{
+
+.GNotificationBorder .three {
     display: flex;
     align-items: center;
     padding-left: 12px;
-    
+
 }
-.GNotificationBorder .three i{
+
+.GNotificationBorder .three i {
     font-size: 27px;
     color: rgb(71, 71, 71);
-    cursor: pointer; 
+    cursor: pointer;
 }
+
 @keyframes showTools {
     0% {
-    right: -150px;
+        right: -150px;
     }
+
     100% {
         right: 0;
     }
@@ -652,12 +729,13 @@
     color: white;
     animation: showTools;
     animation-duration: 1s;
-   
-    
-   
+
+
+
 }
-.GNotificationBorder .messageTools div>div{
-    
+
+.GNotificationBorder .messageTools div>div {
+
     font-size: 25px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -667,67 +745,157 @@
     margin-right: 3px;
     border-radius: 100%;
     cursor: pointer;
-    
+
 }
-.GNotificationBorder .messageTools div>div .closeIcon{
-    
+
+.GNotificationBorder .messageTools div>div .closeIcon {
+
     color: rgb(63, 63, 63);
     font-size: 20px;
     cursor: pointer;
-    
+
 }
-.GNotification-all-controll{
-   display: flex;
-   justify-content: end; 
-   
+
+.GNotification-all-controll {
+    display: flex;
+    justify-content: end;
+
 }
-.GNotification-all-controll p{
-  
+
+.GNotification-all-controll p {
+
     margin: 0;
     margin-left: 15px;
     color: blue;
     text-decoration: underline;
     cursor: pointer;
 }
-.GNotificationDate{
+
+.GNotificationDate {
     position: absolute;
     right: 8px;
     top: 3px;
 }
-.GNotificationDate h5{
+
+.GNotificationDate h5 {
     color: rgb(100, 100, 100);
     margin: 0;
     font-weight: normal;
 }
-.viewGnotifi-content h3{
+
+.viewGnotifi-content h3 {
     color: rgb(3, 116, 182);
     margin-top: 15px;
 }
-.viewGnotifi-content h5{
+
+.viewGnotifi-content h5 {
     color: rgb(121, 121, 121);
     margin-top: 5px;
-    
+
 }
-.viewGnotifi-content pre{
-   margin-top: 25px;
-   text-align: justify;
-   /* text-indent: 50px; */
-   white-space: -moz-pre-wrap;
-   white-space: -pre-wrap;
-   white-space: -o-pre-wrap;
-   white-space: pre-wrap;
-   word-wrap: break-word;
+
+.viewGnotifi-content pre {
+    margin-top: 25px;
+    text-align: justify;
+    /* text-indent: 50px; */
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
-.viewGNofifi-footer{
+
+.viewGNofifi-footer {
     display: flex;
     justify-content: space-between;
 }
-.viewGNofifi-footer button{
+
+.viewGNofifi-footer button {
     height: 40px;
     background-color: var(--color-blueDark2);
     color: white;
 }
-.viewGNofifi-footer>div{
-   text-align: center;
+
+.viewGNofifi-footer>div {
+    text-align: center;
+
+}
+
+/* Footer */
+footer {
+    background-color: #313030;
+    padding: 0;
+}
+
+.footerContent {
+
+    width: 100%;
+    display: flex;
+    padding-bottom: 25px;
+    border-bottom: 1px rgb(112, 112, 112) solid;
+
+}
+
+.footerContent .Image {
+    width: 350px;
+
+
+
+}
+
+.footerContent .Image div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footerContent .Image div img {
+    width: 200px;
+    height: auto;
+}
+
+.footerContent .Image .icons {
+    display: flex;
+    justify-content: center;
+}
+
+.footerContent .Image .icons div {
+    margin-top: 6px;
+
+}
+
+.footerContent .Image .icons a {
+    color: white;
+    margin-left: 4px;
+    margin-right: 3px;
+}
+
+.footerContent .body {
+    width: 100%;
+    padding-left: 25px;
+    color: white;
+}
+
+.footerContent .body h2 {
+    margin-bottom: 12px;
+}
+
+.footerContent .body h4 {
+    font-weight: normal;
+    font-style: italic;
+    text-align: justify;
+}
+
+.footerBottom div {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+
+}
+
+.footerBottom div h4 {
+    color: rgb(148, 148, 148);
+    font-weight: normal;
+    font-style: italic;
 
 }

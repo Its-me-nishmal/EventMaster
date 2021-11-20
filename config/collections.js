@@ -7,5 +7,6 @@ module.exports={
     STUDENTS_COLLECTION:'students',
     SCHEDULES_COLLECTON: 'programe-schedules',
     NOTIFICATION_COLLECTION: 'notifications',
-    OTHER_MARK_COLLECTION: 'other-mark'
+    OTHER_MARK_COLLECTION: 'other-mark',
+    SESSION_COLLECTION : "Sessions"
 }

@@ -406,6 +406,18 @@
     border-radius: 100px;
 }
 
+.createGrop-infermathion{
+    background-color: #9ddbff;
+    padding: 10px;
+    padding-left: 15px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border: 1px #005180 solid;
+    margin-bottom: 10px;
+}
 .createGrop-infermathion span {
     color: red;
     font-size: 20px;
@@ -414,8 +426,9 @@
 
 .createGrop-infermathion p {
     word-break: break-all;
-    color: #4e4e4e;
-    margin-bottom: -15px;
+    color: #005180;
+    margin: 0;
+    
 }
 
 /* ........................................crate fest - session 3 */
@@ -629,7 +642,7 @@
 
 @keyframes festLoginPopup {
     0% {
-        top: 0%;
+        top: -25%;
     }
     100% {
         top: 50%;
@@ -1420,7 +1433,7 @@
 .fest-profile-settings-item-content {
     background-color: rgb(201, 201, 201);
     width: 100%;
-    display: inline-flex;
+    
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
@@ -1717,6 +1730,7 @@
 .forgotborder {
     background-color: #ececec;
     width: 500px;
+    max-width: 100%;
     height: auto;
     padding-top: 20px;
     padding-left: 20px;
@@ -1767,9 +1781,10 @@
 
 .forgotFooter .fotgotButtons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding-left: 15px;
     padding-right: 15px;
+  
 }
 
 .forgotFooter .fotgotButtons button {
@@ -2020,9 +2035,9 @@
     height: 200px;
     background-color: rgb(255, 255, 255);
     border-radius: 25px;
-    box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
-    -moz-box-shadow: 0px 0px 20px 0px rgba(199, 199, 199, 0.78);
+    box-shadow: 0px 0px 20px 0px rgba(156, 156, 156, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(156, 156, 156, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(156, 156, 156, 0.78);
     /* background-color: yellowgreen; */
     padding: 10px;
     box-sizing: border-box;
@@ -2068,6 +2083,7 @@
     display: flex;
     justify-content: center;
     padding-top: 5px;
+ 
 }
 
 .resultContentBoreder .graphTwoDiv {
@@ -2087,7 +2103,7 @@
     margin: 0;
     margin-top: 8px;
     font-weight: bold;
-    color: #0a9499;
+    color: rgb(0, 150, 177);
     font-size: 17px;
 }
 
@@ -2172,7 +2188,319 @@
     height: 360px;
   }
 
+.RTotalButton{
+    width: 100%;
+    margin-top: 10px;
+    background-color: rgb(224, 224, 224);
+}
+.RTotalButton:active{
+    background-color: var(--color-two);
+    color: white;
+}
+.TotalGroupsMarkDiv :nth-child(1){
+   color: #004a8f;
+   display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.TotalGroupsMarkDiv :nth-child(2){
+    color: #027c12;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.TotalGroupsMarkDiv :nth-child(3){
+    color: #c71e08;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.TotalGroupsMarkDiv :nth-child(4){
+    color: #8f008f;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.TotalGroupsMarkDiv :nth-child(5){
+    color: #00a4aa;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+.TotalGroupsMarkDiv :nth-child(6){
+    color: #8f004f;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
 
+.ResultGroupFullDiv{
+    background-color: rgba(231, 231, 231, 0.582);
+    border-radius: 13px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-width: 150px;
+   position: relative;
+   overflow: auto;
+  
+}
+.ResultGroupFullDiv>h4{
+    background-color: gray;
+    color: white;
+    font-weight: normal;
+    text-align: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin-top: -5px    ;
+    
+}
+.ResultGroupFullDiv .ResultGroupFullContent{
+    text-align: center;
+    padding-top: 5px;
+    
+
+}
+.ResultGroupFullDiv .ResultGroupFullContent>h4{
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+.ResultGroupFullDiv .ResultGroupFullContent>h4>span{
+    font-weight: bold;
+    color: #696969;
+}
+
+
+.ResultGroupFullDiv .ResultGRoupFullBottom{
+    border-top: 2px solid rgb(88, 88, 88);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius:25px ;
+    -webkit-border-radius:25px ;
+    -moz-border-radius:25px ;
+    -ms-border-radius:25px ;
+    -o-border-radius:25px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #d8d8d8;
+}
+.ResultGroupFullDiv .ResultGRoupFullBottom>h4{
+    font-weight: normal;
+    margin-right: 5px;
+}
+.ResultGroupFullDiv .ResultGRoupFullBottom>h3{
+   color: #303030;
+}
+
+.searchResultDiv{
+    background-color: rgb(228, 228, 228);
+    padding: 10px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+.searchResultDiv .searchResultHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    border-bottom: var(--color-two) solid 1px;
+    padding-bottom: 3px;
+    
+}
+.searchResultDiv .searchResultHeader p{
+    margin: 0;
+    background-color: var(--color-one);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    cursor: pointer;
+}
+.searchResultDiv .noSuchResult{
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.searchResultDiv .noSuchResult h2{
+    color: rgb(104, 104, 104);
+    text-align: center;
+}
+.aaaa{
+    background-color: yellowgreen;
+}
+
+ .searchResultOne{
+    background-color: rgb(206, 206, 206);
+    padding: 10px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin-top: 8px;
+}
+ .searchResultOne .header {
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(46, 46, 46);
+}
+ .searchResultOne .header h4{
+    font-weight: normal;
+    font-style: italic;
+    color: rgb(70, 70, 70);
+}
+ .searchResultOne .Bottom h4{
+    margin-top: 3px;
+    font-weight: 500;
+    color: var(--color-one)
+}
+
+.searchIcon-resultPage{  
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    background-color: var(--color-two);
+    color: white;
+}
+/* Grade Marking */
+.P1st{
+    background-color: green;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: white;
+}
+
+.P2nd{
+    background-color: rgb(199, 47, 1);
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: rgb(255, 255, 255);
+}
+.P3rd{
+    background-color: rgb(104, 104, 104);
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: rgb(255, 255, 255);
+}
+.A{
+    background-color: green;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: white;
+}
+.B{
+    background-color: rgb(199, 47, 1);
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: rgb(255, 255, 255);
+}
+.C{
+    background-color: rgb(104, 104, 104);
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 55px;
+    -webkit-border-radius: 55px;
+    -moz-border-radius: 55px;
+    -ms-border-radius: 55px;
+    -o-border-radius: 55px;
+    color: rgb(255, 255, 255);
+}
+
+
+.winnerTitle{
+    background-color: #ce007f;
+    position: absolute;
+    color: white;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    width: 100%;
+    text-align: end;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+}
+
+.winnerPrice{
+    background-color: rgb(250, 65, 210);
+    position: absolute;
+    padding: 18px;
+   
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    top: -30px;
+    box-shadow: 0px 0px 20px 0px rgba(141, 141, 141, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(141, 141, 141, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0pxrgba(141, 141, 141, 0.78);
+}
+.winnerContent{
+    margin-top: 50px;
+    text-align: center;
+}
+.winnerContent h2{
+    margin-bottom: 5px;
+}
+.winnerContent h4{
+    margin-bottom: 5px;
+}
+.winnerContent h1{
+    margin-bottom: 10px;
+}
 /* Scroll bar in Result page */
 
 /* width */
@@ -2199,4 +2527,91 @@
 
 .scrollbar-result::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.loading{
+    background-color: rgb(180, 0, 0);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fest - Home page */
+
+.alert-fest-home .alert{
+    background-color: rgb(253, 234, 199);
+    display: flex;
+    align-items: center;
+    border-top: 1px orange solid;
+    border-bottom: 1px orange solid;
+    margin-top: 4px;
+    padding: 5px;
+    padding-left: 10px;
+    
+    
+}
+.alert-fest-home .alert h4{
+    margin: 0;
+    font-weight: normal;
+    margin-left: 10px;
+    color: rgb(175, 114, 0);
+}
+.alert-fest-home .alert i{
+    color: rgb(175, 114, 0);
+}
+
+.status-fest-home{
+    display:flex;
+    flex-wrap: wrap;
+    
+}
+.status-fest-home .boarder{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.status-fest-home .boarder button{
+    color: var(--color-add);
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    border: 1px var(--color-add) solid;
+    background-color: rgb(185, 252, 191);
+        
+}
+.status-fest-home .boarder h4{
+    font-weight: normal;
+}
+.content-fest-home{
+    display:flex;
+    flex-wrap: wrap;
+}
+.content-fest-home .fest-content-div .count {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    color: white;
+}
+.content-fest-home .fest-content-div .count i{
+    margin-left: 10px;
+    opacity: .3;
+}
+.content-fest-home .fest-content-div .content{
+    border-top: white 1px solid;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    color: white;
+ 
+    
+}
+.content-fest-home .fest-content-div .content h4{
+    font-weight: normal;
+    
 }

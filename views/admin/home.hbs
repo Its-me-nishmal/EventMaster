@@ -13,7 +13,8 @@
                             onerror="this.onerror=null;callfun(this);" alt="fest-logo">
                         <div class="adminHome-section-one-discription">
                             <h4>{{this.FestName}}</h4>
-                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span></p>
+                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
+                            </p>
 
 
                         </div>
@@ -63,7 +64,8 @@
                             onerror="this.onerror=null;callfun(this);" alt="fest-logo">
                         <div class="adminHome-section-one-discription">
                             <h4>{{this.FestName}}</h4>
-                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span></p>
+                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -77,14 +79,15 @@
             </div>
         </div>
     </div>
-   
+
 
     {{!-- <div id="pre-loader"></div> --}}
-    {{!-- <script>
+    {{!--
+    <script>
         var loader = document.getElementById("pre-loader");
-        window.addEventListener("load",function(){
+        window.addEventListener("load", function () {
             loader.style.display = 'none'
-          
+
         })
     </script> --}}
 </section>
@@ -116,11 +119,12 @@
         const a1 = document.getElementById('adminHome-section-one-Fest')
         const forget = document.createElement("a");
         var loginFestId = parseInt(loginFest)
-        
+
         if (FestId == loginFest) {
             location.href = "/fest-admin/" + FestId + "/home";
 
         } else {
+            mainDiv.innerHTML = null
             borderDiv.className = "festLoginPopupDiv";
             ImageDiv.className = "admin-login-header";
             Image.className = "admin-login-union-logo";
@@ -145,9 +149,9 @@
             button.type = "submit";
             button.innerHTML = "Login";
             CloseIcon.className = "bi bi-x-lg festLogin-closeIcon"
-            forget.innerHTML ="Forgot password ?"
-            forget.className ='festForgetClass'
-            forget.href = "/fest-admin/fest-forgot-password/45554"+FestId+"/5485454"
+            forget.innerHTML = "Forgot password ?"
+            forget.className = 'festForgetClass'
+            forget.href = "/fest-admin/fest-forgot-password/45554" + FestId + "/5485454"
             i.onclick = function () {
                 var x = document.getElementById("Password");
                 var i = document.getElementById("Icon");
@@ -202,3 +206,25 @@
     }
 </script>
 
+<script>
+    function toIsoString(date) {
+        var tzo = -date.getTimezoneOffset(),
+            dif = tzo >= 0 ? '+' : '-',
+            pad = function (num) {
+                var norm = Math.floor(Math.abs(num));
+                return (norm < 10 ? '0' : '') + norm;
+            };
+
+        return date.getFullYear() +
+            '-' + pad(date.getMonth() + 1) +
+            '-' + pad(date.getDate()) +
+            'T' + pad(date.getHours()) +
+            ':' + pad(date.getMinutes()) +
+            ':' + pad(date.getSeconds()) +
+            dif + pad(tzo / 60) +
+            ':' + pad(tzo % 60);
+    }
+
+    var dt = new Date();
+    console.log(toIsoString(dt));
+</script>

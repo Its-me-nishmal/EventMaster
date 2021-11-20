@@ -1,0 +1,43 @@
+<section>
+    <div class="group-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Student baise result / {{GroupDetails.GroupName}} /
+                    {{SessionName}}</h4>
+                <hr>
+            </div>
+            <div class="groups-content">
+                <div class="allCategory-content">
+                    {{#if AllStudents.[0]}}
+                    {{#each AllStudents}}
+
+                    <a id="mainDiv"
+                        href="/{{../userDetails.FestId}}/result/student-baise/{{../GroupDetails.GroupId}}/{{this.SessionName}}/Students/{{this.ChestNo}}">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.ChestNo}} - {{this.FullName}} <span
+                                    style="font-weight: normal; font-style:italic; color:rgb(46, 46, 46); font-size:13px">
+                                    ( CIC no : {{this.CicNo}} )</span></h4>
+                            <p style="background-color: var(--color-green-one);"><i class="bi bi-arrow-right"></i></p>
+                        </div>
+                    </a>
+
+                    {{/each}}
+                    {{else}}
+                     <div class="pointTable-nodataDiv">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-emoji-frown"></i>
+                        </div>
+                        <p>Students not available...</p>
+                      
+                    </div>
+                </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
