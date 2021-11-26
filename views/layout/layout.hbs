@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
+  <title >{{title}}</title>
   <link rel="icon" href="/images/images/nsa-icon.png" type="png/jpg" sizes="16*16">
   <link rel='stylesheet' href='/stylesheets/admin/style.css' />
   <link rel='stylesheet' href='/stylesheets/admin/media.css' />
@@ -33,13 +33,18 @@
     Android = new RegExp('(\\w*' + Android + '\\w*)', 'gi');
     let ios = "iphone"
     ios = new RegExp('(\\w*' + ios + '\\w*)', 'gi');
-
+    var pho = document.getElementById('hi')
     var AndroidMobile = platform.description.match(Android);
     var iphone = platform.description.match(ios);
     if (AndroidMobile) {
       document.getElementById('mobile').href = "/stylesheets/group/media-mobile.css";
+     
     } else if (iphone) {
       document.getElementById('mobile').href = "/stylesheets/group/media-mobile.css";
+     
+    }else{
+      
+      
     }
 
   </script>

@@ -38,6 +38,7 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
   var allFestZero = allFest == true
   var LoginFest = req.session.fest
 
+ 
 
   if (req.session.festLoginErr) {
     res.render('admin/home', {
@@ -86,83 +87,83 @@ router.post('/settings/change-password', verifyAdminLogin, (req, res) => {
   })
 });
 
-router.get('/create-new-account-for-admin',(req,res)=>{
+router.get('/create-new-account-for-admin', (req, res) => {
   res.render('admin/create-account')
-  });
+});
 
-router.post('/create-new-account-for-admin',(req,res)=>{
-  adminHelpers.createAccout(req.body).then(()=>{
+router.post('/create-new-account-for-admin', (req, res) => {
+  adminHelpers.createAccout(req.body).then(() => {
     res.redirect('/fest-admin')
   })
-  });
+});
 
 
 
 router.get('/forgot-password', (req, res) => {
-  if(req.session.Error){
+  if (req.session.Error) {
     res.render('admin/forgot-password', { "loginErr": req.session.Error, title: 'Admin login', adminHeader: true })
     req.session.Error = false
-  }else{
-    res.render('admin/forgot-password', {  title: 'Admin login', adminHeader: true })
+  } else {
+    res.render('admin/forgot-password', { title: 'Admin login', adminHeader: true })
   }
 })
 
 
 router.post('/forgot-password', (req, res) => {
   adminHelpers.sendOtpMail(req.body).then((response) => {
-    if(response.EmailErr){
+    if (response.EmailErr) {
       req.session.Error = "Invalid e-mail address"
       res.redirect('/fest-admin/forgot-password')
-    }else if(response){
-      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId)
+    } else if (response) {
+      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId)
     }
     res.redirect('/')
   })
 })
 
-router.get('/forgot-password/otp/:EmailId',(req,res)=>{
+router.get('/forgot-password/otp/:EmailId', (req, res) => {
   let EmailId = req.params.EmailId
-  if(req.session.Error){
-    res.render('admin/otp', {title: 'Admin login', adminHeader: true,EmailId,"loginErr":req.session.Error})
-    req.session.Error =false
-  }else[
-    res.render('admin/otp', {title: 'Admin login', adminHeader: true,EmailId, })
+  if (req.session.Error) {
+    res.render('admin/otp', { title: 'Admin login', adminHeader: true, EmailId, "loginErr": req.session.Error })
+    req.session.Error = false
+  } else[
+    res.render('admin/otp', { title: 'Admin login', adminHeader: true, EmailId, })
 
   ]
 });
 
-router.post('/forgot-password/otp/:EmailId',(req,res)=>{
+router.post('/forgot-password/otp/:EmailId', (req, res) => {
   let EmailId = req.params.EmailId
-  adminHelpers.checkOTP(req.body).then((result)=>{
-    if(result.Error){
+  adminHelpers.checkOTP(req.body).then((result) => {
+    if (result.Error) {
       req.session.Error = "OTP not match"
-      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId)
-    }else{
-      res.redirect('/fest-admin/forgot-password/otp/'+req.body.EmailId+"/"+req.body.otp)
+      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId)
+    } else {
+      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId + "/" + req.body.otp)
     }
   })
 });
 
-router.get('/forgot-password/otp/:EmailId/:otp',(req,res)=>{
+router.get('/forgot-password/otp/:EmailId/:otp', (req, res) => {
   let EmailId = req.params.EmailId
   let otp = req.params.otp
-  let body ={
-    EmailId ,
+  let body = {
+    EmailId,
     otp
   }
-  adminHelpers.checkOTP(body).then((result)=>{
-    if(result.Error){
+  adminHelpers.checkOTP(body).then((result) => {
+    if (result.Error) {
       req.session.Error = "OTP not match"
       res.redirect('/fest-admin/login')
-    }else{
-      res.render('admin/new-password',{title: 'Admin login', adminHeader: true,EmailId})
+    } else {
+      res.render('admin/new-password', { title: 'Admin login', adminHeader: true, EmailId })
     }
   })
 
 });
 
-router.post('/settings/new-password',(req,res)=>{
-  adminHelpers.newadminPassword(req.body).then((response)=>{
+router.post('/settings/new-password', (req, res) => {
+  adminHelpers.newadminPassword(req.body).then((response) => {
     req.session.Success = "Password Changed"
     res.redirect('/fest-admin/login')
   })
@@ -309,6 +310,7 @@ router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, async (req, res) 
     PointCategory.count = 0
   }
   let sessionactive = await festHelpers.sessionActiveDetails(FestDetails.FestId)
+  console.log(sessionactive);
   let StatusUserResult = await festHelpers.StatusUserResult(FestDetails.FestId)
   let totalStudentsDetails = await festHelpers.totalStudentsDetails(FestDetails.FestId)
   let EventDetails = await festHelpers.AlleventDetails(FestDetails.FestId)

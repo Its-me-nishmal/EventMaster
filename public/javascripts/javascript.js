@@ -5,3 +5,4 @@ function callfun(obj) {
     obj.src = noimg;
 }
 
+

@@ -22,8 +22,10 @@
                                         id="profileview" onerror="this.onerror=null;callfun(this);">
                                     <input type="file" name="profile" id="profile" onchange="viewImage(event)"
                                         accept="image/jpg, image/jpeg" required>
-                                    <button style="display: none;" id="uploadButton" type="submit"><i
-                                            class="bi bi-upload"></i> Upload</button>
+                                    <button onclick="uploading()" style="display: none;" id="uploadButton"
+                                        type="submit"><i class="bi bi-upload"></i> Upload</button>
+
+                                <p style="font-size: 12px; text-align:center;">Photo must be 400 x 400 px in size <br>and less than 500 KB</p>
                                 </form>
                             </div>
 
@@ -53,7 +55,7 @@
                                                 required>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
-                                            <label for="">Fest Date</label>
+                                            <label for="">Fest Date <small style="margin-left: 10px; font-style:italic; color:rgb(80, 79, 79);">Old : {{FestDetails.FestDate}}</small></label>
                                             <input type="date" name="FestDate" value="{{ FestFullDetails.FestDate}}"
                                                 required>
                                         </div>
@@ -201,11 +203,13 @@
                                 <div class="controlpanel-session-content">
                                     <div style="border-color: gray;" class="cotrolpanel-items">
                                         <div>
-                                            <label for=""> Status of Fest 
+                                            <label for=""> Status of Fest
                                                 {{#if FestFullDetails.festStatus}}
-                                                <span style="font-style:italic; color:rgb(0, 107, 41);">(Complited)</span>
+                                                <span
+                                                    style="font-style:italic; color:rgb(0, 107, 41);">(Complited)</span>
                                                 {{else}}
-                                                <span style="font-style:italic; color:rgb(0, 63, 145);">(Renning...)</span>
+                                                <span
+                                                    style="font-style:italic; color:rgb(0, 63, 145);">(Renning...)</span>
                                                 {{/if}}
                                             </label>
                                             <small
@@ -224,9 +228,9 @@
                                         <label for=""> Exit from fest
                                         </label>
                                         <div class="Students-setting-Input-Event">
-                                            <a
-                                                href="/fest-admin/{{FestDetails.FestId}}/logout">
-                                                <button style="background-color: var(--color-delete);"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                            <a href="/fest-admin/{{FestDetails.FestId}}/logout">
+                                                <button style="background-color: var(--color-delete);"><i
+                                                        class="bi bi-box-arrow-right"></i> Logout</button>
                                             </a>
                                         </div>
                                     </div>
@@ -560,3 +564,11 @@
         /* Display the counter */
     }
 </style>
+
+{{!-- Uploading --}}
+<script>
+    function uploading() {
+        let button = document.getElementById("uploadButton")
+        button.innerHTML = "Uploading..."
+    }
+</script>

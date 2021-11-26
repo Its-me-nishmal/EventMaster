@@ -12,7 +12,7 @@
     width: 100%;
     background-color: var(--color-blueDark);
     position: relative;
-
+    
     display: flex;
     justify-content: space-between;
     align-items: center;

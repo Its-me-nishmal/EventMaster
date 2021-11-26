@@ -2,7 +2,7 @@
     <div id="sidebar" class="sidebarborder">
         <div class="sidebarheader">
             <div class="sidebarheaderlogoDiv">
-            <img class="sidebarheaderLogo" src="/images/fest-logo/{{FestDetails.FestId}}.jpg"  onerror="this.onerror=null;callfun(this);" alt="fest-logo">
+            <img class="sidebarheaderLogo" style="height: 110px;" src="/images/fest-logo/{{FestDetails.FestId}}.jpg"  onerror="this.onerror=null;callfun(this);" alt="fest-logo">
             </div>
             <h3 class="sidebarheader-festName">{{FestDetails.FestName}}</h3>
             <p class="sidebarheader-festID">FestID : {{FestDetails.FestId}}</p>
@@ -29,7 +29,7 @@
 
 <script>
     function closeButton(){
-            var sidebar = document.getElementById('sidebar')
+        var sidebar = document.getElementById('sidebar')
         var festHeader = document.getElementById('festHeader')
         var closeButton = document.getElementById('closeIcon')
         

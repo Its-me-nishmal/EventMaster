@@ -211,7 +211,11 @@
     padding-right: 15px;
     transition: ease-in-out 0.6s;
     margin-left: 0;
+    z-index: 4;
+    overflow-y: auto;
   }
+  
+
   .sidebarheaderCloseIcon-onClick-menu {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -261,6 +265,9 @@
   .create-fest-button-border {
     background-color: var(--color-one);
   }
+  /* .fest-container {
+   display: none;
+  } */
   /* result */
   .fivteen {
     width: 100%;
@@ -294,6 +301,7 @@
   .sidebarborder {
     margin-left: -230px;
     transition: ease-in-out 0.6s;
+    
   }
   .sidebarMenueButton {
     display: block;
@@ -315,6 +323,7 @@
     padding-right: 15px;
     transition: ease-in-out 0.6s;
     margin-left: 0;
+    
   }
   .sidebarheaderCloseIcon-onClick-menu {
     font-size: 22px;

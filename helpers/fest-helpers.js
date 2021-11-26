@@ -47,7 +47,7 @@ module.exports = {
     sessionOneStore: (sessionOneDetails) => {
         var FestId = sessionOneDetails.FestId
         var CreatedDate = new Date()
-        
+
         sessionOneDetails.CreatedDate = CreatedDate
         sessionOneDetails.NumberGroups = parseInt(sessionOneDetails.NumberGroups)
         sessionOneDetails.NumberSessions = parseInt(sessionOneDetails.NumberSessions)
@@ -56,12 +56,12 @@ module.exports = {
         var GroupCount = sessionOneDetails.NumberGroups
 
         let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        Year = parseInt(sessionOneDetails.FestDate.slice(0, 4))
-        Month = parseInt(sessionOneDetails.FestDate.slice(5, 7)) 
-        Day = parseInt(sessionOneDetails.FestDate.slice(8, 10))
-        console.log(monthNames[0],"hi",monthNames[Month]);
-        sessionOneDetails.FestDate = Day + " - " + monthNames[Month] + " - " + Year
-       
+        let Year = parseInt(sessionOneDetails.FestDate.slice(0, 4))
+        let Month = parseInt(sessionOneDetails.FestDate.slice(5, 7))
+        let Day = parseInt(sessionOneDetails.FestDate.slice(8, 10))
+            
+        sessionOneDetails.FestDate = Day + " - " + monthNames[Month - 1] + " - " + Year
+
         return new Promise(async (resolve, reject) => {
 
             sessionOneDetails.Password = await bcrypt.hash(sessionOneDetails.Password, 10),
@@ -1235,12 +1235,13 @@ module.exports = {
             if (month < 10) {
                 month = '0' + month;
             }
+            MessageDate = MessageDate.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
             let onlyDate = dt + "-" + month + "-" + year
-            var time = MessageDate.toLocaleTimeString();
+            // var time = MessageDate.toLocaleTimeString();
 
-            MessageDate = onlyDate + ", " + time
+            // MessageDate = onlyDate + ", " + time
 
-            create_random_id(10)
+            create_random_id(10) 
             function create_random_id(sting_length) {
                 var randomString = '';
                 var numbers = '123456789qwertyuipasdfghjklzxcvbnmMNBVCXZLKJHGFDSAPIUYTREWQ'
@@ -1323,9 +1324,10 @@ module.exports = {
                 month = '0' + month;
             }
             let onlyDate = dt + "-" + month + "-" + year
-            var time = MessageDate.toLocaleTimeString();
+            MessageDate = MessageDate.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
+            // var time = MessageDate.toLocaleTimeString();
 
-            MessageDate = onlyDate + ", " + time
+            // MessageDate = onlyDate + ", " + time
 
             create_random_id(10)
             function create_random_id(sting_length) {
@@ -1411,10 +1413,11 @@ module.exports = {
                 month = '0' + month;
             }
             let onlyDate = dt + "-" + month + "-" + year
-            var time = MessageDate.toLocaleTimeString();
+            MessageDate = MessageDate.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
+            // var time = MessageDate.toLocaleTimeString();
 
-            MessageDate = onlyDate + ", " + time
-
+            // MessageDate = onlyDate + ", " + time
+            
             create_random_id(10)
             function create_random_id(sting_length) {
                 var randomString = '';
@@ -1642,6 +1645,12 @@ module.exports = {
     editFestDetails: (body) => {
 
         return new Promise((resolve, reject) => {
+            let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let Year = parseInt(body.FestDate.slice(0, 4))
+            let Month = parseInt(body.FestDate.slice(5, 7))
+            let Day = parseInt(body.FestDate.slice(8, 10))
+                
+            body.FestDate = Day + " - " + monthNames[Month - 1] + " - " + Year
             db.get().collection(collection.FEST_COLLECTION).updateOne({ FestId: body.FestId }, {
                 $set: {
                     FestName: body.FestName,
@@ -2121,9 +2130,10 @@ module.exports = {
                     month = '0' + month;
                 }
                 let onlyDate = dt + "-" + month + "-" + year
-                var time = MessageDate.toLocaleTimeString();
+                MessageDate = MessageDate.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
+                // var time = MessageDate.toLocaleTimeString();
 
-                MessageDate = onlyDate + ", " + time
+                // MessageDate = onlyDate + ", " + time
 
                 create_random_id(10)
                 function create_random_id(sting_length) {
@@ -2138,8 +2148,8 @@ module.exports = {
                     $push: {
                         Notifications: {
                             MessageId: MessageId,
-                            Header: "New program schedule added",
-                            Message: "'" + body.title + "' program schedule added on " + onlyDate,
+                            Header: "New file uploaded",
+                            Message: "'" + body.title + "' file uploaded on " + onlyDate,
                             Link: "/group",
                             MessageDate: MessageDate,
                             Type: "Notific_Auto",
@@ -2175,7 +2185,6 @@ module.exports = {
     sendMessage: (body, FestId) => {
         return new Promise(async (resolve, reject) => {
             let MessageDate = new Date()
-           
             let year = MessageDate.getFullYear();
             let month = MessageDate.getMonth() + 1;
             let dt = MessageDate.getDate();
@@ -2186,9 +2195,10 @@ module.exports = {
                 month = '0' + month;
             }
             var onlyDate = dt + "-" + month + "-" + year
-            var time = MessageDate.toLocaleTimeString();
+            MessageDate = MessageDate.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
+            // var time = MessageDate.toLocaleTimeString();
 
-            MessageDate = onlyDate + ", " + time
+            // MessageDate = onlyDate + ", " + time
 
             create_random_id(10)
             function create_random_id(sting_length) {

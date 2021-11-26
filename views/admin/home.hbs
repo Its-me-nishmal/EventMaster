@@ -12,12 +12,13 @@
                         <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
                             onerror="this.onerror=null;callfun(this);" alt="fest-logo">
                         <div class="adminHome-section-one-discription">
-                            <h4>{{this.FestName}}</h4>
+                            <h4>{{this.FestName}}{{#if this.festStatus}} <i style=" color: rgb(0, 146, 0);" title="Fest Completed" class="bi bi-patch-check-fill"></i>{{/if}} </h4>
                             <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
                             </p>
 
 
                         </div>
+                       
                     </div>
 
                 </div>
@@ -45,8 +46,8 @@
                 <div class="alert-box-content">
                     <h5>{{festLoginErr}}</h5>
                 </div>
-                {{!-- <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio> --}}
-                <audio autoplay hidden src="/audio/alert/incurrenct.mp3"></audio>
+              
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
             </div>
         </div>
         {{/if}}
@@ -63,10 +64,11 @@
                         <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
                             onerror="this.onerror=null;callfun(this);" alt="fest-logo">
                         <div class="adminHome-section-one-discription">
-                            <h4>{{this.FestName}}</h4>
+                            <h4>{{this.FestName}} {{#if this.festStatus}} <i style=" color: rgb(0, 146, 0);" title="Fest Completed" class="bi bi-patch-check-fill"></i>{{/if}}</h4>
                             <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
                             </p>
                         </div>
+                         
                     </div>
                 </div>
                 {{/each}}
@@ -226,5 +228,5 @@
     }
 
     var dt = new Date();
-    console.log(toIsoString(dt));
+    
 </script>

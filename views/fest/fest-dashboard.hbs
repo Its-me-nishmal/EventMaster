@@ -1,5 +1,5 @@
 <section>
-    <div class="fest-container">
+    <div id="fest-container" class="fest-container">
         <div class="fest-home">
             {{!-- Alert --}}
             {{#if PointCategory.status}}
@@ -54,7 +54,9 @@
                                 {{#if StatusUserResult.user}}
                                 <button style=" " class="button">ON</button>
                                 {{else}}
-                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">OFF</button>
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">OFF</button>
                                 {{/if}}
                             </div>
                         </div>
@@ -69,7 +71,9 @@
                                 {{#if StatusUserResult.result}}
                                 <button style="" class="button">ON</button>
                                 {{else}}
-                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">OFF</button>
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">OFF</button>
                                 {{/if}}
                             </div>
                         </div>
@@ -85,7 +89,9 @@
                                 {{#if this.Session}}
                                 <button style="" class="button">Active</button>
                                 {{else}}
-                                <button style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)" class="button">Deactive</button>
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">Deactive</button>
                                 {{/if}}
                             </div>
                         </div>
@@ -99,9 +105,11 @@
                             <div class="boarder">
                                 <h4>Status of Fest</h4>
                                 {{#if FestFullDetails.festStatus}}
-                                <button style="" class="button">YES</button>
+                                <button style="" class="button">Complete</button>
                                 {{else}}
-                                <button style="color: rgb(0, 124, 161); background-color:rgb(205, 243, 255); border-color:rgb(0, 124, 161);" class="button">Renning</button>
+                                <button
+                                    style="color: rgb(0, 124, 161); background-color:rgb(205, 243, 255); border-color:rgb(0, 124, 161);"
+                                    class="button">Renning</button>
                                 {{/if}}
                             </div>
                         </div>
@@ -209,55 +217,65 @@
                     </div>
                 </div>
                 <div class="Twenty-five" style="cursor: pointer;">
-                    <a href="">
-                    <div class="resultBorder"
-                        style="height: auto; box-shadow: none; background-color: rgb(80, 82, 83); border-radius:10px;">
-                        <div class="fest-content-div">
-                            <div class="count">
-                                <h1>{{totalStudentsDetails.StudnetWithOutCount}}<i class="bi bi-folder-x"></i></h1>
-                            </div>
-                            <div class="content">
-                                <h4>Student without program</h4>
+                    <a href="/fest-admin/{{FestDetails.FestId}}/student/student-without-program">
+                        <div class="resultBorder"
+                            style="height: auto; box-shadow: none; background-color: rgb(80, 82, 83); border-radius:10px;">
+                            <div class="fest-content-div">
+                                <div class="count">
+                                    <h1>{{totalStudentsDetails.StudnetWithOutCount}}<i class="bi bi-folder-x"></i></h1>
+                                </div>
+                                <div class="content">
+                                    <h4>Student without program</h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </a>
                 </div>
-
             </div>
-
-
-
-
-
         </div>
+        <div style="display: none;" id="notAllow" class="pointTable-nodataDiv">
+            <div class="pointTabel-div">
+                <div class="pointTable-IconDiv">
 
-        {{!-- <div class="Twenty-five">
-            <div class="resultBorder" style="height: auto;">
-                <a href="/{{userDetails.FestId}}/result/event-baise">
-                    <div class="resultContentBoreder">
-                        <div class="headdingmodel">
-                            <h4><i class="bi bi-pie-chart-fill"></i> Event baise result</h4>
-                            <i class="bi bi-chevron-right"></i>
-                        </div>
-                    </div>
-                </a>
+                     <i class="bi bi-phone"></i>
+                </div>
+               
+                <p >Not Allow Mobile</p>
+               
             </div>
-        </div> --}}
-
-
-
-
-
+        </div>
+       
     </div>
 
 </section>
 
-{{!-- <a href="/fest-admin/{{FestDetails.FestId}}/logout">
-    <button>logout</button>
-</a> --}}
-
 <script>
     var current = document.getElementById('home').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+
+{{!-- Device found --}}
+
+<script>
+
+    var container  = document.getElementById('fest-container')
+    var notAllow  = document.getElementById('notAllow')
+
+    let Androids = "Android"
+    Androids = new RegExp('(\\w*' + Androids + '\\w*)', 'gi');
+    let ioss = "iphone"
+    ioss = new RegExp('(\\w*' + ioss + '\\w*)', 'gi');
+
+    var AndroidMobile = platform.description.match(Androids);
+    var iphone = platform.description.match(ioss);
+    if (AndroidMobile) {
+          container.innerHTML = null
+          container.appendChild(notAllow)
+    } else if (iphone) {
+          container.innerHTML = null
+          container.appendChild(notAllow)
+    } 
+
 
 </script>

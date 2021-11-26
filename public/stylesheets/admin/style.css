@@ -104,6 +104,7 @@
 
 .admin-login-union-logo {
     width: 160px;
+    height: 35px;
 }
 
 .admin-login-header {
@@ -542,6 +543,7 @@
 
 /* ................................... Home page */
 
+
 .adminHome-section-one {
     padding-top: 20px;
 }
@@ -566,6 +568,8 @@
     position: relative;
 }
 
+
+
 .adminHome-section-one-Div-main {
     box-sizing: border-box;
     overflow: hidden;
@@ -584,6 +588,7 @@
 .adminHome-section-one-Div-main:active {
     background-color: rgb(248, 166, 193);
 }
+
 
 .adminHome-section-one-Image {
     width: 100%;
@@ -780,7 +785,25 @@
     border-radius: 20px;
     border-right: 2px solid var(--color-four);
 }
-
+/* onclick side bar */
+.sidebarboarder-onClick-menu::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgb(255, 219, 236);
+  }
+  
+  /* Track */
+  
+  .sidebarboarder-onClick-menu::-webkit-scrollbar-track {
+    background-color: var(--color-four);
+  }
+  
+  /* Handle */
+  
+  .sidebarboarder-onClick-menu::-webkit-scrollbar-thumb {
+    background: rgb(255, 115, 169);
+    border-radius: 20px;
+    border-right: 2px solid var(--color-four);
+  }
 .sidebarheader {
     padding-top: 65px;
     position: relative;
@@ -2631,6 +2654,7 @@
 }
 .errorPage .Image img{
    width: 300px;
+   height: 230px;
 }
 .errorPage .conternt{
     display: flex;

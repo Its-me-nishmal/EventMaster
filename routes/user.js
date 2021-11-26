@@ -7,14 +7,14 @@ const markHelpers = require('../helpers/mark-helpers')
 const resultHelpers = require('../helpers/result-helpers')
 
 
-const verifyActiveFest = async(req, res, next) => {
+const verifyActiveFest = async (req, res, next) => {
   let activeFest = await userHelpers.activeFest()
   let activeResult = await userHelpers.activeResult()
   if (activeFest) {
     if (activeResult) {
-      if(req.session.user.FestId == activeFest.FestId){
+      if (req.session.user.FestId == activeFest.FestId) {
         next()
-      }else{
+      } else {
         res.redirect('/')
       }
     } else {
@@ -23,41 +23,41 @@ const verifyActiveFest = async(req, res, next) => {
   } else {
     res.redirect('/')
   }
-  
+
 };
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   let activeFest = await userHelpers.activeFest()
   let activeResult = await userHelpers.activeResult()
+  req.session.user = activeFest
   let userDetails = req.session.user
 
 
-
   if (activeFest) {
-    if(req.session.group === null){
-    }else{
+    if (req.session.group == null) {
+    } else {
       req.session.user.GroupId = req.session.group.GroupId
     }
 
     if (activeResult) {
-      req.session.user = activeFest
+
       res.redirect("/" + req.session.user.FestId + '/result')
     } else {
       let activeFestGroups = await festHelpers.getAllGroups(activeFest.FestId)
-      res.render('user/home', { title: userDetails.FestName, activeFest, activeFestGroups,userDetails,footer:true });
+      res.render('user/home', { title: userDetails.FestName, activeFest, activeFestGroups, userDetails, footer: true });
     }
   } else {
-    res.render('user/home', { title: userDetails.FestName,userDetails,footer:true });
+    res.render('user/home', { title: "NSA Online", userDetails, footer: true });
   }
 });
 
-router.get('/:FestId/result',verifyActiveFest, async(req, res) => {
+router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
   let userDetails = req.session.user
   let TotalEventsCount = await resultHelpers.TotalEventCount(userDetails.FestId)
   let PublisedResultCount = await resultHelpers.PublisedResultCount(userDetails.FestId)
   let PendingResultCount = TotalEventsCount - PublisedResultCount
   let PercentageTotalResultPublised = (PublisedResultCount / TotalEventsCount) * 100
-  
+
   // cut after dot
   var a = PercentageTotalResultPublised.toString()
   if (a === "NaN") {
@@ -72,14 +72,16 @@ router.get('/:FestId/result',verifyActiveFest, async(req, res) => {
   let totalGroupsMark = await resultHelpers.totalGroupsMark(userDetails.FestId)
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
 
-  res.render('user/result-home', { title: 'NSA Online', userDetails, TotalEventsCount, PublisedResultCount,
-  PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList,footer:true });
+  res.render('user/result-home', {
+    title: 'NSA Online', userDetails, TotalEventsCount, PublisedResultCount,
+    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, footer: true
+  });
 });
 
-router.get('/:FestId/result/result-status',verifyActiveFest,(req,res)=>{
+router.get('/:FestId/result/result-status', verifyActiveFest, (req, res) => {
   let userDetails = req.session.user
-  resultHelpers.resultFullStatus(userDetails.FestId).then((result)=>{
-    res.render('user/result-status',{title: 'NSA Online', userDetails,result  })
+  resultHelpers.resultFullStatus(userDetails.FestId).then((result) => {
+    res.render('user/result-status', { title: 'NSA Online', userDetails, result })
   })
 });
 
@@ -91,18 +93,18 @@ router.get('/:FestId/result/event-baise', verifyActiveFest, async (req, res) => 
   var allItemCategorys = await festHelpers.getAllItemCategory(userDetails.FestId)
 
   res.render('user/event-baise', {
-    title: 'NSA Online', userDetails,   allItemCategorys, categoryNull
+    title: 'NSA Online', userDetails, allItemCategorys, categoryNull
   })
 });
 
 
-router.post('/search-event-result',verifyActiveFest, (req, res) => {
+router.post('/search-event-result', verifyActiveFest, (req, res) => {
   resultHelpers.searchEvent(req.body).then((searchResult) => {
     res.json(searchResult)
   })
 });
 
-router.get('/:FestId/result/event-baise/:Session/:Category',verifyActiveFest, async (req, res) => {
+router.get('/:FestId/result/event-baise/:Session/:Category', verifyActiveFest, async (req, res) => {
   let userDetails = req.session.user
   var Category = req.params.Category
   var Session = req.params.Session
@@ -125,7 +127,7 @@ router.get('/:FestId/result/event-baise/:Session/:Category/:EventId-:EventName',
   console.log(userDetails);
   let EventStudents = await resultHelpers.getEventBaiseStudentsMark(userDetails.FestId, Session, Category, EventId)
   res.render('user/event-baise-student', {
-    title: userDetails.FestName,  userDetails,  Category, Session, EventId, EventName, EventStudents
+    title: userDetails.FestName, userDetails, Category, Session, EventId, EventName, EventStudents
   })
 });
 
@@ -163,7 +165,7 @@ router.get('/:FestId/result/student-baise/:GroupId', verifyActiveFest, async (re
     AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5]
   }
   res.render('user/student-baise-category', {
-    title: userDetails.FestName, userDetails,   GroupDetails, AllSessions,
+    title: userDetails.FestName, userDetails, GroupDetails, AllSessions,
   })
 });
 
@@ -176,7 +178,7 @@ router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students', verif
   let AllStudents = await groupHelpers.getAllStudents(SessionName, GroupDetails)
 
   res.render('user/student-baise-students', {
-    title: userDetails.FestName,  userDetails,   GroupDetails, AllStudents, SessionName,
+    title: userDetails.FestName, userDetails, GroupDetails, AllStudents, SessionName,
   })
 });
 
@@ -188,14 +190,15 @@ router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestN
   let GroupDetails = await groupHelpers.getGroupDetails(GroupId, userDetails.FestId)
   let studentEvents = await festHelpers.getOneStudentEvents(userDetails.FestId, GroupId, SessionName, ChestNo)
 
-  res.render('user/student-baise-events', { title: userDetails.FestName,  SessionName, userDetails, studentEvents, GroupId,  GroupDetails
+  res.render('user/student-baise-events', {
+    title: userDetails.FestName, SessionName, userDetails, studentEvents, GroupId, GroupDetails
   })
 });
 
 
 router.get('/:FestId/result/other-mark', verifyActiveFest, (req, res) => {
   var userDetails = req.session.user
-  res.render('user/other-mark-home', { title: userDetails.FestName,  userDetails, })
+  res.render('user/other-mark-home', { title: userDetails.FestName, userDetails, })
 });
 
 router.get('/:FestId/result/other-mark/group/view-result', verifyActiveFest, (req, res) => {
@@ -204,7 +207,7 @@ router.get('/:FestId/result/other-mark/group/view-result', verifyActiveFest, (re
   resultHelpers.getGroupOtherMarkResult(userDetails.FestId).then((result) => {
 
     res.render('user/other-mark-result', {
-      title: userDetails.FestName,  userDetails,  result, Group
+      title: userDetails.FestName, userDetails, result, Group
     })
   })
 
@@ -216,7 +219,7 @@ router.get('/:FestId/result/other-mark/session/view-result', verifyActiveFest, (
   resultHelpers.getSessionOtherMarkResult(userDetails.FestId).then((result) => {
 
     res.render('user/other-mark-result', {
-      title: userDetails.FestName,  userDetails, result, Session
+      title: userDetails.FestName, userDetails, result, Session
     })
   })
 
@@ -227,7 +230,7 @@ router.get('/:FestId/result/other-mark/student/view-result', verifyActiveFest, (
   resultHelpers.getStudentOtherMarkResult(userDetails.FestId).then((result) => {
 
     res.render('user/other-mark-result', {
-      title: userDetails.FestName,  userDetails, result, Student
+      title: userDetails.FestName, userDetails, result, Student
     })
   })
 
@@ -243,7 +246,7 @@ router.post('/search-other-mark-result', verifyActiveFest, (req, res) => {
 
 router.get('/:FestId/result/toppers', verifyActiveFest, (req, res) => {
   var userDetails = req.session.user
-  res.render('user/toppers-home', { title: userDetails.FestName,  userDetails, })
+  res.render('user/toppers-home', { title: userDetails.FestName, userDetails, })
 });
 
 
@@ -252,7 +255,7 @@ router.get('/:FestId/result/toppers/group/view-result', verifyActiveFest, (req, 
   var Group = true
   resultHelpers.getGroupToppersResult(userDetails.FestId).then((result) => {
     res.render('user/toppers-result', {
-      title: userDetails.FestName,  userDetails,result, Group
+      title: userDetails.FestName, userDetails, result, Group
     })
   })
 
@@ -264,7 +267,7 @@ router.get('/:FestId/result/toppers/session/view-result', verifyActiveFest, (req
   resultHelpers.getSessionToppersResult(userDetails.FestId).then((result) => {
 
     res.render('user/toppers-result', {
-      title: userDetails.FestName,  userDetails, result, Session
+      title: userDetails.FestName, userDetails, result, Session
     })
   })
 
@@ -276,7 +279,7 @@ router.get('/:FestId/result/toppers/student/view-result', verifyActiveFest, (req
   resultHelpers.getStudentToppersResult(userDetails.FestId).then((result) => {
 
     res.render('user/toppers-result', {
-      title: userDetails.FestName,  userDetails,result, Student
+      title: userDetails.FestName, userDetails, result, Student
     })
   })
 
@@ -290,22 +293,22 @@ router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
 });
 
 
-router.get('/:FestId/result/grand-winner-group', verifyActiveFest, async(req, res) => {
+router.get('/:FestId/result/grand-winner-group', verifyActiveFest, async (req, res) => {
   let userDetails = req.session.fest
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
   let totalGroupsMark = await resultHelpers.totalGroupsMark(userDetails.FestId)
-  
-  await resultHelpers.GrandWinnerGroup(userDetails.FestId,sessionBaiseMarkList,totalGroupsMark).then((result) => {
+
+  await resultHelpers.GrandWinnerGroup(userDetails.FestId, sessionBaiseMarkList, totalGroupsMark).then((result) => {
 
     res.render('user/grand-winner-group', { title: userDetails.FestName, userDetails, result })
   })
 });
 
-router.get('/:FestId/result/grand-winner-student', verifyActiveFest, async(req, res) => {
+router.get('/:FestId/result/grand-winner-student', verifyActiveFest, async (req, res) => {
   let userDetails = req.session.fest
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
-  await resultHelpers.GrandWinnerStudent(userDetails.FestId,sessionBaiseMarkList).then((result) => {
-    res.render('user/grand-winner-student', { title: userDetails.FestName, userDetails,result  })
+  await resultHelpers.GrandWinnerStudent(userDetails.FestId, sessionBaiseMarkList).then((result) => {
+    res.render('user/grand-winner-student', { title: userDetails.FestName, userDetails, result })
   })
 });
 
@@ -318,22 +321,22 @@ router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
 
 
 
-router.post('/search-student-events',verifyActiveFest,(req,res)=>{
+router.post('/search-student-events', verifyActiveFest, (req, res) => {
   console.log(req.body);
-  userHelpers.searchStudentEvent(req.body).then((searchResult)=>{
+  userHelpers.searchStudentEvent(req.body).then((searchResult) => {
     res.json(searchResult)
 
   })
 });
-router.post('/search-student',(req,res)=>{
+router.post('/search-student', (req, res) => {
   console.log(req.body);
-  userHelpers.searchStudentEvent(req.body).then((searchResult)=>{
+  userHelpers.searchStudentEvent(req.body).then((searchResult) => {
     res.json(searchResult)
 
   })
 });
 
-router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestNo/events',  async (req, res) => {
+router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestNo/events', async (req, res) => {
   var userDetails = req.session.user
   var GroupId = req.params.GroupId
   let SessionName = req.params.SessionName
@@ -341,10 +344,11 @@ router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestN
   let GroupDetails = await groupHelpers.getGroupDetails(GroupId, userDetails.FestId)
   let studentEvents = await festHelpers.getOneStudentEvents(userDetails.FestId, GroupId, SessionName, ChestNo)
 
-  res.render('user/students-events', { title: userDetails.FestName,  SessionName, userDetails, studentEvents, GroupId,  GroupDetails
+  res.render('user/students-events', {
+    title: userDetails.FestName, SessionName, userDetails, studentEvents, GroupId, GroupDetails
   })
 });
 
-  
+
 
 module.exports = router;

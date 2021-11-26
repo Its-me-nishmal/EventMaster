@@ -2,19 +2,19 @@
     <div class="fest-container">
         <div class="settings-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Program schedule / Create </h4>
+                <h4 class="adminHome-sectin-one-SubHeading">New file upload </h4>
                 <hr>
             </div>
             <div>
                 <div class="programSheduleDiv">
                     <table>
-                        <form action="/fest-admin/{{FestDetails.FestId}}/program-schedule/add" method="POST"
+                        <form  onsubmit="uploading()" action="/fest-admin/{{FestDetails.FestId}}/program-schedule/add" method="POST"
                             enctype="multipart/form-data">
                             <tr>
-                                <td><input type="text" name="title" placeholder="Title" required></td>
-                                <td><input type="file" name="programShedule" accept="application/pdf "
+                                <td><input type="text" id="title" name="title" placeholder="Title" required></td>
+                                <td><input type="file" id="file" name="programShedule" accept="application/pdf "
                                         title="support PDF only" required></td>
-                                <td><button type="submit"><i class="bi bi-plus-lg"></i> Add</button></td>
+                                <td><button  id="uploadButton"  type="submit"><i class="bi bi-plus-lg"></i> Add</button></td>
                             </tr>
                         </form>
                     </table>
@@ -24,7 +24,7 @@
 
         <div style="margin-top: 15px;" class="settings-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Program schedules</h4>
+                <h4 class="adminHome-sectin-one-SubHeading">All files</h4>
                 <hr>
             </div>
             <div>
@@ -78,4 +78,15 @@
 <script>
     var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
 
+</script>
+
+<script>
+    function uploading() {
+      
+        let button = document.getElementById("uploadButton")
+       
+
+        button.innerHTML = "Uploading..."
+       
+    }
 </script>

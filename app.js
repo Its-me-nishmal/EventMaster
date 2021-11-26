@@ -12,7 +12,7 @@ var adminRouter = require('./routes/admin');
 var groupRouter = require('./routes/group');
 var hbs = require('express-handlebars');
 var app = express();
-var fileUpload=require('express-fileUpload');
+var fileupload = require('express-fileupload');
 var db = require('./config/connection')
 
 var store = new MongoDBSession({
@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload());
+app.use(fileupload());
 app.use(session({
   secret:"key",
   resave:false,
