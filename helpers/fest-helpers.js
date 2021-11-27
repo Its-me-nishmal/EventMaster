@@ -2150,7 +2150,7 @@ module.exports = {
                             MessageId: MessageId,
                             Header: "New file uploaded",
                             Message: "'" + body.title + "' file uploaded on " + onlyDate,
-                            Link: "/group",
+                            Link: "/files/program-schedules/"+Item.FestId+Item.Title+".pdf",
                             MessageDate: MessageDate,
                             Type: "Notific_Auto",
                             Read: 1,

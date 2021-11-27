@@ -237,14 +237,14 @@
             <div class="pointTabel-div">
                 <div class="pointTable-IconDiv">
 
-                     <i class="bi bi-phone"></i>
+                    <i class="bi bi-phone"></i>
                 </div>
-               
-                <p >Not Allow Mobile</p>
-               
+
+                <p>Not Allow Mobile</p>
+
             </div>
         </div>
-       
+
     </div>
 
 </section>
@@ -259,8 +259,8 @@
 
 <script>
 
-    var container  = document.getElementById('fest-container')
-    var notAllow  = document.getElementById('notAllow')
+    var container = document.getElementById('fest-container')
+    var notAllow = document.getElementById('notAllow')
 
     let Androids = "Android"
     Androids = new RegExp('(\\w*' + Androids + '\\w*)', 'gi');
@@ -270,11 +270,13 @@
     var AndroidMobile = platform.description.match(Androids);
     var iphone = platform.description.match(ioss);
     if (AndroidMobile) {
-          container.innerHTML = null
-          container.appendChild(notAllow)
+        notAllow.style.display = "block"
+        container.innerHTML = null
+        container.appendChild(notAllow)
     } else if (iphone) {
-          container.innerHTML = null
-          container.appendChild(notAllow)
+        notAllow.style.display = "block"
+        container.innerHTML = null
+        container.appendChild(notAllow)
     } 
 
 

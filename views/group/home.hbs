@@ -9,7 +9,7 @@
                 <marquee behavior="scroll" scrollamount="8" direction="left" onmouseover="this.stop()"
                     onmouseout="this.start()">
                     {{#each letestThreeNotifications}}
-                    <img src="/images/images/new1.gif" alt=""> 
+                    <img src="/images/images/new1.gif" alt="">
                     <a href="{{this.Link}}">{{this.Header}}</a> <span>|</span>
                     {{/each}}
                 </marquee>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div style="margin-top: 15px;" class="GroupAllCategory-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Programe Schedules</h4>
+                <h4 class="adminHome-sectin-one-SubHeading">Downloads</h4>
                 <hr class="GroupallCategoryheader-hr">
             </div>
             <div>
@@ -74,16 +74,17 @@
                     {{#each allSchedules}}
                     <div style=" padding-top: 8px; padding-bottom: 8px; " class="otherItems">
                         <div style="display: flex; align-items:center">
-                            <i style="margin-right: 5px; margin-right:15px" class="bi bi-calendar3-week-fill"></i>
+                            <i style="margin-right: 5px; margin-right:15px" class="bi bi-file-earmark-pdf-fill"></i>
                             <p style="text-align: start;"> {{this.Title}} </p>
                         </div>
-                        <a href="/files/program-schedules/{{this.FestId}}{{this.Title}}.pdf"> <button
-                                class="print-button"><i class="bi bi-download"></i> Download</button></a>
+                        <a href="/files/program-schedules/{{this.FestId}}{{this.Title}}.pdf" target="_blank"> <button
+                                class="print-button"  ><i
+                                    class="bi bi-download"></i> Download</button></a>
                     </div>
                     {{/each}}
                     {{else}}
                     <div class="GroupProgrmShedulEmpty">
-                        <p><i class="bi bi-calendar-x-fill"></i> Not Program Schedules</p>
+                        <p><i class="bi bi-file-earmark-excel-fill"></i> Empty files</p>
                     </div>
                     {{/if}}
 
