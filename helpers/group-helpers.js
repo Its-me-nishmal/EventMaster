@@ -966,6 +966,16 @@ module.exports = {
             resolve(newNoti)
         })
 
+    },
+
+    refreshSessionPage:(body)=>{
+       return new Promise((resolve, reject) => {
+           db.get().collection(collection.GROUP_COLLECTION).findOne({GroupId:body.GroupId}).then((response)=>{
+            
+            resolve(response)
+           })
+       })
+       
     }
 
 
