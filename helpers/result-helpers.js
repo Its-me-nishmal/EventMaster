@@ -256,7 +256,7 @@ module.exports = {
             }
 
             resolve(SessionMarkList);
-            console.log(SessionMarkList);
+          
         })
 
     },
@@ -945,7 +945,7 @@ module.exports = {
                 }
             }
 
-            console.log('hi', result);
+           
 
 
             resolve(result)
@@ -994,7 +994,7 @@ module.exports = {
                 } else {
                     Obj.Percentage = a.slice(0, num)
                 }
-                console.log(Obj);
+              
                 result.push(Obj)
 
             }

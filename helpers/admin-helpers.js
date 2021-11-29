@@ -122,14 +122,14 @@ module.exports = {
                 }
                 tranasporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
-                        console.log(error);
+                     
                     } else {
                      db.get().collection(collection.ADMIN_COLLECTION).updateOne({ EmailId: body.EmailId },{
                          $set:{
                              otp : otp
                          }
                      }).then(()=>{
-                         console.log("Email sent : " + info.response);
+                        
                          resolve(otp)
                      })
                     }
@@ -156,7 +156,7 @@ module.exports = {
     },
 
     newadminPassword:(body)=>{
-        console.log(body);
+     
         return new Promise(async(resolve, reject) => {
             let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: body.EmailId })
 

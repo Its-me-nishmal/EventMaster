@@ -1151,7 +1151,7 @@ module.exports = {
         return new Promise(async(resolve, reject) => {
             let status = await  db.get().collection(collection.OTHER_MARK_COLLECTION).findOne({FestId,_id:ObjectId(id)})
             let SubType = status.SubType
-            console.log(SubType);
+          
           await  db.get().collection(collection.OTHER_MARK_COLLECTION).deleteOne({FestId,_id:ObjectId(id)}).then((status)=>{
                 if(SubType == "Group"){
                     resolve({Group:true})

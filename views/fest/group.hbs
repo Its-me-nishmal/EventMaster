@@ -29,19 +29,18 @@
                                 <td>{{this.Convener}}</td>
                                 <td>{{this.PasswordFor}}</td>
                                 {{#if this.GroupId}}
-                                <td><a
-                                        href="/fest-admin/{{../FestDetails.FestId}}/groups/{{this.GroupId}}/view"><button
+                                <td><a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{this.GroupId}}/view"><button
                                             class="allGroupsViewButton"> <i class="bi bi-eye-fill"></i>
                                             View</i></button></a>
                                 </td>
                                 {{else}}
                                 <td>
-                                  
-                                        <button class="allGroupsConfiermButton"
-                                            onclick="GroupConfierm('{{../FestDetails.FestId}}','{{this.GroupName}}')"> <i
-                                                class="bi bi-check-lg"></i>
-                                            Activate</button>
-                                        
+
+                                    <button class="allGroupsConfiermButton"
+                                        onclick="GroupConfierm('{{../FestDetails.FestId}}','{{this.GroupName}}')"> <i
+                                            class="bi bi-check-lg"></i>
+                                        Activate</button>
+
                                 </td>
                                 {{/if}}
 
@@ -122,10 +121,10 @@
                                     </td>
                                     {{else}}
                                     <td></td>
-                                     <td>{{this.GroupName}}</td>
-                                     <td> - </td>
+                                    <td>{{this.GroupName}}</td>
                                     <td> - </td>
-                                    <td >
+                                    <td> - </td>
+                                    <td>
                                         Not activated
                                     </td>
                                     {{/if}}
@@ -355,7 +354,7 @@
 
 <script>
     function GroupConfierm(FestId, GroupName) {
-       
+
         const mainDiv = document.getElementById('FestLoginPopup');
         const borderDiv = document.createElement("div")
         const ContentDiv = document.createElement("div")
@@ -387,7 +386,7 @@
             var div = this.parentElement;
             div.remove();
         }
-
+        mainDiv.innerHTML = null
         mainDiv.appendChild(borderDiv)
         borderDiv.appendChild(CloseIcon)
         borderDiv.appendChild(ContentDiv)

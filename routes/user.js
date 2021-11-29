@@ -73,7 +73,7 @@ router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
 
   res.render('user/result-home', {
-    title: 'NSA Online', userDetails, TotalEventsCount, PublisedResultCount,
+    title: userDetails.FestName, userDetails, TotalEventsCount, PublisedResultCount,
     PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, footer: true
   });
 });
@@ -81,7 +81,7 @@ router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
 router.get('/:FestId/result/result-status', verifyActiveFest, (req, res) => {
   let userDetails = req.session.user
   resultHelpers.resultFullStatus(userDetails.FestId).then((result) => {
-    res.render('user/result-status', { title: 'NSA Online', userDetails, result })
+    res.render('user/result-status', { title: userDetails.FestName, userDetails, result })
   })
 });
 
@@ -93,7 +93,7 @@ router.get('/:FestId/result/event-baise', verifyActiveFest, async (req, res) => 
   var allItemCategorys = await festHelpers.getAllItemCategory(userDetails.FestId)
 
   res.render('user/event-baise', {
-    title: 'NSA Online', userDetails, allItemCategorys, categoryNull
+    title: userDetails.FestName, userDetails, allItemCategorys, categoryNull
   })
 });
 
@@ -124,7 +124,7 @@ router.get('/:FestId/result/event-baise/:Session/:Category/:EventId-:EventName',
   var Session = req.params.Session
   var EventId = req.params.EventId
   var EventName = req.params.EventName
-  console.log(userDetails);
+ 
   let EventStudents = await resultHelpers.getEventBaiseStudentsMark(userDetails.FestId, Session, Category, EventId)
   res.render('user/event-baise-student', {
     title: userDetails.FestName, userDetails, Category, Session, EventId, EventName, EventStudents
@@ -238,7 +238,7 @@ router.get('/:FestId/result/other-mark/student/view-result', verifyActiveFest, (
 
 router.post('/search-other-mark-result', verifyActiveFest, (req, res) => {
   resultHelpers.searchOtherMark(req.body).then((searchResult) => {
-    console.log(searchResult);
+  
     res.json(searchResult)
   })
 });
@@ -287,7 +287,7 @@ router.get('/:FestId/result/toppers/student/view-result', verifyActiveFest, (req
 
 router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
   resultHelpers.searchToppers(req.body).then((searchResult) => {
-    console.log(searchResult);
+
     res.json(searchResult)
   })
 });
@@ -314,7 +314,7 @@ router.get('/:FestId/result/grand-winner-student', verifyActiveFest, async (req,
 
 router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
   resultHelpers.searchToppers(req.body).then((searchResult) => {
-    console.log(searchResult);
+
     res.json(searchResult)
   })
 });
@@ -322,14 +322,14 @@ router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
 
 
 router.post('/search-student-events', verifyActiveFest, (req, res) => {
-  console.log(req.body);
+ 
   userHelpers.searchStudentEvent(req.body).then((searchResult) => {
     res.json(searchResult)
 
   })
 });
 router.post('/search-student', (req, res) => {
-  console.log(req.body);
+
   userHelpers.searchStudentEvent(req.body).then((searchResult) => {
     res.json(searchResult)
 

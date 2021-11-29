@@ -310,7 +310,7 @@ router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, async (req, res) 
     PointCategory.count = 0
   }
   let sessionactive = await festHelpers.sessionActiveDetails(FestDetails.FestId)
-  console.log(sessionactive);
+
   let StatusUserResult = await festHelpers.StatusUserResult(FestDetails.FestId)
   let totalStudentsDetails = await festHelpers.totalStudentsDetails(FestDetails.FestId)
   let EventDetails = await festHelpers.AlleventDetails(FestDetails.FestId)
@@ -687,7 +687,7 @@ router.get('/:FsetId/groups/:GroupId/:SessionName/students/add-student', verifyA
   var GroupId = req.params.GroupId
   let SessionName = req.params.SessionName
   let groupSessionStatus = await festHelpers.groupSessionStatus(FestDetails.FestId, GroupId)
-  console.log(groupSessionStatus);
+ 
   if (req.session.cicNOError) {
     res.render('fest/add-students', {
       title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, GroupId,
@@ -1520,7 +1520,7 @@ router.get('/:FestId/result/other-mark/student/view-result', verifyAdminLogin, v
 
 router.post('/search-other-mark-result', verifyAdminLogin, verifyFestLogin, (req, res) => {
   resultHelpers.searchOtherMark(req.body).then((searchResult) => {
-    console.log(searchResult);
+   
     res.json(searchResult)
   })
 });
@@ -1572,7 +1572,7 @@ router.get('/:FestId/mark/other-mark/delete/:id', verifyAdminLogin, verifyFestLo
   let FestDetails = req.session.fest
   let id = req.params.id
   markHelpers.RemoveOneOtherMark(FestDetails.FestId, id).then((result) => {
-    console.log(result);
+   
     if (result.Group) {
       res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/group/view-result')
     } else if (result.Session) {
@@ -1631,7 +1631,7 @@ router.get('/:FestId/result/toppers/student/view-result', verifyAdminLogin, veri
 
 router.post('/search-toppers-view', verifyAdminLogin, verifyFestLogin, (req, res) => {
   resultHelpers.searchToppers(req.body).then((searchResult) => {
-    console.log(searchResult);
+   
     res.json(searchResult)
   })
 });

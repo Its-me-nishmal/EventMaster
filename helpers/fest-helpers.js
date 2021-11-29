@@ -190,7 +190,7 @@ module.exports = {
     },
 
     sessionThreeStore: (sessionThreeDetails) => {
-        console.log(sessionThreeDetails);
+       
         var FestId = sessionThreeDetails.FestId
         var sessionName = sessionThreeDetails.SessionName
         var status = sessionThreeDetails.Status
@@ -199,7 +199,7 @@ module.exports = {
         var sessionString = session === "string"
         var sessionLength = sessionName.length
 
-        console.log(status);
+       
         var session1 = sessionName[0]
         var session2 = sessionName[1]
         var session3 = sessionName[2]
@@ -1765,7 +1765,7 @@ module.exports = {
             }
 
             resolve(studentEvents)
-            console.log(studentEvents);
+           
         })
 
     },

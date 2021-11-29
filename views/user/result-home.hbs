@@ -293,7 +293,7 @@
                         </div>
                     </div>
                     {{/each}}
-                   
+
                     {{!-- --}}
                 </div>
 
@@ -558,7 +558,7 @@
 
 
     function SearchStudentEvent(FestId) {
-      
+
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
             url: '/search-student-events',
@@ -568,7 +568,7 @@
             },
             method: 'post',
             success: (searchResult) => {
-                console.log(searchResult)
+             
                 if (searchResult[0]) {
                     Session.style.display = 'none'
                     boarderDiv.style.display = 'block'
@@ -585,7 +585,9 @@
                         const h4_2 = document.createElement("h4")
                         const R_Bottom = document.createElement("div")
 
-                        a.href = "/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo +"/events"
+                     
+
+                        a.href = "/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo + "/events"
                         R_BoarderDiv.className = "searchResultOne"
                         R_Header.className = "header"
                         R_Bottom.className = "Bottom"

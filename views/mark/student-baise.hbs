@@ -127,13 +127,15 @@
                         const h4_2 = document.createElement("h4")
                         const R_Bottom = document.createElement("div")
 
-                        a.href = "/fest-admin/" + FestId + "/result/student-baise/" +item.GroupId+"/"+item.SessionName+"/Students/"+item.ChestNo
+                      
+
+                        a.href = "/fest-admin/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo
                         R_BoarderDiv.className = "searchResultOne"
                         R_Header.className = "header"
                         R_Bottom.className = "Bottom"
                         h3.innerHTML = item.ChestNo + " - " + item.FullName
-                        
-                        h4_2.innerHTML = item.GroupId + " / " + item.GroupName + " / " + item.SessionName + " / CIC No : " + item.CicNo 
+
+                        h4_2.innerHTML = item.GroupId + " / " + item.GroupName + " / " + item.SessionName + " / CIC No : " + item.CicNo
 
                         mainDiv.appendChild(a)
                         a.appendChild(R_BoarderDiv)

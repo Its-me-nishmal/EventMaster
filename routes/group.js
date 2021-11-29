@@ -92,7 +92,7 @@ router.get('/students', verifyGroupLogin, async (req, res) => {
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
   groupHelpers.getAllCategorys(GroupDetails).then((result) => {
     let AllSessions = []
-    console.log(result);
+   
     if (result.Session6 !== undefined) {
       AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5, result.Session6]
     } else if (result.Session2 === undefined) {
