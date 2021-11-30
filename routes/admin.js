@@ -1355,7 +1355,7 @@ router.get('/:FestId/result', verifyAdminLogin, verifyFestLogin, async (req, res
   }
   let totalGroupsMark = await resultHelpers.totalGroupsMark(FestDetails.FestId)
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(FestDetails.FestId)
-
+  console.log(totalGroupsMark);
   res.render('mark/result-home', {
     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, TotalEventsCount, PublisedResultCount,
     PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList

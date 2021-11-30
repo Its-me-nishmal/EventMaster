@@ -54,9 +54,20 @@ module.exports = {
                 let Obj = {
                     GroupId: allGroup[i].GroupId,
                     GroupName: allGroup[i].GroupName,
-                    TotalMark: allGroup[i].StageEventsMark + allGroup[i].OffStageEventsMark + allGroup[i].GeneralStageEventsMark + allGroup[i].GeneralOffStageEventsMark,
+                    TotalMark: 0,
                     Percetage: null
                 }
+                if(allGroup[i].StageEventsMark){
+                    Obj.TotalMark = Obj.TotalMark + allGroup[i].StageEventsMark
+                }else if(allGroup[i].OffStageEventsMark){
+                    Obj.TotalMark = Obj.TotalMark + allGroup[i].OffStageEventsMark
+                }else if(allGroup[i].GeneralStageEventsMark){
+                    Obj.TotalMark = Obj.TotalMark + allGroup[i].GeneralStageEventsMark
+                }else if(allGroup[i].GeneralOffStageEventsMark){
+                    Obj.TotalMark = Obj.TotalMark + allGroup[i].GeneralOffStageEventsMark
+                }
+                
+                console.log(Obj);
                 for (let z = 0; z < OtherMark.length; z++) {
                     if (OtherMark[z].TotalMark) {
                         Obj.TotalMark = Obj.TotalMark + parseInt(OtherMark[z].TotalMark)
