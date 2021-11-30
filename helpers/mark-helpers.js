@@ -43,6 +43,7 @@ module.exports = {
             let pointCategory = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ FestId, categoryName: body.pointCategory })
             let studentSession = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, FestId, GroupId: body.GroupId, SessionName: Session, ChestNo: body.ChestNo, })
             let groupDetails = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId, GroupId: body.GroupId })
+            
             let AllSessions = [groupDetails.Session1, groupDetails.Session2, groupDetails.Session3, groupDetails.Session4, groupDetails.Session5, groupDetails.Session6]
             let Place = {}
             let Grade = {}
@@ -205,7 +206,7 @@ module.exports = {
                     } else {
                         GeneralStageEventsMark = studentSession.GeneralStageEventsMark
                     }
-
+                   
                     // student stage event mark checking
                     db.get().collection(collection.STUDENTS_COLLECTION).updateOne({
                         FestId, GroupId: body.GroupId, SessionName: Session, ChestNo: body.ChestNo,
@@ -219,7 +220,7 @@ module.exports = {
                             "StageEvents.$.Place": Place.name,
                             "StageEvents.$.Grade": Grade.name,
                             "StageEvents.$.Mark": parseInt(Place.mark) + parseInt(Grade.mark),
-                            GeneralStageEventsMark: parseInt(GeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
+                            GeneralStageEventsMark: (parseInt(GeneralStageEventsMark) + parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
 
                         }
                     }).then(() => {
@@ -235,13 +236,14 @@ module.exports = {
                         // check old mark in Session
                         for (let i = 0; i < AllSessions.length; i++) {
                             if (AllSessions[i] === undefined) {
-                            } else if (AllSessions[i].SessionName === "GENERAL") {
-                                if (AllSessions[i].GeneralStageEventsMark === undefined) {
+                            } else if (AllSessions[i].SessionName == "GENERAL") {
+                                if (groupDetails.GeneralStageEventsMark === undefined) {
                                     SessionGeneralStageEventsMark = 0
                                 } else {
-                                    SessionGeneralStageEventsMark = AllSessions[i].GeneralStageEventsMark
+                                    SessionGeneralStageEventsMark = groupDetails.GeneralStageEventsMark
                                 }
-
+                                
+                               
                             }
                         }
 
@@ -445,15 +447,15 @@ module.exports = {
                         for (let i = 0; i < AllSessions.length; i++) {
                             if (AllSessions[i] === undefined) {
                             } else if (AllSessions[i].SessionName === "GENERAL") {
-                                if (AllSessions[i].GeneralOffStageEventsMark === undefined) {
+                                if (groupDetails.GeneralOffStageEventsMark === undefined) {
                                     SessionGeneralOffStageEventsMark = 0
                                 } else {
-                                    SessionGeneralOffStageEventsMark = AllSessions[i].GeneralOffStageEventsMark
+                                    SessionGeneralOffStageEventsMark = groupDetails.GeneralOffStageEventsMark
                                 }
 
                             }
                         }
-
+                      
                         db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session1.SessionName": "GENERAL" }, {
 
                             $set: {
@@ -571,7 +573,7 @@ module.exports = {
                     }
                 }
                 // If Nongeneral
-                if (event.SessionName === "GENERAL") {
+                if (event.SessionName == "GENERAL") {
 
                     for (let i = 0; i < Stage.length; i++) {
 
@@ -614,54 +616,55 @@ module.exports = {
                     } else {
                         GroupGeneralStageEventsMark = groupDetails.GeneralStageEventsMark
                     }
+                
                     // check old mark in Session
                     for (let i = 0; i < AllSessions.length; i++) {
                         if (AllSessions[i] === undefined) {
-                        } else if (AllSessions[i].SessionName === "GENERAL") {
-                            if (AllSessions[i].GeneralStageEventsMark === undefined) {
+                        } else if (AllSessions[i].SessionName == "GENERAL") {
+                            if (groupDetails.GeneralStageEventsMark === undefined) {
                                 SessionGeneralStageEventsMark = 0
                             } else {
-                                SessionGeneralStageEventsMark = AllSessions[i].GeneralStageEventsMark
+                                SessionGeneralStageEventsMark = groupDetails.GeneralStageEventsMark
                             }
-
+                         
                         }
                     }
-
+                  
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session1.SessionName": "GENERAL" }, {
 
                         $set: {
-                            "Session1.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session1.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
 
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session2.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session2.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session2.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session3.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session3.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session3.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session4.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session4.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session4.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session5.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session5.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session5.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session6.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session6.GeneralStageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session6.StageEventsMark": parseInt(SessionGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralStageEventsMark: parseInt(GroupGeneralStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
@@ -793,7 +796,7 @@ module.exports = {
                 }
 
                 // If Nongeneral
-                if (event.SessionName === "GENERAL") {
+                if (event.SessionName == "GENERAL") {
 
                     // student General stage event mark checking
 
@@ -840,11 +843,11 @@ module.exports = {
                     // check old mark in Session
                     for (let i = 0; i < AllSessions.length; i++) {
                         if (AllSessions[i] === undefined) {
-                        } else if (AllSessions[i].SessionName === "GENERAL") {
-                            if (AllSessions[i].GeneralOffStageEventsMark === undefined) {
+                        } else if (AllSessions[i].SessionName == "GENERAL") {
+                            if (groupDetails.GeneralOffStageEventsMark === undefined) {
                                 SessionGeneralOffStageEventsMark = 0
                             } else {
-                                SessionGeneralOffStageEventsMark = AllSessions[i].GeneralOffStageEventsMark
+                                SessionGeneralOffStageEventsMark = groupDetails.GeneralOffStageEventsMark
                             }
 
                         }
@@ -853,38 +856,38 @@ module.exports = {
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session1.SessionName": "GENERAL" }, {
 
                         $set: {
-                            "Session1.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session1.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
 
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session2.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session2.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session2.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session3.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session3.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session3.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session4.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session4.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session4.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session5.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session5.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session5.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })
                     db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId, GroupId: body.GroupId, "Session6.SessionName": "GENERAL" }, {
                         $set: {
-                            "Session6.GeneralOffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
+                            "Session6.OffStageEventsMark": parseInt(SessionGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark,
                             GeneralOffStageEventsMark: parseInt(GroupGeneralOffStageEventsMark) + (parseInt(Place.mark) + parseInt(Grade.mark)) - StudentMark
                         }
                     })

@@ -114,6 +114,7 @@ module.exports = {
     sessionBaiseMarkList: (FestId) => {
         return new Promise(async (resolve, reject) => {
             let allGroup = await db.get().collection(collection.GROUP_COLLECTION).find({ FestId }).toArray()
+      
             let SessionMarkList = []
             for (let i = 0; i < allGroup.length; i++) {
 
@@ -141,8 +142,9 @@ module.exports = {
                     for (let a = 0; a < OtherMark.length; a++) {
                         if (OtherMark[a].TotalMark) {
                             if (allGroup[i].Session1.SessionName == OtherMark[a].SessionName) {
+                                console.log(OtherMark[a],'hi');
                                 Obj.Sessions[0].OtherMark = Obj.Sessions[0].OtherMark + parseInt(OtherMark[a].TotalMark)
-                                Obj.Sessions[0].TotalEventMark = Obj.Sessions[0].TotalEventMark + parseInt(Obj.Sessions[0].OtherMark)
+                                Obj.Sessions[0].TotalEventMark = Obj.Sessions[0].TotalEventMark +  parseInt(OtherMark[a].TotalMark)
 
                             }
                         }
