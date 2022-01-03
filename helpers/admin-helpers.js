@@ -11,29 +11,52 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let loginStatus = false
             let response = {}
-            let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
-
-            if (admin) {
-
-                bcrypt.compare(adminData.Password, admin.Password).then((status) => {
-                    if (status) {
-                        response.adminDetails = admin
+            // Tempreraly setting For admin Login
+            
+            let adminDetails = {
+                EmailId: "nsaonline@nsaonline.in",
+                Password: "nsaonline"
+            }
+            if (adminData.EmailId == adminDetails.EmailId) {
+                    if (adminData.Password == adminDetails.Password) {
+                        response.adminDetails = adminDetails
                         response.status = true
                         response.EmailErr = false
                         response.PasswordErr = false
                         resolve(response)
-
                     } else {
                         resolve({ PasswordErr: true })
-
                     }
-
-                })
-            } else {
+            }else {
                 resolve({ EmailErr: true })
-
-
             }
+           
+            // This orginal Code
+
+            //  let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
+
+
+            //   if (admin) {
+
+            //         bcrypt.compare(adminData.Password, admin.Password).then((status) => {
+            //             if (status) {
+            //                 response.adminDetails = admin
+            //                 response.status = true
+            //                 response.EmailErr = false
+            //                 response.PasswordErr = false
+            //                 resolve(response)
+
+            //             } else {
+            //                 resolve({ PasswordErr: true })
+
+            //             }
+
+            //         })
+            //     } else {
+            //         resolve({ EmailErr: true })
+
+
+            //     }
         })
     },
 
@@ -122,16 +145,16 @@ module.exports = {
                 }
                 tranasporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
-                     
+
                     } else {
-                     db.get().collection(collection.ADMIN_COLLECTION).updateOne({ EmailId: body.EmailId },{
-                         $set:{
-                             otp : otp
-                         }
-                     }).then(()=>{
-                        
-                         resolve(otp)
-                     })
+                        db.get().collection(collection.ADMIN_COLLECTION).updateOne({ EmailId: body.EmailId }, {
+                            $set: {
+                                otp: otp
+                            }
+                        }).then(() => {
+
+                            resolve(otp)
+                        })
                     }
                 })
 
@@ -142,45 +165,45 @@ module.exports = {
 
     },
 
-    checkOTP:(body)=>{
+    checkOTP: (body) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.ADMIN_COLLECTION).findOne({EmailId:body.EmailId,otp:body.otp}).then((result)=>{
-                if(result){
+            db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: body.EmailId, otp: body.otp }).then((result) => {
+                if (result) {
                     resolve(result)
-                }else{
-                    resolve({Error:true})
+                } else {
+                    resolve({ Error: true })
                 }
             })
         })
-        
+
     },
 
-    newadminPassword:(body)=>{
-     
-        return new Promise(async(resolve, reject) => {
+    newadminPassword: (body) => {
+
+        return new Promise(async (resolve, reject) => {
             let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: body.EmailId })
 
             if (admin) {
-               
-                        passwordNew = await bcrypt.hash(body.Password, 10)
 
-                        db.get().collection(collection.ADMIN_COLLECTION).updateOne({ EmailId: body.EmailId },
-                            {
-                                $set: {
-                                    Password: passwordNew,
-                                    otp : null
-                                }
-                            }).then((response) => {
+                passwordNew = await bcrypt.hash(body.Password, 10)
 
-                                resolve({ passwordSuccess: true })
+                db.get().collection(collection.ADMIN_COLLECTION).updateOne({ EmailId: body.EmailId },
+                    {
+                        $set: {
+                            Password: passwordNew,
+                            otp: null
+                        }
+                    }).then((response) => {
 
-                            });
+                        resolve({ passwordSuccess: true })
 
-                   
-                
+                    });
+
+
+
             }
         })
-        
+
     }
 
 
