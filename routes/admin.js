@@ -278,25 +278,6 @@ router.post('/fest-forgot-password/:FestId', verifyAdminLogin, (req, res) => {
 
 
 /* Fest - Home */
-router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
-  var FestId = req.params.FestId
-
-  festHelpers.FestLogin(FestId, req.body).then((response) => {
-    if (response.festDetails) {
-      req.session.fest = true
-      req.session.festPasswordErr = false
-      req.session.festLoginErr = false
-      req.session.fest = response.festDetails
-      var FestDetails = req.session.fest
-
-      res.render('fest/fest-dashboard', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails })
-    } else {
-      req.session.festPasswordErr = true
-      req.session.festLoginErr = "Incorrect password"
-      res.redirect('/fest-admin')
-    }
-  })
-});
 
 router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, async (req, res) => {
   let FestDetails = req.session.fest
@@ -331,6 +312,26 @@ router.get('/:FestId/home', verifyFestLogin, verifyAdminLogin, async (req, res) 
   res.render('fest/fest-dashboard', {
     title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, PointCategory,
     sessionactive, StatusUserResult, totalStudentsDetails, FestFullDetails, EventDetails
+  })
+});
+
+
+router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
+  var FestId = req.params.FestId
+
+  festHelpers.FestLogin(FestId, req.body).then((response) => {
+    if (response.festDetails) {
+      req.session.fest = true
+      req.session.festPasswordErr = false
+      req.session.festLoginErr = false
+      req.session.fest = response.festDetails
+      var FestDetails = req.session.fest
+      res.redirect('/fest-admin/'+ FestId+'/home')
+    } else {
+      req.session.festPasswordErr = true
+      req.session.festLoginErr = "Incorrect password"
+      res.redirect('/fest-admin')
+    }
   })
 });
 
