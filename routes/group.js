@@ -554,8 +554,13 @@ router.post('/other/refreshPage',verifyGroupLogin,(req,res)=>{
       res.redirect('/group/login')
     }
   })
-})
+});
 
+router.get('/other/feed-back-form',verifyGroupLogin,async(req,res)=>{
+  let GroupDetails = req.session.group
+  let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
+  res.render('user/feedback',{title: "NSA Online", title: GroupDetails.GroupName, group: true, footer:true, groupHeader: true, NewNotifi_Count, GroupDetails,})
+})
 
 
 

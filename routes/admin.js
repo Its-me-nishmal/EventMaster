@@ -1730,6 +1730,9 @@ router.get('/:FestId/result/result-status', verifyAdminLogin, verifyFestLogin, (
 
 
 
+router.get('/feed-back-form',verifyAdminLogin, (req, res) => {
+  res.render('user/feedback', { title: "College fest", adminHeader: true, footer:true })
+});
 
 
 // Demmi

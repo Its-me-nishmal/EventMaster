@@ -24,9 +24,14 @@
                 </div>
             </div>
             {{!-- search bottom butten --}}
-            <div id="myBtn" onclick="topFunction()" class="searchBottomButton">
+            <div id="myBtn" style="margin-bottom: 60px;" onclick="topFunction()" class="searchBottomButton">
                 <i class="bi bi-search"></i>
             </div>
+            <a href="/feed-back-form">
+            <div id="myBtn" title="feedback" style="background-color: rgb(0, 0, 0);" class="searchBottomButton">
+               <i class="bi bi-chat-square-text-fill"></i>
+            </div>
+            </a>
 
             {{!-- --}}
             <div id="SessionChart">
@@ -310,6 +315,24 @@
             </div>
         </div>
     </div>
+    </div>
+        <div id="feed" style="display: none;" class="feedbackDiv">
+        <a href="/feed-back-form">
+            <h4><i class="bi bi-chat-square-text-fill"></i> Enter your feedback <span
+                    style="font-weight: normal; margin-left:5px"> Click here</span> </h4>
+        </a>
+    </div>
+    <script>
+        const showFeed = setTimeout(onFeed, 10000);
+        const OutFeed = setTimeout(offFeed, 30000);
+
+        function onFeed() {
+            document.getElementById("feed").style.display = "block"
+        }
+        function offFeed() {
+            document.getElementById("feed").style.display = "none"
+        }
+    </script>
 </section>
 
 

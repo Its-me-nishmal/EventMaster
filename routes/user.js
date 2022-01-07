@@ -349,6 +349,8 @@ router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestN
   })
 });
 
-
+router.get('/feed-back-form',(req,res)=>{
+  res.render('user/feedback',{title: "NSA Online",footer:true})
+})
 
 module.exports = router;

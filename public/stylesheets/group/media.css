@@ -24,7 +24,14 @@
         width: 49%;
     }
 
+    .feedbackDiv{
+        width: auto;
+    }
+
+
 }
+
+
 
 @media (max-width:1024px)
 
@@ -44,6 +51,11 @@
     .GNotificationBorder {
         width: 48%;
     }
+
+    .feedbackDiv{
+        width: auto;
+    }
+
 
 }
 
@@ -87,6 +99,11 @@
         margin: 5px;
         text-align: center;
     }
+
+    .feedbackDiv{
+        width: auto;
+    }
+
 
 
 }
@@ -202,6 +219,11 @@
         width: 100%;
     }
 
+    .feedbackDiv{
+        width: auto;
+    }
+
+
 }
 
 @media (max-width:500px)
@@ -211,6 +233,12 @@
     .GNotificationDate h5 {
         display: none;
     }
+
+    .feedbackDiv{
+        width: 100%;
+        right: 0;
+    }
+
 }
 
 @media (max-width:375px)
@@ -380,6 +408,12 @@
     .GNotificationBorder {
         width: 100%;
     }
+
+    .feedbackDiv{
+        width: 100%;
+        right: 0;
+    }
+
 
 
 
