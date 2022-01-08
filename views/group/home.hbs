@@ -15,6 +15,35 @@
                 </marquee>
             </div>
             {{/if}}
+            {{!-- Timer --}}
+            <div id="countdownDiv" style="display: none;">
+                <div class="countdown" style="margin-top: 30px; margin-bottom:30px;">
+                    <div>
+                        <div class="title">
+                            <h3 id="timerTitle">fest will start soon !</h3>
+                        </div>
+                        <div class="timer-div">
+                            <div class="container-day">
+                                <h1 id="day" style="color: var(--color-two);" class="day">--</h1>
+                                <h4>Days</h4>
+                            </div>
+                            <div class="container-day">
+                                <h1 id="Hour" style="color: var(--color-two);" class="hour">--</h1>
+                                <h4>Hours</h4>
+                            </div>
+                            <div class="container-day">
+                                <h1 id="Minute" style="color: var(--color-two);" class="minute">--</h1>
+                                <h4>Minutes</h4>
+                            </div>
+                            <div class="container-day">
+                                <h1 id="Second" style="color: var(--color-two);" class="second">--</h1>
+                                <h4>Seconds</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="groupProfileborder">
                 <div class="ImageDiv">
                     <img src="/images/fest-logo/{{GroupDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
@@ -35,7 +64,7 @@
                                 <p>: {{FestDetails.FestName}}</p>
                                 <p>: {{FestDetails.FestId}}</p>
                                 <p>: {{FestDetails.FestConvener}}</p>
-                                <p>: {{FestDetails.FestDate}}</p>
+                                <p>: <span id="nowFestDate">{{FestDetails.FestDate}}</span></p>
 
 
                             </div>
@@ -78,8 +107,7 @@
                             <p style="text-align: start;"> {{this.Title}} </p>
                         </div>
                         <a href="/files/program-schedules/{{this.FestId}}{{this.Title}}.pdf" target="_blank"> <button
-                                class="print-button"  ><i
-                                    class="bi bi-download"></i> Download</button></a>
+                                class="print-button"><i class="bi bi-download"></i> Download</button></a>
                     </div>
                     {{/each}}
                     {{else}}
@@ -93,7 +121,7 @@
         </div>
 
     </div>
-        <div id="feed" style="display: none;" class="feedbackDiv">
+    <div id="feed" style="display: none;" class="feedbackDiv">
         <a href="/group/other/feed-back-form">
             <h4><i class="bi bi-chat-square-text-fill"></i> Enter your feedback <span
                     style="font-weight: normal; margin-left:5px"> Click here</span> </h4>
@@ -125,4 +153,79 @@
         var noimg = "/images/images/fest logo demo.jpg";
         obj.src = noimg;
     }
+</script>
+
+
+{{!-- Timer --}}
+<script>
+
+    let nowFestDate = document.getElementById('nowFestDate').innerHTML;
+
+    if (nowFestDate[1] == " ") {
+        nowFestDate = "0" + nowFestDate
+    }
+
+    let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    let nowFestYear = nowFestDate.slice(11, 16)
+    let nowFestMonth = nowFestDate.slice(5, 8)
+    let nowFestDay = nowFestDate.slice(0, 2)
+
+    var nowFestFullDate = nowFestMonth + " " + nowFestDay + ", " + nowFestYear + " 07:00:00"
+    const countdown = () => {
+        const countDate = new Date(nowFestFullDate).getTime();
+        const now = new Date().getTime()
+
+
+        const gap = countDate - now;
+
+        // How the fuck does time work ?
+        const second = 1000;
+        const minute = second * 60
+        const hour = minute * 60
+        const day = hour * 24
+
+        // calculate the shit
+        let textDay = Math.floor(gap / day);
+        let textHour = Math.floor((gap % day) / hour)
+        let textMinte = Math.floor((gap % hour) / minute)
+        let textSecond = Math.floor((gap % minute) / second)
+
+        // 
+
+
+
+        if (textDay < 10) {
+            textDay = "0" + textDay
+        }
+        if (textHour < 10) {
+            textHour = "0" + textHour
+        }
+        if (textMinte < 10) {
+            textMinte = "0" + textMinte
+        }
+        if (textSecond < 10) {
+            textSecond = "0" + textSecond
+        }
+
+        document.querySelector(".day").innerText = textDay
+        document.querySelector(".hour").innerText = textHour
+        document.querySelector(".minute").innerText = textMinte
+        document.querySelector(".second").innerText = textSecond
+        document.getElementById('countdownDiv').style.display = "block"
+
+        if (textSecond[1] == "-") {
+           document.getElementById('countdownDiv').style.display = "none"
+
+        }
+       
+
+
+    }
+
+    const intervel = setInterval(countdown, 1000)
+    if (textSecond[1] == "-") {
+        clearInterval(intervel)
+    }
+
 </script>

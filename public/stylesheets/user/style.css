@@ -1,21 +1,23 @@
-*{
+* {
 
-     font-family: 'Trebuchet MS',  Arial, sans-serif; 
+    font-family: 'Trebuchet MS', Arial, sans-serif;
     /* font-family: "Rubik",-apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;; */
 
 
 }
-body{
+
+body {
     margin: 0 0;
     padding: 0 0;
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
-a{
+a {
     text-decoration: none;
-    
+
 }
+
 /* #pre-loader{
     background: #000 url(/images/images/loading2.gif) no-repeat center center;
     background-size: 100px;
@@ -26,7 +28,7 @@ a{
    z-index: 100;
 
 } */
-.button{
+.button {
     font-size: 16px;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -35,12 +37,12 @@ a{
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    
+
 }
 
 
 /* .............................Alert box */
-.Alert-box-border{
+.Alert-box-border {
     background-color: rgb(253, 196, 196);
     position: absolute;
     width: 320px;
@@ -58,32 +60,37 @@ a{
     transition: ease-in-out;
 
 }
-.Alert-box-header{
+
+.Alert-box-header {
     display: flex;
 }
-.Alert-box-close-button{
+
+.Alert-box-close-button {
     position: absolute;
     right: 10px;
     top: 10px;
     color: rgb(112, 112, 112);
     cursor: pointer;
 }
-.Alert-box-header{
+
+.Alert-box-header {
     color: rgb(201, 1, 1);
     margin-bottom: 8px;
     margin-left: 4px;
     margin-top: 8px;
 }
-.Alert-box-header i{
+
+.Alert-box-header i {
     margin-right: 5px;
     display: flex;
     align-items: center;
     font-size: 18px;
 }
-.alert-box-content h5{
+
+.alert-box-content h5 {
     color: rgb(117, 51, 51);
     margin-left: 5px;
-    
+
 }
 
 @keyframes alertInOut {
@@ -91,26 +98,30 @@ a{
         top: 70px;
         right: -350px;
     }
-    20%{
+
+    20% {
 
         top: 70px;
         right: 10px;
     }
+
     50% {
         top: 70px;
         right: 10px;
     }
-    80%{
+
+    80% {
         top: 70px;
         right: 10px;
     }
-    100%{
+
+    100% {
         top: 70px;
         right: -350px;
     }
-  }
- 
-  
+}
+
+
 /* TABLE SL NO  */
 
 body {
@@ -131,8 +142,9 @@ table {
 
 /* .................... User Header */
 
-.GorupLogin-Button{
-    background-color: rgb(4, 77, 22);;
+.GorupLogin-Button {
+    background-color: rgb(4, 77, 22);
+    ;
     display: flex;
     font-size: 20px;
     font-weight: bold;
@@ -143,54 +155,64 @@ table {
     color: white;
     border-radius: 100px;
 }
-.GorupLogin-Button i{
-    background-color: rgb(38, 189, 113);;
+
+.GorupLogin-Button i {
+    background-color: rgb(38, 189, 113);
+    ;
     padding: 7px;
     padding-left: 9px;
     padding-right: 9px;
     border-radius: 100px;
 }
-.group-container .nsa-logo{
+
+.group-container .nsa-logo {
     display: flex;
     justify-content: center;
 }
-.group-container .nsa-logo img{
+
+.group-container .nsa-logo img {
     width: 160px;
     border-radius: 100%;
     border: 1px rgb(66, 66, 66) solid;
     margin-bottom: 15px;
 }
-.group-container .contant{
-   text-align: center;
+
+.group-container .contant {
+    text-align: center;
 }
-.group-container .contant p{
-   font-style: italic;
-   color: rgb(82, 82, 82);
-   margin-top: 60px;
+
+.group-container .contant p {
+    font-style: italic;
+    color: rgb(82, 82, 82);
+    margin-top: 60px;
 }
-.userHomeHeightControl{
+
+.userHomeHeightControl {
     min-height: 85vh;
     width: 100%;
-   
+
 }
-.GeneralHome{
+
+.GeneralHome {
     position: absolute;
     width: 100%;
     left: 50%;
     top: 60%;
-    transform: translate(-50%,-50%);  
+    transform: translate(-50%, -50%);
     z-index: -1;
 }
-.group-container .fest-home-contant{
+
+.group-container .fest-home-contant {
     text-align: center;
 }
-.group-container .fest-home-contant p{
-     font-style: italic;
-     color: rgb(82, 82, 82);
-     margin-top: 60px;
+
+.group-container .fest-home-contant p {
+    font-style: italic;
+    color: rgb(82, 82, 82);
+    margin-top: 60px;
 }
 
-.searchBottomButton{
+.searchBottomButton {
     background-color: var(--color-green-one);
     position: fixed;
     right: 15px;
@@ -211,36 +233,89 @@ table {
     -webkit-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
     -moz-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
     z-index: 4;
-  
-    
+
+
 }
 
 /* FEEDBACK */
 
- .feedbackDiv {
-            background-color: rgb(0, 107, 156);
-            padding: 20px;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
-            -webkit-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
-            -moz-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
-            position: fixed;
-            border-radius: 10px;
-            box-sizing: border-box;
-            top: 65px;
-            right: 0;
-            
-        }
-        .feedbackDiv h4{
-            color: rgb(255, 255, 255);
-            text-align: center;
-        }
-        .feedbackDiv h4>i{
-            margin-right: 5px;
-        }
-         .feedbackDiv h4>span{
-            margin-right: 5px;
-            text-decoration:underline;
-            color: rgb(130, 247, 255);
-        }
+.feedbackDiv {
+    background-color: rgb(0, 107, 156);
+    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
+    position: fixed;
+    border-radius: 10px;
+    box-sizing: border-box;
+    top: 65px;
+    right: 0;
+
+}
+
+.feedbackDiv h4 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.feedbackDiv h4>i {
+    margin-right: 5px;
+}
+
+.feedbackDiv h4>span {
+    margin-right: 5px;
+    text-decoration: underline;
+    color: rgb(130, 247, 255);
+}
+
+/* Timer */
+.countdown {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    
+}
+
+.countdown>div {
+    width: 450px;
+  
+}
+
+.countdown>div>.timer-div {
+    display: flex;
+    justify-content: space-around;
+    
+
+}
+
+.countdown>div>.timer-div>.container-day {
+    text-align: center;
+
+
+
+}
+
+.countdown>div>.timer-div>.container-day>h1 {
+    font-family: 'Poppins';
+    color: rgb(0, 111, 185);
+
+}
+
+.countdown>div>.timer-div>.container-day>h4 {
+    font-weight: normal;
+    font-family: 'Poppins';
+    
+}
+
+.countdown>div>.title {
+    text-align: center;
+    margin-bottom: 10px;
+
+}
+
+.countdown>div>.title>h3 {
+    color: rgb(78, 78, 78);
+    font-family: 'Poppins';
+}
