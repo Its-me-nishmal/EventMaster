@@ -137,12 +137,22 @@
                         <table class="auto-index print-Table">
                             <thead>
 
-                                <tr class="studentHead">
+                             
+
+                                 <tr  class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
-                                        {{SessionName}} - {{studentEvents.CicNo}} - {{studentEvents.FullName}}
-                                        ({{studentEvents.ChestNo}})
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span style="font-size: 35px; font-weight: bold;">{{studentEvents.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;">  Full name : {{studentEvents.FullName}}
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" style="text-align: start;">CIC no: {{studentEvents.CicNo}}</td>
+                                    <td colspan="2" style="text-align: start;">{{SessionName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">Group Name : {{GroupDetails.GroupName}} ( {{studentEvents.GroupId}} )</td>
                                 </tr>
                                 {{#if EventLimit.GeneralStageEventCount}}
                                 <tr class="studentHead">

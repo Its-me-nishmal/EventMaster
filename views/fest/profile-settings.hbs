@@ -45,7 +45,7 @@
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest ID</label>
-                                            <input style="cursor:not-allowed; background-color:rgb(202, 202, 202)"
+                                            <input style="cursor:not-allowed; "
                                                 type="text" name="FestId" value="{{ FestFullDetails.FestId}}" required
                                                 readonly>
                                         </div>
@@ -55,7 +55,7 @@
                                                 required>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
-                                            <label for="">Fest Date <small style="margin-left: 10px; font-style:italic; color:rgb(80, 79, 79);">Old : {{FestDetails.FestDate}}</small></label>
+                                            <label for="">Fest Date <small style="margin-left: 10px; font-style:italic; color:rgb(80, 79, 79);">Current date : {{FestDetails.FestDate}}</small></label>
                                             <input type="date" name="FestDate" value="{{ FestFullDetails.FestDate}}"
                                                 required>
                                         </div>
@@ -97,7 +97,7 @@
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest ID</label>
-                                            <input style="cursor:not-allowed; background-color:rgb(202, 202, 202)"
+                                            <input style="cursor:not-allowed; "
                                                 type="text" name="FestId" value="{{ FestFullDetails.FestId}}" required
                                                 readonly>
                                         </div>
@@ -213,8 +213,8 @@
                                                 {{/if}}
                                             </label>
                                             <small
-                                                style="display: block; font-style:italic; color:rgb(66, 66, 66); margin-top:5px;">This
-                                                option is used only to know the status of the fest</small>
+                                                style="display: block; font-style:italic; color:rgb(66, 66, 66); margin-top:5px;"><i class="bi bi-info-circle-fill"></i> This
+                                                option used only to know status of fest</small>
                                         </div>
                                         <div class="Students-setting-Input-Event">
                                             <a
@@ -225,7 +225,7 @@
                                         </div>
                                     </div>
                                     <div style="border-color: gray;" class="cotrolpanel-items">
-                                        <label for=""> Exit from fest
+                                        <label for=""> Exit fest
                                         </label>
                                         <div class="Students-setting-Input-Event">
                                             <a href="/fest-admin/{{FestDetails.FestId}}/logout">

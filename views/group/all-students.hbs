@@ -232,7 +232,7 @@
             </div>
         </div>
         <div class="print-page-headline">
-            <h4> - {{GroupDetails.GroupName}} / {{SessionName}} / Students - </h4>
+            <h4> - All Students ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
         </div>
     </div>
 
@@ -275,11 +275,22 @@
                         {{#each AllStudents}}
                         <table class="   print-Table">
                             <thead>
-                                <tr class="studentHead">
+                                
+
+                                <tr  class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="5">
-                                        {{this.CicNo}} - {{this.FullName}} ({{this.ChestNo}})
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span style="font-size: 35px; font-weight: bold;">{{this.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;">  Full name : {{this.FullName}}
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" style="text-align: start;">CIC no: {{this.CicNo}}</td>
+                                    <td colspan="2" style="text-align: start;">{{SessionName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">Group Name : {{../GroupDetails.GroupName}} ( {{this.GroupId}} )</td>
                                 </tr>
 
                                 {{#if ../EventLimit.GeneralStageEventCount}}
@@ -398,7 +409,7 @@
             </div>
         </div>
         <div class="print-page-headline">
-            <h4> - {{GroupDetails.GroupName}} / {{SessionName}} / Students - </h4>
+            <h4> - All Students ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
         </div>
     </div>
 

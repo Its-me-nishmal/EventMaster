@@ -947,11 +947,15 @@ module.exports = {
     getOneMessageWithOutGroupId: (FestId, MessageId) => {
 
         return new Promise(async (resolve, reject) => {
-            let messages = await db.get().collection(collection.NOTIFICATION_COLLECTION).findOne({ FestId })
+            let messages = await db.get().collection(collection.NOTIFICATION_COLLECTION).find({ FestId }).toArray()
             let OneMessage = ''
-            for (let i = 0; i < messages.Notifications.length; i++) {
-                if (messages.Notifications[i].MessageId === MessageId) {
-                    OneMessage = messages.Notifications[i]
+            for(let a = 0; a<messages.length; a++){
+              
+                for (let i = 0; i < messages[a].Notifications.length; i++) {
+                    console.log('hi');
+                    if (messages[a].Notifications[i].MessageId === MessageId) {
+                        OneMessage = messages[a].Notifications[i]
+                    }
                 }
             }
             resolve(OneMessage)

@@ -117,16 +117,25 @@
                         <table class="auto-index print-Table">
                             <thead>
 
-                                <tr class="studentHead">
+                                <tr  class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
-                                         {{studentEvents.CicNo}} - {{studentEvents.FullName}} ({{studentEvents.ChestNo}}) -{{SessionName}}
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span style="font-size: 35px; font-weight: bold;">{{studentEvents.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;">  Full name : {{studentEvents.FullName}}
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" style="text-align: start;">CIC no: {{studentEvents.CicNo}}</td>
+                                    <td colspan="2" style="text-align: start;">{{SessionName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">Group Name :  ( {{GroupId}} )</td>
                                 </tr>
                                 {{#if EventLimit.GeneralStageEventCount}}
                                 <tr class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
+                                    <td colspan="6" style="text-align: start;">
                                         <p> <span style="font-weight: 600;">Non general</span> | Stage event :
                                             {{studentLimitCount.StageCount}}/{{EventLimit.StageEventCount}} | Offstage
                                             event :
@@ -135,7 +144,7 @@
                                 </tr>
                                 <tr class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
+                                    <td colspan="6" style="text-align: start;">
                                         <p> <span style="font-weight: 600;">General</span> | Stage event :
                                             {{studentLimitCount.GeneralStageCount}}/{{EventLimit.GeneralStageEventCount}}
                                             |
@@ -234,7 +243,7 @@
             </div>
         </div>
         <div class="print-page-headline">
-            <h4> - Students' events - </h4>
+            <h4> - Student's events - </h4>
         </div>
     </div>
 

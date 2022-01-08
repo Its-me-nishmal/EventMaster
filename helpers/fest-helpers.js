@@ -1751,9 +1751,10 @@ module.exports = {
             let OtherMark = await db.get().collection(collection.OTHER_MARK_COLLECTION).find({ FestId, ChestNo }).toArray()
             studentEvents.OtherMark = []
             studentEvents.OtherMarkTotal = 0
-            if (!studentEvents.StageEventsMark) {
+            if (studentEvents.StageEventsMark == undefined) {
                 studentEvents.StageEventsMark = 0
-            } else if (studentEvents.OffStageeventsMark) {
+            }
+             if (studentEvents.OffStageEventsMark == undefined) {
                 studentEvents.OffStageEventsMark = 0
             }
 
@@ -1763,7 +1764,7 @@ module.exports = {
                     studentEvents.OtherMarkTotal = studentEvents.OtherMarkTotal + parseInt(OtherMark[i].TotalMark)
                 }
             }
-
+            console.log(studentEvents);
             resolve(studentEvents)
            
         })

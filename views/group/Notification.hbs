@@ -6,10 +6,10 @@
                 <hr class="GroupallCategoryheader-hr">
             </div>
             {{#if FullNotifications.[0]}}
-           
+
             <div class="GNotification-all-controll">
                 <p></p>
-                
+
                 <button onclick="allread('{{GroupDetails.GroupId}}')"
                     style="background-color: rgb(0, 137, 172); color:white" class="button"><i
                         class="bi bi-eye-fill"></i> all read</button>
@@ -23,7 +23,7 @@
                 {{#if this.Clear}}
                 {{else}}
                 <div id="MessageBorder{{MessageId}}" {{#if this.Read}} style="background-color: rgb(210, 241, 255);"
-                    {{/if}} class="GNotificationBorder">
+                    {{/if}} class="GNotificationBorder" onclick="readControll('{{../GroupDetails.GroupId}}','{{MessageId}}')">
                     <p class="MessageId" hidden>{{MessageId}}</p>
                     <p id="MessageType{{MessageId}}" hidden>{{this.Type}}</p>
                     <p id="Link{{MessageId}}" hidden>{{this.Link}}</p>
@@ -86,7 +86,7 @@
                         <i class="bi bi-emoji-frown"></i>
                     </div>
                     <p>Empty notifications</p>
-                    
+
                 </div>
             </div>
             {{/if}}
@@ -174,7 +174,7 @@
 <script>
     function ClearControll(GroupId, MessageId) {
         var MessageBorder = document.getElementById('MessageBorder' + MessageId)
-
+        console.log('hi')
 
         $.ajax({
             url: '/group/clear-one-notification',

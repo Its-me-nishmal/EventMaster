@@ -31,7 +31,7 @@
                             <button><i class="bi bi-plus-circle-dotted"></i> Create point category</button>
                         </a>
                     </div>
-                </div>
+                </div>  
                 {{else}}
                 {{#each AllGroups}}
                 <div class="events-content">
@@ -39,11 +39,13 @@
                         <div class="eventHeaderDiv">
                             {{#if this.GroupId}}
                             <h4>{{this.GroupName}} - ({{this.GroupId}})</h4>
-                            {{else}}
-                            <h4 style="font-weight: normal; font-style:italic;">{{this.GroupName}} - Group not activated
-                            </h4>
-                            {{/if}}
                             <span style=" background-color:var(--color-green-one)"><i class="bi bi-arrow-right"></i></span>
+                            {{else}}
+                            <h4 >{{this.GroupName}} 
+                            </h4>
+                            <span style=" background:none; color:rgb(37, 37, 37); font-weight: normal; font-style:italic;">not activated</span>
+                            {{/if}}
+                           
                         </div>
                     </a>
 

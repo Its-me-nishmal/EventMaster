@@ -60,11 +60,7 @@
                                             onclick="return confirm('Are you want to delete this message ?')"><button
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-trash"></i></button></a>
-                                        <a title="info" style="display: none;" id="AutoButton{{this.MessageId}}"
-                                            onclick="alert('This automatic notification !')"><button
-                                                style="background-color: var(--color-edit);"
-                                                class="pointCateoryDeletButton"> <i
-                                                    class="bi bi-info-lg"></i></button></a>
+                                       
                                     </td>
 
 
@@ -102,20 +98,17 @@
         var TypeTD = document.getElementById('typeTD' + thisId)
         var ViewButton = document.getElementById('ViewButton' + thisId)
         var DeleteButton = document.getElementById('DeleteButton' + thisId)
-        var AutoButton = document.getElementById('AutoButton' + thisId)
+       
         if (Mtype === "Notific_One") {
-            TypeTD.innerHTML = "Personal"
+      
+             TypeTD.innerHTML = `<i title = "Personal" class="bi bi-person-fill"></i>`
         } else if (Mtype === "Notific_Full") {
-            TypeTD.innerHTML = "Group"
+            TypeTD.innerHTML = `<i title = "Group" class="bi bi-people-fill"></i>`
+           
             DeleteButton.style.display = 'none'
 
         } else {
-            TypeTD.innerHTML = "Auto"
-            AutoButton.style.display = 'block'
-            DeleteButton.style.display = 'none'
-            ViewButton.style.display = 'none'
-
-
+            TypeTD.innerHTML = `<i title = "Auto" class="bi bi-bell-fill"></i>`
         }
 
     }

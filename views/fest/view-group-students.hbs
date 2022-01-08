@@ -54,10 +54,10 @@
                                         <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
                                         <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
                                         <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
-                                        <td class="StudentsTable-TD-Control"><a
-                                                href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/view"><i
-                                                    class="bi bi-eye-fill"></i>
-                                                View</a>
+                                        <td > <a 
+                                    href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/view">
+                                    <button class="pointCateoryDeletButton" style="background-color: rgb(59, 59, 59); font-size:15px;" >View</button>
+                                    </a>
                                         </td>
                                         <td>
                                             <a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/delete"
@@ -178,7 +178,7 @@
             </div>
         </div>
         <div class="print-page-headline">
-            <h4> - {{GroupDetails.GroupName}} / {{SessionName}} / Students - </h4>
+            <h4> - All Students ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
         </div>
     </div>
 
@@ -221,11 +221,24 @@
                         {{#each AllStudents}}
                         <table class="   print-Table">
                             <thead>
-                                <tr class="studentHead">
+                                <tr></tr>
+                            </thead>
+                            <tbody>
+                              
+                                 <tr  class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="5">
-                                        {{this.CicNo}} - {{this.FullName}} ({{this.ChestNo}})
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span style="font-size: 35px; font-weight: bold;">{{this.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;">  Full name : {{this.FullName}}
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" style="text-align: start;">CIC no: {{this.CicNo}}</td>
+                                    <td colspan="2" style="text-align: start;">{{SessionName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">Group Name :  ( {{this.GroupId}} )</td>
                                 </tr>
                                  {{#if ../EventLimit.GeneralStageEventCount}}
                                 <tr class="studentHead">
@@ -239,7 +252,7 @@
                                 </tr>
                                 <tr class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
+                                    <td colspan="4" style="text-align: start;">
                                         <p> <span style="font-weight: 600;">General</span> | Stage event :
                                             {{../EventLimit.GeneralStageEventCount}}
                                             |
@@ -252,7 +265,7 @@
                                 {{else}}
                                 <tr class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="6">
+                                    <td colspan="4" style="text-align: start;">
                                         <p>Stage event : {{../EventLimit.StageEventCount}} |
                                             Offstage
                                             event :{{../EventLimit.OffStageEventCount}}
@@ -270,8 +283,7 @@
                                     <th class="StudentsTable-TR-Control">point category</th>
 
                                 </tr>
-                            </thead>
-                            <tbody>
+                           
 
                                 {{#each this.StageEvents}}
                                 <tr>
@@ -341,7 +353,7 @@
             </div>
         </div>
         <div class="print-page-headline">
-            <h4> - {{GroupDetails.GroupName}} / {{SessionName}} / Students - </h4>
+            <h4> - All Student's Events ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
         </div>
     </div>
 
