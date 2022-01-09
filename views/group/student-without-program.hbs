@@ -1,0 +1,194 @@
+<section>
+    <div class="group-container">
+        <div class="allGroupStudents-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Studnets without program</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+        </div>
+        <div class="GroupAllStudents-content">
+
+            
+            <div class="GroupStudents-Table-content">
+               
+                <div class="allStudents-SessionTwo">
+                    <table id="AllStudents" class="auto-index ">
+                        <thead>
+                            <tr>
+                                <th class="StudentsTable-TR-Slno">Sl no</th>
+                                <th class="StudentsTable-TR-ChestNo">Chest No</th>
+                                <th class="StudentsTable-TR-CIC">CIC No</th>
+                                <th class="StudentsTable-TR-Name">Full name</th>
+                                <th class="StudentsTable-TR-Name">Session</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each noEventStudentCount}}
+                            <tr>
+                                <td class="StudentsTable-TD-Slno"></td>
+                                <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+                                <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
+                                <td class="StudentsTable-TD-Name">{{this.SessionName}}</td>
+                                
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="pointTable-printbutton">
+                    <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                            class="bi bi-printer-fill"></i>
+                        Print</button>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+
+                        <table class="auto-index print-Table">
+                            {{#if noEventStudentCount.[0]}}
+                            <thead>
+                            <tr>
+                                <th class="StudentsTable-TR-Slno">Sl no</th>
+                                <th class="StudentsTable-TR-ChestNo">Chest No</th>
+                                <th class="StudentsTable-TR-CIC">CIC No</th>
+                                <th class="StudentsTable-TR-Name">Full name</th>
+                                <th class="StudentsTable-TR-Name">Session</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each noEventStudentCount}}
+                            <tr>
+                                <td class="StudentsTable-TD-Slno"></td>
+                                <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+                                <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
+                                <td class="StudentsTable-TD-Name">{{this.SessionName}}</td>
+                                
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                            {{else}}
+                            <div class="pointTable-nodataDiv">
+                                <p style="text-align: center;">No data available...</p>
+                            </div>
+                            {{/if}}
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{FestDetails.FestName}} </h2>
+                    <h4>FestID : {{FestDetails.FestId}}</h4>
+                    <p> Fest Date :{{FestDetails.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - All Students without program ( {{GroupDetails.GroupName}} ) - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+</div>
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Students').className = "nav-links-a nav-links-active"
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#AllStudents').DataTable();
+    });
+</script>
+
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    .auto-index td:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>

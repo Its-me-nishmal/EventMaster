@@ -30,11 +30,11 @@ router.get('/', verifyGroupLogin, async function (req, res, next) {
   var studentsCount = allStudent.length
   let allSchedules = await festHelpers.getAllProgramSchedules(GroupDetails.FestId)
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  let letestThreeNotifications = await groupHelpers.getLetest3Notification(GroupDetails.FestId,GroupDetails.GroupId)
-  
+  let letestThreeNotifications = await groupHelpers.getLetest3Notification(GroupDetails.FestId, GroupDetails.GroupId)
+
   res.render('group/home', {
     title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, FestDetails, studentsCount,
-    allSchedules, NewNotifi_Count, letestThreeNotifications,footer:true
+    allSchedules, NewNotifi_Count, letestThreeNotifications, footer: true
   })
 });
 
@@ -77,7 +77,7 @@ router.post('/login', (req, res) => {
 
 router.get('/logOut', verifyGroupLogin, (req, res) => {
   req.session.group = null
-  if(req.session.user){
+  if (req.session.user) {
     req.session.user.GroupId = null
   }
   res.redirect('/group/login')
@@ -90,9 +90,10 @@ router.get('/students', verifyGroupLogin, async (req, res) => {
   var GroupDetails = req.session.group
   var NonGeneral = "NonGeneral"
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
+  let noEventStudentCount = await groupHelpers.noEventStudentCount(GroupDetails.FestId, GroupDetails.GroupId)
   groupHelpers.getAllCategorys(GroupDetails).then((result) => {
     let AllSessions = []
-   
+
     if (result.Session6 !== undefined) {
       AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5, result.Session6]
     } else if (result.Session2 === undefined) {
@@ -106,9 +107,21 @@ router.get('/students', verifyGroupLogin, async (req, res) => {
     } else if (result.Session6 === undefined) {
       AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5]
     }
-    res.render('group/students-session', { title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, AllSessions, NonGeneral, NewNotifi_Count })
+    
+    res.render('group/students-session', {
+      title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, AllSessions, NonGeneral, NewNotifi_Count, noEventStudentCount
+    })
   })
 });
+
+router.get('/students/students-without-program', verifyGroupLogin, async (req, res) => {
+  var GroupDetails = req.session.group
+  let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
+  groupHelpers.noEventStudentCount(GroupDetails.FestId, GroupDetails.GroupId).then((noEventStudentCount) => {
+    res.render('group/student-without-program', { title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, noEventStudentCount, NewNotifi_Count })
+  })
+
+})
 
 router.get('/students/:SessionName', verifyGroupLogin, async (req, res) => {
 
@@ -125,7 +138,7 @@ router.get('/students/:SessionName', verifyGroupLogin, async (req, res) => {
   let EventLimit = await festHelpers.getStudentEventLimit(GroupDetails.FestId, GroupDetails.GroupId, SessionName)
   let editStatus = GroupFullDetails.editStudentStatus === 1
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  
+
   if (req.session.cicNOError) {
     res.render('group/all-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, NewNotifi_Count, GroupDetails, AllStudents, StudentsCoutZero, SessionName, SessionActivation,
@@ -158,7 +171,7 @@ router.get('/students/:SessionName/add-students', verifyGroupLogin, async (req, 
   if (req.session.cicNOError) {
     res.render('group/add-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails,
-      SessionName, "cicNOError": req.session.cicNOError, StudentActiveNull,NewNotifi_Count
+      SessionName, "cicNOError": req.session.cicNOError, StudentActiveNull, NewNotifi_Count
     })
     req.session.cicNOError = false
   } else if (req.session.cicNoSuccess) {
@@ -199,17 +212,17 @@ router.get('/students/:SessionName/:ChestNo/view', verifyGroupLogin, async (req,
   let EventLimit = await festHelpers.getStudentEventLimit(GroupDetails.FestId, GroupDetails.GroupId, SessionName)
   let studentLimitCount = await festHelpers.getStudentEventCount(GroupDetails.FestId, ChestNo)
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  if(req.session.eventDeletError){
+  if (req.session.eventDeletError) {
     res.render('group/view-student', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, studentEvents, studentLimitCount, EventLimit,
-      FestDetails,   NewNotifi_Count , "eventDeletError":req.session.eventDeletError
+      FestDetails, NewNotifi_Count, "eventDeletError": req.session.eventDeletError
     })
     req.session.eventDeletError = false
-  }else{
+  } else {
     res.render('group/view-student', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, studentEvents, studentLimitCount, EventLimit,
-      FestDetails,   NewNotifi_Count 
-  
+      FestDetails, NewNotifi_Count
+
     })
 
   }
@@ -222,10 +235,10 @@ router.get('/students/:SessionName/:ChestNo-:EventId/delete-event', verifyGroupL
   let ChestNo = req.params.ChestNo
   let EventId = req.params.EventId
   festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then((respons) => {
-    if(respons.eventDeletError){
+    if (respons.eventDeletError) {
       req.session.eventDeletError = "This event cannot be deleted"
       res.redirect('/group/students/' + SessionName + '/' + ChestNo + '/view')
-    }else{
+    } else {
       res.redirect('/group/students/' + SessionName + '/' + ChestNo + '/view')
     }
   })
@@ -382,7 +395,7 @@ router.get('/events/:SessionName/:Category/all-events/:EventId-:EventName/all-st
   let EventStudents = await groupHelpers.getEventStudents(GroupDetails.FestId, GroupDetails.GroupId, CategoryName, EventId)
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
 
- 
+
   res.render('group/view-event-students', {
     title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
     FestDetails, NewNotifi_Count
@@ -396,7 +409,7 @@ router.get('/events/:SessionName/:CategoryName/all-events/:EventId-:EventName/al
   let EventId = req.params.EventId
   let EventName = req.params.EventName
   let ChestNo = req.params.ChestNo
-  
+
   festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then(() => {
     res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
   });
@@ -459,58 +472,58 @@ router.post('/events/:SessionName/:Category/choose-event', verifyGroupLogin, (re
 router.get('/notification', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  let FullNotifications = await groupHelpers.getFullNotifications(GroupDetails.FestId,GroupDetails.GroupId)
- 
+  let FullNotifications = await groupHelpers.getFullNotifications(GroupDetails.FestId, GroupDetails.GroupId)
+
   res.render('group/Notification', { title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, NewNotifi_Count, FullNotifications })
 });
 
-router.post('/saw-notification',verifyGroupLogin,(req,res)=>{
+router.post('/saw-notification', verifyGroupLogin, (req, res) => {
   let GroupDetails = req.session.group
-  groupHelpers.sawNotification(req.body,GroupDetails.FestId).then(()=>{
+  groupHelpers.sawNotification(req.body, GroupDetails.FestId).then(() => {
     res.json()
   })
 });
 
-router.post('/read-one-notification',verifyGroupLogin,(req,res)=>{
+router.post('/read-one-notification', verifyGroupLogin, (req, res) => {
   let GroupDetails = req.session.group
-  groupHelpers.readOneNotification(req.body,GroupDetails.FestId).then((response)=>{
+  groupHelpers.readOneNotification(req.body, GroupDetails.FestId).then((response) => {
     res.json(response)
   })
 });
-router.post('/clear-one-notification',verifyGroupLogin,(req,res)=>{
+router.post('/clear-one-notification', verifyGroupLogin, (req, res) => {
   let GroupDetails = req.session.group
-  groupHelpers.clearOneNotification(req.body,GroupDetails.FestId).then((response)=>{
+  groupHelpers.clearOneNotification(req.body, GroupDetails.FestId).then((response) => {
     res.json(response)
   })
 });
-router.post('/read-full-notification',verifyGroupLogin,(req,res)=>{
+router.post('/read-full-notification', verifyGroupLogin, (req, res) => {
   let GroupDetails = req.session.group
-  groupHelpers.readFullNotification(req.body,GroupDetails.FestId).then((response)=>{
+  groupHelpers.readFullNotification(req.body, GroupDetails.FestId).then((response) => {
     res.json(response)
   })
 });
 
-router.get('/notification/:MessageId/view',verifyGroupLogin,async(req,res)=>{
+router.get('/notification/:MessageId/view', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   var FestDetails = await festHelpers.getFestDetails(GroupDetails.FestId)
   let MessageId = req.params.MessageId
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  let Message = await groupHelpers.getOneMessage(GroupDetails.FestId,GroupDetails.GroupId,MessageId)
-  res.render('group/view-notification',{
-    title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, NewNotifi_Count ,FestDetails,Message
+  let Message = await groupHelpers.getOneMessage(GroupDetails.FestId, GroupDetails.GroupId, MessageId)
+  res.render('group/view-notification', {
+    title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, NewNotifi_Count, FestDetails, Message
   })
 })
 
 
 //........ Other
-router.get('/other', verifyGroupLogin, async(req, res) => {
+router.get('/other', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
 
   res.render('group/other', { title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, NewNotifi_Count })
 });
 // other . change password
-router.get('/settings/change-password', verifyGroupLogin, async(req, res) => {
+router.get('/settings/change-password', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
 
@@ -538,9 +551,9 @@ router.post('/settings/change-password', verifyGroupLogin, (req, res) => {
   })
 });
 
-router.post('/other/refreshPage',verifyGroupLogin,(req,res)=>{
-  groupHelpers.refreshSessionPage(req.body).then((result)=>{
-    if(result){
+router.post('/other/refreshPage', verifyGroupLogin, (req, res) => {
+  groupHelpers.refreshSessionPage(req.body).then((result) => {
+    if (result) {
       req.session.group = null
       req.session.group = {
         _id: result._id,
@@ -550,16 +563,16 @@ router.post('/other/refreshPage',verifyGroupLogin,(req,res)=>{
         Convener: result.Convener
       }
       res.json(result)
-    }else{
+    } else {
       res.redirect('/group/login')
     }
   })
 });
 
-router.get('/other/feed-back-form',verifyGroupLogin,async(req,res)=>{
+router.get('/other/feed-back-form', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-  res.render('user/feedback',{title: "NSA Online", title: GroupDetails.GroupName, group: true, footer:true, groupHeader: true, NewNotifi_Count, GroupDetails,})
+  res.render('user/feedback', { title: "NSA Online", title: GroupDetails.GroupName, group: true, footer: true, groupHeader: true, NewNotifi_Count, GroupDetails, })
 })
 
 

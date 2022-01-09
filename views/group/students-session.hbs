@@ -16,6 +16,14 @@
                 </a>
                 {{/if}}
                 {{/each}}
+                 {{#if noEventStudentCount.totalWithoutStudentCount}}
+                 <a id="mainDiv" href="/group/students/students-without-program">
+                    <div class="allGroupCatetory-items">
+                        <h4><i style="font-size: 18px; margin-right:5px;" class="bi bi-folder-x"></i> Student without program</h4>
+                        <p>{{noEventStudentCount.totalWithoutStudentCount}}</p>
+                    </div>
+                </a>
+                {{/if}} 
             </div>
 
         </div>

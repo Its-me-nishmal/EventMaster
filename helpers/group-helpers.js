@@ -980,6 +980,31 @@ module.exports = {
            })
        })
        
+    },
+
+    noEventStudentCount:(FestId,GroupId)=>{
+        return new Promise(async(resolve, reject) => {
+            let noEventStudentCount = await db.get().collection(collection.STUDENTS_COLLECTION).find({FestId,GroupId}).toArray()
+            let StudentwithoutProgram = []
+            for (let i = 0; i < noEventStudentCount.length; i++) {
+                if (noEventStudentCount[i].StageEvents.length == 0) {
+                    if (noEventStudentCount[i].OffStageEvents.length == 0) {
+                        let Obj = {
+                            GroupId: noEventStudentCount[i].GroupId,
+                            SessionName: noEventStudentCount[i].SessionName,
+                            ChestNo: noEventStudentCount[i].ChestNo,
+                            FullName: noEventStudentCount[i].FullName,
+                            CicNo: noEventStudentCount[i].CicNo
+                        }
+                        StudentwithoutProgram.push(Obj)
+                    }
+                }
+
+            }
+            StudentwithoutProgram.totalWithoutStudentCount = StudentwithoutProgram.length
+            resolve(StudentwithoutProgram)
+        })
+        
     }
 
 
