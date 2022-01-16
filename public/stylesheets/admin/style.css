@@ -12,8 +12,8 @@
 
 .admin-header-div-main {
     padding: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 3%;
+    padding-right: 3%;
     display: flex;
     justify-content: space-between;
 }

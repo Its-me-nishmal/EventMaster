@@ -319,3 +319,10 @@ table {
     color: rgb(78, 78, 78);
     font-family: 'Poppins';
 }
+
+.fest-titlet-user{
+    font-family: 'Poppins';
+    text-align: center;
+    padding: 10px;
+    color: var(--color-green-one);
+}

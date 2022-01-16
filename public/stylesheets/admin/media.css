@@ -282,6 +282,7 @@
 
 @media (max-width: 375px) /* all mobile */ {
   .adminHome-section-one-Fest {
+    flex: 100%;
     width: 100%;
     max-width: 100%;
   }

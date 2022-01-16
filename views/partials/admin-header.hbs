@@ -7,16 +7,16 @@
             </div>
             <div class="admin-header-buttons">
                 {{#if festHeader}}
-                 <a id="festHeader" class="sidebarMenueButton" onclick="showSidebar()" style="text-decoration: none;">
+                <a id="festHeader" class="sidebarMenueButton" onclick="showSidebar()" style="text-decoration: none;">
                     <div class="admin-header-login ">
-                       <i class="bi bi-layout-sidebar-inset"></i>
+                        <i class="bi bi-layout-sidebar-inset"></i>
                         <h4 class="create-fest">Sidebar</h4>
                     </div>
                 </a>
                 {{/if}}
 
                 {{#if admin}}
-                <a href="/fest-admin/create-fest-page1" style="text-decoration: none;">
+                <a href="/fest-admin/create-fest-page1" id="create-fest-button" style="text-decoration: none;">
                     <div class="create-fest-button-border" onclick="return confirm('Are you want create new fest ?')">
                         <i class="bi bi-plus-lg"></i>
                         <h4 class="create-fest">Create fest</h4>
@@ -25,18 +25,18 @@
 
                 <a href="/fest-admin/settings" style="text-decoration: none;">
                     <div class="admin-header-login">
-                      <i style="font-size: 18px;" class="bi bi-gear-wide-connected"></i>
+                        <i style="font-size: 18px;" id="settings" class="bi bi-gear-wide-connected"></i>
                         <h4 class="create-fest">Settings</h4>
                     </div>
                 </a>
-               {{else}}{{#if createAccout}}
-                    <a href="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile" style="text-decoration: none;">
+                {{else}}{{#if createAccout}}
+                <a href="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile" style="text-decoration: none;">
                     <div class="admin-header-login">
-                      <i style="font-size: 18px;" class="bi bi-palette"></i>
+                        <i style="font-size: 18px;" class="bi bi-palette"></i>
                         <h4 class="create-fest">Profile</h4>
                     </div>
                 </a>
-               {{else}}
+                {{else}}
 
                 <a href="/fest-admin/login" style="text-decoration: none;">
                     <div class="admin-header-login">
@@ -51,15 +51,32 @@
 </section>
 
 <script>
-    function showSidebar(){
+    function showSidebar() {
         var sidebar = document.getElementById('sidebar')
         var festHeader = document.getElementById('festHeader')
         var closeButton = document.getElementById('closeIcon')
-        
-        
+
+
         sidebar.className = "sidebarboarder-onClick-menu";
         closeButton.className = "bi bi-x-lg sidebarheaderCloseIcon-onClick-menu"
         festHeader.className = "sidebarMenueButton-onClick-menu"
-        
+
+    }
+</script>
+
+<script>
+    let butten = document.getElementById('create-fest-button')
+    let settings = document.getElementById('settings')
+    let Android1 = "Android"
+    Android1 = new RegExp('(\\w*' + Android1 + '\\w*)', 'gi');
+    let ios1 = "iphone"
+    ios1 = new RegExp('(\\w*' + ios1 + '\\w*)', 'gi');
+    var pho = document.getElementById('hi')
+    var AndroidMobile = platform.description.match(Android1);
+    var iphone = platform.description.match(ios1);
+    if (AndroidMobile) {
+        butten.style.display = "none"
+    } else if (iphone) {
+        butten.style.display = "none" 
     }
 </script>
