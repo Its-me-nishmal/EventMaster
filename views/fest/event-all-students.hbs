@@ -10,7 +10,8 @@
             </div>
             <div class="pointTable-addButton">
                 <p>Create new student this event :</p>
-                <a href="/fest-admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students">
+                <a
+                    href="/fest-admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students">
                     <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
                 </a>
             </div>
@@ -52,9 +53,27 @@
                             class="bi bi-printer-fill"></i>
                         Print</button>
                 </div>
+                {{#if Error}}
+                <div style=" background-color: #ffddbe; border-color:#e06c00"
+                    class="groupAlertBorder">
+                    <div class="groupAlert-box-close-button">
+                        <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                    </div>
+                    <div class="groupAlertHead" style=" color: #c76000">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h4>Info !</h4>
+                    </div>
+                    <div class="groupAletCountent" style="color: #743800">
+                        <h5>{{Error}}</h5>
+                    </div>
+                    <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+                </div>
+                {{/if}}
             </div>
         </div>
     </div>
+
+
 </section>
 
 

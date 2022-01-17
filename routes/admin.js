@@ -432,11 +432,18 @@ router.get('/:FestId/events/:Session-:Category/:EventId-:EventName/all-students'
   let EventId = req.params.EventId
   let EventName = req.params.EventName
   let EventStudents = await festHelpers.getEventStudentsForAllGroup(FestDetails.FestId, SessionName, CategoryName, EventId)
-
-  res.render('fest/event-all-students', {
-    title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, EventName, EventStudents,
-    SessionName, CategoryName, EventId
-  })
+  if (req.session.error) {
+    res.render('fest/event-all-students', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, EventName, EventStudents,
+      SessionName, CategoryName, EventId, "Error": req.session.error
+    });
+    req.session.error = false
+  } else {
+    res.render('fest/event-all-students', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, EventName, EventStudents,
+      SessionName, CategoryName, EventId
+    })
+  }
 });
 
 router.get('/:FestId/events/:Session-:Category/:EventId-:EventName/:GroupId/:ChestNo/delete-event', verifyAdminLogin, verifyFestLogin, (req, res) => {
@@ -448,8 +455,13 @@ router.get('/:FestId/events/:Session-:Category/:EventId-:EventName/:GroupId/:Che
   let GroupId = req.params.GroupId
   let EventName = req.params.EventName
 
-  festHelpers.deleteStudentEvent(FestDetails.FestId, GroupId, ChestNo, EventId, SessionName).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
+  festHelpers.deleteStudentEvent(FestDetails.FestId, GroupId, ChestNo, EventId, SessionName).then((result) => {
+    if (result) {
+      req.session.error = 'Firstly release student from event result '
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
+    } else {
+      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
+    }
   })
 });
 
@@ -734,11 +746,20 @@ router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo/view', verif
   let studentEvents = await festHelpers.getOneStudentEvents(FestDetails.FestId, GroupId, SessionName, ChestNo)
   let EventLimit = await festHelpers.getStudentEventLimit(FestDetails.FestId, GroupId, SessionName)
   let studentLimitCount = await festHelpers.getStudentEventCount(FestDetails.FestId, ChestNo)
+  if (req.session.Error) {
+    res.render('fest/view-group-student-events', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, studentEvents, GroupId,
+      studentLimitCount, EventLimit, "Error":req.session.Error
+    })
+    req.session.Error = false
+  } else {
+    res.render('fest/view-group-student-events', {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, studentEvents, GroupId,
+      studentLimitCount, EventLimit
+    })
 
-  res.render('fest/view-group-student-events', {
-    title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, studentEvents, GroupId,
-    studentLimitCount, EventLimit
-  })
+  }
+
 });
 
 router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo/delete', verifyAdminLogin, verifyFestLogin, (req, res) => {
@@ -766,9 +787,13 @@ router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo-:EventId/del
   let ChestNo = req.params.ChestNo
   let EventId = req.params.EventId
 
-  festHelpers.deleteStudentEvent(FestId, GroupId, ChestNo, EventId, SessionName).then(() => {
-
-    res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
+  festHelpers.deleteStudentEvent(FestId, GroupId, ChestNo, EventId, SessionName).then((result) => {
+    if (result) {
+      req.session.Error = "Firstly release student from event result "
+      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
+    } else {
+      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
+    }
   })
 })
 
@@ -1151,7 +1176,7 @@ router.get('/:FestId/notification-settings/all/commen/notifications/:GroupId-:Gr
 });
 
 router.post('/:FestId/settings/refresh', verifyAdminLogin, verifyFestLogin, (req, res) => {
-  console.log('hiiiii,,,,,,,,')
+
   festHelpers.refreshSession(req.body).then((response) => {
     if (response) {
       req.session.fest = null

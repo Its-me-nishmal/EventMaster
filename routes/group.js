@@ -236,7 +236,7 @@ router.get('/students/:SessionName/:ChestNo-:EventId/delete-event', verifyGroupL
   let EventId = req.params.EventId
   festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then((respons) => {
     if (respons.eventDeletError) {
-      req.session.eventDeletError = "This event cannot be deleted"
+      req.session.eventDeletError = "This Event result published. Please contact admin panel other information"
       res.redirect('/group/students/' + SessionName + '/' + ChestNo + '/view')
     } else {
       res.redirect('/group/students/' + SessionName + '/' + ChestNo + '/view')
@@ -395,11 +395,19 @@ router.get('/events/:SessionName/:Category/all-events/:EventId-:EventName/all-st
   let EventStudents = await groupHelpers.getEventStudents(GroupDetails.FestId, GroupDetails.GroupId, CategoryName, EventId)
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
 
+  if(req.session.Error){
+    res.render('group/view-event-students', {
+      title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
+      FestDetails, NewNotifi_Count, "Error": req.session.Error
+    })
+    req.session.Error = false
 
-  res.render('group/view-event-students', {
-    title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
-    FestDetails, NewNotifi_Count
-  })
+  }else{
+    res.render('group/view-event-students', {
+      title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
+      FestDetails, NewNotifi_Count
+    })
+  }
 });
 
 router.get('/events/:SessionName/:CategoryName/all-events/:EventId-:EventName/all-students/:ChestNo/delete-event', verifyGroupLogin, (req, res) => {
@@ -410,8 +418,14 @@ router.get('/events/:SessionName/:CategoryName/all-events/:EventId-:EventName/al
   let EventName = req.params.EventName
   let ChestNo = req.params.ChestNo
 
-  festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then(() => {
-    res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
+  festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then((result) => {
+    if(result){
+      req.session.Error = "This Event result published. Please contact admin panel other information"
+      res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
+    }else{
+      res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
+
+    }
   });
 })
 

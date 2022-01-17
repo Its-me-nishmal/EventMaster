@@ -1799,6 +1799,7 @@ module.exports = {
 
                     })
                 } else {
+                   
                     resolve({ eventDeletError: true })
                 }
             } else {
