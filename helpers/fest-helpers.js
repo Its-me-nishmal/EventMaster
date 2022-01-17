@@ -1803,10 +1803,12 @@ module.exports = {
                     resolve({ eventDeletError: true })
                 }
             } else {
+                let OffStageCheck = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, ChestNo, "OffStageEvents.EventId": EventId })
                 let a = ''
-                for (let i = 0; i < stageCheck.OffStageEvents.length; i++) {
-                    if (stageCheck.OffStageEvents[i].EventId === EventId) {
-                        if (stageCheck.OffStageEvents[i].Mark === undefined || stageCheck.OffStageEvents[i].Mark === 0) {
+                
+                for (let i = 0; i < OffStageCheck.OffStageEvents.length; i++) {
+                    if (OffStageCheck.OffStageEvents[i].EventId === EventId) {
+                        if (OffStageCheck.OffStageEvents[i].Mark === undefined || OffStageCheck.OffStageEvents[i].Mark === 0) {
                             a = true
                         }
                     }
