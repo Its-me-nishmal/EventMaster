@@ -2494,7 +2494,16 @@ module.exports = {
             }
         })
 
-    }
+    },
+
+    refreshSession:(body)=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.FEST_COLLECTION).findOne({GroupId:body.GroupId}).then((response)=>{
+                resolve(response)
+            })
+        })
+        
+    },
 
 
 
