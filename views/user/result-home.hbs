@@ -24,10 +24,10 @@
                 </div>
             </div>
             {{!-- search bottom butten --}}
-            <div id="myBtn" style="margin-bottom: 60px;" onclick="topFunction()" class="searchBottomButton">
-                <i class="bi bi-search"></i>
+            <div id="myBtn" style="margin-bottom: 60px;" onclick="window.location.reload()" class="searchBottomButton">
+                <i class="bi bi-arrow-clockwise"></i>
             </div>
-            <a href="/feed-back-form">
+            <a href="/feed-back-form" >
                 <div id="myBtn" title="feedback" style="background-color: rgb(0, 0, 0);" class="searchBottomButton">
                     <i class="bi bi-chat-square-text-fill"></i>
                 </div>
@@ -154,7 +154,7 @@
                                                     <tr>
                                                         <th scope="row">{{this.GroupName}} </th>
                                                         {{#each this.Sessions}}
-                                                        <td style="--size:calc( {{this.TotalEventMark}} / 1500 );"><span
+                                                        <td style="--size:calc( {{this.TotalEventMark}} / 700 );"><span
                                                                 class="data"> {{this.TotalEventMark}}
                                                             </span></td>
 
@@ -534,34 +534,7 @@
     });
 </script>
 
-<script>
-    //Get the button
-    var mybutton = document.getElementById("myBtn");
 
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () { scrollFunction() };
-
-    function scrollFunction() {
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
-    var rootElement = document.documentElement;
-
-
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-
-        rootElement.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-
-    }
-</script>
 
 
 {{!-- Search Event --}}
@@ -664,3 +637,4 @@
         Input.value = ""
     }
 </script>
+

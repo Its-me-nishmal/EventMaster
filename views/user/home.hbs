@@ -34,9 +34,12 @@
 
                 {{!-- Timer --}}
                 <div class="countdown">
-                    <div>
-
-
+                    <div style="display: none;" id="HeaderDiv">
+                        <div class="title">
+                            <h3 id="timerTitle">Result will be published shortly !</h3>
+                        </div>
+                    </div>
+                    <div style="display: none;" id="coundownDiv">
                         <div class="title">
                             <h3 id="timerTitle">fest will start soon !</h3>
                         </div>
@@ -205,8 +208,12 @@
 </script>
 
 {{!-- Timer --}}
+
+{{!-- Timer --}}
 <script>
-    let nowFestDate = document.getElementById('nowFestDate').innerHTML
+
+    let nowFestDate = document.getElementById('nowFestDate').innerHTML;
+
     if (nowFestDate[1] == " ") {
         nowFestDate = "0" + nowFestDate
     }
@@ -217,8 +224,7 @@
     let nowFestMonth = nowFestDate.slice(5, 8)
     let nowFestDay = nowFestDate.slice(0, 2)
 
-    var nowFestFullDate = nowFestMonth + " " + nowFestDay + ", " + nowFestYear + " 07:00:00"
-
+    var nowFestFullDate = nowFestMonth + " " + nowFestDay + ", " + nowFestYear + " 09:00:00"
     const countdown = () => {
         const countDate = new Date(nowFestFullDate).getTime();
         const now = new Date().getTime()
@@ -259,13 +265,13 @@
         document.querySelector(".hour").innerText = textHour
         document.querySelector(".minute").innerText = textMinte
         document.querySelector(".second").innerText = textSecond
+        document.getElementById('coundownDiv').style.display = "block"
+        document.getElementById('coundownDiv').className = "timer-div"
 
         if (textSecond[1] == "-") {
-            document.querySelector(".day").innerText = "00"
-            document.querySelector(".hour").innerText = "00"
-            document.querySelector(".minute").innerText = "00"
-            document.querySelector(".second").innerText = "00"
-            document.getElementById('timerTitle').innerHTML = "Result will be published shortly"
+        document.getElementById('coundownDiv').style.display = "none"
+            document.getElementById('HeaderDiv').style.display = "block"
+
         }
 
 

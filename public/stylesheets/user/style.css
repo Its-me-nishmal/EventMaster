@@ -252,6 +252,7 @@ table {
     box-sizing: border-box;
     top: 65px;
     right: 0;
+    z-index: 2;
 
 }
 
