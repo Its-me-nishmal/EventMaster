@@ -85,11 +85,12 @@ module.exports = {
                 if (Group.Session1.SessionName === SessionName) {
                     const Session_SL = String(Group.Session1.SlNo)
                     var Students_SlNo = Group.Session1.Students_SlNo
+                    console.log(Students_SlNo);
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -114,12 +115,13 @@ module.exports = {
                     })
                 } else if (Group.Session2.SessionName === SessionName) {
                     const Session_SL = String(Group.Session2.SlNo)
-                    var Students_SlNo = Group.Session2.Students_SlNo
+                    var Students_SlNo = Group.Session1.Students_SlNo
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL  + num
+                    console.log(Students_SlNo,"h",num,"h",ChestNo);
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -135,8 +137,8 @@ module.exports = {
                     db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
-                                "Session2.Students_SlNo": Group.Session2.Students_SlNo + 1,
-                                "Session2.StudentsCount": Group.Session2.StudentsCount + 1
+                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
+                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -144,12 +146,12 @@ module.exports = {
                     })
                 } else if (Group.Session3.SessionName === SessionName) {
                     const Session_SL = String(Group.Session3.SlNo)
-                    var Students_SlNo = Group.Session3.Students_SlNo
+                    var Students_SlNo = Group.Session1.Students_SlNo
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL  + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -165,8 +167,8 @@ module.exports = {
                     db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
-                                "Session3.Students_SlNo": Group.Session3.Students_SlNo + 1,
-                                "Session3.StudentsCount": Group.Session3.StudentsCount + 1
+                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
+                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -174,12 +176,12 @@ module.exports = {
                     })
                 } else if (Group.Session4.SessionName === SessionName) {
                     const Session_SL = String(Group.Session4.SlNo)
-                    var Students_SlNo = Group.Session4.Students_SlNo
+                    var Students_SlNo = Group.Session1.Students_SlNo
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL  + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -195,8 +197,8 @@ module.exports = {
                     db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
-                                "Session4.Students_SlNo": Group.Session4.Students_SlNo + 1,
-                                "Session4.StudentsCount": Group.Session4.StudentsCount + 1
+                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
+                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -204,12 +206,12 @@ module.exports = {
                     })
                 } else if (Group.Session5.SessionName === SessionName) {
                     const Session_SL = String(Group.Session5.SlNo)
-                    var Students_SlNo = Group.Session5.Students_SlNo
+                    var Students_SlNo = Group.Session1.Students_SlNo
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL  + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -225,8 +227,8 @@ module.exports = {
                     db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
-                                "Session5.Students_SlNo": Group.Session5.Students_SlNo + 1,
-                                "Session5.StudentsCount": Group.Session5.StudentsCount + 1
+                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
+                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -234,12 +236,12 @@ module.exports = {
                     })
                 } else if (Group.Session6.SessionName === SessionName) {
                     const Session_SL = String(Group.Session6.SlNo)
-                    var Students_SlNo = Group.Session6.Students_SlNo
+                    var Students_SlNo = Group.Session1.Students_SlNo
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + Session_SL + num
+                    var ChestNo = Group_SL  + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -255,8 +257,8 @@ module.exports = {
                     db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
-                                "Session6.Students_SlNo": Group.Session6.Students_SlNo + 1,
-                                "Session6.StudentsCount": Group.Session6.StudentsCount + 1
+                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
+                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
                             }
                         }])
                     }).then((respons) => {

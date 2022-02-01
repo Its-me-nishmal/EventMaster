@@ -29,7 +29,7 @@ const verifyFestLogin = (req, res, next) => {
 /* HOme page */
 
 router.get('/', verifyAdminLogin, async function (req, res, next) {
-
+  
   var newDate = new Date();
   var CurrentYear = newDate.getFullYear();
   var latestFest = await festHelpers.latestFest(newDate)
@@ -37,7 +37,6 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
   var allFest = await festHelpers.allFests()
   var allFestZero = allFest == true
   var LoginFest = req.session.fest
-
 
 
   if (req.session.festLoginErr) {
@@ -185,13 +184,14 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-
+  
   adminHelpers.adminLogin(req.body).then((response) => {
     if (response.adminDetails) {
       req.session.admin = true
       req.session.EmailErr = false
       req.session.PasswordErr = false
       req.session.admin = response.adminDetails
+     
       res.redirect('/fest-admin')
     } else if (response.EmailErr) {
       req.session.EmailErr = true
