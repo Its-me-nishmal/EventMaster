@@ -2,7 +2,9 @@
     <div class="fest-container">
         <div class="settings-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Settings / Profile</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/settings"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Settings / Profile
+                </h4>
                 <hr>
             </div>
             <div class="fest-profile-content">
@@ -25,7 +27,8 @@
                                     <button onclick="uploading()" style="display: none;" id="uploadButton"
                                         type="submit"><i class="bi bi-upload"></i> Upload</button>
 
-                                <p style="font-size: 12px; text-align:center;">Photo must be 400 x 400 px in size <br>and less than 500 KB</p>
+                                    <p style="font-size: 12px; text-align:center;">Photo must be 400 x 400 px in size
+                                        <br>and less than 500 KB</p>
                                 </form>
                             </div>
 
@@ -45,19 +48,18 @@
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest ID</label>
-                                            <input style="cursor:not-allowed; "
-                                                type="text" name="FestId" value="{{ FestFullDetails.FestId}}" required
-                                                readonly>
+                                            <input style="cursor:not-allowed; " type="text" name="FestId"
+                                                value="{{ FestFullDetails.FestId}}" required readonly>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest Name</label>
-                                            <input type="text" name="FestName" value="{{ FestFullDetails.FestName}}"
+                                            <input type="text" id="hi" name="FestName" value="{{ FestFullDetails.FestName}}"
                                                 required>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
-                                            <label for="">Fest Date <small style="margin-left: 10px; font-style:italic; color:rgb(80, 79, 79);">Current date : {{FestDetails.FestDate}}</small></label>
-                                            <input type="date" name="FestDate" value="{{ FestFullDetails.FestDate}}"
-                                                required>
+                                            <label for="">Fest Date <small id="festDate"
+                                                    style="margin-left: 10px; font-style:italic; color:rgb(80, 79, 79);">Current date : {{FestDetails.FestDate}}</small></label>
+                                            <input type="date" id="festDateInput" name="FestDate" value="" required>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest Converner name</label>
@@ -97,9 +99,8 @@
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Fest ID</label>
-                                            <input style="cursor:not-allowed; "
-                                                type="text" name="FestId" value="{{ FestFullDetails.FestId}}" required
-                                                readonly>
+                                            <input style="cursor:not-allowed; " type="text" name="FestId"
+                                                value="{{ FestFullDetails.FestId}}" required readonly>
                                         </div>
                                         <div class="festDetialsEditsubDiv">
                                             <label for="">Current password</label>
@@ -213,7 +214,8 @@
                                                 {{/if}}
                                             </label>
                                             <small
-                                                style="display: block; font-style:italic; color:rgb(66, 66, 66); margin-top:5px;"><i class="bi bi-info-circle-fill"></i> This
+                                                style="display: block; font-style:italic; color:rgb(66, 66, 66); margin-top:5px;"><i
+                                                    class="bi bi-info-circle-fill"></i> This
                                                 option used only to know status of fest</small>
                                         </div>
                                         <div class="Students-setting-Input-Event">

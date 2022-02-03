@@ -2,7 +2,10 @@
     <div class="fest-container">
         <div class="evets-MainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading">{{FestDetails.Session}} / {{FestDetails.Category}} /
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/fest-admin/{{FestDetails.FestId}}/mark/{{FestDetails.Session}}-{{FestDetails.Category}}"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i>
+                            Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} /
                     {{EventName}} / Add mark</h4>
                 <hr>
             </div>
@@ -31,7 +34,7 @@
                                             <option {{#if this.event.Two}} selected {{/if}} value="2nd">2nd</option>
                                             <option {{#if this.event.Three}} selected {{/if}} value="3rd">3rd</option>
                                             <option {{#if this.event.four}} selected {{/if}}>Nill</option>
-                                            </select>
+                                        </select>
 
 
                                     </td>
@@ -42,7 +45,7 @@
                                             <option {{#if this.event.B}} selected {{/if}} value="B">B</option>
                                             <option {{#if this.event.C}} selected {{/if}} value="C">C</option>
                                             <option {{#if this.event.D}} selected {{/if}}>Nill</option>
-                                            </select>
+                                        </select>
 
                                     </td>
                                     <td class="markSubmitButton">
@@ -76,7 +79,7 @@
                                             value="{{../pointCategory.categoryName}}" hidden>
                                     </td>
 
-                                    <td class="GradeOneTd"> <select  id="" name="places"
+                                    <td class="GradeOneTd"> <select id="" name="places"
                                             onchange="changeValue('{{this.GroupId}}')" required>
                                             <option value="">Place</option>
                                             <option {{#if this.student.event.One}} selected {{/if}} value="1st">1st
@@ -86,16 +89,16 @@
                                             <option {{#if this.student.event.Three}} selected {{/if}} value="3rd">3rd
                                             </option>
                                             <option {{#if this.student.event.four}} selected {{/if}}>Nill</option>
-                                            </select>
+                                        </select>
                                     </td>
-                                    <td class="GradeTwoTd"> <select  id="number-group" name="grades"
+                                    <td class="GradeTwoTd"> <select id="number-group" name="grades"
                                             onchange="changeValue('{{this.GroupId}}')" required>
                                             <option value="">Grades</option>
                                             <option {{#if this.student.event.A}} selected {{/if}} value="A">A</option>
                                             <option {{#if this.student.event.B}} selected {{/if}} value="B">B</option>
                                             <option {{#if this.student.event.C}} selected {{/if}} value="C">C</option>
                                             <option {{#if this.student.event.D}} selected {{/if}}>Nill</option>
-                                            </select>
+                                        </select>
 
                                     </td>
                                     <td class="markSubmitButton">
@@ -138,7 +141,7 @@
 <script>
 
     function changeValue(GroupId) {
-      
+
         var tikbutton = document.getElementById('TikButton' + GroupId);
         var tikIcon = document.getElementById('TikIcon' + GroupId);
         tikbutton.setAttribute("type", "submit")
@@ -149,6 +152,6 @@
 
 <script>
     function changePlaceAndGrade(ChestNo) {
-       
+
     }
 </script>

@@ -2,7 +2,7 @@
     <div class="group-container">
         <div class="allGroupStudents-mainDiv">
             <div class="GroupAllCategory-header">
-                <h4 class="adminHome-sectin-one-SubHeading">{{SessionName}} students</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/group/students"><span class="back-button" style="background-color: var(--color-blueDark2);"><i class="bi bi-chevron-left"></i> Back</span></a>{{SessionName}} students</h4>
                 <hr class="GroupallCategoryheader-hr">
             </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="GroupStudentsZero">
                 <div class="pointTabel-div">
                     <div class="pointTable-IconDiv">
-                       <i class="bi bi-cloud-haze2-fill"></i>
+                        <i class="bi bi-cloud-haze2-fill"></i>
                     </div>
                     <p>Pleace Wait... <br> This session not activated</p>
                 </div>
@@ -78,6 +78,9 @@
                                     {{#if ../editStatus}}
                                     <a title="Edit sudent" style="background-color: var(--color-edit);  "
                                         href="/group/students/{{../SessionName}}/{{this.ChestNo}}/edit"><i
+                                            class="bi bi-pencil-square"></i></a>
+                                    {{else}}
+                                    <a title="Edit option hide" style="background-color: var(--color-edit);opacity:0.3;cursor: not-allowed; "><i
                                             class="bi bi-pencil-square"></i></a>
                                     {{/if}}
                                     <a title="Delete student"
@@ -275,12 +278,13 @@
                         {{#each AllStudents}}
                         <table class="   print-Table">
                             <tbody>
-                                
 
-                                <tr  class="studentHead">
+
+                                <tr class="studentHead">
                                     <td style="display: none;"></td>
-                                    <td colspan="2" rowspan="4">Chest no:<br> <span style="font-size: 35px; font-weight: bold;">{{this.ChestNo}}</span></td>
-                                    <td colspan="4" style="text-align: start;">  Full name : {{this.FullName}}
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span
+                                            style="font-size: 35px; font-weight: bold;">{{this.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;"> Full name : {{this.FullName}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -290,7 +294,8 @@
                                 </tr>
                                 <tr>
                                     <td style="display: none;"></td>
-                                    <td colspan="4" style="text-align: start;">Group Name : {{../GroupDetails.GroupName}} ( {{this.GroupId}} )</td>
+                                    <td colspan="4" style="text-align: start;">Group Name :
+                                        {{../GroupDetails.GroupName}} ( {{this.GroupId}} )</td>
                                 </tr>
 
                                 {{#if ../EventLimit.GeneralStageEventCount}}
@@ -338,7 +343,7 @@
                                     <th class="StudentsTable-TR-Control">point category</th>
 
                                 </tr>
-                           
+
 
                                 {{#each this.StageEvents}}
                                 <tr>

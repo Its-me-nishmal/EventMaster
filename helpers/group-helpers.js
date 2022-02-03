@@ -138,7 +138,7 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
                                 "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
+                                "Session2.StudentsCount": Group.Session2.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -168,7 +168,7 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
                                 "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
+                                "Session3.StudentsCount": Group.Session3.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -198,7 +198,7 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
                                 "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
+                                "Session4.StudentsCount": Group.Session4.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -228,7 +228,7 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
                                 "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
+                                "Session5.StudentsCount": Group.Session5.StudentsCount + 1
                             }
                         }])
                     }).then((response) => {
@@ -258,7 +258,7 @@ module.exports = {
                         db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
                             "$set": {
                                 "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
+                                "Session6.StudentsCount": Group.Session6.StudentsCount + 1
                             }
                         }])
                     }).then((respons) => {
