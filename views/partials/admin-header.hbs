@@ -23,12 +23,23 @@
                     </div>
                 </a>
 
-                <a href="/fest-admin/settings" style="text-decoration: none;">
-                    <div class="admin-header-login">
-                        <i style="font-size: 18px;" id="settings" class="bi bi-gear-wide-connected"></i>
-                        <h4 class="create-fest">Settings</h4>
+                <div class="dropdown-button">
+
+                    <div  id="adminProfileButton"
+                        class="admin-header-login">
+                        <i style="font-size: 18px;" id="settings" class="bi bi-person-circle"></i>
                     </div>
-                </a>
+                    <div id="dorpdown-content" class="dropdown-pop">
+                        <a href="#"><i class="bi bi-person-circle"></i> Account</a>
+                        <a href="#"><i class="bi bi-lock-fill"></i> Change password</a>
+                        <a href="#"><i class="bi bi-chat-square-text-fill"></i> Feedbacks</a>
+                        <a href="#"><i class="bi bi-person-plus-fill"></i> Create admin</a>
+                        <a href="#"><i class="bi bi-gear-fill"></i> Settings & Other</a>
+                        <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                    </div>
+                </div >
+               
+
                 {{else}}{{#if createAccout}}
                 <a href="/fest-admin" style="text-decoration: none;">
                     <div class="admin-header-login">
@@ -46,6 +57,7 @@
                 </a>
                 {{/if}}{{/if}}
             </div>
+
         </div>
     </div>
 </section>
@@ -77,6 +89,6 @@
     if (AndroidMobile) {
         butten.style.display = "none"
     } else if (iphone) {
-        butten.style.display = "none" 
+        butten.style.display = "none"
     }
 </script>

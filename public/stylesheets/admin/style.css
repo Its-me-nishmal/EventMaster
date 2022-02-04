@@ -68,7 +68,7 @@
     background-color: var(--color-two);
     border-radius: 100px;
     padding: 3px;
-    padding-right: 10px;
+
     cursor: pointer;
     margin-left: 10px;
 }
@@ -77,6 +77,71 @@
     margin-top: 20px;
     border: none;
     border-top: 1px solid var(--color-four);
+}
+
+/* admin profile */
+.dropdown-pop {
+     display: none; 
+    position: absolute;
+    background-color: #ececec;
+    min-width: 180px;
+    box-shadow: 0px 0px 20px 0px rgba(121, 121, 121, 0.78);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(121, 121, 121, 0.78);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(121, 121, 121, 0.78);
+    z-index: 2;
+    margin-top: 12px;
+    right: -6px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 5px;
+}
+
+.dropdown-pop ::after {
+    bottom: 100%;
+	left: 95%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #e4e4e4;
+	border-width: 13px;
+	margin-left: -30px;
+    
+}
+
+.dropdown-pop a {
+    color: black;
+    padding: 8px 8px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+.dropdown-pop>a>i{
+    font-size: 18px;
+    margin-right: 2px;
+}
+.dropdown-pop a:hover{
+    background-color: var(--color-two);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    color: white;
+}
+.dropdown-button{
+    position: relative;
+    display: inline-block;
+}
+.dropdown-button:hover .dropdown-pop {
+    display: block;
 }
 
 /* .................................... admin login */
@@ -407,7 +472,7 @@
     border-radius: 100px;
 }
 
-.createGrop-infermathion{
+.createGrop-infermathion {
     background-color: #9ddbff;
     padding: 10px;
     padding-left: 15px;
@@ -419,6 +484,7 @@
     border: 1px #005180 solid;
     margin-bottom: 10px;
 }
+
 .createGrop-infermathion span {
     color: red;
     font-size: 20px;
@@ -429,7 +495,7 @@
     word-break: break-all;
     color: #005180;
     margin: 0;
-    
+
 }
 
 /* ........................................crate fest - session 3 */
@@ -649,6 +715,7 @@
     0% {
         top: -25%;
     }
+
     100% {
         top: 50%;
     }
@@ -785,25 +852,27 @@
     border-radius: 20px;
     border-right: 2px solid var(--color-four);
 }
+
 /* onclick side bar */
 .sidebarboarder-onClick-menu::-webkit-scrollbar {
     width: 6px;
     background-color: rgb(255, 219, 236);
-  }
-  
-  /* Track */
-  
-  .sidebarboarder-onClick-menu::-webkit-scrollbar-track {
+}
+
+/* Track */
+
+.sidebarboarder-onClick-menu::-webkit-scrollbar-track {
     background-color: var(--color-four);
-  }
-  
-  /* Handle */
-  
-  .sidebarboarder-onClick-menu::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+
+.sidebarboarder-onClick-menu::-webkit-scrollbar-thumb {
     background: rgb(255, 115, 169);
     border-radius: 20px;
     border-right: 2px solid var(--color-four);
-  }
+}
+
 .sidebarheader {
     padding-top: 65px;
     position: relative;
@@ -1159,14 +1228,17 @@
     0% {
         top: -75px;
     }
+
     30% {
         top: 150px;
         opacity: 1;
     }
+
     90% {
         top: 150px;
         opacity: .1;
     }
+
     100% {
         top: 150px;
         opacity: 0;
@@ -1456,7 +1528,7 @@
 .fest-profile-settings-item-content {
     background-color: rgb(201, 201, 201);
     width: 100%;
-    
+
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
@@ -1807,7 +1879,7 @@
     justify-content: flex-end;
     padding-left: 15px;
     padding-right: 15px;
-  
+
 }
 
 .forgotFooter .fotgotButtons button {
@@ -2106,7 +2178,7 @@
     display: flex;
     justify-content: center;
     padding-top: 5px;
- 
+
 }
 
 .resultContentBoreder .graphTwoDiv {
@@ -2206,58 +2278,66 @@
 .group-baise-mark>:nth-child(6) h1 {
     color: #7a0039;
 }
+
 #chartdiv {
     width: 100%;
     height: 360px;
-  }
+}
 
-.RTotalButton{
+.RTotalButton {
     width: 100%;
     margin-top: 10px;
     background-color: rgb(224, 224, 224);
 }
-.RTotalButton:active{
+
+.RTotalButton:active {
     background-color: var(--color-two);
     color: white;
 }
-.TotalGroupsMarkDiv :nth-child(1){
-   color: #004a8f;
-   display: block;
+
+.TotalGroupsMarkDiv :nth-child(1) {
+    color: #004a8f;
+    display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-.TotalGroupsMarkDiv :nth-child(2){
+
+.TotalGroupsMarkDiv :nth-child(2) {
     color: #027c12;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-.TotalGroupsMarkDiv :nth-child(3){
+
+.TotalGroupsMarkDiv :nth-child(3) {
     color: #c71e08;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-.TotalGroupsMarkDiv :nth-child(4){
+
+.TotalGroupsMarkDiv :nth-child(4) {
     color: #8f008f;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-.TotalGroupsMarkDiv :nth-child(5){
+
+.TotalGroupsMarkDiv :nth-child(5) {
     color: #00a4aa;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-.TotalGroupsMarkDiv :nth-child(6){
+
+.TotalGroupsMarkDiv :nth-child(6) {
     color: #8f004f;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
 
-.ResultGroupFullDiv{
+.ResultGroupFullDiv {
     background-color: rgba(231, 231, 231, 0.582);
     border-radius: 13px;
     -webkit-border-radius: 13px;
@@ -2267,11 +2347,12 @@
     margin-left: 5px;
     margin-right: 5px;
     min-width: 150px;
-   position: relative;
-   overflow: auto;
-  
+    position: relative;
+    overflow: auto;
+
 }
-.ResultGroupFullDiv>h4{
+
+.ResultGroupFullDiv>h4 {
     background-color: gray;
     color: white;
     font-weight: normal;
@@ -2281,34 +2362,37 @@
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin-top: -5px    ;
-    
-}
-.ResultGroupFullDiv .ResultGroupFullContent{
-    text-align: center;
-    padding-top: 5px;
-    
+    margin-top: -5px;
 
 }
-.ResultGroupFullDiv .ResultGroupFullContent>h4{
+
+.ResultGroupFullDiv .ResultGroupFullContent {
+    text-align: center;
+    padding-top: 5px;
+
+
+}
+
+.ResultGroupFullDiv .ResultGroupFullContent>h4 {
     font-weight: normal;
     margin-bottom: 8px;
 }
-.ResultGroupFullDiv .ResultGroupFullContent>h4>span{
+
+.ResultGroupFullDiv .ResultGroupFullContent>h4>span {
     font-weight: bold;
     color: #696969;
 }
 
 
-.ResultGroupFullDiv .ResultGRoupFullBottom{
+.ResultGroupFullDiv .ResultGRoupFullBottom {
     border-top: 2px solid rgb(88, 88, 88);
     color: rgb(0, 0, 0);
     text-align: center;
-    border-radius:25px ;
-    -webkit-border-radius:25px ;
-    -moz-border-radius:25px ;
-    -ms-border-radius:25px ;
-    -o-border-radius:25px ;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2316,15 +2400,17 @@
     padding-bottom: 4px;
     background-color: #d8d8d8;
 }
-.ResultGroupFullDiv .ResultGRoupFullBottom>h4{
+
+.ResultGroupFullDiv .ResultGRoupFullBottom>h4 {
     font-weight: normal;
     margin-right: 5px;
 }
-.ResultGroupFullDiv .ResultGRoupFullBottom>h3{
-   color: #303030;
+
+.ResultGroupFullDiv .ResultGRoupFullBottom>h3 {
+    color: #303030;
 }
 
-.searchResultDiv{
+.searchResultDiv {
     background-color: rgb(228, 228, 228);
     padding: 10px;
     border-radius: 15px;
@@ -2333,15 +2419,17 @@
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
 }
-.searchResultDiv .searchResultHeader{
+
+.searchResultDiv .searchResultHeader {
     display: flex;
     justify-content: space-between;
     align-items: top;
     border-bottom: var(--color-two) solid 1px;
     padding-bottom: 3px;
-    
+
 }
-.searchResultDiv .searchResultHeader p{
+
+.searchResultDiv .searchResultHeader p {
     margin: 0;
     background-color: var(--color-one);
     color: white;
@@ -2355,21 +2443,24 @@
     -o-border-radius: 50px;
     cursor: pointer;
 }
-.searchResultDiv .noSuchResult{
+
+.searchResultDiv .noSuchResult {
     height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.searchResultDiv .noSuchResult h2{
+
+.searchResultDiv .noSuchResult h2 {
     color: rgb(104, 104, 104);
     text-align: center;
 }
-.aaaa{
+
+.aaaa {
     background-color: yellowgreen;
 }
 
- .searchResultOne{
+.searchResultOne {
     background-color: rgb(206, 206, 206);
     padding: 10px;
     border-radius: 15px;
@@ -2379,25 +2470,28 @@
     -o-border-radius: 15px;
     margin-top: 8px;
 }
- .searchResultOne .header {
-   
+
+.searchResultOne .header {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: rgb(46, 46, 46);
 }
- .searchResultOne .header h4{
+
+.searchResultOne .header h4 {
     font-weight: normal;
     font-style: italic;
     color: rgb(70, 70, 70);
 }
- .searchResultOne .Bottom h4{
+
+.searchResultOne .Bottom h4 {
     margin-top: 3px;
     font-weight: 500;
     color: var(--color-one)
 }
 
-.searchIcon-resultPage{  
+.searchIcon-resultPage {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 5px;
@@ -2410,8 +2504,9 @@
     background-color: var(--color-two);
     color: white;
 }
+
 /* Grade Marking */
-.P1st{
+.P1st {
     background-color: green;
     padding-left: 15px;
     padding-right: 15px;
@@ -2423,7 +2518,7 @@
     color: white;
 }
 
-.P2nd{
+.P2nd {
     background-color: rgb(199, 47, 1);
     padding-left: 15px;
     padding-right: 15px;
@@ -2434,7 +2529,8 @@
     -o-border-radius: 55px;
     color: rgb(255, 255, 255);
 }
-.P3rd{
+
+.P3rd {
     background-color: rgb(104, 104, 104);
     padding-left: 15px;
     padding-right: 15px;
@@ -2445,7 +2541,8 @@
     -o-border-radius: 55px;
     color: rgb(255, 255, 255);
 }
-.A{
+
+.A {
     background-color: green;
     padding-left: 15px;
     padding-right: 15px;
@@ -2456,7 +2553,8 @@
     -o-border-radius: 55px;
     color: white;
 }
-.B{
+
+.B {
     background-color: rgb(199, 47, 1);
     padding-left: 15px;
     padding-right: 15px;
@@ -2467,7 +2565,8 @@
     -o-border-radius: 55px;
     color: rgb(255, 255, 255);
 }
-.C{
+
+.C {
     background-color: rgb(104, 104, 104);
     padding-left: 15px;
     padding-right: 15px;
@@ -2480,7 +2579,7 @@
 }
 
 
-.winnerTitle{
+.winnerTitle {
     background-color: #ce007f;
     position: absolute;
     color: white;
@@ -2496,12 +2595,12 @@
     box-sizing: border-box;
 }
 
-.winnerPrice{
+.winnerPrice {
     background-color: rgb(228, 25, 184);
     position: absolute;
     padding: 18px;
-    
-   
+
+
     border-radius: 100px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
@@ -2512,19 +2611,24 @@
     -webkit-box-shadow: 0px 0px 20px 0px rgba(141, 141, 141, 0.78);
     -moz-box-shadow: 0px 0px 20px 0pxrgba(141, 141, 141, 0.78);
 }
-.winnerContent{
+
+.winnerContent {
     margin-top: 50px;
     text-align: center;
 }
-.winnerContent h2{
+
+.winnerContent h2 {
     margin-bottom: 5px;
 }
-.winnerContent h4{
+
+.winnerContent h4 {
     margin-bottom: 5px;
 }
-.winnerContent h1{
+
+.winnerContent h1 {
     margin-bottom: 10px;
 }
+
 /* Scroll bar in Result page */
 
 /* width */
@@ -2553,7 +2657,7 @@
     background: #555;
 }
 
-.loading{
+.loading {
     background-color: rgb(180, 0, 0);
     width: 100%;
     height: 100%;
@@ -2566,7 +2670,7 @@
 
 /* Fest - Home page */
 
-.alert-fest-home .alert{
+.alert-fest-home .alert {
     background-color: rgb(253, 234, 199);
     display: flex;
     align-items: center;
@@ -2575,31 +2679,35 @@
     margin-top: 4px;
     padding: 5px;
     padding-left: 10px;
-    
-    
+
+
 }
-.alert-fest-home .alert h4{
+
+.alert-fest-home .alert h4 {
     margin: 0;
     font-weight: normal;
     margin-left: 10px;
     color: rgb(175, 114, 0);
 }
-.alert-fest-home .alert i{
+
+.alert-fest-home .alert i {
     color: rgb(175, 114, 0);
 }
 
-.status-fest-home{
-    display:flex;
+.status-fest-home {
+    display: flex;
     flex-wrap: wrap;
-    
+
 }
-.status-fest-home .boarder{
+
+.status-fest-home .boarder {
     display: flex;
     align-items: center;
     justify-content: space-between;
-   
+
 }
-.status-fest-home .boarder button{
+
+.status-fest-home .boarder button {
     color: var(--color-add);
     border-radius: 100px;
     -webkit-border-radius: 100px;
@@ -2608,66 +2716,79 @@
     -o-border-radius: 100px;
     border: 1px var(--color-add) solid;
     background-color: rgb(185, 252, 191);
-        
+
 }
-.status-fest-home .boarder h4{
+
+.status-fest-home .boarder h4 {
     font-weight: normal;
 }
-.content-fest-home{
-    display:flex;
+
+.content-fest-home {
+    display: flex;
     flex-wrap: wrap;
 }
+
 .content-fest-home .fest-content-div .count {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 25px;
     color: white;
 }
-.content-fest-home .fest-content-div .count i{
+
+.content-fest-home .fest-content-div .count i {
     margin-left: 10px;
     opacity: .3;
 }
-.content-fest-home .fest-content-div .content{
+
+.content-fest-home .fest-content-div .content {
     border-top: white 1px solid;
     padding-top: 10px;
     padding-bottom: 5px;
     color: white;
- 
-    
+
+
 }
-.content-fest-home .fest-content-div .content h4{
+
+.content-fest-home .fest-content-div .content h4 {
     font-weight: normal;
-    
+
 }
+
 /* 404 error */
-.errorPage{
+.errorPage {
     display: flex;
     height: 91vh;
     align-items: center;
 }
-.errorPage div{
+
+.errorPage div {
     width: 100%;
 }
-.errorPage .Image{
+
+.errorPage .Image {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-.errorPage .Image img{
-   width: 300px;
-   height: 230px;
+
+.errorPage .Image img {
+    width: 300px;
+    height: 230px;
 }
-.errorPage .conternt{
+
+.errorPage .conternt {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-.errorPage .conternt div{
+
+.errorPage .conternt div {
     width: fit-content;
-   
+
 }
+
 /* back button */
-.back-button{
+.back-button {
     background-color: var(--color-two);
     color: white;
     font-weight: normal;
@@ -2681,13 +2802,9 @@
     margin-right: 5px;
     font-size: 14px;
     padding-top: 2px;
-    padding-bottom:  2px;
-    
-    
-}
-.back-button>i{
-   
-}
+    padding-bottom: 2px;
 
 
-    
+}
+
+/* .back-button>i {} */
