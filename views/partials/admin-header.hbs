@@ -25,20 +25,28 @@
 
                 <div class="dropdown-button">
 
-                    <div  id="adminProfileButton"
+                    <div onmouseover="showDropdown()"  id="adminProfileButton"
                         class="admin-header-login">
                         <i style="font-size: 18px;" id="settings" class="bi bi-person-circle"></i>
                     </div>
-                    <div id="dorpdown-content" class="dropdown-pop">
-                        <a href="#"><i class="bi bi-person-circle"></i> Account</a>
-                        <a href="#"><i class="bi bi-lock-fill"></i> Change password</a>
-                        <a href="#"><i class="bi bi-chat-square-text-fill"></i> Feedbacks</a>
-                        <a href="#"><i class="bi bi-person-plus-fill"></i> Create admin</a>
-                        <a href="#"><i class="bi bi-gear-fill"></i> Settings & Other</a>
-                        <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                    <div  id="dorpdown-content"  class="dropdown-pop">
+                        <a href="/fest-admin" id="home"><i class="bi bi-house-door-fill"></i> Home</a>
+                        <a href="/fest-admin/account" id="account"><i class="bi bi-person-circle"></i>{{#if adminDetails.pro}}
+                        Pro a{{else}} A{{/if}}ccount</a>
+                        {{#if adminDetails.pro}}
+                        <a href="/fest-admin/create-admin-account" id="create-admin"><i
+                                class="bi bi-person-plus-fill"></i> Create admin</a>
+                        {{else}}
+                        <a href="/fest-admin/change-password" id="change-password"><i class="bi bi-lock-fill"></i>
+                            Change password</a>
+                        <a href="/fest-admin/all-admins" id="all-admins"><i
+                                class="bi bi-people-fill"></i> All admins</a>
+                        {{/if}}
+
+                        <a href="/fest-admin/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
                     </div>
-                </div >
-               
+                </div>
+
 
                 {{else}}{{#if createAccout}}
                 <a href="/fest-admin" style="text-decoration: none;">
@@ -62,6 +70,20 @@
     </div>
 </section>
 
+
+<script>
+    let content = document.getElementById('dorpdown-content')
+    function showDropdown() {
+        console.log('show')
+        content.style.display = 'block'
+        setTimeout(hideDrop, 4000)
+    }
+    
+    function hideDrop() {
+        console.log('timeout')
+        content.style.display = "none"
+    }
+</script>
 <script>
     function showSidebar() {
         var sidebar = document.getElementById('sidebar')

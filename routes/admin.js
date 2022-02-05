@@ -29,7 +29,7 @@ const verifyFestLogin = (req, res, next) => {
 /* HOme page */
 
 router.get('/', verifyAdminLogin, async function (req, res, next) {
-  
+  let adminDetails = req.session.admin
   var newDate = new Date();
   var CurrentYear = newDate.getFullYear();
   var latestFest = await festHelpers.latestFest(newDate)
@@ -41,60 +41,51 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
 
   if (req.session.festLoginErr) {
     res.render('admin/home', {
-      title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
+      title: 'College Fest', admin: true,adminDetails, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
       "festLoginErr": req.session.festLoginErr, CurrentYear, footer: true
     })
     req.session.festLoginErr = false
   } else if (req.session.fest) {
     res.render('admin/home', {
-      title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
+      title: 'College Fest', admin: true, adminHeader: true,adminDetails, latestFest, latestFestZero, allFest, allFestZero,
       LoginFest, CurrentYear, footer: true
     })
   } else {
 
-    res.render('admin/home', { title: 'College Fest', admin: true, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
+    res.render('admin/home', { title: 'College Fest', admin: true,adminDetails, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
   }
 });
 
-router.get('/settings', verifyAdminLogin, async (req, res) => {
-  let Admin = await adminHelpers.getAdminDetails()
-
-  let adminDetails = Admin[0]
+router.get('/account', verifyAdminLogin, async (req, res) => {
+  console.log('hii');
+  let adminDetails = req.session.admin
   if (req.session.passwordChangeErr) {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
+    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
     req.session.passwordChangeErr = false
   } else if (req.session.passwordChangeSuccess) {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
+    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
     req.session.passwordChangeSuccess = false
   } else {
-    res.render('admin/settings', { title: 'Settings', admin: true, adminHeader: true, adminDetails, footer: true })
+    console.log('hiii');
+    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
 
   }
 });
 
-router.post('/settings/change-password', verifyAdminLogin, (req, res) => {
+router.post('/change-password', verifyAdminLogin, (req, res) => {
   adminHelpers.changePassword(req.body).then((response) => {
     if (response) {
       req.session.passwordChangeSuccess = "Password Changed"
-      res.redirect('/fest-admin/settings')
+      res.redirect('/fest-admin/change-password')
     } else {
       req.session.passwordChangeErr = "Incorrect Corrent password"
-      res.redirect('/fest-admin/settings')
+      res.redirect('/fest-admin/change-password')
 
     }
 
   })
 });
 
-router.get('/create-new-account-for-admin', (req, res) => {
-  res.render('admin/create-account')
-});
-
-router.post('/create-new-account-for-admin', (req, res) => {
-  adminHelpers.createAccout(req.body).then(() => {
-    res.redirect('/fest-admin')
-  })
-});
 
 
 
@@ -166,6 +157,73 @@ router.post('/settings/new-password', (req, res) => {
     req.session.Success = "Password Changed"
     res.redirect('/fest-admin/login')
   })
+});
+
+router.get('/change-password', verifyAdminLogin, (req, res) => {
+  let adminDetails = req.session.admin
+  if (req.session.passwordChangeErr) {
+    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, "passwordChangeErr": req.session.passwordChangeErr, })
+    req.session.passwordChangeErr = false
+  } else if (req.session.passwordChangeSuccess) {
+    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, "passwordChangeSuccess": req.session.passwordChangeSuccess, })
+    req.session.passwordChangeSuccess = false
+  } else {
+    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, })
+  }
+});
+
+router.get('/create-admin-account', verifyAdminLogin, (req, res) => {
+  let adminDetails = req.session.admin
+  if (req.session.Error) {
+    res.render('admin/create-account', { title: 'College fest',adminDetails, "Error": req.session.Error, admin: true, adminHeader: true, })
+    req.session.Error = false
+  } else if (req.session.Success) {
+    
+    res.render('admin/create-account', { title: 'College fest',adminDetails, "Success": req.session.Success, admin: true, adminHeader: true, })
+    req.session.Success = false
+  }else{
+   
+    res.render('admin/create-account', { title: 'College fest',adminDetails,  admin: true, adminHeader: true, })
+  }
+});
+
+router.post('/account/create-admin-account', verifyAdminLogin, (req, res) => {
+  adminHelpers.createAccout(req.body).then((response) => {
+    if(response.accountCountError){
+      req.session.Error = "You will not be able to create a new account, Use "+response.accountCountError
+      res.redirect('/fest-admin/create-admin-account')
+    }
+    if (response.UserNameError) {
+      req.session.Error = "This user name already used"
+      res.redirect('/fest-admin/create-admin-account')
+    } else {
+     
+      req.session.Success = "Admin account successfully created"
+      res.redirect('/fest-admin/create-admin-account')
+    }
+  })
+});
+
+router.post('/account/edit-details',verifyAdminLogin,(req,res)=>{
+  console.log(req.body,'this');
+  adminHelpers.editadminDetails(req.body).then((updates)=>{
+    req.session.admin = updates
+    res.redirect('/fest-admin/account')
+  })
+});
+
+router.get('/all-admins',verifyAdminLogin,(req,res)=>{
+  let adminDetails = req.session.admin
+  adminHelpers.getAdminDetails().then((allAdmin)=>{
+    res.render('admin/all-admins',{ title: 'College fest',adminDetails, allAdmin,  admin: true, adminHeader: true, })
+
+  })
+});
+router.get('/all-admins/:id/delete',verifyAdminLogin,(req,res)=>{
+  var id = req.params.id
+  adminHelpers.deleteAdmin(id).then(()=>{
+    res.redirect('/fest-admin/all-admins')
+  })
 })
 /* Login - LogOut */
 router.get('/login', (req, res) => {
@@ -184,14 +242,14 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  
+
   adminHelpers.adminLogin(req.body).then((response) => {
     if (response.adminDetails) {
       req.session.admin = true
       req.session.EmailErr = false
       req.session.PasswordErr = false
       req.session.admin = response.adminDetails
-     
+
       res.redirect('/fest-admin')
     } else if (response.EmailErr) {
       req.session.EmailErr = true
@@ -207,7 +265,7 @@ router.post('/login', (req, res) => {
 router.get('/logout', (req, res) => {
   req.session.admin = null
   req.session.fest = null
-  res.redirect('/fest-admin/')
+  res.redirect('/fest-admin')
 });
 
 /* Crate Fest */
@@ -749,7 +807,7 @@ router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo/view', verif
   if (req.session.Error) {
     res.render('fest/view-group-student-events', {
       title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, SessionName, FestDetails, studentEvents, GroupId,
-      studentLimitCount, EventLimit, "Error":req.session.Error
+      studentLimitCount, EventLimit, "Error": req.session.Error
     })
     req.session.Error = false
   } else {

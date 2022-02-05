@@ -1,0 +1,83 @@
+<section>
+    <div class="container">
+        <div class="admin-Settings">
+            <div class="admin-profile">
+                <h3>Noorul huda Students Association (NSA)</h3>
+                <P>www.nsaonline.in , fest.nsaonline.in</P>
+                <hr>
+                <div style="padding-top: 15px;">
+                    {{#if adminDetails.pro}}
+                    {{else}}
+                    <form action="/fest-admin/account/edit-details" id="sessionOneForm" method="POST">
+                        {{/if}}
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Full name</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" name="FullName" id="admin-inputs" value="{{adminDetails.FullName}}">
+
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">User name</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" name="UserName" id="admin-inputs" value="{{adminDetails.UserName}}"
+                                    readonly style="background-color: rgb(224, 224, 224);">
+
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Email Id</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="email" name="EmailId" id="admin-inputs" value="{{adminDetails.EmailId}}">
+
+                            </div>
+                        </div>
+                          {{#if adminDetails.pro}}
+                          <p style="font-style: italic; color:rgb(97, 96, 96); text-align:center;"><i class="bi bi-info-circle-fill"></i> This pro admin account, Details cannot be changed </p>
+                        {{else}}
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Mobile No</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" name="Mobile" value="{{adminDetails.Mobile}}" id="admin-inputs">
+
+
+                            </div>
+                        </div>
+                      
+                        <div class="CFsessionOneNext">
+                            <button id="submit-button" style="display: none;" type="submit"
+                                class="CFsessionOneNextButton">Submit </button>
+
+                        </div>
+                    </form>
+                    <div class="CFsessionOneNext">
+                        <button id="edit-button" onclick="showSubmit()" style="background-color:rgb(0, 92, 128);"
+                            class="CFsessionOneNextButton">Enable edit </button>
+                    </div>
+                    {{/if}}
+                </div>
+
+
+            </div>
+
+        </div>
+
+</section>
+
+<script>
+    var current = document.getElementById('account').className = "drop-pop-active"
+</script>
+<script>
+    function showSubmit() {
+        document.getElementById('submit-button').style.display = 'block'
+        document.getElementById('edit-button').style.display = 'none'
+    }
+</script>

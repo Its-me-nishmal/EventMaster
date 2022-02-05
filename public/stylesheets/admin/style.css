@@ -123,26 +123,33 @@
     font-size: 16px;
     font-weight: normal;
 }
-.dropdown-pop>a>i{
-    font-size: 18px;
-    margin-right: 2px;
-}
-.dropdown-pop a:hover{
+.dropdown-pop .drop-pop-active{
     background-color: var(--color-two);
+    color: white;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
-    color: white;
+}
+.dropdown-pop>a>i{
+    font-size: 18px;
+    margin-right: 2px;
+}
+.dropdown-pop a:hover{
+    background-color: rgb(214, 214, 214);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    color: rgb(0, 0, 0);
 }
 .dropdown-button{
     position: relative;
     display: inline-block;
 }
-.dropdown-button:hover .dropdown-pop {
-    display: block;
-}
+
 
 /* .................................... admin login */
 
@@ -1687,7 +1694,7 @@
 }
 
 .admin-profile {
-    background-color: #fac4d6;
+    background-color: #ffffff;
     margin-top: 20px;
     padding-top: 25px;
     border-radius: 20px;
@@ -1695,14 +1702,15 @@
 }
 
 .admin-profile hr {
-    width: 95%;
+    
     border: none;
     border-top: 1px solid var(--color-two);
 }
 
-.admin-profile>h2 {
+.admin-profile>h3 {
     text-align: center;
     color: var(--color-one);
+    color:var(--color-two);
 }
 
 .admin-profile>p {

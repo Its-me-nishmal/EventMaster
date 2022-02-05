@@ -1,0 +1,89 @@
+<section>
+    <div class="container">
+        <div class="adminHome-section-one">
+            <h4 class="adminHome-sectin-one-SubHeading">All admins</h4>
+            <hr>
+        </div>
+        <div style="padding-top: 15px;">
+            <div class="allEventDiv">
+                <table id="allEvent-table" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>Sl no</th> 
+                            <th>Full name</th>
+                            <th>User name</th>        
+                            <th>Email ID</th>
+                            {{#if adminDetails.pro}}
+                            <th>Delete</th>
+                            {{/if}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each allAdmin}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            
+                            <td>{{this.FullName}}</td>
+                            <td>{{this.UserName}}</td>
+                            <td>{{this.EmailId}}</td>
+                          
+                            {{#if ../adminDetails.pro}}
+                            <td><a href="/fest-admin/all-admins/{{this._id}}/delete"
+                                    onclick="return confirm('Are you want to delete  ?')"><button
+                                        class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+       {{#if passwordChangeErr}}
+        <div id="close" class="Alert-box-border">
+            <div>
+                <div class="Alert-box-close-button">
+                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+                </div>
+                <div class="Alert-box-header">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <h4>Change failed !</h4>
+                </div>
+                <div class="alert-box-content">
+                    <h5 id="loginErr">{{passwordChangeErr}}</h5>
+                </div>
+                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+
+            </div>
+        </div>
+        {{/if}}
+        {{#if passwordChangeSuccess}}
+        <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
+            <div class="groupAlert-box-close-button">
+                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+            </div>
+            <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
+                <i class="bi bi-exclamation-circle"></i>
+                <h4> Success !</h4>
+            </div>
+            <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
+                <h5>{{passwordChangeSuccess}}</h5>
+            </div>
+            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+        </div>
+        {{/if}}
+</section>
+
+<script>
+    var current = document.getElementById('all-admins').className = "drop-pop-active"
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>

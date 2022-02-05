@@ -2,6 +2,8 @@ var db = require('../config/connection')
 var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 var nodemailer = require('nodemailer')
+const { response } = require('express')
+var ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = {
@@ -12,52 +14,66 @@ module.exports = {
             let loginStatus = false
             let response = {}
             // Tempreraly setting For admin Login
-            
+
             let adminDetails = {
-                EmailId: "nsaonline@nsaonline.in",
+                FullName: "Pro Admin",
+                UserName: "Pro Admin",
+                pro: true,
+                EmailId: "proadmin@nsaonline.in",
                 Password: "nsaonline"
+
             }
             if (adminData.EmailId == adminDetails.EmailId) {
-                    if (adminData.Password == adminDetails.Password) {
-                        response.adminDetails = adminDetails
-                        response.status = true
-                        response.EmailErr = false
-                        response.PasswordErr = false
-                        resolve(response)
-                    } else {
-                        resolve({ PasswordErr: true })
-                    }
-            }else {
-                resolve({ EmailErr: true })
+                if (adminData.Password == adminDetails.Password) {
+                    response.adminDetails = adminDetails
+                    response.status = true
+                    response.EmailErr = false
+                    response.PasswordErr = false
+                    resolve(response)
+                } else {
+                    resolve({ PasswordErr: true })
+                }
+            } else {
+                let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
+                if (admin) {
+                   
+                    bcrypt.compare(adminData.Password, admin.Password).then((status) => {
+                        if (status) {
+                            response.adminDetails = admin
+                            response.status = true
+                            response.EmailErr = false
+                            response.PasswordErr = false
+                            resolve(response)
+                        } else {
+                            resolve({ PasswordErr: true })
+                        }
+                    })
+                } else {
+                    resolve({ EmailErr: true })
+                }
             }
-           
-            // This orginal Code
-
-            //  let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
 
 
-            //   if (admin) {
 
-            //         bcrypt.compare(adminData.Password, admin.Password).then((status) => {
-            //             if (status) {
-            //                 response.adminDetails = admin
-            //                 response.status = true
-            //                 response.EmailErr = false
-            //                 response.PasswordErr = false
-            //                 resolve(response)
-
-            //             } else {
-            //                 resolve({ PasswordErr: true })
-
-            //             }
-
-            //         })
-            //     } else {
-            //         resolve({ EmailErr: true })
-
-
-            //     }
         })
+    },
+
+    editadminDetails:(body)=>{
+        console.log(body,'tissss');
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ADMIN_COLLECTION).updateOne({UserName : body.UserName},{
+                $set:{
+                    FullName : body.FullName,
+                    EmailId : body.EmailId,
+                    Mobile : body.Mobile
+
+                }
+            }).then((response)=>{
+                let tnew = db.get().collection(collection.ADMIN_COLLECTION).findOne({UserName:body.UserName})
+                resolve(tnew)
+            })
+        });
+        
     },
 
     getAdminDetails: () => {
@@ -103,12 +119,31 @@ module.exports = {
 
     },
 
+    deleteAdmin:(id)=>{
+        return new Promise((resolve, reject) => {
+          db.get().collection(collection.ADMIN_COLLECTION).deleteOne({_id: ObjectId(id)}).then(()=>{
+              resolve()
+          })
+        });
+        
+    },
+
     createAccout: (body) => {
         return new Promise(async (resolve, reject) => {
-            body.Password = await bcrypt.hash(body.Password, 10)
-            db.get().collection(collection.ADMIN_COLLECTION).insertOne(body).then((response) => {
-                resolve(response)
-            })
+            let userNameFind = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
+            let accountCount = await db.get().collection(collection.ADMIN_COLLECTION).find().toArray()
+            console.log(accountCount);
+            if (accountCount.length > 2) {
+                resolve({ accountCountError: accountCount[0].EmailId })
+
+            } else if (userNameFind) {
+                resolve({ UserNameError: true })
+            } else {
+                body.Password = await bcrypt.hash(body.Password, 10)
+                db.get().collection(collection.ADMIN_COLLECTION).insertOne(body).then((response) => {
+                    resolve(response)
+                })
+            }
         })
 
     },
