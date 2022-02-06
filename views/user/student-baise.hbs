@@ -103,7 +103,7 @@
     function SearchStudent(FestId) {
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
-            url: '/search-student-result',
+            url: '/search-student-events',
             data: {
                 FestId,
                 searchValue

@@ -181,6 +181,37 @@
                             </div>
                         </div>
                     </div>
+                     {{!-- Toppers view --}}
+                    <div class="group-baise-mark scrollbar-result">
+                        {{#each topperView}}
+                        <div class="Twenty-five" style="width:100%;">
+                            <div class="resultBorder">
+                                <div class="resultContentBoreder">
+                                    <div class="normel-div ">
+                                        <div style="text-align: center;">
+                                            <h3 style="color: rgb(0, 110, 173); margin-bottom:15px">{{this.Title}}</h3>
+                                            {{#if this.Student}}
+                                             <h2 style="color: var(--color-two);">{{this.FullName}}</h2>
+                                             <h4>{{this.ChestNo}} / {{this.SessionName}} / {{this.GroupName}}</h4>
+                                            {{else}}{{#if this.Session}}
+                                             <h2 style="color: var(--color-two);">{{this.SessionName}} / {{this.GroupName}}</h2>
+                                             <h4>{{this.GroupId}} - {{this.GroupName}}</h4>
+                                            {{else}}
+                                             <h2 style="color: var(--color-two);">{{this.GroupName}}</h2>
+                                             <h4>Group ID : {{this.GroupId}} </h4>
+                                            {{/if}} {{/if}}
+                                            <h2>{{this.TotalMark}}</h2>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+
+
+                    </div>
                     {{!-- dgfdgfdgfgfg --}}
 
                     {{!-- Event baise result --}}

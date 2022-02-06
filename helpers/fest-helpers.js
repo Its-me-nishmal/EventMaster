@@ -941,7 +941,65 @@ module.exports = {
         })
 
     },
-
+    getEventDetails:(FestId, SessionName, CategoryName, EventId)=>{
+        return new Promise(async(resolve, reject) => {
+            let getSession = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: FestId, SessionName: SessionName })
+            
+            if (CategoryName == getSession.Category1) {
+                for(let i =0; i<getSession.StageItem.length; i++){
+                    if(getSession.StageItem[i].EventId === EventId){
+                       
+                        resolve(getSession.StageItem[i])
+                    }
+                }
+              
+            } else if (CategoryName == getSession.Category2) {
+                for(let i =0; i<getSession.OffstageItem.length; i++){
+                    if(getSession.OffstageItem[i].EventId === EventId){
+                       
+                        resolve(getSession.OffstageItem[i])
+                    }
+                }
+            }
+            resolve();
+        });
+        
+    },
+    editEventDetails:(FestId, SessionName, CategoryName,body)=>{
+        return new Promise(async(resolve, reject) => {
+            let getSession = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: FestId, SessionName: SessionName })
+             
+            if (CategoryName == getSession.Category1) {
+               
+                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName,"StageItem.EventId":body.EventId },{
+                    $set:{
+                        "StageItem.$.EventName" : body.EventName,
+                        "StageItem.$.PointCategoryName": body.PointCategoryName,
+                        "StageItem.$.TypeOfEvent" : body.TypeOfEvent,
+                        "StageItem.$.EventLimit"  : parseInt(body.EventLimit)
+                    }
+                }).then((response)=>{
+                    resolve(response)
+                   
+                })
+              
+            } else if (CategoryName == getSession.Category2) {
+                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName,"OffstageItem.EventId":body.EventId },{
+                    $set:{
+                        "OffstageItem.$.EventName" : body.EventName,
+                        "OffstageItem.$.PointCategoryName": body.PointCategoryName,
+                        "OffstageItem.$.TypeOfEvent" : body.TypeOfEvent,
+                        "OffstageItem.$.EventLimit"  : parseInt(body.EventLimit)
+                    }
+                }).then((response)=>{
+                    resolve(response)
+                   
+                })
+            }
+            resolve();
+        });
+        
+    },
     getAllGroups: (FestId) => {
         return new Promise(async (resolve, reject) => {
             let allGroups = await db.get().collection(collection.GROUP_COLLECTION).find({ FestId }).toArray()
@@ -1764,7 +1822,7 @@ module.exports = {
                     studentEvents.OtherMarkTotal = studentEvents.OtherMarkTotal + parseInt(OtherMark[i].TotalMark)
                 }
             }
-            console.log(studentEvents);
+           console.log(studentEvents);
             resolve(studentEvents)
            
         })

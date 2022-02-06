@@ -26,6 +26,7 @@ module.exports = {
 
    
     searchStudentEvent: (body) => {
+        console.log('iiii');
         return new Promise(async (resolve, reject) => {
             let AllStudents = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: body.FestId }).toArray()
             let searchResult = []
@@ -66,5 +67,7 @@ module.exports = {
         })
 
     },
+
+   
 
 }

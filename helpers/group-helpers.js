@@ -85,7 +85,7 @@ module.exports = {
                 if (Group.Session1.SessionName === SessionName) {
                     const Session_SL = String(Group.Session1.SlNo)
                     var Students_SlNo = Group.Session1.Students_SlNo
-                    console.log(Students_SlNo);
+                  
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
@@ -121,7 +121,7 @@ module.exports = {
                     }
                     let num = padFix(Students_SlNo)[0]
                     var ChestNo = Group_SL  + num
-                    console.log(Students_SlNo,"h",num,"h",ChestNo);
+                   
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -954,7 +954,7 @@ module.exports = {
             for(let a = 0; a<messages.length; a++){
               
                 for (let i = 0; i < messages[a].Notifications.length; i++) {
-                    console.log('hi');
+                   
                     if (messages[a].Notifications[i].MessageId === MessageId) {
                         OneMessage = messages[a].Notifications[i]
                     }

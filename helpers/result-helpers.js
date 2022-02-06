@@ -142,7 +142,7 @@ module.exports = {
                     for (let a = 0; a < OtherMark.length; a++) {
                         if (OtherMark[a].TotalMark) {
                             if (allGroup[i].Session1.SessionName == OtherMark[a].SessionName) {
-                                console.log(OtherMark[a],'hi');
+                               
                                 Obj.Sessions[0].OtherMark = Obj.Sessions[0].OtherMark + parseInt(OtherMark[a].TotalMark)
                                 Obj.Sessions[0].TotalEventMark = Obj.Sessions[0].TotalEventMark +  parseInt(OtherMark[a].TotalMark)
 
@@ -275,6 +275,30 @@ module.exports = {
           
         })
 
+    },
+    getAllToppers:(FestId)=>{
+        return new Promise(async(resolve, reject) => {
+         let result = await db.get().collection(collection.OTHER_MARK_COLLECTION).find({FestId,Type:"Toppers"}).toArray()
+        for(let i=0; i<result.length; i++){
+            if(result[i].ChestNo){
+                let student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ChestNo:result[i].ChestNo})
+                result[i].FullName = student.FullName,
+                result[i].CicNo = student.CicNo
+                result[i].Student = true
+            }else if(result[i].SessionName){
+                result[i].Session = true
+            }else{
+                result[i].Group = true
+            }
+            await db.get().collection(collection.GROUP_COLLECTION).findOne({FestId,GroupId:result[i].GroupId}).then((response)=>{
+                result[i].GroupName = response.GroupName
+            })
+           
+        }
+         resolve(result)
+          
+        });
+        
     },
 
     getEventBaiseStudentsMark: (FestId, Session, Category, EventId) => {

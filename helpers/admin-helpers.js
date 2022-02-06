@@ -59,7 +59,7 @@ module.exports = {
     },
 
     editadminDetails:(body)=>{
-        console.log(body,'tissss');
+       
         return new Promise((resolve, reject) => {
             db.get().collection(collection.ADMIN_COLLECTION).updateOne({UserName : body.UserName},{
                 $set:{
@@ -132,7 +132,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let userNameFind = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
             let accountCount = await db.get().collection(collection.ADMIN_COLLECTION).find().toArray()
-            console.log(accountCount);
+           
             if (accountCount.length > 2) {
                 resolve({ accountCountError: accountCount[0].EmailId })
 

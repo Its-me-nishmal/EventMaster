@@ -71,9 +71,10 @@ router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
   }
   let totalGroupsMark = await resultHelpers.totalGroupsMark(userDetails.FestId)
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
-
+  let topperView = await resultHelpers.getAllToppers(userDetails.FestId)
+    
   res.render('user/result-home', {
-    title: userDetails.FestName, userDetails, TotalEventsCount, PublisedResultCount,
+    title: userDetails.FestName, userDetails, TotalEventsCount, PublisedResultCount,topperView,
     PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, footer: true
   });
 });

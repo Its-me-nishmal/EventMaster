@@ -57,7 +57,7 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
 });
 
 router.get('/account', verifyAdminLogin, async (req, res) => {
-  console.log('hii');
+ 
   let adminDetails = req.session.admin
   if (req.session.passwordChangeErr) {
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
@@ -66,7 +66,7 @@ router.get('/account', verifyAdminLogin, async (req, res) => {
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
     req.session.passwordChangeSuccess = false
   } else {
-    console.log('hiii');
+  
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
 
   }
@@ -205,7 +205,7 @@ router.post('/account/create-admin-account', verifyAdminLogin, (req, res) => {
 });
 
 router.post('/account/edit-details',verifyAdminLogin,(req,res)=>{
-  console.log(req.body,'this');
+  
   adminHelpers.editadminDetails(req.body).then((updates)=>{
     req.session.admin = updates
     res.redirect('/fest-admin/account')
@@ -480,6 +480,47 @@ router.get('/:FestId/events/:Session-:Category/:EventId/delete-event', verifyFes
 
       res.redirect('/fest-admin/' + FestId + '/events/' + SessionName + '-' + CategoryName)
     }
+  })
+});
+router.get('/:FestId/events/:Session-:Category/:EventId/edit-event', verifyFestLogin, verifyAdminLogin, async(req, res) => {
+  let FestId = req.params.FestId
+  let SessionName = req.params.Session
+  let CategoryName = req.params.Category
+  let EventId = req.params.EventId
+  let FestDetails = req.session.fest
+  var pointCategoryOptions = await festHelpers.getPointCategoryOptions(FestDetails.FestId)
+  festHelpers.getEventDetails(FestId, SessionName, CategoryName, EventId).then((result) => {
+    if(result.TypeOfEvent == "Group"){
+      result.Group = true
+    }else{
+      result.Intivi = true
+    }
+    for(let i=0; i<pointCategoryOptions.length; i++){
+     
+      if(pointCategoryOptions[i].categoryName == result.PointCategoryName){
+      
+        pointCategoryOptions[i].index = true
+      }
+    }
+    
+      res.render("fest/edit-event",{
+        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, 
+        SessionName, CategoryName, result,pointCategoryOptions
+      })
+    
+  })
+});
+
+router.post('/:FestId/events/:SessionName/:CategoryName/edit-event',verifyAdminLogin,verifyFestLogin,(req,res)=>{
+
+  let FestId = req.params.FestId
+  let SessionName = req.params.SessionName
+  let CategoryName = req.params.CategoryName
+  
+  let FestDetails = req.session.fest
+  festHelpers.editEventDetails(FestId, SessionName, CategoryName,req.body).then((result)=>{
+   
+     res.redirect('/fest-admin/'+FestId+"/events/"+SessionName+"-"+CategoryName+"/"+req.body.EventId+"/edit-event")
   })
 });
 
