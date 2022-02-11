@@ -883,10 +883,41 @@ module.exports = {
             let getSession = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: FestDetails.FestId, SessionName: FestDetails.Session })
 
             if (FestDetails.Category == getSession.Category1) {
-                var StageEvents = getSession.StageItem
+                let StageEvents = getSession.StageItem
+                
+                
+                
+                for (let i = 0; i < StageEvents.length; i++) {
+                    let EventId = StageEvents[i].EventId
+                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId,GroupId:FestDetails.GroupId, "StageEvents.EventId": EventId }).toArray()
+                    let EventCount = EventThisId.length
+                    StageEvents[i].LimitStatus = EventCount
+                    parseInt(StageEvents[i].EventLimit)
+                    parseInt(StageEvents[i].LimitStatus)
+                    if(StageEvents[i].EventLimit>StageEvents[i].LimitStatus){
+                        StageEvents[i].NotFill = true
+                    }else if(StageEvents[i].EventLimit == StageEvents[i].LimitStatus){
+                        StageEvents[i].Fill = true
+                    }
+                }
                 resolve(StageEvents.reverse())
+               
+                
             } else if (FestDetails.Category == getSession.Category2) {
                 var OffStageEvents = getSession.OffstageItem
+                for (let i = 0; i < OffStageEvents.length; i++) {
+                    let EventId = OffStageEvents[i].EventId
+                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId,GroupId:FestDetails.GroupId, "OffStageEvents.EventId": EventId }).toArray()
+                    let EventCount = EventThisId.length
+                    OffStageEvents[i].LimitStatus = EventCount
+                    parseInt(OffStageEvents[i].EventLimit)
+                    parseInt(OffStageEvents[i].LimitStatus)
+                    if(OffStageEvents[i].EventLimit>OffStageEvents[i].LimitStatus){
+                        OffStageEvents[i].NotFill = true
+                    }else if(OffStageEvents[i].EventLimit == OffStageEvents[i].LimitStatus){
+                        OffStageEvents[i].Fill = true
+                    }
+                }
                 resolve(OffStageEvents.reverse())
             }
             resolve()

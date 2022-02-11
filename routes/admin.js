@@ -903,6 +903,7 @@ router.get('/:FestId/groups/:GroupId/:SessionName/:Category/Events', verifyAdmin
   var Category = req.params.Category
   FestDetails.Session = req.params.SessionName
   FestDetails.Category = req.params.Category
+  FestDetails.GroupId = GroupId
   var allEvents = await festHelpers.getAllEvents(FestDetails)
 
   res.render('fest/view-group-event', {
@@ -1493,10 +1494,18 @@ router.get('/:FestId/result', verifyAdminLogin, verifyFestLogin, async (req, res
   }
   let totalGroupsMark = await resultHelpers.totalGroupsMark(FestDetails.FestId)
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(FestDetails.FestId)
+  let TopEventMark = 0
+  for (let i = 0; i < sessionBaiseMarkList.length; i++) {
+    for (let a = 0; a < sessionBaiseMarkList[i].Sessions.length; a++) {
+      if (sessionBaiseMarkList[i].Sessions[a].TotalEventMark > TopEventMark) {
+        TopEventMark = sessionBaiseMarkList[i].Sessions[a].TotalEventMark
+      }
+    }
+  }
 
   res.render('mark/result-home', {
     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true, TotalEventsCount, PublisedResultCount,
-    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList
+    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, TopEventMark
   })
 });
 

@@ -134,7 +134,7 @@
                                                     <tr>
                                                         <th scope="row">{{this.GroupName}} </th>
                                                         {{#each this.Sessions}}
-                                                        <td style="--size:calc( {{this.TotalEventMark}} / 1500 );"><span
+                                                        <td style="--size:calc( {{this.TotalEventMark}} / ({{../../TopEventMark}} + 50) );"><span
                                                                 class="data"> {{this.TotalEventMark}}
                                                             </span></td>
 

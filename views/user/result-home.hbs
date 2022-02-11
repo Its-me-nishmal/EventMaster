@@ -149,12 +149,16 @@
                                                         <th scope="col"> 2020 </th>
                                                     </tr>
                                                 </thead>
+                                               
                                                 <tbody class="SessionBaiseChart">
                                                     {{#each sessionBaiseMarkList}}
+                                                   
                                                     <tr>
-                                                        <th scope="row">{{this.GroupName}} </th>
+                                                         <th scope="row">{{this.GroupName}} </th> 
+
                                                         {{#each this.Sessions}}
-                                                        <td style="--size:calc( {{this.TotalEventMark}} / 400 );"><span
+                                                       
+                                                        <td style="--size:calc( {{this.TotalEventMark}} / ({{../../TopEventMark}} + 50) );"><span
                                                                 class="data"> {{this.TotalEventMark}}
                                                             </span></td>
 

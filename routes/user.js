@@ -71,11 +71,20 @@ router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
   }
   let totalGroupsMark = await resultHelpers.totalGroupsMark(userDetails.FestId)
   let sessionBaiseMarkList = await resultHelpers.sessionBaiseMarkList(userDetails.FestId)
+  let TopEventMark = 0
+  for (let i = 0; i < sessionBaiseMarkList.length; i++) {
+    for (let a = 0; a < sessionBaiseMarkList[i].Sessions.length; a++) {
+      if (sessionBaiseMarkList[i].Sessions[a].TotalEventMark > TopEventMark) {
+        TopEventMark = sessionBaiseMarkList[i].Sessions[a].TotalEventMark
+      }
+    }
+  }
+  
   let topperView = await resultHelpers.getAllToppers(userDetails.FestId)
-    
+
   res.render('user/result-home', {
-    title: userDetails.FestName, userDetails, TotalEventsCount, PublisedResultCount,topperView,
-    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, footer: true
+    title: userDetails.FestName, userDetails, TotalEventsCount, PublisedResultCount, topperView,
+    PendingResultCount, PercentageTotalResultPublised, totalGroupsMark, sessionBaiseMarkList, footer: true, TopEventMark
   });
 });
 
@@ -125,7 +134,7 @@ router.get('/:FestId/result/event-baise/:Session/:Category/:EventId-:EventName',
   var Session = req.params.Session
   var EventId = req.params.EventId
   var EventName = req.params.EventName
- 
+
   let EventStudents = await resultHelpers.getEventBaiseStudentsMark(userDetails.FestId, Session, Category, EventId)
   res.render('user/event-baise-student', {
     title: userDetails.FestName, userDetails, Category, Session, EventId, EventName, EventStudents
@@ -239,7 +248,7 @@ router.get('/:FestId/result/other-mark/student/view-result', verifyActiveFest, (
 
 router.post('/search-other-mark-result', verifyActiveFest, (req, res) => {
   resultHelpers.searchOtherMark(req.body).then((searchResult) => {
-  
+
     res.json(searchResult)
   })
 });
@@ -323,7 +332,7 @@ router.post('/search-toppers-view', verifyActiveFest, (req, res) => {
 
 
 router.post('/search-student-events', verifyActiveFest, (req, res) => {
- 
+
   userHelpers.searchStudentEvent(req.body).then((searchResult) => {
     res.json(searchResult)
 
@@ -350,8 +359,8 @@ router.get('/:FestId/result/student-baise/:GroupId/:SessionName/Students/:ChestN
   })
 });
 
-router.get('/feed-back-form',(req,res)=>{
-  res.render('user/feedback',{title: "NSA Online",footer:true})
+router.get('/feed-back-form', (req, res) => {
+  res.render('user/feedback', { title: "NSA Online", footer: true })
 })
 
 module.exports = router;
