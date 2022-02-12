@@ -394,18 +394,27 @@ router.get('/events/:SessionName/:Category/all-events/:EventId-:EventName/all-st
   var FestDetails = await festHelpers.getFestDetails(GroupDetails.FestId)
   let EventStudents = await groupHelpers.getEventStudents(GroupDetails.FestId, GroupDetails.GroupId, CategoryName, EventId)
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
-
-  if(req.session.Error){
+  let GroupFullDetails = await groupHelpers.getGroupDetails(GroupDetails.GroupId, GroupDetails.FestId)
+  let EventActiveNull = GroupFullDetails.EventsTime === null
+  if(req.session.Success){
     res.render('group/view-event-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
-      FestDetails, NewNotifi_Count, "Error": req.session.Error
+      FestDetails, NewNotifi_Count, "Success": req.session.Success, EventActiveNull
+    })
+    req.session.Success = false
+
+  }else if(req.session.Error){
+    console.log(EventName);
+    res.render('group/view-event-students', {
+      title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
+      FestDetails, NewNotifi_Count, "Error": req.session.Error , EventActiveNull
     })
     req.session.Error = false
 
   }else{
     res.render('group/view-event-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
-      FestDetails, NewNotifi_Count
+      FestDetails, NewNotifi_Count , EventActiveNull
     })
   }
 });
@@ -429,7 +438,7 @@ router.get('/events/:SessionName/:CategoryName/all-events/:EventId-:EventName/al
   });
 })
 
-router.get('/events/:SessionName/:Category/:EventId-:EventName', verifyGroupLogin, async (req, res) => {
+router.get('/events/:SessionName/:Category/:EventId-:EventName/choose-event', verifyGroupLogin, async (req, res) => {
   let GroupDetails = req.session.group
   let SessionName = req.params.SessionName
   let Category = req.params.Category
@@ -454,28 +463,28 @@ router.post('/events/:SessionName/:Category/choose-event', verifyGroupLogin, (re
   groupHelpers.addEvent(req.body).then((response) => {
 
     if (response.EventAlreadyUsedError) {
-      req.session.EventAlreadyUsedError = "This event has already been used"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      req.session.Error = "This event has already been used"
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
 
     } else if (response.Success) {
       req.session.Success = "This event was successfully added"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
 
     } else if (response.StudentStageCountOver) {
-      req.session.StudentStageCountOver = "This student can no longer participate in the category"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      req.session.Error = "This student can no longer participate in the category"
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
 
 
     } else if (response.EventLimitError) {
-      req.session.EventLimitError = "This event total limit complited"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      req.session.Error = "This event total limit complited"
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
 
     } else if (response.ChestNOError) {
-      req.session.ChestNOError = "Invalid chest no"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      req.session.Error = "Invalid chest no"
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
     } else if (response.TotalCountError) {
-      req.session.TotalCountError = "Admin panel not added this session event limit count"
-      res.redirect('/group/events/' + SessionName + '/' + Category)
+      req.session.Error = "Admin panel not added this session event limit count"
+      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
 
     }
   })

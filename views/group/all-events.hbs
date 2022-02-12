@@ -6,96 +6,8 @@
                 <hr class="GroupallCategoryheader-hr">
             </div>
         </div>
-        {{#if EventAlreadyUsedError}}
-        <div class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create failed !</h4>
-            </div>
-            <div class="groupAletCountent">
-                <h5>{{EventAlreadyUsedError}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
-        {{#if StudentStageCountOver}}
-        <div class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create failed !</h4>
-            </div>
-            <div class="groupAletCountent">
-                <h5>{{StudentStageCountOver}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
-        {{#if EventLimitError}}
-        <div class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create failed !</h4>
-            </div>
-            <div class="groupAletCountent">
-                <h5>{{EventLimitError}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
-        {{#if ChestNOError}}
-        <div class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create failed !</h4>
-            </div>
-            <div class="groupAletCountent">
-                <h5>{{ChestNOError}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
-        {{#if TotalCountError}}
-        <div class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create failed !</h4>
-            </div>
-            <div class="groupAletCountent">
-                <h5>{{TotalCountError}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
-        {{#if Success}}
-        <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
-            <div class="groupAlert-box-close-button">
-                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-            </div>
-            <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
-                <i class="bi bi-exclamation-circle"></i>
-                <h4>Create Success !</h4>
-            </div>
-            <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
-                <h5>{{Success}}</h5>
-            </div>
-            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-        </div>
-        {{/if}}
+        
+       
         <div class="GroupAllStudents-content">
 
             {{#if EventActiveUndifined}}
@@ -113,7 +25,7 @@
                 {{#if AllEvents.[0]}}
                 {{#each AllEvents}}
                 <a id="mainDiv"
-                    href="/group/events/{{../SessionName}}/{{../Category}}/{{this.EventId}}-{{this.EventName}}">
+                    href="/group/events/{{../SessionName}}/{{../Category}}/all-events/{{this.EventId}}-{{this.EventName}}/all-students">
                     <div style="background-color: rgb(182, 224, 248);" class="allGroupCatetory-items">
                         <h4>{{this.EventName}} <span class="EventIdSpan">({{this.EventId}})</span> - ({{this.PointCategoryName}}) </h4>
                         <p>{{this.LimitStatus}}/{{this.EventLimit}}</p>

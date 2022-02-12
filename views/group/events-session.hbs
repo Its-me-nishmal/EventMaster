@@ -2,7 +2,7 @@
     <div class="group-container">
         <div class="allCategory-mainDiv">
             <div class="GroupAllCategory-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Events / Choose events</h4>
+                <h4 class="adminHome-sectin-one-SubHeading">Events / Choose session</h4>
                 <hr class="GroupallCategoryheader-hr">
             </div>
             <div class="allcategorycontentDiv">
@@ -39,35 +39,7 @@
                     {{/if}}
                 </div>
             </div>
-            {{!-- events with students details --}}
-             {{#if checkstudentCount}}
-            <div style="margin-top: 10px;" class="GroupAllCategory-header">
-                <h4 class="adminHome-sectin-one-SubHeading">Events / Events with students</h4>
-                <hr class="GroupallCategoryheader-hr">
-            </div>
-            <div class="allcategorycontentDiv">
-                <div class="allCategory-content">
-                   
-                    {{#each allItemCategorys}}
-
-                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category1}}/all-events">
-                        <div class="allGroupCatetory-items">
-                            <h4>{{this.SessionName}} - {{this.Category1}}</h4>
-                            <p>{{this.StageCount}}</p>
-                        </div>
-                    </a>
-                    <a id="mainDiv" href="/group/events/{{this.SessionName}}/{{this.Category2}}/all-events">
-                        <div  class="allGroupCatetory-items">
-                            <h4>{{this.SessionName}} - {{this.Category2}}</h4>
-                            <p>{{this.OffStageCount}}</p>
-                        </div>
-                    </a>
-
-                    {{/each}}
-                    
-                    {{/if}}
-                </div>
-            </div>
+           
         </div>
 
     </div>

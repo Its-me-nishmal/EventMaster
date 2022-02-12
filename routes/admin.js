@@ -41,23 +41,23 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
 
   if (req.session.festLoginErr) {
     res.render('admin/home', {
-      title: 'College Fest', admin: true,adminDetails, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
+      title: 'College Fest', admin: true, adminDetails, adminHeader: true, latestFest, latestFestZero, allFest, allFestZero,
       "festLoginErr": req.session.festLoginErr, CurrentYear, footer: true
     })
     req.session.festLoginErr = false
   } else if (req.session.fest) {
     res.render('admin/home', {
-      title: 'College Fest', admin: true, adminHeader: true,adminDetails, latestFest, latestFestZero, allFest, allFestZero,
+      title: 'College Fest', admin: true, adminHeader: true, adminDetails, latestFest, latestFestZero, allFest, allFestZero,
       LoginFest, CurrentYear, footer: true
     })
   } else {
 
-    res.render('admin/home', { title: 'College Fest', admin: true,adminDetails, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
+    res.render('admin/home', { title: 'College Fest', admin: true, adminDetails, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
   }
 });
 
 router.get('/account', verifyAdminLogin, async (req, res) => {
- 
+
   let adminDetails = req.session.admin
   if (req.session.passwordChangeErr) {
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
@@ -66,7 +66,7 @@ router.get('/account', verifyAdminLogin, async (req, res) => {
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
     req.session.passwordChangeSuccess = false
   } else {
-  
+
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
 
   }
@@ -162,66 +162,66 @@ router.post('/settings/new-password', (req, res) => {
 router.get('/change-password', verifyAdminLogin, (req, res) => {
   let adminDetails = req.session.admin
   if (req.session.passwordChangeErr) {
-    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, "passwordChangeErr": req.session.passwordChangeErr, })
+    res.render('admin/change-password', { title: 'College fest', adminDetails, admin: true, adminHeader: true, "passwordChangeErr": req.session.passwordChangeErr, })
     req.session.passwordChangeErr = false
   } else if (req.session.passwordChangeSuccess) {
-    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, "passwordChangeSuccess": req.session.passwordChangeSuccess, })
+    res.render('admin/change-password', { title: 'College fest', adminDetails, admin: true, adminHeader: true, "passwordChangeSuccess": req.session.passwordChangeSuccess, })
     req.session.passwordChangeSuccess = false
   } else {
-    res.render('admin/change-password', { title: 'College fest',adminDetails, admin: true, adminHeader: true, })
+    res.render('admin/change-password', { title: 'College fest', adminDetails, admin: true, adminHeader: true, })
   }
 });
 
 router.get('/create-admin-account', verifyAdminLogin, (req, res) => {
   let adminDetails = req.session.admin
   if (req.session.Error) {
-    res.render('admin/create-account', { title: 'College fest',adminDetails, "Error": req.session.Error, admin: true, adminHeader: true, })
+    res.render('admin/create-account', { title: 'College fest', adminDetails, "Error": req.session.Error, admin: true, adminHeader: true, })
     req.session.Error = false
   } else if (req.session.Success) {
-    
-    res.render('admin/create-account', { title: 'College fest',adminDetails, "Success": req.session.Success, admin: true, adminHeader: true, })
+
+    res.render('admin/create-account', { title: 'College fest', adminDetails, "Success": req.session.Success, admin: true, adminHeader: true, })
     req.session.Success = false
-  }else{
-   
-    res.render('admin/create-account', { title: 'College fest',adminDetails,  admin: true, adminHeader: true, })
+  } else {
+
+    res.render('admin/create-account', { title: 'College fest', adminDetails, admin: true, adminHeader: true, })
   }
 });
 
 router.post('/account/create-admin-account', verifyAdminLogin, (req, res) => {
   adminHelpers.createAccout(req.body).then((response) => {
-    if(response.accountCountError){
-      req.session.Error = "You will not be able to create a new account, Use "+response.accountCountError
+    if (response.accountCountError) {
+      req.session.Error = "You will not be able to create a new account, Use " + response.accountCountError
       res.redirect('/fest-admin/create-admin-account')
     }
     if (response.UserNameError) {
       req.session.Error = "This user name already used"
       res.redirect('/fest-admin/create-admin-account')
     } else {
-     
+
       req.session.Success = "Admin account successfully created"
       res.redirect('/fest-admin/create-admin-account')
     }
   })
 });
 
-router.post('/account/edit-details',verifyAdminLogin,(req,res)=>{
-  
-  adminHelpers.editadminDetails(req.body).then((updates)=>{
+router.post('/account/edit-details', verifyAdminLogin, (req, res) => {
+
+  adminHelpers.editadminDetails(req.body).then((updates) => {
     req.session.admin = updates
     res.redirect('/fest-admin/account')
   })
 });
 
-router.get('/all-admins',verifyAdminLogin,(req,res)=>{
+router.get('/all-admins', verifyAdminLogin, (req, res) => {
   let adminDetails = req.session.admin
-  adminHelpers.getAdminDetails().then((allAdmin)=>{
-    res.render('admin/all-admins',{ title: 'College fest',adminDetails, allAdmin,  admin: true, adminHeader: true, })
+  adminHelpers.getAdminDetails().then((allAdmin) => {
+    res.render('admin/all-admins', { title: 'College fest', adminDetails, allAdmin, admin: true, adminHeader: true, })
 
   })
 });
-router.get('/all-admins/:id/delete',verifyAdminLogin,(req,res)=>{
+router.get('/all-admins/:id/delete', verifyAdminLogin, (req, res) => {
   var id = req.params.id
-  adminHelpers.deleteAdmin(id).then(()=>{
+  adminHelpers.deleteAdmin(id).then(() => {
     res.redirect('/fest-admin/all-admins')
   })
 })
@@ -482,7 +482,7 @@ router.get('/:FestId/events/:Session-:Category/:EventId/delete-event', verifyFes
     }
   })
 });
-router.get('/:FestId/events/:Session-:Category/:EventId/edit-event', verifyFestLogin, verifyAdminLogin, async(req, res) => {
+router.get('/:FestId/events/:Session-:Category/:EventId/edit-event', verifyFestLogin, verifyAdminLogin, async (req, res) => {
   let FestId = req.params.FestId
   let SessionName = req.params.Session
   let CategoryName = req.params.Category
@@ -490,37 +490,37 @@ router.get('/:FestId/events/:Session-:Category/:EventId/edit-event', verifyFestL
   let FestDetails = req.session.fest
   var pointCategoryOptions = await festHelpers.getPointCategoryOptions(FestDetails.FestId)
   festHelpers.getEventDetails(FestId, SessionName, CategoryName, EventId).then((result) => {
-    if(result.TypeOfEvent == "Group"){
+    if (result.TypeOfEvent == "Group") {
       result.Group = true
-    }else{
+    } else {
       result.Intivi = true
     }
-    for(let i=0; i<pointCategoryOptions.length; i++){
-     
-      if(pointCategoryOptions[i].categoryName == result.PointCategoryName){
-      
+    for (let i = 0; i < pointCategoryOptions.length; i++) {
+
+      if (pointCategoryOptions[i].categoryName == result.PointCategoryName) {
+
         pointCategoryOptions[i].index = true
       }
     }
-    
-      res.render("fest/edit-event",{
-        title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, 
-        SessionName, CategoryName, result,pointCategoryOptions
-      })
-    
+
+    res.render("fest/edit-event", {
+      title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails,
+      SessionName, CategoryName, result, pointCategoryOptions
+    })
+
   })
 });
 
-router.post('/:FestId/events/:SessionName/:CategoryName/edit-event',verifyAdminLogin,verifyFestLogin,(req,res)=>{
+router.post('/:FestId/events/:SessionName/:CategoryName/edit-event', verifyAdminLogin, verifyFestLogin, (req, res) => {
 
   let FestId = req.params.FestId
   let SessionName = req.params.SessionName
   let CategoryName = req.params.CategoryName
-  
+
   let FestDetails = req.session.fest
-  festHelpers.editEventDetails(FestId, SessionName, CategoryName,req.body).then((result)=>{
-   
-     res.redirect('/fest-admin/'+FestId+"/events/"+SessionName+"-"+CategoryName+"/"+req.body.EventId+"/edit-event")
+  festHelpers.editEventDetails(FestId, SessionName, CategoryName, req.body).then((result) => {
+
+    res.redirect('/fest-admin/' + FestId + "/events/" + SessionName + "-" + CategoryName + "/" + req.body.EventId + "/edit-event")
   })
 });
 

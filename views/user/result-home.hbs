@@ -18,7 +18,7 @@
                 <div class="inputDiv">
                     <input id="searchInput" type="text" placeholder="Search your Name or Chest number or CIC number..."
                         name="CategoryName">
-                    <i onclick="SearchStudentEvent('{{userDetails.FestId}}')"
+                    <i id="searchIcon" onclick="SearchStudentEvent('{{userDetails.FestId}}')"
                         style="top: 5px; right:2px; color:white; background-color:var(--color-green-one);"
                         class="bi bi-search searchIcon-resultPage"></i>
                 </div>
@@ -355,25 +355,8 @@
     </div>
     </div>
    
-    <div id="feed" style="display: none;" class="feedbackDiv">
-        <a href="/feed-back-form">
-            <h4><i class="bi bi-chat-square-text-fill"></i> Enter your feedback <span
-                    style="font-weight: normal; margin-left:5px"> Click here</span> </h4>
-        </a>
-        <i style="position:absolute; right:5px; top:5px; color:white; font-size:large; cursor:pointer;" onclick="this.parentElement.style.display='none';" class="bi bi-x"></i>
-        
-    </div>
-    <script>
-        const showFeed = setTimeout(onFeed, 10000);
-        const OutFeed = setTimeout(offFeed, 30000);
 
-        function onFeed() {
-            document.getElementById("feed").style.display = "block"
-        }
-        function offFeed() {
-            document.getElementById("feed").style.display = "none"
-        }
-    </script>
+
 </section>
 
 
@@ -571,7 +554,10 @@
 
 
 
+<style>
+ 
 
+</style>
 {{!-- Search Event --}}
 
 <script>
@@ -592,10 +578,12 @@
     nunBorder.appendChild(h2)
 
     // Full Result
-
+    
 
     function SearchStudentEvent(FestId) {
-
+       let serchIcon = document.getElementById('searchIcon')    
+       serchIcon.className = "searchIcon-resultPage"
+       serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
             url: '/search-student-events',
@@ -605,7 +593,8 @@
             },
             method: 'post',
             success: (searchResult) => {
-
+                serchIcon.innerHTML = ''
+                serchIcon.className = "bi bi-search searchIcon-resultPage"
                 if (searchResult[0]) {
                     Session.style.display = 'none'
                     boarderDiv.style.display = 'block'

@@ -12,7 +12,7 @@
             <div class="CFsessionOne">
                 <div class="inputDiv">
                     <input id="searchInput" type="text" placeholder="Search Event name or Event ID..." name="CategoryName">
-                    <i onclick="SearchEvent('{{userDetails.FestId}}')" style="top: 5px; right:2px; color:white; background-color:var(--color-green-one);"
+                    <i id="searchIcon" onclick="SearchEvent('{{userDetails.FestId}}')" style="top: 5px; right:2px; color:white; background-color:var(--color-green-one);"
                         class="bi bi-search searchIcon-resultPage"></i>
                 </div>
             </div>
@@ -101,6 +101,9 @@
 
 
     function SearchEvent(FestId) {
+         let serchIcon = document.getElementById('searchIcon')    
+       serchIcon.className = "searchIcon-resultPage"
+       serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
             url: '/search-event-result',
@@ -110,6 +113,8 @@
             },
             method: 'post',
             success: (searchResult) => {
+                serchIcon.innerHTML = ''
+                serchIcon.className = "bi bi-search searchIcon-resultPage"
                 if (searchResult[0]) {
                     Session.style.display = 'none'
                     boarderDiv.style.display = 'block'

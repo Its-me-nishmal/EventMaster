@@ -23,16 +23,16 @@
                 {{#if this.Clear}}
                 {{else}}
                 <div id="MessageBorder{{MessageId}}" {{#if this.Read}} style="background-color: rgb(210, 241, 255);"
-                    {{/if}} class="GNotificationBorder" onclick="readControll('{{../GroupDetails.GroupId}}','{{MessageId}}')">
+                    {{/if}} class="GNotificationBorder" >
                     <p class="MessageId" hidden>{{MessageId}}</p>
                     <p id="MessageType{{MessageId}}" hidden>{{this.Type}}</p>
                     <p id="Link{{MessageId}}" hidden>{{this.Link}}</p>
 
                     <a id="Atag{{this.MessageId}}"
-                        onclick="readC  ontroll('{{../GroupDetails.GroupId}}','{{MessageId}}')">
+                        onclick="readControll('{{../GroupDetails.GroupId}}','{{MessageId}}')">
                         <div class="one">
                             <div>
-                                <div id class="IconDiv">
+                                <div  class="IconDiv">
                                     <i id="Icon{{MessageId}}" class="bi bi-bell-fill"></i>
                                 </div>
                             </div>

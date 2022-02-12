@@ -2,7 +2,7 @@
     <div class="group-container">
         <div class="allGroupStudents-mainDiv">
             <div class="GroupAllCategory-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/group/events/{{SessionName}}/{{CategoryName}}/all-events"><span class="back-button" style="background-color: var(--color-blueDark2);"><i class="bi bi-chevron-left"></i> Back</span></a>{{EventId}} - {{EventName}} / View student</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/group/events/{{SessionName}}/{{CategoryName}}"><span class="back-button" style="background-color: var(--color-blueDark2);"><i class="bi bi-chevron-left"></i> Back</span></a>{{EventId}} - {{EventName}} / View student</h4>
                 <hr class="GroupallCategoryheader-hr">
             </div>
             <div class="groups-content">
@@ -12,11 +12,11 @@
                     {{#if EventStudents}}
                     <div class="allStudents-SessionOne">
                         <p>Create new student this event :</p>
-                        {{#if StudentActiveNull}}
+                        {{#if EventActiveNull}}
                         <a href=""><button style="background-color:var(--color-delete);"><i
                                     class="bi bi-hourglass-bottom"></i> Time end</button></a>
                         {{else}}
-                        <a href="/group/students/{{SessionName}}/add-students"><button><i
+                        <a href="/group/events/{{SessionName}}/{{CategoryName}}/{{EventId}}-{{EventName}}/choose-event"><button><i
                                     class="bi bi-plus-circle-dotted"></i> Add</button></a>
                         {{/if}}
                     </div>
@@ -75,6 +75,21 @@
                         </div>
                     </div>
                     {{/if}}
+                     {{#if Success}}
+        <div style=" background-color: rgb(138, 255, 177); border-color:rgb(0, 165, 55)" class="groupAlertBorder">
+            <div class="groupAlert-box-close-button">
+                <i class="bi bi-x-lg" onclick="closeAlet()"></i>
+            </div>
+            <div class="groupAlertHead" style=" color: rgb(0, 126, 42);">
+                <i class="bi bi-exclamation-circle"></i>
+                <h4>Create Success !</h4>
+            </div>
+            <div class="groupAletCountent" style="color: rgb(56, 95, 69);">
+                <h5>{{Success}}</h5>
+            </div>
+            <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
+        </div>
+        {{/if}}
                     <div style="margin-top: 10px;">
                         <div class="pointTable-printbutton">
                             <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
@@ -87,12 +102,13 @@
                         <div class="pointTabel-div">
 
                             <p>You have not added any students this event ...</p>
-                            {{#if StudentActiveNull}}
-                            <button style="background-color:var(--color-delete);"><i class="bi bi-hourglass-bottom"></i>
+                            {{#if EventActiveNull}}
+                             <button style="background-color:var(--color-delete); margin-left: 85px;"><i class="bi bi-hourglass-bottom"></i>
                                 Time
-                                end </button>
+                                end </button> 
+                                
                             {{else}}
-                            <a href="/group/events/{{SessionName}}/{{CategoryName}}/{{EventId}}-{{EventName}}">
+                            <a href="/group/events/{{SessionName}}/{{CategoryName}}/{{EventId}}-{{EventName}}/choose-event">
                                 <button style="margin-left: 70px;"><i class="bi bi-plus-circle-dotted"></i> Add
                                     students</button>
                             </a>

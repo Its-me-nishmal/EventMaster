@@ -405,11 +405,18 @@ module.exports = {
 
                 for (let b = 0; b < Items.length; b++) {
 
-                    var searchName = Items[b].EventName.match(myPattern);
-                    var searchId = Items[b].EventId.match(myPattern);
+                    let searchName = Items[b].EventName.split(/\s/)
+                    let NameString = null
+                    for (let c = 0; c < searchName.length; c++) {
+                        if (NameString == null) {
+                            NameString = searchName[c].slice(0, searchValue.length).match(myPattern)
+                        } 
+                    }
+                  
+                    var searchId = Items[b].EventId.slice(0, searchValue.length).match(myPattern);;
 
 
-                    if (searchName !== null) {
+                    if (NameString !== null) {
                         searchResult.push(Items[b])
                     } else if (searchId !== null) {
                         searchResult.push(Items[b])
@@ -435,10 +442,16 @@ module.exports = {
 
                 for (let b = 0; b < AllStudents.length; b++) {
                     var Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: AllStudents[b].GroupId })
-                    var searchName = AllStudents[b].FullName.match(myPattern);
-                    var searchChestNo = AllStudents[b].ChestNo.match(myPattern);
-                    var searchCIC = AllStudents[b].CicNo.match(myPattern);
-                    //
+                    let searchName = AllStudents[b].FullName.split(/\s/)
+                    let NameString = null
+                    for (let c = 0; c < searchName.length; c++) {
+                        if (NameString == null) {
+                            NameString = searchName[c].slice(0, searchValue.length).match(myPattern)
+                        } 
+                    }
+                    var searchChestNo = AllStudents[b].ChestNo.slice(0, searchValue.length).match(myPattern);
+                    var searchCIC = AllStudents[b].CicNo.slice(0, searchValue.length).match(myPattern);
+                   
                     let student = {}
                     student.GroupName = Group.GroupName
                     student.GroupId = Group.GroupId
@@ -448,7 +461,7 @@ module.exports = {
                     student.FullName = AllStudents[b].FullName
 
 
-                    if (searchName !== null) {
+                    if (NameString !== null) {
                         searchResult.push(student)
                     } else if (searchChestNo !== null) {
                         searchResult.push(student)
@@ -514,13 +527,19 @@ module.exports = {
                 for (let b = 0; b < OtherMarks.length; b++) {
                     let group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: OtherMarks[b].GroupId })
                     OtherMarks[b].GroupName = group.GroupName
-                    var Title = OtherMarks[b].Title.match(myPattern);
-                    var GroupId = OtherMarks[b].GroupId.match(myPattern);
+                    var Title = OtherMarks[b].Title.split(/\s/)
+                    let NameString = null
+                    for (let c = 0; c < Title.length; c++) {
+                        if (NameString == null) {
+                            NameString = Title[c].slice(0, searchValue.length).match(myPattern)
+                        } 
+                    }
+                    var GroupId = OtherMarks[b].GroupId.slice(0, searchValue.length).match(myPattern);
 
 
                     if (GroupId !== null) {
                         searchResult.push(OtherMarks[b])
-                    } else if (Title !== null) {
+                    } else if (NameString !== null) {
                         searchResult.push(OtherMarks[b])
                     }
                 }
@@ -582,13 +601,20 @@ module.exports = {
                 for (let b = 0; b < Toppers.length; b++) {
                     let group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: Toppers[b].GroupId })
                     Toppers[b].GroupName = group.GroupName
-                    var Title = Toppers[b].Title.match(myPattern);
-                    var GroupId = Toppers[b].GroupId.match(myPattern);
+                    
+                    var Title = Toppers[b].Title.split(/\s/)
+                    let NameString = null
+                    for (let c = 0; c < Title.length; c++) {
+                        if (NameString == null) {
+                            NameString = Title[c].slice(0, searchValue.length).match(myPattern)
+                        } 
+                    }
+                    var GroupId = Toppers[b].GroupId.slice(0, searchValue.length).match(myPattern);
 
 
                     if (GroupId !== null) {
                         searchResult.push(Toppers[b])
-                    } else if (Title !== null) {
+                    } else if (NameString !== null) {
                         searchResult.push(Toppers[b])
                     }
                 }

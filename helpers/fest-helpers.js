@@ -894,7 +894,9 @@ module.exports = {
                     StageEvents[i].LimitStatus = EventCount
                     parseInt(StageEvents[i].EventLimit)
                     parseInt(StageEvents[i].LimitStatus)
-                    if(StageEvents[i].EventLimit>StageEvents[i].LimitStatus){
+                    if(StageEvents[i].LimitStatus == 0){
+                        StageEvents[i].ZeroFill = true
+                    }else if(StageEvents[i].EventLimit>StageEvents[i].LimitStatus){
                         StageEvents[i].NotFill = true
                     }else if(StageEvents[i].EventLimit == StageEvents[i].LimitStatus){
                         StageEvents[i].Fill = true
@@ -912,7 +914,9 @@ module.exports = {
                     OffStageEvents[i].LimitStatus = EventCount
                     parseInt(OffStageEvents[i].EventLimit)
                     parseInt(OffStageEvents[i].LimitStatus)
-                    if(OffStageEvents[i].EventLimit>OffStageEvents[i].LimitStatus){
+                    if(OffStageEvents[i].LimitStatus == 0){
+                        OffStageEvents[i].ZeroFill = true
+                    }else if(OffStageEvents[i].EventLimit>OffStageEvents[i].LimitStatus){
                         OffStageEvents[i].NotFill = true
                     }else if(OffStageEvents[i].EventLimit == OffStageEvents[i].LimitStatus){
                         OffStageEvents[i].Fill = true
