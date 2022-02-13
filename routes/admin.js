@@ -1286,13 +1286,104 @@ router.post('/:FestId/settings/refresh', verifyAdminLogin, verifyFestLogin, (req
       res.redirect('/fest-admin/login')
     }
   })
+});
+
+router.get('/:FestId/settings/grand-topper', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  let FestDetails = req.session.fest
+  festHelpers.getGrandTopper(FestDetails.FestId).then((GrandTopper) => {
+
+    res.render('fest/all-build-topper', {
+      title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+      GrandTopper
+    })
+  })
+});
+
+router.get('/:FestId/settings/grand-topper/create', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
+  let Array1 = []
+  let Array2 = []
+  for (var i = 0; i < allPointCategory.length; i++) {
+
+    if (allPointCategory.indexOf(allPointCategory[i]) % 2 === 0) {
+      Array2.push(allPointCategory[i])
+    } else {
+      Array1.push(allPointCategory[i])
+    }
+  }
+  res.render('fest/add-build-topper', {
+    title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+    allPointCategory, Array1, Array2
+  })
+});
+
+router.post('/:FestId/settings/grand-topper/create', verifyAdminLogin, verifyFestLogin, (req, res) => {
+  var FestDetails = req.session.fest
+  festHelpers.generateGrandTopper(req.body, FestDetails.FestId).then(() => {
+    res.redirect('/fest-admin/' + FestDetails.FestId + '/settings/grand-topper')
+  })
+});
+
+router.get('/:FestId/settings/grand-topper/:TopperId/view', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  //var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
+  resultHelpers.getGrandTopper(FestDetails.FestId,req.params.TopperId).then((grandtopper) => {
+    console.log(grandtopper);
+    let ULA = []
+    let ALIYA = []
+    let ULYA = []
+    for (let i = 0; i < grandtopper.length; i++) {
+      if(grandtopper[i].SessionName == "ULA"){
+        ULA.push(grandtopper[i])
+      }
+      if(grandtopper[i].SessionName == "ALIYA"){
+        ALIYA.push(grandtopper[i])
+      }
+      if(grandtopper[i].SessionName == "ULYA"){
+        ULYA.push(grandtopper[i])
+      }
+      
+    }
+    console.log(ULA,ALIYA,ULYA);
+    res.render('fest/grand-topper', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, ULA,ALIYA,ULYA })
+  })
+  // festHelpers.forEditGrandTopper(allPointCategory, FestDetails.FestId, req.params.TopperId).then((Topper, PointCategory) => {
+  //   console.log(Topper, PointCategory);
+  //   res.render('fest/edit-build-topper', {
+  //     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
+  //     Topper, PointCategory
+  //   })
+
+  // })
+});
+
+// Beta version
+
+router.get('/:FestId/result/Grand-topper/veiw', verifyAdminLogin, verifyFestLogin, async (req, res) => {
+  let FestDetails = req.session.fest
+  let getGrandTopper = await resultHelpers.getGrandTopper(FestDetails.FestId).then((resposne) => {
+    
+    res.render('fest/grand-topper', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails })
+  })
+
 })
+
+
+
+
+
+
+
+
+
 
 // Add mark
 
 router.get('/:FestId/mark', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   var FestDetails = req.session.fest
   var allItemCategorys = await festHelpers.getAllItemCategory(FestDetails.FestId)
+
   res.render('mark/mark-home', {
     title: FestDetails.FestName, festHeader: true, FestDetails, createAccout: true, adminHeader: true,
     allItemCategorys
@@ -1866,9 +1957,9 @@ router.get('/:FestId/result/grand-winner-student', verifyAdminLogin, verifyFestL
 router.get('/:FestId/result/result-status', verifyAdminLogin, verifyFestLogin, (req, res) => {
   let FestDetails = req.session.fest
   resultHelpers.resultFullStatus(FestDetails.FestId).then((result) => {
-    res.render('mark/result-status', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, result })
   })
 });
+
 
 
 
@@ -1881,15 +1972,13 @@ router.get('/feed-back-form', verifyAdminLogin, (req, res) => {
 });
 
 
-// Demmi
 
-router.get('/create', (req, res) => {
-  res.render('admin/create', { title: "Create admin", adminHeader: true, })
-});
 
-router.post('/create', (req, res) => {
-  adminHelpers.createAccout(req.body).then((response) => {
-    res.redirect('/fest-admin')
-  })
-});
+
+
+
+
+
+
+
 module.exports = router;

@@ -8,5 +8,6 @@ module.exports={
     SCHEDULES_COLLECTON: 'programeSchedules',
     NOTIFICATION_COLLECTION: 'notifications',
     OTHER_MARK_COLLECTION: 'otherMark',
-    SESSION_COLLECTION : "Sessions"
+    SESSION_COLLECTION : "Sessions",
+    GRAND_TOPPER_COLLECTION : "grand-topper"
 }

@@ -136,6 +136,7 @@ router.get('/:FestId/result/event-baise/:Session/:Category/:EventId-:EventName',
   var EventName = req.params.EventName
 
   let EventStudents = await resultHelpers.getEventBaiseStudentsMark(userDetails.FestId, Session, Category, EventId)
+  console.log(EventStudents);
   res.render('user/event-baise-student', {
     title: userDetails.FestName, userDetails, Category, Session, EventId, EventName, EventStudents
   })

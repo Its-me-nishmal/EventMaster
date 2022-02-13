@@ -1,0 +1,116 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Grand topper</h4>
+                <hr>
+            </div>
+        </div>
+        <div class="groups-content">
+            <div class="allEventDiv">
+                <table id="allEvent-table" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>ULA</th>
+                            <th>CHest no</th>
+                            <th>Full name</th>
+                            <th>cic no</th>
+                            <th>grnad mark </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each ULA}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            <td>{{this.ChestNo}}</td>
+                            <td>{{this.FullName}}</td>
+                            <td>{{this.CicNo}}</td>
+                            <td>{{this.GrandTopperMark}}</td>
+                            
+                            
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+                <table id="allEvent" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>ALIYA</th>
+                            <th>CHest no</th>
+                            <th>Full name</th>
+                            <th>cic no</th>
+                            <th>grnad mark </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each ALIYA}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            <td>{{this.ChestNo}}</td>
+                            <td>{{this.FullName}}</td>
+                            <td>{{this.CicNo}}</td>
+                            <td>{{this.GrandTopperMark}}</td>
+                            
+                            
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+                <table id="allEvent-tablea" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>ULYA</th>
+                            <th>CHest no</th>
+                            <th>Full name</th>
+                            <th>cic no</th>
+                            <th>grnad mark </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each ULYA}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            <td>{{this.ChestNo}}</td>
+                            <td>{{this.FullName}}</td>
+                            <td>{{this.CicNo}}</td>
+                            <td>{{this.GrandTopperMark}}</td>
+                            
+                            
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allEvent').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allEvent-tablea').DataTable();
+    });
+</script>

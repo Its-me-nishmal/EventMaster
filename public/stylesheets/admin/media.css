@@ -1,8 +1,12 @@
-@media (min-width: 1025px) /* laptop & pc*/ {
+@media (min-width: 1025px)
+
+/* laptop & pc*/
+  {
   .adminHome-section-one-Fest {
     flex: 25%;
     max-width: 25%;
   }
+
   .festLoginPopupDiv {
     width: 400px;
     height: auto;
@@ -17,17 +21,21 @@
     margin-left: 220px;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarborder {
     margin-left: 0px;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarMenueButton {
     display: none;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarheaderCloseIcon {
     display: none;
   }
+
   .festHeader {
     display: none;
   }
@@ -42,6 +50,7 @@
     transition: ease-in-out 0.6s;
     margin-left: 0;
   }
+
   .sidebarheaderCloseIcon-onClick-menu {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -51,9 +60,11 @@
     cursor: pointer;
     display: none;
   }
+
   .sidebarMenueButton-onClick-menu {
     display: none;
   }
+
   .sidebarboarder-onClick-close {
     width: 190px;
     height: 100vh;
@@ -64,6 +75,7 @@
     transition: ease-in-out 0.6s;
     margin-left: 0px;
   }
+
   .sidebarheaderCloseIcon-onClick-close {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -73,111 +85,151 @@
     cursor: pointer;
     display: none;
   }
+
   .sidebarMenueButton-onClick-close {
     display: none;
   }
+
   .festDetialsEditsubDiv {
     width: 47%;
   }
-}
-.fivteen {
-  width: 50%;
-}
-.Twenty-five {
-  width: 25%;
-}
-
-@media (max-width: 1024px) /* ipad Pro */ {
-  .adminHome-section-one-Fest {
-    flex: 33.33%;
-    max-width: 33.33%;
+  
+  .fivteen {
+    width: 50%;
   }
-  .festLoginPopupDiv {
-    width: 400px;
-    height: auto;
-  }
-  .fest-container {
-    padding: 0;
-    padding-left: 2%;
-    padding-right: 2.5%;
-    padding-top: 58px;
-    padding-bottom: 20px;
-    margin-left: 220px;
-    transition: ease-in-out 0.6s;
-  }
-  .sidebarborder {
-    margin-left: 0px;
-    transition: ease-in-out 0.6s;
-  }
-  .sidebarMenueButton {
-    display: none;
-    transition: ease-in-out 0.6s;
-  }
-  .sidebarheaderCloseIcon {
-    display: none;
-  }
-  .festHeader {
-    display: none;
-  }
-
-  .sidebarboarder-onClick-menu {
-    width: 190px;
-    height: 100vh;
-    background-color: var(--color-four);
-    position: fixed;
-    padding-left: 15px;
-    padding-right: 15px;
-    transition: ease-in-out 0.6s;
-    margin-left: 0;
-  }
-  .sidebarheaderCloseIcon-onClick-menu {
-    font-size: 22px;
-    color: rgb(194, 194, 194);
-    position: absolute;
-    top: 70px;
-    right: 5px;
-    cursor: pointer;
-    display: none;
-  }
-  .sidebarMenueButton-onClick-menu {
-    display: none;
-  }
-  .sidebarboarder-onClick-close {
-    width: 190px;
-    height: 100vh;
-    background-color: var(--color-four);
-    position: fixed;
-    padding-left: 15px;
-    padding-right: 15px;
-    transition: ease-in-out 0.6s;
-    margin-left: 0px;
-  }
-  .sidebarheaderCloseIcon-onClick-close {
-    font-size: 22px;
-    color: rgb(194, 194, 194);
-    position: absolute;
-    top: 70px;
-    right: 5px;
-    cursor: pointer;
-    display: none;
-  }
-  .sidebarMenueButton-onClick-close {
-    display: none;
-  }
+  
   .Twenty-five {
+    width: 25%;
+  }
+  
+  .build-grand-topper-Div {
+    display: flex;
+  }
+  
+  .build-grand-topper-Div .controlpanel-session-content {
     width: 50%;
   }
 }
 
-@media (max-width: 768px) /* ipad */ {
+@media (max-width: 1024px)
+
+/* ipad Pro */
+  {
   .adminHome-section-one-Fest {
-    flex: 50%;
-    max-width: 50%;
+    flex: 33.33%;
+    max-width: 33.33%;
   }
+
   .festLoginPopupDiv {
     width: 400px;
     height: auto;
   }
+
+  .fest-container {
+    padding: 0;
+    padding-left: 2%;
+    padding-right: 2.5%;
+    padding-top: 58px;
+    padding-bottom: 20px;
+    margin-left: 220px;
+    transition: ease-in-out 0.6s;
+  }
+
+  .sidebarborder {
+    margin-left: 0px;
+    transition: ease-in-out 0.6s;
+  }
+
+  .sidebarMenueButton {
+    display: none;
+    transition: ease-in-out 0.6s;
+  }
+
+  .sidebarheaderCloseIcon {
+    display: none;
+  }
+
+  .festHeader {
+    display: none;
+  }
+
+  .sidebarboarder-onClick-menu {
+    width: 190px;
+    height: 100vh;
+    background-color: var(--color-four);
+    position: fixed;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: ease-in-out 0.6s;
+    margin-left: 0;
+  }
+
+  .sidebarheaderCloseIcon-onClick-menu {
+    font-size: 22px;
+    color: rgb(194, 194, 194);
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    cursor: pointer;
+    display: none;
+  }
+
+  .sidebarMenueButton-onClick-menu {
+    display: none;
+  }
+
+  .sidebarboarder-onClick-close {
+    width: 190px;
+    height: 100vh;
+    background-color: var(--color-four);
+    position: fixed;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: ease-in-out 0.6s;
+    margin-left: 0px;
+  }
+
+  .sidebarheaderCloseIcon-onClick-close {
+    font-size: 22px;
+    color: rgb(194, 194, 194);
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    cursor: pointer;
+    display: none;
+  }
+
+  .sidebarMenueButton-onClick-close {
+    display: none;
+  }
+
+  .Twenty-five {
+    width: 50%;
+  }
+
+  .build-grand-topper-Div {
+    display: flex;
+  }
+
+  .build-grand-topper-Div .controlpanel-session-content {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px)
+
+/* ipad */
+  {
+  .adminHome-section-one-Fest {
+    flex: 50%;
+    max-width: 50%;
+  }
+
+  .festLoginPopupDiv {
+    width: 400px;
+    height: auto;
+  }
+
   .fest-container {
     padding: 0;
     padding-left: 3%;
@@ -187,17 +239,21 @@
     margin-left: 0px;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarborder {
     margin-left: -230px;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarMenueButton {
     display: block;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarheaderCloseIcon {
     display: block;
   }
+
   .festHeader {
     display: none;
   }
@@ -214,7 +270,7 @@
     z-index: 4;
     overflow-y: auto;
   }
-  
+
 
   .sidebarheaderCloseIcon-onClick-menu {
     font-size: 22px;
@@ -225,9 +281,11 @@
     cursor: pointer;
     display: block;
   }
+
   .sidebarMenueButton-onClick-menu {
     display: none;
   }
+
   .sidebarboarder-onClick-close {
     width: 190px;
     height: 100vh;
@@ -238,6 +296,7 @@
     transition: ease-in-out 0.6s;
     margin-left: -230px;
   }
+
   .sidebarheaderCloseIcon-onClick-close {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -247,24 +306,40 @@
     cursor: pointer;
     display: none;
   }
+
   .sidebarMenueButton-onClick-close {
     display: block;
   }
-  .searchResult .searchResultOne .header h4{
+
+  .searchResult .searchResultOne .header h4 {
     display: none;
+  }
+
+  .build-grand-topper-Div {
+    display: flex;
+  }
+
+  .build-grand-topper-Div .controlpanel-session-content {
+    width: 50%;
   }
 }
 
-@media (max-width: 500px) /* all mobile */ {
+@media (max-width: 500px)
+
+/* all mobile */
+  {
+
   /* Admin settings */
   .admin-header-login h4,
   .create-fest-button-border h4 {
     display: none;
   }
+
   .admin-header-login,
   .create-fest-button-border {
     background-color: var(--color-one);
   }
+
   /* .fest-container {
    display: none;
   } */
@@ -272,24 +347,39 @@
   .fivteen {
     width: 100%;
   }
+
   .Twenty-five {
     width: 100%;
   }
-  .searchResult .searchResultOne .header h4{
+
+  .searchResult .searchResultOne .header h4 {
     display: none;
+  }
+
+  .build-grand-topper-Div {
+    display: block;
+  }
+
+  .build-grand-topper-Div .controlpanel-session-content {
+    width: 100%;
   }
 }
 
-@media (max-width: 375px) /* all mobile */ {
+@media (max-width: 375px)
+
+/* all mobile */
+  {
   .adminHome-section-one-Fest {
     flex: 100%;
     width: 100%;
     max-width: 100%;
   }
+
   .festLoginPopupDiv {
     width: 90%;
     height: auto;
   }
+
   .fest-container {
     padding: 0;
     padding-left: 3%;
@@ -299,18 +389,22 @@
     transition: ease-in-out 0.6s;
     padding-bottom: 20px;
   }
+
   .sidebarborder {
     margin-left: -230px;
     transition: ease-in-out 0.6s;
-    
+
   }
+
   .sidebarMenueButton {
     display: block;
     transition: ease-in-out 0.6s;
   }
+
   .sidebarheaderCloseIcon {
     display: block;
   }
+
   .festHeader {
     display: none;
   }
@@ -324,8 +418,9 @@
     padding-right: 15px;
     transition: ease-in-out 0.6s;
     margin-left: 0;
-    
+
   }
+
   .sidebarheaderCloseIcon-onClick-menu {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -335,9 +430,11 @@
     cursor: pointer;
     display: block;
   }
+
   .sidebarMenueButton-onClick-menu {
     display: none;
   }
+
   .sidebarboarder-onClick-close {
     width: 190px;
     height: 100vh;
@@ -348,6 +445,7 @@
     transition: ease-in-out 0.6s;
     margin-left: -230px;
   }
+
   .sidebarheaderCloseIcon-onClick-close {
     font-size: 22px;
     color: rgb(194, 194, 194);
@@ -357,10 +455,20 @@
     cursor: pointer;
     display: none;
   }
+
   .sidebarMenueButton-onClick-close {
     display: block;
   }
-  .searchResult .searchResultOne .header h4{
+
+  .searchResult .searchResultOne .header h4 {
     display: none;
+  }
+
+  .build-grand-topper-Div {
+    display: block;
+  }
+
+  .build-grand-topper-Div .controlpanel-session-content {
+    width: 100%;
   }
 }

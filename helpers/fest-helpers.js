@@ -59,7 +59,7 @@ module.exports = {
         let Year = parseInt(sessionOneDetails.FestDate.slice(0, 4))
         let Month = parseInt(sessionOneDetails.FestDate.slice(5, 7))
         let Day = parseInt(sessionOneDetails.FestDate.slice(8, 10))
-            
+
         sessionOneDetails.FestDate = Day + " - " + monthNames[Month - 1] + " - " + Year
 
         return new Promise(async (resolve, reject) => {
@@ -190,7 +190,7 @@ module.exports = {
     },
 
     sessionThreeStore: (sessionThreeDetails) => {
-       
+
         var FestId = sessionThreeDetails.FestId
         var sessionName = sessionThreeDetails.SessionName
         var status = sessionThreeDetails.Status
@@ -199,7 +199,7 @@ module.exports = {
         var sessionString = session === "string"
         var sessionLength = sessionName.length
 
-       
+
         var session1 = sessionName[0]
         var session2 = sessionName[1]
         var session3 = sessionName[2]
@@ -884,41 +884,41 @@ module.exports = {
 
             if (FestDetails.Category == getSession.Category1) {
                 let StageEvents = getSession.StageItem
-                
-                
-                
+
+
+
                 for (let i = 0; i < StageEvents.length; i++) {
                     let EventId = StageEvents[i].EventId
-                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId,GroupId:FestDetails.GroupId, "StageEvents.EventId": EventId }).toArray()
+                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId, GroupId: FestDetails.GroupId, "StageEvents.EventId": EventId }).toArray()
                     let EventCount = EventThisId.length
                     StageEvents[i].LimitStatus = EventCount
                     parseInt(StageEvents[i].EventLimit)
                     parseInt(StageEvents[i].LimitStatus)
-                    if(StageEvents[i].LimitStatus == 0){
+                    if (StageEvents[i].LimitStatus == 0) {
                         StageEvents[i].ZeroFill = true
-                    }else if(StageEvents[i].EventLimit>StageEvents[i].LimitStatus){
+                    } else if (StageEvents[i].EventLimit > StageEvents[i].LimitStatus) {
                         StageEvents[i].NotFill = true
-                    }else if(StageEvents[i].EventLimit == StageEvents[i].LimitStatus){
+                    } else if (StageEvents[i].EventLimit == StageEvents[i].LimitStatus) {
                         StageEvents[i].Fill = true
                     }
                 }
                 resolve(StageEvents.reverse())
-               
-                
+
+
             } else if (FestDetails.Category == getSession.Category2) {
                 var OffStageEvents = getSession.OffstageItem
                 for (let i = 0; i < OffStageEvents.length; i++) {
                     let EventId = OffStageEvents[i].EventId
-                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId,GroupId:FestDetails.GroupId, "OffStageEvents.EventId": EventId }).toArray()
+                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: FestDetails.FestId, GroupId: FestDetails.GroupId, "OffStageEvents.EventId": EventId }).toArray()
                     let EventCount = EventThisId.length
                     OffStageEvents[i].LimitStatus = EventCount
                     parseInt(OffStageEvents[i].EventLimit)
                     parseInt(OffStageEvents[i].LimitStatus)
-                    if(OffStageEvents[i].LimitStatus == 0){
+                    if (OffStageEvents[i].LimitStatus == 0) {
                         OffStageEvents[i].ZeroFill = true
-                    }else if(OffStageEvents[i].EventLimit>OffStageEvents[i].LimitStatus){
+                    } else if (OffStageEvents[i].EventLimit > OffStageEvents[i].LimitStatus) {
                         OffStageEvents[i].NotFill = true
-                    }else if(OffStageEvents[i].EventLimit == OffStageEvents[i].LimitStatus){
+                    } else if (OffStageEvents[i].EventLimit == OffStageEvents[i].LimitStatus) {
                         OffStageEvents[i].Fill = true
                     }
                 }
@@ -976,64 +976,64 @@ module.exports = {
         })
 
     },
-    getEventDetails:(FestId, SessionName, CategoryName, EventId)=>{
-        return new Promise(async(resolve, reject) => {
+    getEventDetails: (FestId, SessionName, CategoryName, EventId) => {
+        return new Promise(async (resolve, reject) => {
             let getSession = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: FestId, SessionName: SessionName })
-            
+
             if (CategoryName == getSession.Category1) {
-                for(let i =0; i<getSession.StageItem.length; i++){
-                    if(getSession.StageItem[i].EventId === EventId){
-                       
+                for (let i = 0; i < getSession.StageItem.length; i++) {
+                    if (getSession.StageItem[i].EventId === EventId) {
+
                         resolve(getSession.StageItem[i])
                     }
                 }
-              
+
             } else if (CategoryName == getSession.Category2) {
-                for(let i =0; i<getSession.OffstageItem.length; i++){
-                    if(getSession.OffstageItem[i].EventId === EventId){
-                       
+                for (let i = 0; i < getSession.OffstageItem.length; i++) {
+                    if (getSession.OffstageItem[i].EventId === EventId) {
+
                         resolve(getSession.OffstageItem[i])
                     }
                 }
             }
             resolve();
         });
-        
+
     },
-    editEventDetails:(FestId, SessionName, CategoryName,body)=>{
-        return new Promise(async(resolve, reject) => {
+    editEventDetails: (FestId, SessionName, CategoryName, body) => {
+        return new Promise(async (resolve, reject) => {
             let getSession = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: FestId, SessionName: SessionName })
-             
+
             if (CategoryName == getSession.Category1) {
-               
-                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName,"StageItem.EventId":body.EventId },{
-                    $set:{
-                        "StageItem.$.EventName" : body.EventName,
+
+                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName, "StageItem.EventId": body.EventId }, {
+                    $set: {
+                        "StageItem.$.EventName": body.EventName,
                         "StageItem.$.PointCategoryName": body.PointCategoryName,
-                        "StageItem.$.TypeOfEvent" : body.TypeOfEvent,
-                        "StageItem.$.EventLimit"  : parseInt(body.EventLimit)
+                        "StageItem.$.TypeOfEvent": body.TypeOfEvent,
+                        "StageItem.$.EventLimit": parseInt(body.EventLimit)
                     }
-                }).then((response)=>{
+                }).then((response) => {
                     resolve(response)
-                   
+
                 })
-              
+
             } else if (CategoryName == getSession.Category2) {
-                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName,"OffstageItem.EventId":body.EventId },{
-                    $set:{
-                        "OffstageItem.$.EventName" : body.EventName,
+                db.get().collection(collection.ITEM_COLLECTION).updateOne({ FestId: FestId, SessionName: SessionName, "OffstageItem.EventId": body.EventId }, {
+                    $set: {
+                        "OffstageItem.$.EventName": body.EventName,
                         "OffstageItem.$.PointCategoryName": body.PointCategoryName,
-                        "OffstageItem.$.TypeOfEvent" : body.TypeOfEvent,
-                        "OffstageItem.$.EventLimit"  : parseInt(body.EventLimit)
+                        "OffstageItem.$.TypeOfEvent": body.TypeOfEvent,
+                        "OffstageItem.$.EventLimit": parseInt(body.EventLimit)
                     }
-                }).then((response)=>{
+                }).then((response) => {
                     resolve(response)
-                   
+
                 })
             }
             resolve();
         });
-        
+
     },
     getAllGroups: (FestId) => {
         return new Promise(async (resolve, reject) => {
@@ -1334,7 +1334,7 @@ module.exports = {
 
             // MessageDate = onlyDate + ", " + time
 
-            create_random_id(10) 
+            create_random_id(10)
             function create_random_id(sting_length) {
                 var randomString = '';
                 var numbers = '123456789qwertyuipasdfghjklzxcvbnmMNBVCXZLKJHGFDSAPIUYTREWQ'
@@ -1510,7 +1510,7 @@ module.exports = {
             // var time = MessageDate.toLocaleTimeString();
 
             // MessageDate = onlyDate + ", " + time
-            
+
             create_random_id(10)
             function create_random_id(sting_length) {
                 var randomString = '';
@@ -1742,7 +1742,7 @@ module.exports = {
             let Year = parseInt(body.FestDate.slice(0, 4))
             let Month = parseInt(body.FestDate.slice(5, 7))
             let Day = parseInt(body.FestDate.slice(8, 10))
-                
+
             body.FestDate = Day + " - " + monthNames[Month - 1] + " - " + Year
             db.get().collection(collection.FEST_COLLECTION).updateOne({ FestId: body.FestId }, {
                 $set: {
@@ -1847,7 +1847,7 @@ module.exports = {
             if (studentEvents.StageEventsMark == undefined) {
                 studentEvents.StageEventsMark = 0
             }
-             if (studentEvents.OffStageEventsMark == undefined) {
+            if (studentEvents.OffStageEventsMark == undefined) {
                 studentEvents.OffStageEventsMark = 0
             }
 
@@ -1857,9 +1857,9 @@ module.exports = {
                     studentEvents.OtherMarkTotal = studentEvents.OtherMarkTotal + parseInt(OtherMark[i].TotalMark)
                 }
             }
-           console.log(studentEvents);
+            console.log(studentEvents);
             resolve(studentEvents)
-           
+
         })
 
     },
@@ -1892,13 +1892,13 @@ module.exports = {
 
                     })
                 } else {
-                   
+
                     resolve({ eventDeletError: true })
                 }
             } else {
                 let OffStageCheck = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, ChestNo, "OffStageEvents.EventId": EventId })
                 let a = ''
-                
+
                 for (let i = 0; i < OffStageCheck.OffStageEvents.length; i++) {
                     if (OffStageCheck.OffStageEvents[i].EventId === EventId) {
                         if (OffStageCheck.OffStageEvents[i].Mark === undefined || OffStageCheck.OffStageEvents[i].Mark === 0) {
@@ -2247,7 +2247,7 @@ module.exports = {
                             MessageId: MessageId,
                             Header: "New file uploaded",
                             Message: "'" + body.title + "' file uploaded on " + onlyDate,
-                            Link: "/files/program-schedules/"+Item.FestId+Item.Title+".pdf",
+                            Link: "/files/program-schedules/" + Item.FestId + Item.Title + ".pdf",
                             MessageDate: MessageDate,
                             Type: "Notific_Auto",
                             Read: 1,
@@ -2592,14 +2592,69 @@ module.exports = {
 
     },
 
-    refreshSession:(body)=>{
+    refreshSession: (body) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.FEST_COLLECTION).findOne({GroupId:body.GroupId}).then((response)=>{
+            db.get().collection(collection.FEST_COLLECTION).findOne({ GroupId: body.GroupId }).then((response) => {
                 resolve(response)
             })
         })
-        
+
     },
+
+    generateGrandTopper: (body, FestId) => {
+        console.log(body);
+        return new Promise((resolve, reject) => {
+            create_random_id(3)
+            function create_random_id(sting_length) {
+                var randomString = '';
+                var numbers = '123456789'
+                for (var i, i = 0; i < sting_length; i++) {
+                    randomString += numbers.charAt(Math.floor(Math.random() * numbers.length))
+                }
+
+                body.TopperId = "T" + randomString
+                body.FestId = FestId
+
+            }
+           
+            db.get().collection(collection.GRAND_TOPPER_COLLECTION).insertOne(body).then(() => {
+                resolve()
+            })
+        })
+    },
+    getGrandTopper: (FestId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.GRAND_TOPPER_COLLECTION).find().toArray().then((response) => {
+                resolve(response)
+            })
+        })
+    },
+    forEditGrandTopper: (allPointCategory, FestId, TopperId) => {
+        return new Promise(async (resolve, reject) => {
+            let Topper = await db.get().collection(collection.GRAND_TOPPER_COLLECTION).findOne({ FestId, TopperId })
+            
+            
+                for (let i = 0; i < Topper.PointCategory.length; i++){
+                    for(let j = 0; j<allPointCategory.length; j++){
+                        if(Topper.PointCategory[i] == allPointCategory[j].CategoryName){
+                            allPointCategory[j].tik = true
+                        }
+                    }
+                }
+
+            // }else{
+            //     for(let j = 0; j<allPointCategory.length; j++){
+            //         if(Topper.PointCategory == allPointCategory[j].CategoryName){
+            //             allPointCategory[j].tik = true
+            //         }
+            //     }
+            // }
+            console.log(allPointCategory);
+            resolve(Topper,allPointCategory)
+            
+
+        })
+    }
 
 
 

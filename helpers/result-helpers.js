@@ -306,7 +306,10 @@ module.exports = {
             let Stage = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, "StageEvents.EventId": EventId }).toArray()
             let OffStage = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, "OffStageEvents.EventId": EventId }).toArray()
             let EventResult = []
+            console.log(Stage.StageEvents);
             if (Stage[0]) {
+                
+                console.log(EventGet,FestId,EventId,'hi');
                 for (let i = 0; i < Stage.length; i++) {
                     for (let a = 0; a < Stage[i].StageEvents.length; a++) {
                         if (Stage[i].StageEvents[a].EventId === EventId) {
@@ -1066,6 +1069,50 @@ module.exports = {
             }
             resolve(result)
         })
+    },
+
+    getGrandTopper:(FestId,TopperId)=>{
+        return new Promise(async(resolve, reject) => { 
+            let next = []
+            let topper = await db.get().collection(collection.STUDENTS_COLLECTION).find({FestId,"OffStageEvents.TypeOfEvent":"Individual"}).toArray()
+            for (let i = 0; i < topper.length; i++) {
+                for (let a = 0; a < topper[i].OffStageEvents.length; a++) {
+                    if(topper[i].OffStageEvents[a].PointCategoryName == "A" ){
+                        if(topper[i].OffStageEvents[a].Place == "1st" || topper[i].OffStageEvents[a].Place == "2nd" || topper[i].OffStageEvents[a].Place == "3rd" ){
+                        
+                            next.push(topper[i])
+                        }
+                       
+                    }
+                    
+                }
+                
+            }
+            for (let i = 0; i < next.length; i++) {
+                next[i].GrandTopperMark = 0
+                for (let a = 0; a < next[i].StageEvents.length; a++) {
+                    console.log(next[i].GrandTopperMark , next[i].StageEvents[a].Mark);
+                    if(next[i].StageEvents[a].TypeOfEvent == "Individual"){
+                        if(next[i].StageEvents[a].Mark){
+                            next[i].GrandTopperMark = next[i].GrandTopperMark + next[i].StageEvents[a].Mark
+                        }
+                    }
+                    
+                }
+                for (let a = 0; a < next[i].OffStageEvents.length; a++) {
+                    if(next[i].OffStageEvents[a].TypeOfEvent == "Individual"){
+                        if(next[i].OffStageEvents[a].Mark){
+                            next[i].GrandTopperMark = next[i].GrandTopperMark + next[i].OffStageEvents[a].Mark
+                        }
+                    }
+                    
+                }
+                
+            }
+            resolve(next);
+
+
+         })
     }
 
 }

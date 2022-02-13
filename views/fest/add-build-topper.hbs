@@ -1,0 +1,346 @@
+<section>
+    <div class="fest-container">
+        <div class="contrlPanel-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/fest-admin/{{FestDetails.FestId}}/settings/grand-topper"><span class="back-button"><i
+                                class="bi bi-chevron-left"></i>
+                            Back</span></a> Build Grand Topper </h4>
+                <hr>
+            </div>
+        </div>
+        <div class="createGrop-infermathion">
+             <p><span>*</span> The title should be given</p>
+            <p><span>*</span> Build an algorithm to filter students from the option given below</p>
+            <p><span>*</span> The filter will match the students with the ticked option</p>
+        </div>
+        <form action="/fest-admin/{{FestDetails.FestId}}/settings/grand-topper/create" method="post">
+            <div class="controlPanel-content">
+                <div class="CFsessionOne">
+                    <div class="label">
+                        <label for="">Title </label>
+                    </div>
+                    <div class="inputDiv">
+                        <input type="text" name="Title" value="" autofocus id="" placeholder="Type hear..." required>
+                    </div>
+                </div>
+                <div class="controlPanel-ItemDi">
+                    <div class="controlpanel-subhead">
+                        <i class="bi bi-arrow-right"></i>
+                        <h4>Point category</h4>
+                    </div>
+                    <div class="build-grand-topper-Div">
+                        {{#each Array2}}
+                        <div class="controlpanel-session-content">
+                            <div class="cotrolpanel-items">
+                                <label for=""> {{this.categoryName}} Category </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="PointCategory" value="{{this.categoryName}}"
+                                        id="{{this.categoryName}}Category" />
+                                    <label for="{{this.categoryName}}Category">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {{/each}}
+                        {{#each Array1}}
+                        <div class="controlpanel-session-content">
+                            <div class="cotrolpanel-items">
+                                <label for=""> {{this.categoryName}} Category </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="PointCategory" value="{{this.categoryName}}"
+                                        id="{{this.categoryName}}Category" />
+                                    <label for="{{this.categoryName}}Category">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {{/each}}
+
+
+
+                    </div>
+                </div>
+
+                <div class="controlPanel-ItemDi">
+                    <div class="controlpanel-subhead">
+                        <i class="bi bi-arrow-right"></i>
+                        <h4>Place / Grade</h4>
+                    </div>
+                    <div class="build-grand-topper-Div">
+
+                        <div class="controlpanel-session-content">
+
+                            <div class="cotrolpanel-items">
+                                <label for=""> 1st </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="1Place" value="1st" id="1st" />
+                                    <label for="1st">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> 2nd </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="2Place" value="2nd" id="2nd" />
+                                    <label for="2nd">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> 3rd </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="3Place" value="3rd" id="3rd" />
+                                    <label for="3rd">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Any Place </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="AnyPlace" value="AnyPlace" id="AnyPlace" />
+                                    <label for="AnyPlace">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div style="border-color: rgb(97, 97, 97);" class="cotrolpanel-items">
+                                <label for=""> No Place </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="NoPlace" value="NoPlace" id="NoPlace" />
+                                    <label for="NoPlace">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="controlpanel-session-content">
+
+                            <div class="cotrolpanel-items">
+                                <label for=""> A </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="AGrade" value="AGrade" id="AGrade" />
+                                    <label for="AGrade">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> B </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="BGrade" value="BGrade" id="BGrade" />
+                                    <label for="BGrade">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> C </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="CGrade" value="CGrade" id="CGrade" />
+                                    <label for="CGrade">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Any Grade </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="AnyGrade" value="AnyGrade" id="AnyGrade" />
+                                    <label for="AnyGrade">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> No Grade </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="NoGrade" value="NoGrade" id="NoGrade" />
+                                    <label for="NoGrade">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="controlPanel-ItemDi">
+                    <div class="controlpanel-subhead">
+                        <i class="bi bi-arrow-right"></i>
+                        <h4>Other</h4>
+                    </div>
+                    <div class="build-grand-topper-Div">
+
+                        <div class="controlpanel-session-content">
+
+                            <div class="cotrolpanel-items">
+                                <label for=""> General </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="General" value="General" id="General" />
+                                    <label for="General">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Non General </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="NonGeneral" value="NonGeneral" id="NonGeneral" />
+                                    <label for="NonGeneral">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Group </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="Group" value="Group" id="Group" />
+                                    <label for="Group">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="controlpanel-session-content">
+
+                            <div class="cotrolpanel-items">
+                                <label for=""> Individual </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="Individual" value="Individual" id="Individual" />
+                                    <label for="Individual">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Stage </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="Stgae" value="Stage" id="Stage" />
+                                    <label for="Stage">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="cotrolpanel-items">
+                                <label for=""> Off Stage </label>
+                                <div class="cPanel-checkboxWrapper">
+                                    <input type="checkbox" name="OffStage" value="OffStage" id="OffStage" />
+                                    <label for="OffStage">
+                                        <svg class="cPanel-cross" width="30" height="30">
+                                        </svg>
+                                        <svg class="cPanel-checkmark" width="30" height="30">
+                                        </svg>
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div style="margin-top: 5px; ">
+                <button type="submit" style="width:100%; background-color:var(--color-add)"
+                    class="CFsessionOneNextButton"> Generate New Topper
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+</script>
