@@ -309,7 +309,7 @@ module.exports = {
             console.log(Stage.StageEvents);
             if (Stage[0]) {
                 
-                console.log(EventGet,FestId,EventId,'hi');
+               
                 for (let i = 0; i < Stage.length; i++) {
                     for (let a = 0; a < Stage[i].StageEvents.length; a++) {
                         if (Stage[i].StageEvents[a].EventId === EventId) {
@@ -879,7 +879,7 @@ module.exports = {
                     for (let b = 0; b < OtherMark.length; b++) {
                         OtherTotal = OtherTotal + parseInt(OtherMark[b].TotalMark)
                     }
-                }
+                }             
 
                 let Obj = {
                     GroupId: ForGroup[i].GroupId,
@@ -946,7 +946,7 @@ module.exports = {
                             for (let b = 0; b < OtherMark.length; b++) {
                                 OtherTotal = OtherTotal + parseInt(OtherMark[b].TotalMark)
                             }
-                        }
+                        }                   
                         let Obj = {
                             GroupId: ForSession[a].GroupId,
                             GroupName: group.GroupName,
