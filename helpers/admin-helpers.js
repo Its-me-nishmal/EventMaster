@@ -16,11 +16,11 @@ module.exports = {
             // Tempreraly setting For admin Login
 
             let adminDetails = {
-                FullName: "Pro Admin",
-                UserName: "Pro Admin",
-                pro: true,
-                EmailId: "proadmin@nsaonline.in",
-                Password: "nsaonline"
+                FullName: process.env.ADMIN_FULLNAME,
+                UserName: process.env.ADMIN_USERNAME,
+                pro: process.env.ADMIN_PRO,
+                EmailId: process.env.ADMIN_EMAILID,
+                Password: process.env.ADMIN_PASSWORD
 
             }
             if (adminData.EmailId == adminDetails.EmailId) {
@@ -36,7 +36,7 @@ module.exports = {
             } else {
                 let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
                 if (admin) {
-                   
+
                     bcrypt.compare(adminData.Password, admin.Password).then((status) => {
                         if (status) {
                             response.adminDetails = admin
@@ -58,22 +58,22 @@ module.exports = {
         })
     },
 
-    editadminDetails:(body)=>{
-       
+    editadminDetails: (body) => {
+
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.ADMIN_COLLECTION).updateOne({UserName : body.UserName},{
-                $set:{
-                    FullName : body.FullName,
-                    EmailId : body.EmailId,
-                    Mobile : body.Mobile
+            db.get().collection(collection.ADMIN_COLLECTION).updateOne({ UserName: body.UserName }, {
+                $set: {
+                    FullName: body.FullName,
+                    EmailId: body.EmailId,
+                    Mobile: body.Mobile
 
                 }
-            }).then((response)=>{
-                let tnew = db.get().collection(collection.ADMIN_COLLECTION).findOne({UserName:body.UserName})
+            }).then((response) => {
+                let tnew = db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
                 resolve(tnew)
             })
         });
-        
+
     },
 
     getAdminDetails: () => {
@@ -119,20 +119,20 @@ module.exports = {
 
     },
 
-    deleteAdmin:(id)=>{
+    deleteAdmin: (id) => {
         return new Promise((resolve, reject) => {
-          db.get().collection(collection.ADMIN_COLLECTION).deleteOne({_id: ObjectId(id)}).then(()=>{
-              resolve()
-          })
+            db.get().collection(collection.ADMIN_COLLECTION).deleteOne({ _id: ObjectId(id) }).then(() => {
+                resolve()
+            })
         });
-        
+
     },
 
     createAccout: (body) => {
         return new Promise(async (resolve, reject) => {
             let userNameFind = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
             let accountCount = await db.get().collection(collection.ADMIN_COLLECTION).find().toArray()
-           
+
             if (accountCount.length > 2) {
                 resolve({ accountCountError: accountCount[0].EmailId })
 
