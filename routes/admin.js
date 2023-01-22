@@ -1,28 +1,13 @@
-const { response } = require('express');
-var express = require('express');
-var router = express.Router();
-var fs = require('fs');
-var path = require('path')
-var adminHelpers = require('../helpers/admin-helpers')
-var festHelpers = require('../helpers/fest-helpers');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
+const path = require('path')
+const adminHelpers = require('../helpers/admin-helpers')
+const festHelpers = require('../helpers/fest-helpers');
 const groupHelpers = require('../helpers/group-helpers');
 const markHelpers = require('../helpers/mark-helpers')
 const resultHelpers = require('../helpers/result-helpers')
-
-const verifyAdminLogin = (req, res, next) => {
-  if (req.session.admin) {
-    next()
-  } else {
-    res.redirect('/fest-admin/login')
-  }
-};
-const verifyFestLogin = (req, res, next) => {
-  if (req.session.fest) {
-    next()
-  } else {
-    res.redirect('/fest-admin')
-  }
-};
+const { verifyFestLogin, verifyAdminLogin } = require('../middleware/verify-middleware')
 
 
 /* GET users listing. */
@@ -1328,25 +1313,25 @@ router.post('/:FestId/settings/grand-topper/create', verifyAdminLogin, verifyFes
 router.get('/:FestId/settings/grand-topper/:TopperId/view', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   let FestDetails = req.session.fest
   //var allPointCategory = await festHelpers.getPointCategory(FestDetails.FestId)
-  resultHelpers.getGrandTopper(FestDetails.FestId,req.params.TopperId).then((grandtopper) => {
+  resultHelpers.getGrandTopper(FestDetails.FestId, req.params.TopperId).then((grandtopper) => {
     console.log(grandtopper);
     let ULA = []
     let ALIYA = []
     let ULYA = []
     for (let i = 0; i < grandtopper.length; i++) {
-      if(grandtopper[i].SessionName == "ULA"){
+      if (grandtopper[i].SessionName == "ULA") {
         ULA.push(grandtopper[i])
       }
-      if(grandtopper[i].SessionName == "ALIYA"){
+      if (grandtopper[i].SessionName == "ALIYA") {
         ALIYA.push(grandtopper[i])
       }
-      if(grandtopper[i].SessionName == "ULYA"){
+      if (grandtopper[i].SessionName == "ULYA") {
         ULYA.push(grandtopper[i])
       }
-      
+
     }
-    console.log(ULA,ALIYA,ULYA);
-    res.render('fest/grand-topper', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, ULA,ALIYA,ULYA })
+    console.log(ULA, ALIYA, ULYA);
+    res.render('fest/grand-topper', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails, ULA, ALIYA, ULYA })
   })
   // festHelpers.forEditGrandTopper(allPointCategory, FestDetails.FestId, req.params.TopperId).then((Topper, PointCategory) => {
   //   console.log(Topper, PointCategory);
@@ -1363,7 +1348,7 @@ router.get('/:FestId/settings/grand-topper/:TopperId/view', verifyAdminLogin, ve
 router.get('/:FestId/result/Grand-topper/veiw', verifyAdminLogin, verifyFestLogin, async (req, res) => {
   let FestDetails = req.session.fest
   let getGrandTopper = await resultHelpers.getGrandTopper(FestDetails.FestId).then((resposne) => {
-    
+
     res.render('fest/grand-topper', { title: FestDetails.FestName, festHeader: true, createAccout: true, adminHeader: true, FestDetails })
   })
 

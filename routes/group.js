@@ -2,25 +2,7 @@ var express = require('express');
 var router = express.Router();
 var groupHelpers = require('../helpers/group-helpers')
 var festHelpers = require('../helpers/fest-helpers');
-const { resolve } = require('promise');
-
-const verifyGroupLogin = async (req, res, next) => {
-
-  if (req.session.group) {
-    let Group = req.session.group
-    let GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.FestId)
-
-    if (GroupDetails === undefined) {
-      req.session.group = null
-      res.redirect('/group/login')
-    } else {
-      next()
-    }
-  } else {
-    res.redirect('/group/login')
-  }
-};
-
+const { verifyGroupLogin } = require('../middleware/verify-middleware')
 
 /* GET home page. */
 router.get('/', verifyGroupLogin, async function (req, res, next) {
@@ -107,7 +89,7 @@ router.get('/students', verifyGroupLogin, async (req, res) => {
     } else if (result.Session6 === undefined) {
       AllSessions = [result.Session1, result.Session2, result.Session3, result.Session4, result.Session5]
     }
-    
+
     res.render('group/students-session', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, AllSessions, NonGeneral, NewNotifi_Count, noEventStudentCount
     })
@@ -396,25 +378,25 @@ router.get('/events/:SessionName/:Category/all-events/:EventId-:EventName/all-st
   let NewNotifi_Count = await groupHelpers.getNewNotificaionCount(GroupDetails.FestId, GroupDetails.GroupId)
   let GroupFullDetails = await groupHelpers.getGroupDetails(GroupDetails.GroupId, GroupDetails.FestId)
   let EventActiveNull = GroupFullDetails.EventsTime === null
-  if(req.session.Success){
+  if (req.session.Success) {
     res.render('group/view-event-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
       FestDetails, NewNotifi_Count, "Success": req.session.Success, EventActiveNull
     })
     req.session.Success = false
 
-  }else if(req.session.Error){
+  } else if (req.session.Error) {
     console.log(EventName);
     res.render('group/view-event-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
-      FestDetails, NewNotifi_Count, "Error": req.session.Error , EventActiveNull
+      FestDetails, NewNotifi_Count, "Error": req.session.Error, EventActiveNull
     })
     req.session.Error = false
 
-  }else{
+  } else {
     res.render('group/view-event-students', {
       title: GroupDetails.GroupName, group: true, groupHeader: true, GroupDetails, SessionName, CategoryName, EventId, EventName, EventStudents,
-      FestDetails, NewNotifi_Count , EventActiveNull
+      FestDetails, NewNotifi_Count, EventActiveNull
     })
   }
 });
@@ -428,10 +410,10 @@ router.get('/events/:SessionName/:CategoryName/all-events/:EventId-:EventName/al
   let ChestNo = req.params.ChestNo
 
   festHelpers.deleteStudentEvent(GroupDetails.FestId, GroupDetails.GroupId, ChestNo, EventId, SessionName).then((result) => {
-    if(result){
+    if (result) {
       req.session.Error = "This Event result published. Please contact admin panel other information"
       res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
-    }else{
+    } else {
       res.redirect('/group/events/' + SessionName + '/' + CategoryName + '/all-events/' + EventId + '-' + EventName + '/all-students')
 
     }
@@ -464,27 +446,27 @@ router.post('/events/:SessionName/:Category/choose-event', verifyGroupLogin, (re
 
     if (response.EventAlreadyUsedError) {
       req.session.Error = "This event has already been used"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
 
     } else if (response.Success) {
       req.session.Success = "This event was successfully added"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
 
     } else if (response.StudentStageCountOver) {
       req.session.Error = "This student can no longer participate in the category"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
 
 
     } else if (response.EventLimitError) {
       req.session.Error = "This event total limit complited"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
 
     } else if (response.ChestNOError) {
       req.session.Error = "Invalid chest no"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
     } else if (response.TotalCountError) {
       req.session.Error = "Admin panel not added this session event limit count"
-      res.redirect('/group/events/' + SessionName + '/' + Category+'/all-events/'+req.body.EventId+'-'+req.body.EventName+'/all-students')
+      res.redirect('/group/events/' + SessionName + '/' + Category + '/all-events/' + req.body.EventId + '-' + req.body.EventName + '/all-students')
 
     }
   })

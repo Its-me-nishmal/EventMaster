@@ -5,26 +5,9 @@ var festHelpers = require('../helpers/fest-helpers');
 const groupHelpers = require('../helpers/group-helpers');
 const markHelpers = require('../helpers/mark-helpers')
 const resultHelpers = require('../helpers/result-helpers')
+const { verifyActiveFest } = require('../middleware/verify-middleware')
 
 
-const verifyActiveFest = async (req, res, next) => {
-  let activeFest = await userHelpers.activeFest()
-  let activeResult = await userHelpers.activeResult()
-  if (activeFest) {
-    if (activeResult) {
-      if (req.session.user.FestId == activeFest.FestId) {
-        next()
-      } else {
-        res.redirect('/')
-      }
-    } else {
-      res.redirect('/')
-    }
-  } else {
-    res.redirect('/')
-  }
-
-};
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   let activeFest = await userHelpers.activeFest()
@@ -79,7 +62,7 @@ router.get('/:FestId/result', verifyActiveFest, async (req, res) => {
       }
     }
   }
-  
+
   let topperView = await resultHelpers.getAllToppers(userDetails.FestId)
 
   res.render('user/result-home', {
