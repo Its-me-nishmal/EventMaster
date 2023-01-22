@@ -1,0 +1,20 @@
+{
+    "name": "NSA Fest",
+    "short_name": "NSA Online",
+    "start_url": "views/layout/layout.hbs",
+    "background_color": "green",
+    "theme_color": "#008542",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "public/images/images/nsa-icon.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "public/images/images/nsa-icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
