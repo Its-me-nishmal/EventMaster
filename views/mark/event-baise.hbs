@@ -27,7 +27,7 @@
                             <i class="bi bi-emoji-frown"></i>
                         </div>
                         <p>You have not created any point category...</p>
-                        <a href="/fest-admin/{{FestDetails.FestId}}/point-table/add-table">
+                        <a href="/admin/{{FestDetails.FestId}}/point-table/add-table">
                             <button><i class="bi bi-plus-circle-dotted"></i> Create point category</button>
                         </a>
                     </div>
@@ -36,14 +36,14 @@
                 {{#each allItemCategorys}}
                 <div class="events-content">
                     <a
-                        href="/fest-admin/{{../FestDetails.FestId}}/result/event-baise/{{this.SessionName}}/{{this.Category1}}">
+                        href="/admin/{{../FestDetails.FestId}}/result/event-baise/{{this.SessionName}}/{{this.Category1}}">
                         <div class="eventHeaderDiv">
                             <h4>{{this.SessionName}} - {{this.Category1}}</h4>
                             <span>{{this.StageCount}}</span>
                         </div>
                     </a>
                     <a
-                        href="/fest-admin/{{../FestDetails.FestId}}/result/event-baise/{{this.SessionName}}/{{this.Category2}}">
+                        href="/admin/{{../FestDetails.FestId}}/result/event-baise/{{this.SessionName}}/{{this.Category2}}">
                         <div class="eventHeaderDiv">
                             <h4>{{this.SessionName}} - {{this.Category2}}</h4>
                             <span>{{this.OffStageCount}}</span>
@@ -109,7 +109,7 @@
        serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
-            url: '/fest-admin/search-event-result',
+            url: '/admin/search-event-result',
             data: {
                 FestId,
                 searchValue
@@ -136,7 +136,7 @@
 
                       
 
-                        a.href = "/fest-admin/" + FestId + "/result/event-baise/" + item.SessionName + "/" + item.Category + "/" + item.EventId + "-" + item.EventName
+                        a.href = "/admin/" + FestId + "/result/event-baise/" + item.SessionName + "/" + item.Category + "/" + item.EventId + "-" + item.EventName
                         R_BoarderDiv.className = "searchResultOne"
                         R_Header.className = "header"
                         R_Bottom.className = "Bottom"

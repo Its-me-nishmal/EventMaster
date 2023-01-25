@@ -8,10 +8,14 @@ const groupHelpers = require('../helpers/group-helpers');
 const markHelpers = require('../helpers/mark-helpers')
 const resultHelpers = require('../helpers/result-helpers')
 const { verifyFestLogin, verifyAdminLogin } = require('../middleware/verify-middleware')
+const {
+  getLoginPage, postLogin, getLogOut, getAccount, postChangePassword, getForgotPassword, postForgotPassword,
+  getForgotOtpToEmail} = require('../controllers/admin-controller')
 
-
-/* GET users listing. */
-/* HOme page */
+/* Login - LogOut */
+router.get('/login', getLoginPage);
+router.post('/login', postLogin);
+router.get('/logout', getLogOut);
 
 router.get('/', verifyAdminLogin, async function (req, res, next) {
   let adminDetails = req.session.admin
@@ -40,81 +44,22 @@ router.get('/', verifyAdminLogin, async function (req, res, next) {
     res.render('admin/home', { title: 'College Fest', admin: true, adminDetails, adminHeader: true, latestFest, latestFestZero, allFestZero, allFest, CurrentYear, footer: true })
   }
 });
+// Account
+router.get('/account', verifyAdminLogin, getAccount);
+router.post('/change-password', verifyAdminLogin, postChangePassword);
+router.get('/forgot-password', getForgotPassword)
+router.post('/forgot-password', postForgotPassword)
 
-router.get('/account', verifyAdminLogin, async (req, res) => {
-
-  let adminDetails = req.session.admin
-  if (req.session.passwordChangeErr) {
-    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeErr": req.session.passwordChangeErr, footer: true })
-    req.session.passwordChangeErr = false
-  } else if (req.session.passwordChangeSuccess) {
-    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
-    req.session.passwordChangeSuccess = false
-  } else {
-
-    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
-
-  }
-});
-
-router.post('/change-password', verifyAdminLogin, (req, res) => {
-  adminHelpers.changePassword(req.body).then((response) => {
-    if (response) {
-      req.session.passwordChangeSuccess = "Password Changed"
-      res.redirect('/fest-admin/change-password')
-    } else {
-      req.session.passwordChangeErr = "Incorrect Corrent password"
-      res.redirect('/fest-admin/change-password')
-
-    }
-
-  })
-});
-
-
-
-
-router.get('/forgot-password', (req, res) => {
-  if (req.session.Error) {
-    res.render('admin/forgot-password', { "loginErr": req.session.Error, title: 'Admin login', adminHeader: true })
-    req.session.Error = false
-  } else {
-    res.render('admin/forgot-password', { title: 'Admin login', adminHeader: true })
-  }
-})
-
-
-router.post('/forgot-password', (req, res) => {
-  adminHelpers.sendOtpMail(req.body).then((response) => {
-    if (response.EmailErr) {
-      req.session.Error = "Invalid e-mail address"
-      res.redirect('/fest-admin/forgot-password')
-    } else if (response) {
-      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId)
-    }
-    res.redirect('/')
-  })
-})
-
-router.get('/forgot-password/otp/:EmailId', (req, res) => {
-  let EmailId = req.params.EmailId
-  if (req.session.Error) {
-    res.render('admin/otp', { title: 'Admin login', adminHeader: true, EmailId, "loginErr": req.session.Error })
-    req.session.Error = false
-  } else[
-    res.render('admin/otp', { title: 'Admin login', adminHeader: true, EmailId, })
-
-  ]
-});
+router.get('/forgot-password/otp/:EmailId', getForgotOtpToEmail );
 
 router.post('/forgot-password/otp/:EmailId', (req, res) => {
   let EmailId = req.params.EmailId
   adminHelpers.checkOTP(req.body).then((result) => {
     if (result.Error) {
       req.session.Error = "OTP not match"
-      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId)
+      res.redirect('/admin/forgot-password/otp/' + req.body.EmailId)
     } else {
-      res.redirect('/fest-admin/forgot-password/otp/' + req.body.EmailId + "/" + req.body.otp)
+      res.redirect('/admin/forgot-password/otp/' + req.body.EmailId + "/" + req.body.otp)
     }
   })
 });
@@ -129,7 +74,7 @@ router.get('/forgot-password/otp/:EmailId/:otp', (req, res) => {
   adminHelpers.checkOTP(body).then((result) => {
     if (result.Error) {
       req.session.Error = "OTP not match"
-      res.redirect('/fest-admin/login')
+      res.redirect('/admin/login')
     } else {
       res.render('admin/new-password', { title: 'Admin login', adminHeader: true, EmailId })
     }
@@ -140,7 +85,7 @@ router.get('/forgot-password/otp/:EmailId/:otp', (req, res) => {
 router.post('/settings/new-password', (req, res) => {
   adminHelpers.newadminPassword(req.body).then((response) => {
     req.session.Success = "Password Changed"
-    res.redirect('/fest-admin/login')
+    res.redirect('/admin/login')
   })
 });
 
@@ -176,15 +121,15 @@ router.post('/account/create-admin-account', verifyAdminLogin, (req, res) => {
   adminHelpers.createAccout(req.body).then((response) => {
     if (response.accountCountError) {
       req.session.Error = "You will not be able to create a new account, Use " + response.accountCountError
-      res.redirect('/fest-admin/create-admin-account')
+      res.redirect('/admin/create-admin-account')
     }
     if (response.UserNameError) {
       req.session.Error = "This user name already used"
-      res.redirect('/fest-admin/create-admin-account')
+      res.redirect('/admin/create-admin-account')
     } else {
 
       req.session.Success = "Admin account successfully created"
-      res.redirect('/fest-admin/create-admin-account')
+      res.redirect('/admin/create-admin-account')
     }
   })
 });
@@ -193,7 +138,7 @@ router.post('/account/edit-details', verifyAdminLogin, (req, res) => {
 
   adminHelpers.editadminDetails(req.body).then((updates) => {
     req.session.admin = updates
-    res.redirect('/fest-admin/account')
+    res.redirect('/admin/account')
   })
 });
 
@@ -207,51 +152,10 @@ router.get('/all-admins', verifyAdminLogin, (req, res) => {
 router.get('/all-admins/:id/delete', verifyAdminLogin, (req, res) => {
   var id = req.params.id
   adminHelpers.deleteAdmin(id).then(() => {
-    res.redirect('/fest-admin/all-admins')
+    res.redirect('/admin/all-admins')
   })
 })
-/* Login - LogOut */
-router.get('/login', (req, res) => {
 
-  if (req.session.admin) {
-    res.redirect('/fest-admin')
-  } else if (req.session.loginErr) {
-    res.render('admin/login', { "loginErr": req.session.loginErr, title: 'Admin login', adminHeader: true })
-    req.session.loginErr = false
-  } else if (req.session.Success) {
-    res.render('admin/login', { "Success": req.session.Success, title: 'Admin login', adminHeader: true })
-    req.session.Success = false
-  } else {
-    res.render('admin/login', { adminHeader: true, title: 'Admin login' })
-  }
-});
-
-router.post('/login', (req, res) => {
-
-  adminHelpers.adminLogin(req.body).then((response) => {
-    if (response.adminDetails) {
-      req.session.admin = true
-      req.session.EmailErr = false
-      req.session.PasswordErr = false
-      req.session.admin = response.adminDetails
-
-      res.redirect('/fest-admin')
-    } else if (response.EmailErr) {
-      req.session.EmailErr = true
-      req.session.loginErr = "Invalid email address"
-      res.redirect('/fest-admin/login')
-    } else {
-      req.session.loginErr = "Incorrect password"
-      res.redirect('/fest-admin/login')
-    }
-  })
-});
-
-router.get('/logout', (req, res) => {
-  req.session.admin = null
-  req.session.fest = null
-  res.redirect('/fest-admin')
-});
 
 /* Crate Fest */
 router.get('/create-fest-page1', verifyAdminLogin, (req, res) => {
@@ -285,7 +189,7 @@ router.post('/create-fest-page4', verifyAdminLogin, (req, res) => {
   })
 });
 router.post('/create-fest-page5', verifyAdminLogin, (req, res) => {
-  res.redirect('/fest-admin')
+  res.redirect('/admin')
 })
 // forget password
 router.get('/fest-forgot-password/45554:FestId/5485454', verifyAdminLogin, (req, res) => {
@@ -307,11 +211,11 @@ router.post('/fest-forgot-password/:FestId', verifyAdminLogin, (req, res) => {
 
     if (Password === undefined) {
       req.session.FestIdError = "Invalid Fest ID"
-      res.redirect('/fest-admin/fest-forgot-password/45554' + FestId + '/5485454')
+      res.redirect('/admin/fest-forgot-password/45554' + FestId + '/5485454')
 
     } else {
       req.session.festForgotPassword = Password
-      res.redirect('/fest-admin/fest-forgot-password/45554' + FestId + '/5485454')
+      res.redirect('/admin/fest-forgot-password/45554' + FestId + '/5485454')
 
     }
   })
@@ -369,11 +273,11 @@ router.post('/:FestId/home', verifyAdminLogin, (req, res) => {
       req.session.festLoginErr = false
       req.session.fest = response.festDetails
       var FestDetails = req.session.fest
-      res.redirect('/fest-admin/' + FestId + '/home')
+      res.redirect('/admin/' + FestId + '/home')
     } else {
       req.session.festPasswordErr = true
       req.session.festLoginErr = "Incorrect password"
-      res.redirect('/fest-admin')
+      res.redirect('/admin')
     }
   })
 });
@@ -382,9 +286,9 @@ router.get('/:FestId/logout', verifyFestLogin, verifyAdminLogin, (req, res) => {
   var urlFestId = req.params.FestId
   if (req.session.fest.FestId === urlFestId) {
     req.session.fest = null
-    res.redirect('/fest-admin')
+    res.redirect('/admin')
   } else {
-    res.redirect('/fest-admin')
+    res.redirect('/admin')
   }
 
 });
@@ -445,9 +349,9 @@ router.post('/:FestId/events/:Session-:Category/add-event', verifyFestLogin, ver
   festHelpers.addEvent(req.body, FestId, SessionName, CategoryName).then((FestId) => {
     if (FestId) {
       req.session.addEvent = true
-      res.redirect('/fest-admin/' + FestId + '/events/' + SessionName + '-' + CategoryName + '/add-event')
+      res.redirect('/admin/' + FestId + '/events/' + SessionName + '-' + CategoryName + '/add-event')
     } else {
-      res.redirect('/fest-admin/' + FestId + '/events/' + SessionName + '-' + CategoryName + '/add-event')
+      res.redirect('/admin/' + FestId + '/events/' + SessionName + '-' + CategoryName + '/add-event')
     }
   })
 });
@@ -460,10 +364,10 @@ router.get('/:FestId/events/:Session-:Category/:EventId/delete-event', verifyFes
   festHelpers.deleteEvent(FestId, SessionName, CategoryName, EventId).then((response) => {
     if (response) {
       req.session.EventDeleteError = "Some students have added this event, please delete it first"
-      res.redirect('/fest-admin/' + FestId + '/events/' + SessionName + '-' + CategoryName)
+      res.redirect('/admin/' + FestId + '/events/' + SessionName + '-' + CategoryName)
     } else {
 
-      res.redirect('/fest-admin/' + FestId + '/events/' + SessionName + '-' + CategoryName)
+      res.redirect('/admin/' + FestId + '/events/' + SessionName + '-' + CategoryName)
     }
   })
 });
@@ -505,7 +409,7 @@ router.post('/:FestId/events/:SessionName/:CategoryName/edit-event', verifyAdmin
   let FestDetails = req.session.fest
   festHelpers.editEventDetails(FestId, SessionName, CategoryName, req.body).then((result) => {
 
-    res.redirect('/fest-admin/' + FestId + "/events/" + SessionName + "-" + CategoryName + "/" + req.body.EventId + "/edit-event")
+    res.redirect('/admin/' + FestId + "/events/" + SessionName + "-" + CategoryName + "/" + req.body.EventId + "/edit-event")
   })
 });
 
@@ -542,9 +446,9 @@ router.get('/:FestId/events/:Session-:Category/:EventId-:EventName/:GroupId/:Che
   festHelpers.deleteStudentEvent(FestDetails.FestId, GroupId, ChestNo, EventId, SessionName).then((result) => {
     if (result) {
       req.session.error = 'Firstly release student from event result '
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
     } else {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/all-students')
     }
   })
 });
@@ -618,27 +522,27 @@ router.post('/:FestId/events/:Session-:Category/:EventId-:EventName/add-students
 
     if (response.EventAlreadyUsedError) {
       req.session.EventAlreadyUsedError = "This event has already been used"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     } else if (response.Success) {
       req.session.Success = "This event was successfully added"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     } else if (response.StudentStageCountOver) {
       req.session.StudentStageCountOver = "This student can no longer participate in the category"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     } else if (response.StudentTotalCountOver) {
       req.session.StudentTotalCountOver = "This student total event limit complited"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     } else if (response.EventLimitError) {
       req.session.EventLimitError = "The total limit of this event is over"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     } else if (response.ChestNOError) {
       req.session.ChestNOError = "Invalid chest no"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
+      res.redirect('/admin/' + FestDetails.FestId + '/events/' + SessionName + '-' + CategoryName + '/' + EventId + '-' + EventName + '/add-students')
 
     }
   })
@@ -687,9 +591,9 @@ router.post('/:FestId/point-table/add-table', verifyFestLogin, verifyAdminLogin,
       let FestId = req.session.fest.FestId
       req.session.categoryNameErr = true
 
-      res.redirect('/fest-admin/' + FestId + '/point-table')
+      res.redirect('/admin/' + FestId + '/point-table')
     } else {
-      res.redirect('/fest-admin/' + response + '/point-table')
+      res.redirect('/admin/' + response + '/point-table')
     }
   })
 });
@@ -700,11 +604,11 @@ router.get('/:FestId/point-table/delete/:categoryName', verifyFestLogin, verifyA
   festHelpers.deletePointCategory(FestId, categoryName).then((event) => {
     if (event) {
       req.session.pointCategoryEvent = "A few events have been added to this category, delete the event first"
-      res.redirect('/fest-admin/' + FestId + '/point-table')
+      res.redirect('/admin/' + FestId + '/point-table')
 
     } else {
 
-      res.redirect('/fest-admin/' + FestId + '/point-table')
+      res.redirect('/admin/' + FestId + '/point-table')
     }
   })
 });
@@ -723,7 +627,7 @@ router.post('/:FestId/groups/:GroupName/confierm', verifyFestLogin, verifyAdminL
   var GroupName = req.params.GroupName
 
   festHelpers.ActivateGroup(FestId, GroupName, req.body).then(() => {
-    res.redirect('/fest-admin/' + FestId + '/groups')
+    res.redirect('/admin/' + FestId + '/groups')
   })
 });
 
@@ -813,10 +717,10 @@ router.post('/:FsetId/groups/:GroupId/:SessionName/students/add-student', verify
 
     if (response) {
       req.session.cicNOError = "This CIC number already used"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/groups/' + GroupId + '/' + SessionName + '/students/add-student')
+      res.redirect('/admin/' + FestDetails.FestId + '/groups/' + GroupId + '/' + SessionName + '/students/add-student')
     } else {
       req.session.cicNoSuccess = "Student added success"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/groups/' + GroupId + '/' + SessionName + '/students/add-student')
+      res.redirect('/admin/' + FestDetails.FestId + '/groups/' + GroupId + '/' + SessionName + '/students/add-student')
     }
   })
 });
@@ -854,11 +758,11 @@ router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo/delete', ver
   groupHelpers.removeStudent(FestId, GroupId, ChestNo, SessionName).then((response) => {
 
     if (response === undefined) {
-      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students')
+      res.redirect('/admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students')
     } else if (response.studentEventTrueError) {
       req.session.studentEventTrueError = "A few events have been added to this student, delete the event first"
 
-      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students')
+      res.redirect('/admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students')
     }
   })
 
@@ -874,9 +778,9 @@ router.get('/:FestId/groups/:GroupId/:SessionName/students/:ChestNo-:EventId/del
   festHelpers.deleteStudentEvent(FestId, GroupId, ChestNo, EventId, SessionName).then((result) => {
     if (result) {
       req.session.Error = "Firstly release student from event result "
-      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
+      res.redirect('/admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
     } else {
-      res.redirect('/fest-admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
+      res.redirect('/admin/' + FestId + '/groups/' + GroupId + '/' + SessionName + '/students/' + ChestNo + '/view')
     }
   })
 })
@@ -997,7 +901,7 @@ router.post('/:FestId/settings/fest-profile/imageUpload', verifyFestLogin, verif
   let FestId = req.params.FestId
   let image = req.files.profile
   image.mv('./public/images/fest-logo/' + FestId + '.jpg')
-  res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+  res.redirect('/admin/' + FestId + '/settings/fest-profile')
 
 });
 
@@ -1011,7 +915,7 @@ router.post('/:FestId/settings/fest-profile/editFestDetails', verifyFestLogin, v
       req.session.fest.NumberGroups = req.body.NumberGroups,
       req.session.fest.NumberSessions = req.body.NumberSessions
 
-    res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+    res.redirect('/admin/' + FestId + '/settings/fest-profile')
   })
 });
 
@@ -1022,11 +926,11 @@ router.post('/:FestId/settings/fest-profile/change-password', verifyFestLogin, v
     if (response) {
 
       req.session.passwordChangeSuccess = "Password Changed"
-      res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+      res.redirect('/admin/' + FestId + '/settings/fest-profile')
     } else {
 
       req.session.passwordChangeErr = "Incorrect Corrent password"
-      res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+      res.redirect('/admin/' + FestId + '/settings/fest-profile')
     }
   })
 });
@@ -1045,7 +949,7 @@ router.get('/:FestId/settings/fest-profile/edit-group/:GroupName', verifyFestLog
 router.post('/:FestId/settings/fest-profile/edit-group', verifyFestLogin, verifyAdminLogin, (req, res) => {
   let FestId = req.params.FestId
   festHelpers.editGroupDetails(FestId, req.body).then((response) => {
-    res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+    res.redirect('/admin/' + FestId + '/settings/fest-profile')
   })
 });
 
@@ -1054,7 +958,7 @@ router.get('/:FestId/settings/fest-profile/delete-group/:GroupName', verifyAdmin
   let GroupName = req.params.GroupName
 
   festHelpers.deleteGroup(FestId, GroupName).then((response) => {
-    res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+    res.redirect('/admin/' + FestId + '/settings/fest-profile')
   })
 });
 
@@ -1070,7 +974,7 @@ router.get('/:FestId/settings/fest-profile/delete-fest', verifyFestLogin, verify
       }
 
       req.session.fest = null
-      res.redirect('/fest-admin')
+      res.redirect('/admin')
     })
 
   })
@@ -1079,7 +983,7 @@ router.get('/:FestId/settings/fest-profile/delete-fest', verifyFestLogin, verify
 router.get('/:FestId/settings/fest-profile/fest-status', verifyAdminLogin, verifyFestLogin, (req, res) => {
   let FestId = req.params.FestId
   festHelpers.changeFestStatus(FestId).then(() => {
-    res.redirect('/fest-admin/' + FestId + '/settings/fest-profile')
+    res.redirect('/admin/' + FestId + '/settings/fest-profile')
   })
 })
 
@@ -1102,12 +1006,9 @@ router.get('/:FestId/settings/sessions', verifyFestLogin, verifyAdminLogin, asyn
 router.post('/:FestId/settings/sessions/eventsquantity', verifyFestLogin, verifyAdminLogin, (req, res) => {
   let FestId = req.params.FestId
   festHelpers.addEventsQuantity(FestId, req.body).then(() => {
-    res.redirect('/fest-admin/' + FestId + '/settings/sessions')
+    res.redirect('/admin/' + FestId + '/settings/sessions')
   })
 })
-
-
-
 
 
 // Other
@@ -1141,7 +1042,7 @@ router.post('/:FestId/program-schedule/add', verifyAdminLogin, verifyFestLogin, 
     var id = req.body._id
     pdfFile.mv('./public/files/program-schedules/' + FestDetails.FestId + req.body.title + '.pdf', (err) => {
       if (!err) {
-        res.redirect('/fest-admin/' + FestDetails.FestId + '/program-schedule')
+        res.redirect('/admin/' + FestDetails.FestId + '/program-schedule')
       } else {
 
       }
@@ -1159,7 +1060,7 @@ router.get('/:FestId/program-schedules/:Title-:id/delete', verifyAdminLogin, ver
     fs.unlink(pdfPath, function (error) {
       if (error) {
       }
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/program-schedule')
+      res.redirect('/admin/' + FestDetails.FestId + '/program-schedule')
     })
 
 
@@ -1190,9 +1091,9 @@ router.post('/:FestId/notification-settings/send', verifyAdminLogin, verifyFestL
 
     if (response) {
       req.session.messageSend = 'Message sended'
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/notification-settings')
+      res.redirect('/admin/' + FestDetails.FestId + '/notification-settings')
     } else {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/notification-settings')
+      res.redirect('/admin/' + FestDetails.FestId + '/notification-settings')
     }
   })
 });
@@ -1236,7 +1137,7 @@ router.get('/:FestId/notification-settings/all/commen/notifications/:MessageId/d
   var FestDetails = req.session.fest
   var MessageId = req.params.MessageId
   festHelpers.deleteNotificationWithoutGroupId(FestDetails.FestId, MessageId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/notification-settings/all/commen/notifications')
+    res.redirect('/admin/' + FestDetails.FestId + '/notification-settings/all/commen/notifications')
   })
 
 });
@@ -1247,7 +1148,7 @@ router.get('/:FestId/notification-settings/all/commen/notifications/:GroupId-:Gr
   var GroupId = req.params.GroupId
   var GroupName = req.params.GroupName
   festHelpers.deleteNotification(FestDetails.FestId, GroupId, MessageId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/notification-settings/all/' + GroupId + '-' + GroupName + '/notifications')
+    res.redirect('/admin/' + FestDetails.FestId + '/notification-settings/all/' + GroupId + '-' + GroupName + '/notifications')
   })
 })
 router.get('/:FestId/notification-settings/all/commen/notifications/:GroupId-:GroupName/:MessageId/recover', verifyAdminLogin, verifyFestLogin, (req, res) => {
@@ -1256,7 +1157,7 @@ router.get('/:FestId/notification-settings/all/commen/notifications/:GroupId-:Gr
   var GroupId = req.params.GroupId
   var GroupName = req.params.GroupName
   festHelpers.recoverNotification(FestDetails.FestId, GroupId, MessageId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/notification-settings/all/' + GroupId + '-' + GroupName + '/notifications')
+    res.redirect('/admin/' + FestDetails.FestId + '/notification-settings/all/' + GroupId + '-' + GroupName + '/notifications')
   })
 });
 
@@ -1268,7 +1169,7 @@ router.post('/:FestId/settings/refresh', verifyAdminLogin, verifyFestLogin, (req
       req.session.fest = response
       res.json(response)
     } else {
-      res.redirect('/fest-admin/login')
+      res.redirect('/admin/login')
     }
   })
 });
@@ -1306,7 +1207,7 @@ router.get('/:FestId/settings/grand-topper/create', verifyAdminLogin, verifyFest
 router.post('/:FestId/settings/grand-topper/create', verifyAdminLogin, verifyFestLogin, (req, res) => {
   var FestDetails = req.session.fest
   festHelpers.generateGrandTopper(req.body, FestDetails.FestId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/settings/grand-topper')
+    res.redirect('/admin/' + FestDetails.FestId + '/settings/grand-topper')
   })
 });
 
@@ -1427,7 +1328,7 @@ router.post('/:FestId/mark/:Session-:Category/Individual/:EventId-:EventName/add
   var EventName = req.params.EventName
 
   markHelpers.addIndividualMark(req.body, FestDetails.FestId, Session, Category, EventId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/' + FestDetails.Session + '-' + Category + '/Individual/' + EventId + '-' + EventName + '/add-mark')
+    res.redirect('/admin/' + FestDetails.FestId + '/mark/' + FestDetails.Session + '-' + Category + '/Individual/' + EventId + '-' + EventName + '/add-mark')
 
   })
 })
@@ -1439,7 +1340,7 @@ router.post('/:FestId/mark/:Session-:Category/Group/:EventId-:EventName/add-mark
   var EventName = req.params.EventName
 
   markHelpers.addGroupMark(req.body, FestDetails.FestId, Session, Category, EventId).then(() => {
-    res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/' + FestDetails.Session + '-' + Category + '/Group/' + EventId + '-' + EventName + '/add-mark')
+    res.redirect('/admin/' + FestDetails.FestId + '/mark/' + FestDetails.Session + '-' + Category + '/Group/' + EventId + '-' + EventName + '/add-mark')
 
   })
 });
@@ -1487,10 +1388,10 @@ router.post('/:FestId/mark/add_other_mark', verifyAdminLogin, verifyFestLogin, (
   markHelpers.addOtherMark(req.body).then((response) => {
     if (response) {
       req.session.otherMarkSuccess = "New other mark added"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/add_other_mark')
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/add_other_mark')
     } else {
       req.session.otherMarkError = "Invalid Chest no"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/add_other_mark')
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/add_other_mark')
     }
   })
 });
@@ -1539,10 +1440,10 @@ router.post('/:FestId/mark/add_toppers', verifyAdminLogin, verifyFestLogin, (req
   markHelpers.addToppers(req.body).then((response) => {
     if (response) {
       req.session.otherMarkSuccess = "New Toppers created"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/add_toppers')
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/add_toppers')
     } else {
       req.session.otherMarkError = "Invalid Chest no"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/add_toppers')
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/add_toppers')
     }
   })
 });
@@ -1777,16 +1678,16 @@ router.post('/:FestId/mark/other-mark/edit/:id', verifyAdminLogin, verifyFestLog
   markHelpers.editOneOtherMark(FestDetails.FestId, req.body).then((result) => {
     if (result == undefined) {
       req.session.Success = "Edit Successfully"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
     } else if (result.StudentError) {
       req.session.Error = "Chest number not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
     } else if (result.SessionError) {
       req.session.Error = "Session name not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
     } else if (result.GroupIdError) {
       req.session.Error = "Group ID not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/other-mark/edit/' + id)
     }
   })
 });
@@ -1797,11 +1698,11 @@ router.get('/:FestId/mark/other-mark/delete/:id', verifyAdminLogin, verifyFestLo
   markHelpers.RemoveOneOtherMark(FestDetails.FestId, id).then((result) => {
 
     if (result.Group) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/group/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/other-mark/group/view-result')
     } else if (result.Session) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/session/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/other-mark/session/view-result')
     } else if (result.Student) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/other-mark/student/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/other-mark/student/view-result')
 
     }
   })
@@ -1890,16 +1791,16 @@ router.post('/:FestId/mark/toppers/edit/:id', verifyAdminLogin, verifyFestLogin,
   markHelpers.editOneToppers(FestDetails.FestId, req.body).then((result) => {
     if (result == undefined) {
       req.session.Success = "Edit Successfully"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
     } else if (result.StudentError) {
       req.session.Error = "Chest number not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
     } else if (result.SessionError) {
       req.session.Error = "Session name not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
     } else if (result.GroupIdError) {
       req.session.Error = "Group ID not match"
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
+      res.redirect('/admin/' + FestDetails.FestId + '/mark/toppers/edit/' + id)
     }
   })
 });
@@ -1911,11 +1812,11 @@ router.get('/:FestId/mark/toppers/delete/:id', verifyAdminLogin, verifyFestLogin
   markHelpers.RemoveOneToppers(FestDetails.FestId, id).then((result) => {
 
     if (result.Group) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/group/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/toppers/group/view-result')
     } else if (result.Session) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/session/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/toppers/session/view-result')
     } else if (result.Student) {
-      res.redirect('/fest-admin/' + FestDetails.FestId + '/result/toppers/student/view-result')
+      res.redirect('/admin/' + FestDetails.FestId + '/result/toppers/student/view-result')
 
     }
   })

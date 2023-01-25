@@ -1,30 +1,30 @@
-var db = require('../config/connection')
-var collection = require('../config/collections')
+const db = require('../config/connection')
+const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
-var nodemailer = require('nodemailer')
-const { response } = require('express')
-var ObjectId = require('mongodb').ObjectId;
+const nodemailer = require('nodemailer')
+const ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = {
 
-    adminLogin: (adminData) => {
+    adminLogin: (body) => {
 
         return new Promise(async (resolve, reject) => {
-            let loginStatus = false
+            console.log(body);
             let response = {}
             // Tempreraly setting For admin Login
 
-            let adminDetails = {
+            const adminDetails = {
                 FullName: process.env.ADMIN_FULLNAME,
                 UserName: process.env.ADMIN_USERNAME,
                 pro: process.env.ADMIN_PRO,
                 EmailId: process.env.ADMIN_EMAILID,
                 Password: process.env.ADMIN_PASSWORD
-
             }
-            if (adminData.EmailId == adminDetails.EmailId) {
-                if (adminData.Password == adminDetails.Password) {
+            // Check Pro admin
+            console.log(body.EmailId == adminDetails.EmailId, body.EmailId, adminDetails.EmailId);
+            if (body.EmailId == adminDetails.EmailId) {
+                if (body.Password == adminDetails.Password) {
                     response.adminDetails = adminDetails
                     response.status = true
                     response.EmailErr = false
@@ -34,10 +34,10 @@ module.exports = {
                     resolve({ PasswordErr: true })
                 }
             } else {
-                let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: adminData.EmailId })
+                const admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: body.EmailId })
                 if (admin) {
 
-                    bcrypt.compare(adminData.Password, admin.Password).then((status) => {
+                    bcrypt.compare(body.Password, admin.Password).then((status) => {
                         if (status) {
                             response.adminDetails = admin
                             response.status = true
@@ -52,9 +52,6 @@ module.exports = {
                     resolve({ EmailErr: true })
                 }
             }
-
-
-
         })
     },
 

@@ -23,21 +23,21 @@
             
                 <div class="events-content">
                     <a
-                        href="/fest-admin/{{FestDetails.FestId}}/result/other-mark/group/view-result">
+                        href="/admin/{{FestDetails.FestId}}/result/other-mark/group/view-result">
                         <div class="eventHeaderDiv">
                             <h4><i class="bi bi-slack"></i> For Group</h4>
                             <span><i class="bi bi-arrow-right"></i></span>
                         </div>
                     </a>
                     <a
-                        href="/fest-admin/{{FestDetails.FestId}}/result/other-mark/session/view-result">
+                        href="/admin/{{FestDetails.FestId}}/result/other-mark/session/view-result">
                         <div class="eventHeaderDiv">
                             <h4><i class="bi bi-puzzle-fill"></i> For Session</h4>
                             <span><i class="bi bi-arrow-right"></i></span>
                         </div>
                     </a>
                     <a
-                        href="/fest-admin/{{FestDetails.FestId}}/result/other-mark/student/view-result">
+                        href="/admin/{{FestDetails.FestId}}/result/other-mark/student/view-result">
                         <div class="eventHeaderDiv">
                             <h4><i class="bi bi-person-circle"></i> For Student</h4>
                             <span><i class="bi bi-arrow-right"></i></span>
@@ -103,7 +103,7 @@
        serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
-            url: '/fest-admin/search-other-mark-result',
+            url: '/admin/search-other-mark-result',
             data: {
                 FestId,
                 searchValue
@@ -133,13 +133,13 @@
                         R_Bottom.className = "Bottom"
                         h3.innerHTML = item.Title
                         if(item.ChestNo){
-                        a.href = "/fest-admin/" + FestId + "/result/other-mark/student/view-result"
+                        a.href = "/admin/" + FestId + "/result/other-mark/student/view-result"
                         h4_2.innerHTML = "Type : " + item.SubType + " / " + item.GroupName + " / " + item.SessionName + " / " + item.ChestNo 
                         }else if(item.SessionName){
-                        a.href = "/fest-admin/" + FestId + "/result/other-mark/session/view-result"
+                        a.href = "/admin/" + FestId + "/result/other-mark/session/view-result"
                         h4_2.innerHTML = "Type : " + item.SubType + " / " + item.GroupName + " / " + item.SessionName 
                         }else{
-                        a.href = "/fest-admin/" + FestId + "/result/other-mark/group/view-result"
+                        a.href = "/admin/" + FestId + "/result/other-mark/group/view-result"
                         h4_2.innerHTML = "Type : " + item.SubType + " / " + item.GroupName
                         }
 

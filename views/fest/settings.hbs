@@ -6,44 +6,44 @@
                 <hr>
             </div>
             <div class="settings-content">
-                <a href="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile">
+                <a href="/admin/{{FestDetails.FestId}}/settings/fest-profile">
                     <div class="settings-items">
                         <h4><i class="bi bi-palette-fill"></i> Fest </h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
 
-                <a href="/fest-admin/{{FestDetails.FestId}}/settings/sessions">
+                <a href="/admin/{{FestDetails.FestId}}/settings/sessions">
                     <div class="settings-items">
                         <h4><i class="bi bi-subtract"></i> Sessions</h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
-                <a href="/fest-admin/{{FestDetails.FestId}}/student/student-without-program">
+                <a href="/admin/{{FestDetails.FestId}}/student/student-without-program">
                     <div class="settings-items">
                         <h4><i class="bi bi-folder-x"></i> Student without program </h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
-                <a href="/fest-admin/{{FestDetails.FestId}}/program-schedule">
+                <a href="/admin/{{FestDetails.FestId}}/program-schedule">
                     <div class="settings-items">
                         <h4><i class="bi bi-file-earmark-arrow-up-fill"></i> File upload</h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
-                <a href="/fest-admin/{{FestDetails.FestId}}/notification-settings">
+                <a href="/admin/{{FestDetails.FestId}}/notification-settings">
                     <div class="settings-items">
                         <h4><i class="bi bi-chat-right-text-fill"></i> Send notification </h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
-                <a href="/fest-admin/{{FestDetails.FestId}}/notification-settings/all">
+                <a href="/admin/{{FestDetails.FestId}}/notification-settings/all">
                     <div class="settings-items">
                         <h4><i class="bi bi-folder-fill"></i> All notifications</h4>
                         <i class="bi bi-arrow-right"></i>
                     </div>
                 </a>
-                <a href="/fest-admin/{{FestDetails.FestId}}/settings/grand-topper">
+                <a href="/admin/{{FestDetails.FestId}}/settings/grand-topper">
                     <div class="settings-items">
                         <h4><i class="bi bi-ui-checks-grid"></i> Build grand topper <span style="color: rgb(80, 80, 80); font-style:italic; font-size:small;">( Beta 1.0.2 )</span></h4>
                         <i class="bi bi-arrow-right"></i>
@@ -80,7 +80,7 @@
         let loading = document.getElementById('refreshLoading')
         loading.style.display = 'block'
         $.ajax({
-            url: '/fest-admin/' + FestId + '/settings/refresh',
+            url: '/admin/' + FestId + '/settings/refresh',
             data: {
                 FestId
             },

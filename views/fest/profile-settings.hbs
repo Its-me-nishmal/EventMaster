@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="settings-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/settings"><span
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/settings"><span
                             class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Settings / Profile
                 </h4>
                 <hr>
@@ -18,7 +18,7 @@
                     <div id="manualOne" class="fest-profile-settings-item-content">
                         <div class="fest-profile-settings-session1">
                             <div class="profile-Image-main-Div">
-                                <form action="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/imageUpload"
+                                <form action="/admin/{{FestDetails.FestId}}/settings/fest-profile/imageUpload"
                                     method="POST" enctype="multipart/form-data">
                                     <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" alt="fest-logo"
                                         id="profileview" onerror="this.onerror=null;callfun(this);">
@@ -43,7 +43,7 @@
                     <div style="display:none" id="manual2" class="fest-profile-settings-item-content">
                         <div class="fest-profile-settings-session2  ">
                             <div class="FestDetailsEditDiv">
-                                <form action="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/editFestDetails"
+                                <form action="/admin/{{FestDetails.FestId}}/settings/fest-profile/editFestDetails"
                                     method="POST">
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
@@ -94,7 +94,7 @@
                     <div style="display:none" id="manual4" class="fest-profile-settings-item-content">
                         <div class="fest-profile-settings-session2  ">
                             <div class="FestDetailsEditDiv">
-                                <form action="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/change-password"
+                                <form action="/admin/{{FestDetails.FestId}}/settings/fest-profile/change-password"
                                     id="changepasswordForm" method="POST" onsubmit="return sessionOneInputs()">
                                     <div class="FestDetailsEditLapToggle">
                                         <div class="festDetialsEditsubDiv">
@@ -161,19 +161,19 @@
                                             <td>
                                                 {{#if this.GroupId}}
                                                 <a
-                                                    href="/fest-admin/{{this.FestId}}/settings/fest-profile/edit-group/{{this.GroupName}}">
+                                                    href="/admin/{{this.FestId}}/settings/fest-profile/edit-group/{{this.GroupName}}">
                                                     <button style="background-color: var(--color-blueDark2);"
                                                         class="pointCateoryDeletButton"> <i
                                                             class="bi bi-pencil-fill"></i></button></a>
                                                 {{else}}
                                                 <a style="color: black;"
-                                                    href="/fest-admin/{{../FestDetails.FestId}} /groups"><i
+                                                    href="/admin/{{../FestDetails.FestId}} /groups"><i
                                                         class="bi bi-info-square-fill"></i></a> Not activated
                                                 {{/if}}
                                             </td>
 
                                             <td>
-                                                <a href="/fest-admin/{{this.FestId}}/settings/fest-profile/delete-group/{{this.GroupName}}"
+                                                <a href="/admin/{{this.FestId}}/settings/fest-profile/delete-group/{{this.GroupName}}"
                                                     onclick="return confirm('Are you want to delete - {{this.GroupName}} -  group ?')"><button
                                                         class="pointCateoryDeletButton"> <i
                                                             class="bi bi-trash"></i></button></a>
@@ -220,7 +220,7 @@
                                         </div>
                                         <div class="Students-setting-Input-Event">
                                             <a
-                                                href="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/fest-status">
+                                                href="/admin/{{FestDetails.FestId}}/settings/fest-profile/fest-status">
                                                 <button style="background-color: var(--color-edit);"><i
                                                         class="bi bi-arrow-repeat"></i> Change</button>
                                             </a>
@@ -230,7 +230,7 @@
                                         <label for=""> Exit fest
                                         </label>
                                         <div class="Students-setting-Input-Event">
-                                            <a href="/fest-admin/{{FestDetails.FestId}}/logout">
+                                            <a href="/admin/{{FestDetails.FestId}}/logout">
                                                 <button style="background-color: var(--color-delete);"><i
                                                         class="bi bi-box-arrow-right"></i> Logout</button>
                                             </a>
@@ -242,7 +242,7 @@
                                         </label>
                                         <div class="Students-setting-Input-Event">
                                             <a
-                                                href="/fest-admin/{{FestDetails.FestId}}/settings/fest-profile/delete-fest">
+                                                href="/admin/{{FestDetails.FestId}}/settings/fest-profile/delete-fest">
                                                 <button
                                                     onclick="return confirm('Are you want to delete - {{FestDetails.FestName}} -  fest ?')"
                                                     style="background-color: var(--color-delete);"><i

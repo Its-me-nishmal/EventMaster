@@ -2,13 +2,13 @@
     <div class="fest-container">
         <div class="AdminNotification-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/settings"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>All notification</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/settings"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>All notification</h4>
                 <hr>
             </div>
             <div>
                 <div class="notificationBoarder">
                     <div class="otherContentDiv">
-                        <a href="/fest-admin/{{FestDetails.FestId}}/notification-settings/all/commen/notifications">
+                        <a href="/admin/{{FestDetails.FestId}}/notification-settings/all/commen/notifications">
                             <div class="otherItems">
                                 <h4><i style="margin-right: 5px;" class="bi bi-box"></i> Common notifications</h4>
                                 <i class="bi bi-chevron-right"></i>
@@ -16,7 +16,7 @@
                         </a>
                         {{#each AllGroups}}
                         {{#if this.GroupId}}
-                        <a href="/fest-admin/{{this.FestId}}/notification-settings/all/{{this.GroupId}}-{{this.GroupName}}/notifications">
+                        <a href="/admin/{{this.FestId}}/notification-settings/all/{{this.GroupId}}-{{this.GroupName}}/notifications">
                             <div class="otherItems">
                                 <h4><i style="margin-right: 5px;" class="bi bi-box"></i> {{this.GroupId}} -
                                     {{this.GroupName}}</h4>

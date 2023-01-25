@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="AdminNotification-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/notification-settings/all"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>All notification / {{GroupName}}</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/notification-settings/all"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>All notification / {{GroupName}}</h4>
                 <hr>
             </div>
             <div>
@@ -44,19 +44,19 @@
                                         {{#if Clear}}
                                         <i title="Cleared" style="color: rgb(238, 2, 2);" class="bi bi-trash"></i>
                                         <a
-                                            href="/fest-admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{../GroupId}}-{{../GroupName}}/{{this.MessageId}}/recover">
+                                            href="/admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{../GroupId}}-{{../GroupName}}/{{this.MessageId}}/recover">
                                             <i title="Recover this message" style="color: rgb(117, 117, 117);"
                                                 class="bi bi-question-circle"></i></a>
                                         {{/if}}
                                     </td>
                                     <td>
                                         <a id="ViewButton{{this.MessageId}}" title="user view"
-                                            href="/fest-admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{this.MessageId}}/view"><button
+                                            href="/admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{this.MessageId}}/view"><button
                                                 style="background-color: var(--color-view);"
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-eye-fill"></i></button></a>
                                         <a id="DeleteButton{{this.MessageId}}"
-                                            href="/fest-admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{../GroupId}}-{{../GroupName}}/{{this.MessageId}}/delete"
+                                            href="/admin/{{../FestDetails.FestId}}/notification-settings/all/commen/notifications/{{../GroupId}}-{{../GroupName}}/{{this.MessageId}}/delete"
                                             onclick="return confirm('Are you want to delete this message ?')"><button
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-trash"></i></button></a>

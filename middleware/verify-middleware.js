@@ -40,7 +40,7 @@ const verifyAdminLogin = (req, res, next) => {
     if (req.session.admin) {
         next()
     } else {
-        res.redirect('/fest-admin/login')
+        res.redirect('/admin/login')
     }
 };
 
@@ -48,7 +48,7 @@ const verifyFestLogin = (req, res, next) => {
     if (req.session.fest) {
         next()
     } else {
-        res.redirect('/fest-admin')
+        res.redirect('/admin')
     }
 };
 

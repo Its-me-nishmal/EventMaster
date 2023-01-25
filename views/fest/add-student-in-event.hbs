@@ -3,7 +3,7 @@
         <div class="evets-MainDiv">
 
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/{{EventId}}-{{EventName}}/all-students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} / Add
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/{{EventId}}-{{EventName}}/all-students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} / Add
                     student
                 </h4>
                 <hr>
@@ -112,7 +112,7 @@
 
             <div>
                 <div class="AddGroupStudetns-Div">
-                    <form action="/fest-admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students" method="POST">
+                    <form action="/admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students" method="POST">
                         <div class="addStudetns-form">
                             <div> <label for="">Event ID :</label></div>
                             <div><input type="text" name="EventId" value="{{EventId}}" readonly

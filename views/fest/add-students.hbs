@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="groupsmainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupId}} / {{SessionName}} / Add students
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupId}} / {{SessionName}} / Add students
                 </h4>
                 <hr>
             </div>
@@ -37,7 +37,7 @@
                 {{/if}}
                 <div class="AddGroupStudetns-Div">
                     <form
-                        action="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students/add-student"
+                        action="/admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students/add-student"
                         method="POST">
                         <div class="addStudetns-form">
                             <div> <label for="">CIC No :</label></div>

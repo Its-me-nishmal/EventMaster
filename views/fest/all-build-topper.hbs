@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="evets-MainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/settings"><span
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/settings"><span
                             class="back-button"><i class="bi bi-chevron-left"></i>
                             Back</span></a> All Build grand topper</h4>
                 <hr>
@@ -11,13 +11,13 @@
                 {{#if GrandTopper.[0]}}
                 <div style="margin-bottom: 10px;" class="pointTable-addButton">
                     <p>Build Grand topper :</p>
-                    <a href="/fest-admin/{{FestDetails.FestId}}/settings/grand-topper/create">
+                    <a href="/admin/{{FestDetails.FestId}}/settings/grand-topper/create">
                         <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
                     </a>
                 </div>
                 {{#each GrandTopper}}
                 <div class="events-content">
-                    <a href="/fest-admin/{{../FestDetails.FestId}}/settings/grand-topper/{{this.TopperId}}/view">
+                    <a href="/admin/{{../FestDetails.FestId}}/settings/grand-topper/{{this.TopperId}}/view">
                         <div class="eventHeaderDiv">
 
                             <h4>{{this.Title}} </h4>
@@ -58,7 +58,7 @@
                             <i class="bi bi-emoji-frown"></i>
                         </div>
                         <p>You have not build any grand topper ...</p>
-                        <a href="/fest-admin/{{FestDetails.FestId}}/settings/grand-topper/create">
+                        <a href="/admin/{{FestDetails.FestId}}/settings/grand-topper/create">
                             <button><i class="bi bi-plus-circle-dotted"></i> Build Grand topper</button>
                         </a>
                     </div>

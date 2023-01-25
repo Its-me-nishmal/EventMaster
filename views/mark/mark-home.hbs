@@ -13,7 +13,7 @@
                         <i class="bi bi-emoji-frown"></i>
                         </div>
                         <p>You have not created any point category...</p>
-                        <a href="/fest-admin/{{FestDetails.FestId}}/point-table/add-table">
+                        <a href="/admin/{{FestDetails.FestId}}/point-table/add-table">
                             <button><i class="bi bi-plus-circle-dotted"></i> Create point category</button>
                         </a>
                     </div>
@@ -23,13 +23,13 @@
 
                 {{#each allItemCategorys}}
                 <div class="events-content">
-                    <a href="/fest-admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{this.Category1}}">
+                    <a href="/admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{this.Category1}}">
                         <div class="eventHeaderDiv">
                             <h4>{{this.SessionName}} - {{this.Category1}}</h4>
                             <span>{{this.StageCount}}</span>
                         </div>
                     </a>
-                    <a href="/fest-admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{this.Category2}}">
+                    <a href="/admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{this.Category2}}">
                         <div class="eventHeaderDiv">
                             <h4>{{this.SessionName}} - {{this.Category2}}</h4>
                             <span>{{this.OffStageCount}}</span>
@@ -37,13 +37,13 @@
                     </a>
                 </div>
                 {{/each}}
-                    <a href="/fest-admin/{{FestDetails.FestId}}/mark/add_other_mark">
+                    <a href="/admin/{{FestDetails.FestId}}/mark/add_other_mark">
                         <div class="eventHeaderDiv">
                             <h4>Other mark</h4>
                             <span style="background:none;color:black;"><i style="font-size: 19px;" class="bi bi-chevron-right"></i></span>
                         </div>
                     </a>
-                    <a href="/fest-admin/{{FestDetails.FestId}}/mark/add_toppers">
+                    <a href="/admin/{{FestDetails.FestId}}/mark/add_toppers">
                         <div class="eventHeaderDiv">
                             <h4>Toppers</h4>
                                <span style="background:none;color:black;"><i style="font-size: 19px;" class="bi bi-chevron-right"></i></span>

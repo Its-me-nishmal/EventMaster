@@ -2,7 +2,7 @@
     <div class="admin-header-container">
         <div class="admin-header-div-main">
             <div>
-                <a href="/fest-admin"> <img class="admin-header-image" src="/images/images/nsa-online.png"
+                <a href="/admin"> <img class="admin-header-image" src="/images/images/nsa-online.png"
                         alt="union logo"> </a>
             </div>
             <div class="admin-header-buttons">
@@ -16,7 +16,7 @@
                 {{/if}}
 
                 {{#if admin}}
-                <a href="/fest-admin/create-fest-page1" id="create-fest-button" style="text-decoration: none;">
+                <a href="/admin/create-fest-page1" id="create-fest-button" style="text-decoration: none;">
                     <div class="create-fest-button-border" onclick="return confirm('Are you want create new fest ?')">
                         <i class="bi bi-plus-lg"></i>
                         <h4 class="create-fest">Create fest</h4>
@@ -30,26 +30,26 @@
                         <i style="font-size: 18px;" id="settings" class="bi bi-person-circle"></i>
                     </div>
                     <div  id="dorpdown-content"  class="dropdown-pop">
-                        <a href="/fest-admin" id="home"><i class="bi bi-house-door-fill"></i> Home</a>
-                        <a href="/fest-admin/account" id="account"><i class="bi bi-person-circle"></i>{{#if adminDetails.pro}}
+                        <a href="/admin" id="home"><i class="bi bi-house-door-fill"></i> Home</a>
+                        <a href="/admin/account" id="account"><i class="bi bi-person-circle"></i>{{#if adminDetails.pro}}
                         Pro a{{else}} A{{/if}}ccount</a>
                         {{#if adminDetails.pro}}
-                        <a href="/fest-admin/create-admin-account" id="create-admin"><i
+                        <a href="/admin/create-admin-account" id="create-admin"><i
                                 class="bi bi-person-plus-fill"></i> Create admin</a>
                         {{else}}
-                        <a href="/fest-admin/change-password" id="change-password"><i class="bi bi-lock-fill"></i>
+                        <a href="/admin/change-password" id="change-password"><i class="bi bi-lock-fill"></i>
                             Change password</a>
                         {{/if}}
-                        <a href="/fest-admin/all-admins" id="all-admins"><i
+                        <a href="/admin/all-admins" id="all-admins"><i
                                 class="bi bi-people-fill"></i> All admins</a>
 
-                        <a href="/fest-admin/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                        <a href="/admin/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
                     </div>
                 </div>
 
 
                 {{else}}{{#if createAccout}}
-                <a href="/fest-admin" style="text-decoration: none;">
+                <a href="/admin" style="text-decoration: none;">
                     <div class="admin-header-login">
                         <i style="font-size: 18px;" class="bi bi-house-door-fill"></i>
                         <h4 class="create-fest">Home</h4>
@@ -57,7 +57,7 @@
                 </a>
                 {{else}}
 
-                <a href="/fest-admin/login" style="text-decoration: none;">
+                <a href="/admin/login" style="text-decoration: none;">
                     <div class="admin-header-login">
                         <i class="bi bi-door-open"></i>
                         <h4 class="create-fest">LogIn</h4>

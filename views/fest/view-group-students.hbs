@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="groupsmainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupDetails.GroupId}}/view"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupDetails.GroupName}} / {{SessionName}} / All students
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/groups/{{GroupDetails.GroupId}}/view"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupDetails.GroupName}} / {{SessionName}} / All students
                 </h4>
                 <hr>
             </div>
@@ -26,7 +26,7 @@
             {{/if}}
             <div class="pointTable-addButton">
                 <p>Create new  studnet :</p>
-                <a href="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupDetails.GroupId}}/{{SessionName}}/students/add-student">
+                <a href="/admin/{{FestDetails.FestId}}/groups/{{GroupDetails.GroupId}}/{{SessionName}}/students/add-student">
                     <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
                 </a>
             </div>
@@ -55,12 +55,12 @@
                                         <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
                                         <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
                                         <td > <a 
-                                    href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/view">
+                                    href="/admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/view">
                                     <button class="pointCateoryDeletButton" style="background-color: rgb(59, 59, 59); font-size:15px;" >View</button>
                                     </a>
                                         </td>
                                         <td>
-                                            <a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/delete"
+                                            <a href="/admin/{{../FestDetails.FestId}}/groups/{{../GroupDetails.GroupId}}/{{../SessionName}}/students/{{this.ChestNo}}/delete"
                                                 onclick="return confirm('Are you want to delete  {{this.ChestNo}} - {{this.FullName}} ?')"><button
                                                     class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
                                             

@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="groupsmainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupId}} / {{SessionName}} / {{studentEvents.ChestNo}} - {{studentEvents.FullName}}</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/groups/{{GroupId}}/{{SessionName}}/students"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{GroupId}} / {{SessionName}} / {{studentEvents.ChestNo}} - {{studentEvents.FullName}}</h4>
                 <hr>
             </div>
             <div class="groups-content">
@@ -52,7 +52,7 @@
                                     <td class="StudentsTable-TD-Name">STAGE</td>
                                     <td class="StudentsTable-TD-Name">{{this.status}}</td>
                                     <td class="StudentsTable-TD-Name">{{this.PointCategoryName}}</td>
-                                    <td><a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupId}}/{{../SessionName}}/students/{{../studentEvents.ChestNo}}-{{this.EventId}}/delete-event"
+                                    <td><a href="/admin/{{../FestDetails.FestId}}/groups/{{../GroupId}}/{{../SessionName}}/students/{{../studentEvents.ChestNo}}-{{this.EventId}}/delete-event"
                                             onclick="return confirm('Are you want to delete - {{this.EventName}} -  category ?')"><button
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-trash"></i></button></a>
@@ -67,7 +67,7 @@
                                     <td class="StudentsTable-TD-Name">OFF STAGE</td>
                                     <td class="StudentsTable-TD-Name">{{this.status}}</td>
                                     <td class="StudentsTable-TD-Name">{{this.PointCategoryName}}</td>
-                                    <td><a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{../GroupId}}/{{../SessionName}}/students/{{../studentEvents.ChestNo}}-{{this.EventId}}/delete-event"
+                                    <td><a href="/admin/{{../FestDetails.FestId}}/groups/{{../GroupId}}/{{../SessionName}}/students/{{../studentEvents.ChestNo}}-{{this.EventId}}/delete-event"
                                             onclick="return confirm('Are you want to delete - {{this.EventName}} -  category ?')"><button
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-trash"></i></button></a>

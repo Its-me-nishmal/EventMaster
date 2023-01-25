@@ -29,7 +29,7 @@
                                 <td>{{this.Convener}}</td>
                                 <td>{{this.PasswordFor}}</td>
                                 {{#if this.GroupId}}
-                                <td><a href="/fest-admin/{{../FestDetails.FestId}}/groups/{{this.GroupId}}/view"><button
+                                <td><a href="/admin/{{../FestDetails.FestId}}/groups/{{this.GroupId}}/view"><button
                                             class="allGroupsViewButton"> <i class="bi bi-eye-fill"></i>
                                             View</i></button></a>
                                 </td>
@@ -369,7 +369,7 @@
 
         borderDiv.className = "festLoginPopupDiv";
         ContentDiv.className = "admin-login-content";
-        form.action = "/fest-admin/" + FestId + "/groups/" + GroupName + "/confierm";
+        form.action = "/admin/" + FestId + "/groups/" + GroupName + "/confierm";
         form.method = "POST";
         formDiv1.className = "admin-login-form";
         formDiv2.className = "admin-login-form";

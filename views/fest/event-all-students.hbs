@@ -3,7 +3,7 @@
         <div class="evets-MainDiv">
 
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} /
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} /
                     {{EventName}}
                 </h4>
                 <hr>
@@ -11,7 +11,7 @@
             <div class="pointTable-addButton">
                 <p>Create new student this event :</p>
                 <a
-                    href="/fest-admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students">
+                    href="/admin/{{FestDetails.FestId}}/events/{{SessionName}}-{{CategoryName}}/{{EventId}}-{{EventName}}/add-students">
                     <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
                 </a>
             </div>
@@ -38,7 +38,7 @@
                                 <td>{{this.ChestNo}}</td>
                                 <td>{{this.CicNo}}</td>
                                 <td>{{this.FullName}}</td>
-                                <td><a href="/fest-admin/{{../FestDetails.FestId}}/events/{{../SessionName}}-{{../CategoryName}}/{{../EventId}}-{{../EventName}}/{{this.GroupId}}/{{this.ChestNo}}/delete-event"
+                                <td><a href="/admin/{{../FestDetails.FestId}}/events/{{../SessionName}}-{{../CategoryName}}/{{../EventId}}-{{../EventName}}/{{this.GroupId}}/{{this.ChestNo}}/delete-event"
                                         onclick="return confirm('Are you want to delete {{FullName}}s this event  ?')"><button
                                             class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
                                 </td>

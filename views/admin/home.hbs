@@ -134,7 +134,7 @@
         var loginFestId = parseInt(loginFest)
 
         if (FestId == loginFest) {
-            location.href = "/fest-admin/" + FestId + "/home";
+            location.href = "/admin/" + FestId + "/home";
 
         } else {
             mainDiv.innerHTML = null
@@ -147,7 +147,7 @@
             h3.innerHTML = "Fest login";
             hr.className = "admin-login-hr";
             ContentDiv.className = "admin-login-content";
-            form.action = "/fest-admin/" + FestId + "/home";
+            form.action = "/admin/" + FestId + "/home";
             form.method = "POST";
             formDiv1.className = "admin-login-form";
             formDiv2.className = "admin-login-form";
@@ -164,7 +164,7 @@
             CloseIcon.className = "bi bi-x-lg festLogin-closeIcon"
             forget.innerHTML = "Forgot password ?"
             forget.className = 'festForgetClass'
-            forget.href = "/fest-admin/fest-forgot-password/45554" + FestId + "/5485454"
+            forget.href = "/admin/fest-forgot-password/45554" + FestId + "/5485454"
             i.onclick = function () {
                 var x = document.getElementById("Password");
                 var i = document.getElementById("Icon");

@@ -27,7 +27,7 @@
                             <i class="bi bi-emoji-frown"></i>
                         </div>
                         <p>You have not created any point category...</p>
-                        <a href="/fest-admin/{{FestDetails.FestId}}/point-table/add-table">
+                        <a href="/admin/{{FestDetails.FestId}}/point-table/add-table">
                             <button><i class="bi bi-plus-circle-dotted"></i> Create point category</button>
                         </a>
                     </div>
@@ -35,7 +35,7 @@
                 {{else}}
                 {{#each AllGroups}}
                 <div class="events-content">
-                    <a href="/fest-admin/{{../FestDetails.FestId}}/result/student-baise/{{this.GroupId}}">
+                    <a href="/admin/{{../FestDetails.FestId}}/result/student-baise/{{this.GroupId}}">
                         <div class="eventHeaderDiv">
                             {{#if this.GroupId}}
                             <h4>{{this.GroupName}} - ({{this.GroupId}})</h4>
@@ -107,7 +107,7 @@
        serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
         let searchValue = document.getElementById("searchInput").value
         $.ajax({
-            url: '/fest-admin/search-student-result',
+            url: '/admin/search-student-result',
             data: {
                 FestId,
                 searchValue
@@ -134,7 +134,7 @@
 
                       
 
-                        a.href = "/fest-admin/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo
+                        a.href = "/admin/" + FestId + "/result/student-baise/" + item.GroupId + "/" + item.SessionName + "/Students/" + item.ChestNo
                         R_BoarderDiv.className = "searchResultOne"
                         R_Header.className = "header"
                         R_Bottom.className = "Bottom"

@@ -2,7 +2,7 @@
     <div class="fest-container">
         <div class="AdminNotification-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/settings"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Notification settings</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/settings"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Notification settings</h4>
                 <hr>
             </div>
             <div>
@@ -15,7 +15,7 @@
                                 onclick="Group()">For group</button>
                         </div>
                     </div>
-                    <form action="/fest-admin/{{FestDetails.FestId}}/notification-settings/send" method="POST">
+                    <form action="/admin/{{FestDetails.FestId}}/notification-settings/send" method="POST">
                         <div id="groupName" style="margin-top: 10px; display:none" class="chooseGroup">
                             <p style="font-style: italic; color:gray"> Send message to specific group. Select the groups
                                 to   which the message should be send</p>

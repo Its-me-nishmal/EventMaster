@@ -3,7 +3,7 @@
         <div class="evets-MainDiv">
             <div class="pointTable-header">
                 <h4 class="adminHome-sectin-one-SubHeading"><a
-                        href="/fest-admin/{{FestDetails.FestId}}/mark/{{FestDetails.Session}}-{{FestDetails.Category}}"><span
+                        href="/admin/{{FestDetails.FestId}}/mark/{{FestDetails.Session}}-{{FestDetails.Category}}"><span
                             class="back-button"><i class="bi bi-chevron-left"></i>
                             Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} /
                     {{EventName}} / Add mark</h4>
@@ -18,7 +18,7 @@
                             {{#each EventStudents}}
                             <tr>
                                 <form
-                                    action="/fest-admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{../FestDetails.Category}}/Individual/{{../EventId}}-{{../EventName}}/add-mark"
+                                    action="/admin/{{../FestDetails.FestId}}/mark/{{this.SessionName}}-{{../FestDetails.Category}}/Individual/{{../EventId}}-{{../EventName}}/add-mark"
                                     method="POST">
                                     <td class="chestNoTd"> <input type="text" name="ChestNo" value="{{this.ChestNo}}"
                                             readonly> </td>
@@ -71,7 +71,7 @@
                             {{#if this.student}}
                             <tr>
                                 <form
-                                    action="/fest-admin/{{../FestDetails.FestId}}/mark/{{../Session}}-{{../FestDetails.Category}}/Group/{{../EventId}}-{{../EventName}}/add-mark"
+                                    action="/admin/{{../FestDetails.FestId}}/mark/{{../Session}}-{{../FestDetails.Category}}/Group/{{../EventId}}-{{../EventName}}/add-mark"
                                     method="POST">
                                     <td class="chestNoTd"> <input type="text" name="GroupId" value="{{this.GroupId}}"
                                             readonly>

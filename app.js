@@ -6,10 +6,12 @@ var logger = require('morgan');
 var session = require('express-session');
 var MongoDBSession = require('connect-mongodb-session')(session);
 var MongoURI = "mongodb://localhost:27017/sessions"
+const dotenv = require('dotenv').config()
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var groupRouter = require('./routes/group');
+const festRouter = require('./routes/fest')
 var hbs = require('express-handlebars');
 var app = express();
 var fileupload = require('express-fileupload');
@@ -18,13 +20,13 @@ var db = require('./config/connection')
 var store = new MongoDBSession({
   uri: MongoURI,
   collection: 'Sessions',
-  
+
 })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}))
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials/' }))
 
 
 
@@ -35,32 +37,33 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload());
 app.use(session({
-  secret:"key",
-  resave:false,
-  saveUninitialized:false,
-  store:store,
-  cookie:{maxAge: 1000 * 60 * 60 * 24 * 30 * 6} // six months 
+  secret: "key",
+  resave: false,
+  saveUninitialized: false,
+  store: store,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 * 6 } // six months 
 }))
 
-db.connect((err)=>{
-  if(err) console.log("Connection Error");
+db.connect((err) => {
+  if (err) console.log("Connection Error");
   else console.log('Database connected')
 })
 
 app.use('/', userRouter);
-app.use('/fest-admin', adminRouter);
+app.use('/admin', adminRouter);
 app.use('/group', groupRouter);
+app.use('/fest', festRouter)
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

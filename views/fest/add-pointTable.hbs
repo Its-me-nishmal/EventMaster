@@ -2,11 +2,11 @@
     <div class="fest-container">
         <div class="addpointtable-mainDiv">
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/point-table"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Add point category</h4>
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/point-table"><span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Add point category</h4>
                 <hr>
             </div>
             <div class="addPointTable-content">
-                <form action="/fest-admin/{{FestDetails.FestId}}/point-table/add-table" method="POST">
+                <form action="/admin/{{FestDetails.FestId}}/point-table/add-table" method="POST">
                     <div id="create-fest-page2">
 
                         <input type="text" hidden name="FestId" value="{{FestDetails.FestId}}">

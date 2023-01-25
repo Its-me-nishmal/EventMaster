@@ -28,7 +28,7 @@
 
             </div>
             <div class="pointTable-header">
-                <h4 class="adminHome-sectin-one-SubHeading"><a href="/fest-admin/{{FestDetails.FestId}}/events"><span
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/admin/{{FestDetails.FestId}}/events"><span
                             class="back-button"><i class="bi bi-chevron-left"></i>
                             Back</span></a>{{FestDetails.Session}} / {{FestDetails.Category}} All
                     events
@@ -39,7 +39,7 @@
             <div class="pointTable-addButton">
                 <p>Create new event :</p>
                 <a
-                    href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
+                    href="/admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
                     <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
                 </a>
             </div>
@@ -68,17 +68,17 @@
                             <td>{{this.TypeOfEvent}}</td>
                             <td>{{this.EventLimit}}</td>
                             <td><a
-                                    href="/fest-admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}-{{this.EventName}}/all-students">
+                                    href="/admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}-{{this.EventName}}/all-students">
                                     <button class="pointCateoryDeletButton"
                                         style="background-color: rgb(59, 59, 59); font-size:15px;">View</button>
                                 </a>
                             </td>
                             <td>
                                 <a
-                                    href="/fest-admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}/edit-event">
+                                    href="/admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}/edit-event">
                                     <button style="background-color: var(--color-blueDark2);"
                                         class="pointCateoryDeletButton"> <i class="bi bi-pencil-fill"></i></button></a>
-                                <a href="/fest-admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}/delete-event"
+                                <a href="/admin/{{../FestDetails.FestId}}/events/{{../FestDetails.Session}}-{{../FestDetails.Category}}/{{this.EventId}}/delete-event"
                                     onclick="return confirm('Are you want to delete this event ?')"><button
                                         class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
                             </td>
@@ -101,7 +101,7 @@
                     </div>
                     <p>You have not created any events...</p>
                     <a
-                        href="/fest-admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
+                        href="/admin/{{FestDetails.FestId}}/events/{{FestDetails.Session}}-{{FestDetails.Category}}/add-event">
                         <button style="margin-left: 40px;"><i class="bi bi-plus-circle-dotted"></i> Create
                             event</button>
                     </a>
