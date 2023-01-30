@@ -85,7 +85,7 @@ module.exports = {
                 if (Group.Session1.SessionName === SessionName) {
                     const Session_SL = String(Group.Session1.SlNo)
                     var Students_SlNo = Group.Session1.Students_SlNo
-                  
+
                     function padFix(n) {
                         return ('00' + n).match(/\d{2}$/);
                     }
@@ -120,8 +120,8 @@ module.exports = {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL  + num
-                   
+                    var ChestNo = Group_SL + num
+
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -151,7 +151,7 @@ module.exports = {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL  + num
+                    var ChestNo = Group_SL + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -181,7 +181,7 @@ module.exports = {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL  + num
+                    var ChestNo = Group_SL + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -211,7 +211,7 @@ module.exports = {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL  + num
+                    var ChestNo = Group_SL + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -241,7 +241,7 @@ module.exports = {
                         return ('00' + n).match(/\d{2}$/);
                     }
                     let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL  + num
+                    var ChestNo = Group_SL + num
 
                     let StudentsDetails = {
                         FestId: GroupDetails.FestId,
@@ -358,7 +358,7 @@ module.exports = {
                         }
                     }
                     let TotalStageCount = StageCount + GeneralStageCount
-                  
+
                     // already use check
                     let EventOneCheck = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, ChestNo: body.ChestNo, "StageEvents.EventId": body.EventId })
                     if (EventOneCheck) {
@@ -367,7 +367,7 @@ module.exports = {
                         // Event Limit check
                         let limitStatus = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: body.FestId, GroupId: body.GroupId, "StageEvents.EventId": body.EventId }).toArray()
                         let eventLimit = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: body.FestId, "StageItem.EventId": body.EventId })
-                        
+
                         let Event = null;
                         eventLimit.StageItem.forEach((item) => {
                             if (item.EventId === body.EventId) {
@@ -395,11 +395,11 @@ module.exports = {
                                                 resolve({ Success: true })
                                             })
                                         } else {
-                                           
+
                                             resolve({ StudentStageCountOver: true })
                                         }
                                     } else {
-                                        if (AllSessions[SessionSlno].StageEventCount > TotalStageCount ) {
+                                        if (AllSessions[SessionSlno].StageEventCount > TotalStageCount) {
                                             Event.status = "NonGeneral"
                                             // add Event
                                             db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
@@ -410,7 +410,7 @@ module.exports = {
                                                 resolve({ Success: true })
                                             })
                                         } else {
-                                          
+
                                             resolve({ StudentStageCountOver: true })
                                         }
                                     }
@@ -431,7 +431,7 @@ module.exports = {
                                 if (AllSessions[checkGeneral].status === "NonGeneral") {
                                     resolve({ ChestNOError: true })
                                 } else {
-                                   
+
                                     let checkEventCountGeneral = null
                                     for (let i = 0; i < AllSessions.length; i++) {
                                         if (AllSessions[i] === undefined) {
@@ -469,7 +469,7 @@ module.exports = {
                                                     })
                                                 } else {
                                                     resolve({ StudentStageCountOver: true })
-                                                   
+
                                                 }
                                             } else {
                                                 if (AllSessions[SessionSlno].StageEventCount > TotalStageCount) {
@@ -479,12 +479,12 @@ module.exports = {
                                                             StageEvents: Event
                                                         }
                                                     }).then(() => {
-                                                       
+
                                                         resolve({ Success: true })
                                                     })
                                                 } else {
                                                     resolve({ StudentStageCountOver: true })
-                                                   
+
                                                 }
                                             }
                                         }
@@ -760,11 +760,11 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
             let CicNo = body.CicNo
-            let thisStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, ChestNo })
+            let thisStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, CicNo: body.CicNo })
             let student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, CicNo })
 
             if (thisStudent.CicNo === body.CicNo) {
-                db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ FestId, GroupId, ChestNo }, {
+                db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ FestId, GroupId, CicNo: body.CicNo }, {
                     $set: {
                         CicNo: body.CicNo,
                         FullName: body.FullName
@@ -951,10 +951,10 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let messages = await db.get().collection(collection.NOTIFICATION_COLLECTION).find({ FestId }).toArray()
             let OneMessage = ''
-            for(let a = 0; a<messages.length; a++){
-              
+            for (let a = 0; a < messages.length; a++) {
+
                 for (let i = 0; i < messages[a].Notifications.length; i++) {
-                   
+
                     if (messages[a].Notifications[i].MessageId === MessageId) {
                         OneMessage = messages[a].Notifications[i]
                     }
@@ -974,19 +974,19 @@ module.exports = {
 
     },
 
-    refreshSessionPage:(body)=>{
-       return new Promise((resolve, reject) => {
-           db.get().collection(collection.GROUP_COLLECTION).findOne({GroupId:body.GroupId}).then((response)=>{
-            
-            resolve(response)
-           })
-       })
-       
+    refreshSessionPage: (body) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId: body.GroupId }).then((response) => {
+
+                resolve(response)
+            })
+        })
+
     },
 
-    noEventStudentCount:(FestId,GroupId)=>{
-        return new Promise(async(resolve, reject) => {
-            let noEventStudentCount = await db.get().collection(collection.STUDENTS_COLLECTION).find({FestId,GroupId}).toArray()
+    noEventStudentCount: (FestId, GroupId) => {
+        return new Promise(async (resolve, reject) => {
+            let noEventStudentCount = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId }).toArray()
             let StudentwithoutProgram = []
             for (let i = 0; i < noEventStudentCount.length; i++) {
                 if (noEventStudentCount[i].StageEvents.length == 0) {
@@ -1006,7 +1006,7 @@ module.exports = {
             StudentwithoutProgram.totalWithoutStudentCount = StudentwithoutProgram.length
             resolve(StudentwithoutProgram)
         })
-        
+
     }
 
 

@@ -11,11 +11,11 @@
                     <form action="/group/students/{{SessionName}}/{{studentEvents.ChestNo}}/edit" method="POST">
                         <div class="addStudetns-form">
                             <div> <label for="">Chset no :</label></div>
-                            <div><input style="cursor:not-allowed; background-color:rgb(202, 202, 202)" type="text" name="ChestNo" value="{{studentEvents.ChestNo}}" readonly></div>
+                            <div><input style="cursor:not-allowed; background-color:rgb(202, 202, 202)" type="text" name="ChestNo" value="{{studentEvents.ChestNo}}" required ></div>
                         </div>
                         <div class="addStudetns-form">
                             <div> <label for="">CIC No :</label></div>
-                            <div><input type="number" name="CicNo" value="{{studentEvents.CicNo}}" required></div>
+                            <div><input type="number" name="CicNo" value="{{studentEvents.CicNo}}" readonly ></div>
                         </div>
                         <div class="addStudetns-form">
                             <div> <label for="">Full name :</label></div>
