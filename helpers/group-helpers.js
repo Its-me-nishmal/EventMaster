@@ -766,7 +766,7 @@ module.exports = {
             if (thisStudent.CicNo === body.CicNo) {
                 db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ FestId, GroupId, CicNo: body.CicNo }, {
                     $set: {
-                        CicNo: body.CicNo,
+                        ChestNo: body.ChestNo,
                         FullName: body.FullName
                     }
                 }).then(() => {
