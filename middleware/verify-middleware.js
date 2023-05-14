@@ -1,9 +1,7 @@
-const userHelpers = require('../helpers/user-helpers')
 const groupHelpers = require('../helpers/group-helpers');
 const eventHelpers = require('../helpers/event-helpers');
 
 const verifyActiveEvent = async (req, res, next) => {
-    console.log(req.params);
     const event = await eventHelpers.getEventDetails(req.params.EventId)
     if (event?.Launch && event?.ResultPublish) {
         delete event.BuildStage
@@ -11,7 +9,7 @@ const verifyActiveEvent = async (req, res, next) => {
         delete event.Mobile
         delete event.EmailId
         req.session.e = event
-        next()
+        next()  
     } else if (event?.Launch && !event?.ResultPublish) {
         delete event.BuildStage
         delete event.Files
@@ -19,7 +17,7 @@ const verifyActiveEvent = async (req, res, next) => {
         delete event.EmailId
         req.session.e = event
         let eventDetails = req.session.e
-        res.render('user/home/unPublishPage', { eventDetails, footer: true })
+        res.render('user/home/unPublishPage', {title:event.Name, eventDetails, footer: true })
     } else {
         res.redirect('/')
     }

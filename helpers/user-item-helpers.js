@@ -7,7 +7,6 @@ module.exports = {
     getItemStudentsFromAllGroup: (EventId, Category, SubCategory, ItemId) => {////+++
         return new Promise(async (resolve, reject) => {
             let ItemDetails = await itemHelpers.getOneItemDetails(EventId, Category, SubCategory, ItemId)
-            console.log(ItemDetails, 'item');
             let Students = []
             if (ItemDetails?.ResultPublish) {
                 Students = await db.get().collection(collection.STUDENTS_COLLECTION).aggregate([

@@ -37,7 +37,6 @@ const postChangePassword = (req, res) => {////
       if (result) {
         req.session.group = null
         req.session.group = result
-        console.log(result);
         res.json(result)
       } else {
         res.redirect('/group/login')

@@ -1,6 +1,6 @@
 {
-  "name": "fest",
-  "version": "0.0.0",
+  "name": "event",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -16,7 +16,7 @@
     "express-fileupload": "^1.2.1",
     "express-handlebars": "^5.3.3",
     "express-session": "^1.17.2",
-    "fileupload": "^1.0.0",
+    "handlebars-helpers": "^0.10.0",
     "hbs": "^4.1.2",
     "http-errors": "~1.6.3",
     "mongo": "^0.1.0",

@@ -192,7 +192,6 @@
     let event = {{{ json eventDetails }}}
     let eventDate = event.Date
     document.getElementById('nowFestDate').innerHTML = new Date(eventDate).toLocaleDateString()
-    console.log(event)
 
     const countdown = () => {
         const countDate = new Date(eventDate).getTime();

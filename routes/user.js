@@ -1,10 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const userHelpers = require('../helpers/user-helpers');
-const eventHelpers = require('../helpers/event-helpers');
-const groupHelpers = require('../helpers/group-helpers');
-const markHelpers = require('../helpers/mark-helpers')
-const resultHelpers = require('../helpers/result-helpers')
 const { verifyActiveEvent } = require('../middleware/verify-middleware')
 
 

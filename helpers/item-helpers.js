@@ -273,7 +273,6 @@ module.exports = {
     },
 
     getAllItemsForGroup: (EventId, GroupId, Category, SubCategory) => {  ////*
-        console.log(GroupId);
         return new Promise(async (resolve, reject) => {
 
             db.get().collection(collection.ITEM_COLLECTION).aggregate([
@@ -320,7 +319,6 @@ module.exports = {
                         StudentsCount: val.students.filter((one) => one.GroupId === GroupId).length
                     }
                 })
-                console.log(response);
                 resolve(response)
             })
 
@@ -505,7 +503,6 @@ module.exports = {
     },
 
     addItemToStudent: (EventId, Category, SubCategory, body) => { ////*
-        console.log(EventId, Category, SubCategory, body, 'body');
         return new Promise(async (resolve, reject) => {
             // Check valid Chest No
             const checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, GroupId: body.GroupId, ChestNo: body.ChestNo })
@@ -531,7 +528,6 @@ module.exports = {
                                 { $replaceRoot: { newRoot: "$Sub.Items" } }
                             ]).toArray()
                             let AllStudentsInOneItem = await studentHelpers.getItemStudentsGroupBasis(EventId, body.GroupId, body.ItemId)
-                            console.log(ItemLimit, AllStudentsInOneItem.length, 'hhh');
                             if (ItemLimit[0].Limit <= AllStudentsInOneItem.length) {
                                 resolve({ Error: 'Item limit is over' })
                             } else {

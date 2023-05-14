@@ -105,7 +105,6 @@ module.exports = {
     },
 
     sawNotification: (body, EventId) => {  ////*
-        console.log(body, EventId, 'hi');
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId: EventId, GroupId: body.GroupId }, {
                 $set: {
@@ -120,7 +119,6 @@ module.exports = {
     },
 
     readOneNotification: (body, EventId) => {////*
-        console.log(body, EventId);
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({
                 EventId, GroupId: body.GroupId,
@@ -141,7 +139,6 @@ module.exports = {
     },
 
     clearOneNotification: (body, EventId) => {////*
-        console.log(body, EventId);
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({
                 EventId, GroupId: body.GroupId
@@ -154,7 +151,6 @@ module.exports = {
             }).then((response) => {
                 resolve(response)
             }).catch((err) => {
-                console.log(err);
             })
         })
     },

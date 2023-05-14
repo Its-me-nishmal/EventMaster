@@ -61,7 +61,6 @@ module.exports = {
                 const event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId: EventId })
                 resolve({ EventId, CategoryCount: event.CategoryCount })
             }).catch((error) => {
-                console.log(error, 'error');
             })
         })
 
