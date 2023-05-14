@@ -1,4 +1,4 @@
-var db = require('../config/connection')
+var db = require('../config/db')
 var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 var ObjectId = require('mongodb').ObjectId;
@@ -10,7 +10,7 @@ module.exports = {
     activeFest: () => {
         return new Promise((resolve, reject) => {
             try {
-                db.get().collection(collection.FEST_COLLECTION).findOne({ userStatus: 1 }).then((response) => {
+                db.get().collection(collection.EVENT_COLLECTION).findOne({ userStatus: 1 }).then((response) => {
                     resolve(response)
                 })
                 
@@ -23,7 +23,7 @@ module.exports = {
     activeResult: () => {
         return new Promise((resolve, reject) => {
             try {
-                db.get().collection(collection.FEST_COLLECTION).findOne({ resultStatus: 1 }).then((response) => {
+                db.get().collection(collection.EVENT_COLLECTION).findOne({ resultStatus: 1 }).then((response) => {
                     resolve(response)
                 })
                 

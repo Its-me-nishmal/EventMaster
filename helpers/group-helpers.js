@@ -1,814 +1,76 @@
-var db = require('../config/connection')
-var collection = require('../config/collections')
+const db = require('../config/db')
+const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
-const { reject, resolve, all } = require('promise')
-const { response } = require('express')
+const { createRandomId } = require('./function-helpers')
 
 module.exports = {
-    doLogin: (body) => {
+    doLogin: (body) => {////*
         return new Promise(async (resolve, reject) => {
-            let response = []
-            let GroupIdCheck = await db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId: body.GroupId })
-            if (GroupIdCheck) {
-                bcrypt.compare(body.Password, GroupIdCheck.Password).then((status) => {
-                    if (status) {
-                        response.GroupDetails = GroupIdCheck
-                        response.status = true
-                        resolve(response)
 
-                    } else {
-                        resolve({ PasswordErr: true })
-
-
-                    }
-                })
-            } else {
-                resolve({ GroupIdErr: true })
-
-
-            }
-        })
-
-    },
-
-    getAllCategorys: (GroupDetails) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: GroupDetails.FestId, GroupName: GroupDetails.GroupName }).then((result) => {
-                resolve(result)
-            })
-        })
-
-    },
-
-    getSessionDetails: (SessionName, GroupDetails) => {
-
-        return new Promise(async (resolve, reject) => {
-            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: GroupDetails.FestId, GroupName: GroupDetails.GroupName })
-
+            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId: body.GroupId })
             if (Group) {
-                if (Group.Session1.SessionName === SessionName) {
-                    resolve(Group.Session1)
+                bcrypt.compare(body.Password, Group.Password).then((status) => {
+                    if (status) {
+                        delete Group.Password
+                        delete Group.Notifications
+                        delete Group.GroupItems
+                        delete Group.PasswordFor
+                        delete Group.Category
 
-                } else if (Group.Session2.SessionName === SessionName) {
-                    resolve(Group.Session2)
-                } else if (Group.Session3.SessionName === SessionName) {
-                    resolve(Group.Session3)
-                } else if (Group.Session4.SessionName === SessionName) {
-                    resolve(Group.Session4)
-                } else if (Group.Session5.SessionName === SessionName) {
-                    resolve(Group.Session5)
-                } else if (Group.Session6.SessionName === SessionName) {
-                    resolve(Group.Session6)
-                }
+                        resolve(Group)
 
-            }
-        })
-
-    },
-    getAllStudents: (SessionName, GroupDetails) => {
-        return new Promise(async (resolve, reject) => {
-            let AllStudents = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId, SessionName: SessionName }).toArray()
-            resolve(AllStudents)
-        })
-
-    },
-
-    addStudents: (SessionName, GroupDetails, body) => {
-
-        return new Promise(async (resolve, reject) => {
-            let CheckCICno = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: GroupDetails.FestId, CicNo: body.CicNo })
-            if (CheckCICno) {
-                resolve(cicNoError = true)
+                    } else {
+                        resolve({ Error: "Incorrect password" })
+                    }
+                })
             } else {
-                let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId })
-                const Group_SL = String(Group.SlNo)
-                if (Group.Session1.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session1.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
-
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session1.StudentsCount": Group.Session1.StudentsCount + 1
-                            }
-                        }])
-                    }).then((response) => {
-                        resolve()
-                    })
-                } else if (Group.Session2.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session2.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
+                resolve({ Error: "Incorrect group id" })
 
 
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session2.StudentsCount": Group.Session2.StudentsCount + 1
-                            }
-                        }])
-                    }).then((response) => {
-                        resolve()
-                    })
-                } else if (Group.Session3.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session3.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
-
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session3.StudentsCount": Group.Session3.StudentsCount + 1
-                            }
-                        }])
-                    }).then((response) => {
-                        resolve()
-                    })
-                } else if (Group.Session4.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session4.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
-
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session4.StudentsCount": Group.Session4.StudentsCount + 1
-                            }
-                        }])
-                    }).then((response) => {
-                        resolve()
-                    })
-                } else if (Group.Session5.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session5.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
-
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session5.StudentsCount": Group.Session5.StudentsCount + 1
-                            }
-                        }])
-                    }).then((response) => {
-                        resolve()
-                    })
-                } else if (Group.Session6.SessionName === SessionName) {
-                    const Session_SL = String(Group.Session6.SlNo)
-                    var Students_SlNo = Group.Session1.Students_SlNo
-                    function padFix(n) {
-                        return ('00' + n).match(/\d{2}$/);
-                    }
-                    let num = padFix(Students_SlNo)[0]
-                    var ChestNo = Group_SL + num
-
-                    let StudentsDetails = {
-                        FestId: GroupDetails.FestId,
-                        GroupId: GroupDetails.GroupId,
-                        SessionName: SessionName,
-                        ChestNo: ChestNo,
-                        CicNo: body.CicNo,
-                        FullName: body.FullName,
-                        StageEvents: [],
-                        OffStageEvents: []
-
-                    }
-                    db.get().collection(collection.STUDENTS_COLLECTION).insertOne(StudentsDetails).then((response) => {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: GroupDetails.FestId, GroupId: GroupDetails.GroupId }, [{
-                            "$set": {
-                                "Session1.Students_SlNo": Group.Session1.Students_SlNo + 1,
-                                "Session6.StudentsCount": Group.Session6.StudentsCount + 1
-                            }
-                        }])
-                    }).then((respons) => {
-                        resolve()
-                    })
-                }
             }
-
-
         })
 
     },
 
-    checkStudentsCountForEvent: (FestId, GroupId) => {
+    getGroupDetails: (GroupId, EventId) => { ////*
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: FestId, GroupId: GroupId }).then((response) => {
+            db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId, EventId }).then((response) => {
+                delete response.Password
+                delete response.PasswordFor
                 resolve(response)
             })
         })
 
     },
 
-    getGroupDetails: (GroupId, FestId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId, FestId }).then((response) => {
+    editGroupDetails: (EventId, body) => {  ////*
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.GROUP_COLLECTION).updateMany({ EventId, GroupId: body.GroupId }, {
+                $set: {
+                    GroupName: body.GroupName,
+                    Convener: body.Convener
+                }
+            }).then((response) => {
                 resolve(response)
             })
         })
-
     },
 
-    getAllEvents: (FestId, GroupId, SessionName, Category) => {
+    changePassword: (body) => { ////*
         return new Promise(async (resolve, reject) => {
-            var FestEvent = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId, SessionName })
-
-
-            if (Category == FestEvent.Category1) {
-                let StageEvents = FestEvent.StageItem
-
-                for (let i = 0; i < StageEvents.length; i++) {
-                    let EventId = StageEvents[i].EventId
-                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId, "StageEvents.EventId": EventId }).toArray()
-                    let EventCount = EventThisId.length
-                    StageEvents[i].LimitStatus = EventCount
-                }
-                resolve(StageEvents)
-            } else if (Category == FestEvent.Category2) {
-                let OffStageEvents = FestEvent.OffstageItem
-
-                for (let i = 0; i < OffStageEvents.length; i++) {
-                    let EventId = OffStageEvents[i].EventId
-                    let EventThisId = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId, "OffStageEvents.EventId": EventId }).toArray()
-                    let EventCount = EventThisId.length
-                    OffStageEvents[i].LimitStatus = EventCount
-                }
-                resolve(OffStageEvents)
-            }
-        })
-
-    },
-
-    addEvent: (body) => {
-        return new Promise(async (resolve, reject) => {
-            // Student check in Group
-            let StudentDetails = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo })
-
-            if (StudentDetails) {
-                // check Session number
-                let groupDetails = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId })
-                let SessionSlno = null
-                let AllSessions = [groupDetails.Session1, groupDetails.Session2, groupDetails.Session3, groupDetails.Session4, groupDetails.Session5, groupDetails.Session6]
-                for (let i = 0; i < AllSessions.length; i++) {
-
-                    if (AllSessions[i] === undefined) {
-                    } else if (AllSessions[i].SessionName === StudentDetails.SessionName) {
-                        SessionSlno = i
-                    } else {
-
-                    }
-                }
-                // check stage or offStage
-
-                let Students = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo })
-
-                let OffStage = body.Category === "Off Stage"
-                let Stage = body.Category === "Stage"
-
-                if (Stage) {
-
-                    let StageCount = 0
-                    let GeneralStageCount = 0;
-                    for (let i = 0; i < Students.StageEvents.length; i++) {
-                        if (Students.StageEvents[i].status === "General") {
-                            GeneralStageCount = GeneralStageCount + 1
-                        } else if (Students.StageEvents[i].status === "NonGeneral") {
-                            StageCount = StageCount + 1
-                        }
-                    }
-                    let TotalStageCount = StageCount + GeneralStageCount
-
-                    // already use check
-                    let EventOneCheck = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, ChestNo: body.ChestNo, "StageEvents.EventId": body.EventId })
-                    if (EventOneCheck) {
-                        resolve({ EventAlreadyUsedError: true })
-                    } else {
-                        // Event Limit check
-                        let limitStatus = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: body.FestId, GroupId: body.GroupId, "StageEvents.EventId": body.EventId }).toArray()
-                        let eventLimit = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: body.FestId, "StageItem.EventId": body.EventId })
-
-                        let Event = null;
-                        eventLimit.StageItem.forEach((item) => {
-                            if (item.EventId === body.EventId) {
-                                Event = item;
-                            }
-                        });
-                        if (limitStatus.length < Event.EventLimit) {
-                            // Session sime check
-
-                            if (AllSessions[SessionSlno].SessionName === body.SessionName) {
-
-                                // Studnet limit check
-                                if (AllSessions[SessionSlno].StageEventCount === undefined) {
-                                    resolve({ TotalCountError: true })
-                                } else {
-                                    if (AllSessions[SessionSlno].GeneralStageEventCount) {
-                                        if (AllSessions[SessionSlno].StageEventCount > StageCount) {
-                                            Event.status = "NonGeneral"
-                                            // add Event
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    StageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    } else {
-                                        if (AllSessions[SessionSlno].StageEventCount > TotalStageCount) {
-                                            Event.status = "NonGeneral"
-                                            // add Event
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    StageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    }
-                                }
-                            } else {
-
-                                let checkGeneral = null
-                                for (let i = 0; i < AllSessions.length; i++) {
-                                    if (AllSessions[i] === undefined) {
-                                    } else if (AllSessions[i].SessionName === body.SessionName) {
-                                        checkGeneral = i
-
-                                    } else {
-
-                                    }
-                                }
-
-                                if (AllSessions[checkGeneral].status === "NonGeneral") {
-                                    resolve({ ChestNOError: true })
-                                } else {
-
-                                    let checkEventCountGeneral = null
-                                    for (let i = 0; i < AllSessions.length; i++) {
-                                        if (AllSessions[i] === undefined) {
-                                        } else if (AllSessions[i].SessionName === StudentDetails.SessionName) {
-                                            checkEventCountGeneral = i
-
-                                        } else {
-
-                                        }
-                                    }
-
-                                    let GeneralStageCount = 0;
-                                    for (let i = 0; i < Students.StageEvents.length; i++) {
-                                        if (Students.StageEvents[i].status === "General") {
-                                            GeneralStageCount = GeneralStageCount + 1
-
-                                        }
-                                    }
-
-                                    if (AllSessions[checkEventCountGeneral].GeneralStageEventCount === undefined || AllSessions[checkEventCountGeneral].GeneralStageEventCount.toString() === 'NaN') {
-                                        if (AllSessions[checkEventCountGeneral].StageEventCount === undefined || AllSessions[checkEventCountGeneral].StageEventCount.toString() === 'NaN') {
-                                            resolve({ TotalCountError: true })
-                                        } else {
-
-                                            // Not general  count
-                                            if (AllSessions[SessionSlno].GeneralStageEventCount) {
-                                                if (AllSessions[SessionSlno].GeneralStageEventCount > GeneralStageCount) {
-                                                    Event.status = "General"
-                                                    db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                        $push: {
-                                                            StageEvents: Event
-                                                        }
-                                                    }).then(() => {
-                                                        resolve({ Success: true })
-                                                    })
-                                                } else {
-                                                    resolve({ StudentStageCountOver: true })
-
-                                                }
-                                            } else {
-                                                if (AllSessions[SessionSlno].StageEventCount > TotalStageCount) {
-                                                    Event.status = "General"
-                                                    db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                        $push: {
-                                                            StageEvents: Event
-                                                        }
-                                                    }).then(() => {
-
-                                                        resolve({ Success: true })
-                                                    })
-                                                } else {
-                                                    resolve({ StudentStageCountOver: true })
-
-                                                }
-                                            }
-                                        }
-
-                                    } else {
-                                        if (AllSessions[checkEventCountGeneral].GeneralStageEventCount > GeneralStageCount) {
-                                            // add Event
-                                            Event.status = "General"
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    StageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    }
-
-                                }
-
-                            }
-                        } else {
-                            resolve({ EventLimitError: true })
-                        }
-                    }
-                } else if (OffStage) {
-                    let OffStageCount = 0
-                    let GeneralOffStageCount = 0;
-                    for (let i = 0; i < Students.OffStageEvents.length; i++) {
-                        if (Students.OffStageEvents[i].status === "General") {
-                            GeneralOffStageCount = GeneralOffStageCount + 1
-                        } else if (Students.OffStageEvents[i].status === "NonGeneral") {
-                            OffStageCount = OffStageCount + 1
-                        }
-                    }
-                    let TotalOffStageCount = OffStageCount + GeneralOffStageCount
-                    // already use check
-                    let EventOneCheck = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId: body.FestId, ChestNo: body.ChestNo, "OffStageEvents.EventId": body.EventId })
-                    if (EventOneCheck) {
-                        resolve({ EventAlreadyUsedError: true })
-                    } else {
-                        // Event Limit check
-                        limitStatus = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId: body.FestId, GroupId: body.GroupId, "OffStageEvents.EventId": body.EventId }).toArray()
-                        eventLimit = await db.get().collection(collection.ITEM_COLLECTION).findOne({ FestId: body.FestId, "OffstageItem.EventId": body.EventId })
-
-                        let Event = null;
-                        eventLimit.OffstageItem.forEach((item) => {
-                            if (item.EventId === body.EventId) {
-                                Event = item;
-                            }
-                        });
-                        if (limitStatus.length < Event.EventLimit) {
-                            // Session sime check
-
-                            if (AllSessions[SessionSlno].SessionName === body.SessionName) {
-
-                                // Studnet limit check
-                                if (AllSessions[SessionSlno].OffStageEventCount === undefined || AllSessions[SessionSlno].OffStageEventCount.toString() === 'NaN') {
-                                    resolve({ TotalCountError: true })
-                                } else {
-                                    if (AllSessions[SessionSlno].GeneralOffStageEventCount) {
-                                        if (AllSessions[SessionSlno].OffStageEventCount > OffStageCount) {
-                                            Event.status = "NonGeneral"
-                                            // add Event
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    OffStageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    } else {
-                                        if (AllSessions[SessionSlno].OffStageEventCount > TotalOffStageCount) {
-                                            Event.status = "NonGeneral"
-                                            // add Event
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    OffStageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    }
-                                }
-                            } else {
-
-                                let checkGeneral = null
-                                for (let i = 0; i < AllSessions.length; i++) {
-                                    if (AllSessions[i] === undefined) {
-                                    } else if (AllSessions[i].SessionName === body.SessionName) {
-                                        checkGeneral = i
-
-                                    } else {
-
-                                    }
-                                }
-
-                                if (AllSessions[checkGeneral].status === "NonGeneral") {
-                                    resolve({ ChestNOError: true })
-                                } else {
-                                    let checkEventCountGeneral = null
-                                    for (let i = 0; i < AllSessions.length; i++) {
-                                        if (AllSessions[i] === undefined) {
-                                        } else if (AllSessions[i].SessionName === StudentDetails.SessionName) {
-                                            checkEventCountGeneral = i
-
-                                        } else {
-
-                                        }
-                                    }
-
-                                    if (AllSessions[checkEventCountGeneral].GeneralOffStageEventCount === undefined || AllSessions[checkEventCountGeneral].GeneralOffStageEventCount.toString() === 'NaN') {
-                                        if (AllSessions[checkEventCountGeneral].OffStageEventCount === undefined || AllSessions[checkEventCountGeneral].OffStageEventCount.toString() === 'NaN') {
-                                            resolve({ TotalCountError: true })
-                                        } else {
-                                            if (AllSessions[SessionSlno].GeneralOffStageEventCount) {
-                                                if (AllSessions[checkEventCountGeneral].GeneralOffStageEventCount > GeneralOffStageCount) {
-
-                                                    Event.status = "General"
-                                                    db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                        $push: {
-                                                            OffStageEvents: Event
-                                                        }
-                                                    }).then(() => {
-                                                        resolve({ Success: true })
-                                                    })
-                                                } else {
-                                                    resolve({ StudentStageCountOver: true })
-                                                }
-                                            } else {
-                                                if (AllSessions[checkEventCountGeneral].OffStageEventCount > TotalOffStageCount) {
-
-                                                    Event.status = "General"
-                                                    db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                        $push: {
-                                                            OffStageEvents: Event
-                                                        }
-                                                    }).then(() => {
-                                                        resolve({ Success: true })
-                                                    })
-                                                } else {
-                                                    resolve({ StudentStageCountOver: true })
-                                                }
-                                            }
-                                        }
-
-                                    } else {
-
-                                        if (AllSessions[checkEventCountGeneral].GeneralOffStageEventCount > GeneralOffStageCount) {
-
-                                            // add Event
-                                            Event.status = "General"
-                                            db.get().collection(collection.STUDENTS_COLLECTION).updateMany({ FestId: body.FestId, GroupId: body.GroupId, ChestNo: body.ChestNo }, {
-                                                $push: {
-                                                    OffStageEvents: Event
-                                                }
-                                            }).then(() => {
-                                                resolve({ Success: true })
-                                            })
-                                        } else {
-
-                                            resolve({ StudentStageCountOver: true })
-                                        }
-                                    }
-
-                                }
-
-                            }
-                        } else {
-                            resolve({ EventLimitError: true })
-                        }
-                    }
-                }
-            } else {
-                resolve({ ChestNOError: true })
-            }
-        })
-    },
-
-    removeStudent: (FestId, GroupId, ChestNo, SessionName) => {
-        return new Promise(async (resolve, reject) => {
-            let student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, ChestNo })
-            if (student.StageEvents[0] || student.OffStageEvents[0]) {
-                resolve({ studentEventTrueError: true })
-            } else {
-                db.get().collection(collection.STUDENTS_COLLECTION).deleteOne({ FestId, GroupId, ChestNo }).then(async (response) => {
-
-                    let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId, GroupId })
-
-                    if (Group.Session1.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session1.StudentsCount": Group.Session1.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-
-                    } else if (Group.Session2.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session2.StudentsCount": Group.Session2.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-                    } else if (Group.Session3.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session3.StudentsCount": Group.Session3.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-                    } else if (Group.Session4.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session4.StudentsCount": Group.Session4.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-                    } else if (Group.Session5.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session5.StudentsCount": Group.Session5.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-                    } else if (Group.Session6.SessionName === SessionName) {
-                        db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId, GroupId }, [{
-                            "$set": {
-                                "Session6.StudentsCount": Group.Session6.StudentsCount - 1
-                            }
-                        }])
-                        resolve()
-                    }
-                })
-            }
-        })
-
-    },
-
-    getEventStudents: (FestId, GroupId, CategoryName, EventId) => {
-        return new Promise(async (resolve, reject) => {
-            let Stage = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId, "StageEvents.EventId": EventId }).toArray()
-            let OffStage = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId, "OffStageEvents.EventId": EventId }).toArray()
-            if (Stage[0]) {
-                resolve(Stage)
-            } else if (OffStage[0]) {
-                resolve(OffStage)
-            } else {
-                resolve()
-            }
-
-        })
-    },
-
-    getSessionFullStudents: (FestId, GroupId) => {
-
-        return new Promise(async (resolve, reject) => {
-            let AllStudent = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId }).toArray()
-            resolve(AllStudent)
-        })
-
-    },
-
-    editStudentDetails: (FestId, GroupId, ChestNo, body) => {
-
-        return new Promise(async (resolve, reject) => {
-            let CicNo = body.CicNo
-            let thisStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, GroupId, CicNo: body.CicNo })
-            let student = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ FestId, CicNo })
-
-            if (thisStudent.CicNo === body.CicNo) {
-                db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ FestId, GroupId, CicNo: body.CicNo }, {
-                    $set: {
-                        ChestNo: body.ChestNo,
-                        FullName: body.FullName
-                    }
-                }).then(() => {
-                    resolve()
-
-                })
-            } else if (student) {
-                resolve({ CicnoMatchError: true })
-
-            } else {
-                db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ FestId, GroupId, ChestNo }, {
-                    $set: {
-                        CicNo: body.CicNo,
-                        FullName: body.FullName
-                    }
-                }).then(() => {
-                    resolve()
-
-                })
-            }
-        })
-
-    },
-
-    changePassword: (body) => {
-        return new Promise(async (resolve, reject) => {
-            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId })
+            let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId: body.EventId, GroupId: body.GroupId })
             bcrypt.compare(body.CurrentPassword, Group.Password).then(async (status) => {
                 if (status) {
 
-                    passwordNew = await bcrypt.hash(body.NewPassword, 10)
-
-                    db.get().collection(collection.GROUP_COLLECTION).updateOne({ FestId: body.FestId, GroupId: body.GroupId },
+                    let passwordNew = await bcrypt.hash(body.NewPassword, 10)
+                    db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId: body.EventId, GroupId: body.GroupId },
                         {
                             $set: {
                                 Password: passwordNew,
                                 PasswordFor: body.NewPassword
                             }
-                        }).then((response) => {
-
-                            resolve(passwordSuccess = true)
-
+                        }).then(() => {
+                            resolve({ passwordSuccess: true })
                         });
                 } else {
                     resolve()
@@ -819,201 +81,184 @@ module.exports = {
     },
 
     // Notification
-
-    getNewNotificaionCount: (FestId, GroupId) => {
+    getGroupNotifications: (EventId, GroupId) => { ////*
         return new Promise(async (resolve, reject) => {
-            let group = await db.get().collection(collection.NOTIFICATION_COLLECTION).findOne({ FestId, GroupId })
-            let newMessageCount = 0
-
-
-
-            for (let i = 0; i < group.Notifications.length; i++) {
-                if (group.Notifications[i].Read === 1 && group.Notifications[i].Clear === undefined) {
-                    newMessageCount = newMessageCount + 1
+            let Notifi = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, GroupId }, {
+                projection: { _id: 0, Notifications: 1, GroupId: 1, GroupName: 1 }
+            })
+            for (let i = 0; i < Notifi.Notifications.length; i++) {
+                if (Notifi.Notifications[i].Subject.length > 35) {
+                    Notifi.Notifications[i].Subject = Notifi.Notifications[i].Subject.slice(0, 35) + "..."
                 }
+                if (Notifi.Notifications[i].Content.length > 140) {
+                    Notifi.Notifications[i].Content = Notifi.Notifications[i].Content.slice(0, 140) + "..."
+                }
+                Notifi.Notifications[i].Date = Notifi.Notifications[i].Date.toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
             }
-
-            if (newMessageCount > 99) {
-                newMessageCount = "99+"
-                resolve(newMessageCount)
-
-            } else if (newMessageCount === 0) {
-                newMessageCount = null
-                resolve(newMessageCount)
-            } else {
-                resolve(newMessageCount)
-            }
+            Notifi.Notifications.reverse()
+            resolve(Notifi)
         })
 
     },
 
-    getFullNotifications: (FestId, GroupId) => {
+    isAllGroupActive: (EventId) => { ////*
         return new Promise(async (resolve, reject) => {
-            let group = await db.get().collection(collection.NOTIFICATION_COLLECTION).findOne({ FestId, GroupId })
-            let list = group.Notifications
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].Header.length > 35) {
-                    list[i].Header = list[i].Header.slice(0, 35) + "..."
+            try {
+                let groups = await db.get().collection(collection.GROUP_COLLECTION).find({ EventId }).toArray()
+                let flag = false
+                for (let i = 0; i < groups.length; i++) {
+                    if (groups[i].GroupId === "") {
+                        flag = flag === false ? 1 : flag + 1;
+                    }
                 }
-                if (list[i].Message.length > 140) {
-                    list[i].Message = list[i].Message.slice(0, 140) + "..."
-                }
+                resolve(flag)
+            } catch (error) {
 
             }
-            resolve(list.reverse())
         })
-
     },
 
-    sawNotification: (body, FestId) => {
-        return new Promise((resolve, reject) => {
+    ActivateGroup: (EventId, GroupName, body) => { ////*
+        return new Promise(async (resolve, reject) => {
+            body.GroupId = createRandomId(5, "G", 'number')
+            body.PasswordFor = createRandomId(10, "", 'symbol')
+            body.Password = await bcrypt.hash(body.PasswordFor, 10)
 
-
-            db.get().collection(collection.NOTIFICATION_COLLECTION).updateOne({ FestId: FestId, GroupId: body.GroupId }, {
+            const Notification = {
+                MessageId: createRandomId(10, ''),
+                Subject: 'Welcome Note',
+                Content: "Hi Convener, Your Group Account is Activated before just menuts.Please Read the Help & Info Page for understand about use this event website. Thank you",
+                Link: '',
+                Date: new Date(),
+                Type: "Notifi_Auto",
+                Read: false,
+                View: false
+            }
+            db.get().collection(collection.GROUP_COLLECTION).update({ EventId, GroupName }, {
                 $set: {
-                    "Notifications.$[].View": null
+                    Convener: body.Convener,
+                    GroupId: body.GroupId,
+                    Password: body.Password,
+                    PasswordFor: body.PasswordFor,
+                    EditStudent: false,
+                    CreateStudent: false,
+                    ChooseItem: false,
+                },
+                $push: {
+                    Notifications: Notification
                 }
-            }).then(() => {
+            }).then((response) => {
                 resolve()
             })
-
         })
 
     },
 
-    readOneNotification: (body, FestId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.NOTIFICATION_COLLECTION).updateOne({
-                FestId, GroupId: body.GroupId,
-                Notifications: {
-                    $elemMatch: {
-                        MessageId: body.MessageId
+    getAllGroups: (EventId) => { ////*
+        return new Promise(async (resolve, reject) => {
+            let allGroups = await db.get().collection(collection.GROUP_COLLECTION).find({ EventId }).toArray()
+            resolve(allGroups)
+        })
+    },
+
+    getAllGroupsGroupItem: (EventId) => { ////*
+        return new Promise(async (resolve, reject) => {
+            let studentEvents = await db.get().collection(collection.GROUP_COLLECTION).aggregate([
+                {
+                    $match: {
+                        EventId
                     }
-                }
-            }, {
-                $set: {
-                    "Notifications.$.Read": null
-                }
-            }).then((response) => {
-                resolve(response)
-            })
-        })
+                },
+                {
+                    $lookup: {
+                        from: collection.ITEM_COLLECTION,
+                        let: { itemIds: '$GroupItems.ItemId' },
+                        pipeline: [
+                            {
+                                $unwind: '$Sub'
+                            },
+                            {
+                                $unwind: "$Sub.Items"
+                            }, {
+                                $match: {
+                                    $expr: {
+                                        $in: ["$Sub.Items.ItemId", '$$itemIds']
+                                    }
+                                }
+                            },
+                            {
+                                $project: {
+                                    _id: 0,
+                                    ItemId: "$Sub.Items.ItemId",
+                                    Name: "$Sub.Items.Name",
+                                    ItemCategory: '$CategoryName',
+                                    ItemSubCategory: '$Sub.Title',
+                                    CategoryName: "$Sub.Items.CategoryName",
+                                    Type: "$Sub.Items.Type",
+                                    Limit: "$Sub.Items.Limit",
+                                    ResultPublish: "$Sub.Items.ResultPublish",
+                                    MarkAdded: "$Sub.Items.MarkAdded",
+                                    Grade: '$itemIds.Grade'
+                                }
+                            }
+                        ],
 
-    },
-
-    clearOneNotification: (body, FestId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.NOTIFICATION_COLLECTION).updateOne({
-                FestId, GroupId: body.GroupId,
-                Notifications: {
-                    $elemMatch: {
-                        MessageId: body.MessageId
+                        as: 'ItemDetails'
                     }
-                }
-            }, {
-                $set: {
-                    "Notifications.$.Clear": 1
-                }
-            }).then((response) => {
-                resolve(response)
-            })
-        })
-    },
-    readFullNotification: (body, FestId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.NOTIFICATION_COLLECTION).updateOne({ FestId: FestId, GroupId: body.GroupId }, {
-                $set: {
-                    "Notifications.$[].Read": null
-                }
-            }).then((response) => {
-                resolve(response)
-            })
-
-        })
-
-    },
-
-    getOneMessage: (FestId, GroupId, MessageId) => {
-        return new Promise(async (resolve, reject) => {
-            let messages = await db.get().collection(collection.NOTIFICATION_COLLECTION).findOne({ FestId, GroupId })
-            let OneMessage = ''
-            for (let i = 0; i < messages.Notifications.length; i++) {
-                if (messages.Notifications[i].MessageId === MessageId) {
-                    OneMessage = messages.Notifications[i]
-                }
-            }
-            resolve(OneMessage)
-        })
-
-    },
-    getOneMessageWithOutGroupId: (FestId, MessageId) => {
-
-        return new Promise(async (resolve, reject) => {
-            let messages = await db.get().collection(collection.NOTIFICATION_COLLECTION).find({ FestId }).toArray()
-            let OneMessage = ''
-            for (let a = 0; a < messages.length; a++) {
-
-                for (let i = 0; i < messages[a].Notifications.length; i++) {
-
-                    if (messages[a].Notifications[i].MessageId === MessageId) {
-                        OneMessage = messages[a].Notifications[i]
-                    }
-                }
-            }
-            resolve(OneMessage)
-        })
-
-    },
-
-    getLetest3Notification: (FestId, GroupId) => {
-        return new Promise(async (resolve, reject) => {
-            let notifications = await db.get().collection(collection.NOTIFICATION_COLLECTION).findOne({ FestId, GroupId })
-            var newNoti = notifications.Notifications.reverse().slice(0, 4);
-            resolve(newNoti)
-        })
-
-    },
-
-    refreshSessionPage: (body) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId: body.GroupId }).then((response) => {
-
-                resolve(response)
-            })
-        })
-
-    },
-
-    noEventStudentCount: (FestId, GroupId) => {
-        return new Promise(async (resolve, reject) => {
-            let noEventStudentCount = await db.get().collection(collection.STUDENTS_COLLECTION).find({ FestId, GroupId }).toArray()
-            let StudentwithoutProgram = []
-            for (let i = 0; i < noEventStudentCount.length; i++) {
-                if (noEventStudentCount[i].StageEvents.length == 0) {
-                    if (noEventStudentCount[i].OffStageEvents.length == 0) {
-                        let Obj = {
-                            GroupId: noEventStudentCount[i].GroupId,
-                            SessionName: noEventStudentCount[i].SessionName,
-                            ChestNo: noEventStudentCount[i].ChestNo,
-                            FullName: noEventStudentCount[i].FullName,
-                            CicNo: noEventStudentCount[i].CicNo
+                },
+                {
+                    $addFields: {
+                        "Items": {
+                            $map: {
+                                input: "$GroupItems",
+                                as: "item",
+                                in: {
+                                    $mergeObjects: [
+                                        "$$item",
+                                        {
+                                            $arrayElemAt: [
+                                                {
+                                                    $filter: {
+                                                        input: "$ItemDetails",
+                                                        as: "detail",
+                                                        cond: { $eq: ["$$detail.ItemId", "$$item.ItemId"] }
+                                                    }
+                                                },
+                                                0
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
                         }
-                        StudentwithoutProgram.push(Obj)
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        ItemDetails: 0,
+                        Password: 0, PasswordFor: 0, Category: 0, GroupItems: 0, SlNo: 0, Convener: 0
+
                     }
                 }
-
-            }
-            StudentwithoutProgram.totalWithoutStudentCount = StudentwithoutProgram.length
-            resolve(StudentwithoutProgram)
+            ]).toArray()
+            resolve(studentEvents)
         })
 
-    }
+    },
 
+    fetchData: ({ GroupId }) => {////*
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId }).then((response) => {
+                delete response.Password
+                delete response.Notifications
+                delete response.GroupItems
+                delete response.PasswordFor
+                delete response.Category
+                resolve(response)
+            })
+        })
 
-
-
-
-
-
+    },
 
 }

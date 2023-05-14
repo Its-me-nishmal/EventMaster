@@ -5,7 +5,7 @@ const studentHelpers = require('./student-helpers')
 
 module.exports = {
 
-    totalMarkAllGroups: (EventId) => { ////*
+    totalMarkAllGroups: (EventId) => { ////+++
         return new Promise(async (resolve, reject) => {
             let TotalMark = []
             // 1. Get Group Details
@@ -40,7 +40,7 @@ module.exports = {
 
             for (let i = 0; i < students.length; i++) {
                 for (let a = 0; a < students[i].Items.length; a++) {
-                    if (students[i].Items[a].Mark !== 0 && students[i].Items[a].MarkAdded === true) {
+                    if (students[i].Items[a].Mark !== 0 && students[i].Items[a].ResultPublish === true) {
                         for (let j = 0; j < TotalMark.length; j++) {
                             if (TotalMark[j].GroupId === students[i].GroupId) {
                                 for (let k = 0; k < TotalMark[j].Category.length; k++) {
@@ -66,7 +66,7 @@ module.exports = {
 
             for (let i = 0; i < groupMark.length; i++) {
                 for (let a = 0; a < groupMark[i].Items.length; a++) {
-                    if (groupMark[i].Items[a].Mark !== 0 && groupMark[i].Items[a].MarkAdded === true) {
+                    if (groupMark[i].Items[a].Mark !== 0 && groupMark[i].Items[a].ResultPublish === true) {
                         for (let j = 0; j < TotalMark.length; j++) {
                             if (TotalMark[j].GroupId === groupMark[i].GroupId) {
                                 for (let k = 0; k < TotalMark[j].Category.length; k++) {
@@ -93,7 +93,7 @@ module.exports = {
 
     },
 
-    GrandWinnerStudent: (EventId) => { ////*
+    GrandWinnerStudent: (EventId) => { ////+++
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).aggregate([
                 {
@@ -182,6 +182,11 @@ module.exports = {
                 },
                 {
                     $unwind: '$Items'
+                },
+                {
+                    $match: {
+                        "Items.ResultPublish": true
+                    }
                 },
                 {
                     $group: {

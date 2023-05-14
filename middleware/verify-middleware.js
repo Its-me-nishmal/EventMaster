@@ -1,42 +1,48 @@
 const userHelpers = require('../helpers/user-helpers')
-const groupHelpers = require('../helpers/group-helpers')
+const groupHelpers = require('../helpers/group-helpers');
+const eventHelpers = require('../helpers/event-helpers');
 
-const verifyActiveFest = async (req, res, next) => {
-    let activeFest = await userHelpers.activeFest()
-    let activeResult = await userHelpers.activeResult()
-    if (activeFest) {
-        if (activeResult) {
-            if (req.session.user.FestId == activeFest.FestId) {
-                next()
-            } else {
-                res.redirect('/')
-            }
-        } else {
-            res.redirect('/')
-        }
+const verifyActiveEvent = async (req, res, next) => {
+    console.log(req.params);
+    const event = await eventHelpers.getEventDetails(req.params.EventId)
+    if (event?.Launch && event?.ResultPublish) {
+        delete event.BuildStage
+        delete event.Files
+        delete event.Mobile
+        delete event.EmailId
+        req.session.e = event
+        next()
+    } else if (event?.Launch && !event?.ResultPublish) {
+        delete event.BuildStage
+        delete event.Files
+        delete event.Mobile
+        delete event.EmailId
+        req.session.e = event
+        let eventDetails = req.session.e
+        res.render('user/home/unPublishPage', { eventDetails, footer: true })
     } else {
         res.redirect('/')
     }
 };
 
-const verifyGroupLogin = async (req, res, next) => {
+const verifyGroupLogin = async (req, res, next) => {////
 
     if (req.session.group) {
         let Group = req.session.group
-        let GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.FestId)
+        let GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.EventId)
 
-        if (GroupDetails === undefined) {
+        if (GroupDetails) {
+            next()
+        } else {
             req.session.group = null
             res.redirect('/group/login')
-        } else {
-            next()
         }
     } else {
         res.redirect('/group/login')
     }
 };
 
-const verifyAdminLogin = (req, res, next) => {
+const verifyAdminLogin = (req, res, next) => {   ////
     if (req.session.admin) {
         next()
     } else {
@@ -44,13 +50,15 @@ const verifyAdminLogin = (req, res, next) => {
     }
 };
 
-const verifyFestLogin = (req, res, next) => {
-    if (req.session.fest) {
+const verifyEventLogin = (req, res, next) => {  ////
+    if (req.session.event) {
         next()
     } else {
-        res.redirect('/admin')
+        req.session.admin
+            ? res.redirect('/admin')
+            : res.redirect('/event/login')
     }
 };
 
 
-module.exports = { verifyActiveFest, verifyGroupLogin, verifyAdminLogin, verifyFestLogin }
+module.exports = { verifyActiveEvent, verifyGroupLogin, verifyAdminLogin, verifyEventLogin }
