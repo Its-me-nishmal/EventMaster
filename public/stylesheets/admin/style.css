@@ -841,45 +841,6 @@
     z-index: 4;
 }
 
-.sidebarborder::-webkit-scrollbar {
-    width: 6px;
-    background-color: rgb(255, 219, 236);
-}
-
-/* Track */
-
-.sidebarborder::-webkit-scrollbar-track {
-    background-color: var(--color-four);
-}
-
-/* Handle */
-
-.sidebarborder::-webkit-scrollbar-thumb {
-    background: rgb(255, 115, 169);
-    border-radius: 20px;
-    border-right: 2px solid var(--color-four);
-}
-
-/* onclick side bar */
-.sidebarboarder-onClick-menu::-webkit-scrollbar {
-    width: 6px;
-    background-color: rgb(255, 219, 236);
-}
-
-/* Track */
-
-.sidebarboarder-onClick-menu::-webkit-scrollbar-track {
-    background-color: var(--color-four);
-}
-
-/* Handle */
-
-.sidebarboarder-onClick-menu::-webkit-scrollbar-thumb {
-    background: rgb(255, 115, 169);
-    border-radius: 20px;
-    border-right: 2px solid var(--color-four);
-}
-
 .sidebarheader {
     padding-top: 65px;
     position: relative;
@@ -929,7 +890,50 @@
 
 .sidebarcontent-border {
     width: 100%;
+    overflow-y: scroll;
+    height: calc(100vh - 250px);
 }
+
+
+.sidebarcontent-border::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgb(255, 219, 236);
+}
+
+/* Track */
+
+.sidebarcontent-border::-webkit-scrollbar-track {
+    background-color: var(--color-four);
+}
+
+/* Handle */
+
+.sidebarcontent-border::-webkit-scrollbar-thumb {
+    background: rgb(255, 115, 169);
+    border-radius: 20px;
+    border-right: 2px solid var(--color-four);
+}
+
+/* onclick side bar */
+.sidebarboarder-onClick-menu::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgb(255, 219, 236);
+}
+
+/* Track */
+
+.sidebarboarder-onClick-menu::-webkit-scrollbar-track {
+    background-color: var(--color-four);
+}
+
+/* Handle */
+
+.sidebarboarder-onClick-menu::-webkit-scrollbar-thumb {
+    background: rgb(255, 115, 169);
+    border-radius: 20px;
+    border-right: 2px solid var(--color-four);
+}
+
 
 .sidebarmenus {
     color: white;
@@ -1067,7 +1071,7 @@
     border-radius: 10px;
     margin-top: 10px;
     cursor: pointer;
-    margin-left: 27px;
+    margin-left: 87px;
     box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
     -webkit-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78);
     -moz-box-shadow: 0px 0px 20px 0px rgba(158, 158, 158, 0.78)
@@ -2596,8 +2600,8 @@
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
     width: 100%;
-    text-align: end;
-    padding-right: 25px;
+    
+    padding-left: 25px;
     padding-top: 5px;
     padding-bottom: 5px;
     box-sizing: border-box;

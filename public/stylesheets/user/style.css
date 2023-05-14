@@ -2,7 +2,7 @@
 
     font-family: 'Trebuchet MS', Arial, sans-serif;
     /* font-family: "Rubik",-apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;; */
-
+    /* font-family: 'Montserrat', sans-serif; */
 
 }
 
@@ -46,6 +46,7 @@ a {
     background-color: rgb(253, 196, 196);
     position: absolute;
     width: 320px;
+    max-width: 320px;
     right: 10px;
     top: -50px;
     display: flex;

@@ -292,6 +292,16 @@
     padding-right: 15px;
     font-size: 16px;
 }
+.addStudetns-form :last-child select {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 50px;
+    box-sizing: border-box;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+}
 
 .addStudetns-form-Button {
     display: flex;
