@@ -1,0 +1,377 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/groups/{{GroupDetails.GroupId}}/view"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i>
+                            Back</span></a>{{GroupDetails.GroupName}} / {{Category}} / All students
+                </h4>
+                <hr>
+            </div>
+
+            <div class="pointTable-addButton">
+                <p>Create new studnet :</p>
+                <a href="/event/{{Event.EventId}}/groups/{{GroupDetails.GroupId}}/{{Category}}/students/add-student">
+                    <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
+                </a>
+            </div>
+            <div class="groups-content">
+                <div class="GroupAllStudents-content">
+
+                    <div class="GroupStudents-Table-content">
+
+                        <div class="allStudents-SessionTwo">
+                            <table id="AllStudents" class="auto-index">
+                                <thead>
+                                    <tr>
+                                        <th class="StudentsTable-TR-Slno">Sl no</th>
+                                        <th class="StudentsTable-TR-ChestNo">Chest No</th>
+                                        <th class="StudentsTable-TR-CIC">CIC No</th>
+                                        <th class="StudentsTable-TR-Name">Name</th>
+                                        <th class="StudentsTable-TR-Control">Events</th>
+                                        {{#if Event.MarkStatus}}{{else}}
+                                        <th class="StudentsTable-TR-Control">Control</th>
+                                        {{/if}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each AllStudents}}
+                                    <tr>
+                                        <td class="StudentsTable-TD-Slno"></td>
+                                        <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                        <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+                                        <td class="StudentsTable-TD-Name">{{this.Name}}</td>
+                                        <td> <a
+                                                href="/event/{{../Event.EventId}}/groups/{{../GroupDetails.GroupId}}/{{../Category}}/students/{{this.ChestNo}}/view">
+                                                <button class="pointCateoryDeletButton"
+                                                    style="background-color: rgb(59, 59, 59); font-size:15px;">View</button>
+                                            </a>
+                                        </td>
+                                        {{#if ../Event.MarkStatus}}{{else}}
+                                        <td>
+                                            <a href="/event/{{../Event.EventId}}/groups/{{../GroupDetails.GroupId}}/{{../Category}}/students/{{this.ChestNo}}/delete"
+                                                onclick="return confirm('Are you want to delete  {{this.ChestNo}} - {{this.Name}} ?')"><button
+                                                    class="pointCateoryDeletButton"> <i
+                                                        class="bi bi-trash"></i></button></a>
+
+                                        </td>{{/if}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="pointTable-printbutton">
+                <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                        class="bi bi-printer-fill"></i>
+                    Print</button>
+                <button style="background-color: black;" class="print-button"
+                    onclick="PrintDiv('print-containe','nsaonline.in')"><i class="bi bi-printer-fill"></i>
+                    Print with Events</button>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+
+                        <table class="auto-index print-Table">
+                            {{#if AllStudents.[0]}}
+                            <thead>
+                                <tr>
+                                    <th class="StudentsTable-TR-Slno">Sl no</th>
+                                    <th class="StudentsTable-TR-ChestNo">Chest No</th>
+                                    <th class="StudentsTable-TR-CIC">CIC No</th>
+                                    <th class="StudentsTable-TR-Name">Full name</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each AllStudents}}
+                                <tr>
+                                    <td class="StudentsTable-TD-Slno"></td>
+                                    <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
+                                    <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
+                                    <td class="StudentsTable-TD-Name">{{this.FullName}}</td>
+
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                            {{else}}
+                            <div class="pointTable-nodataDiv">
+                                <p style="text-align: center;">No data available...</p>
+                            </div>
+                            {{/if}}
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{Event.EventId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{Event.FestName}} </h2>
+                    <h4>EventId : {{Event.EventId}}</h4>
+                    <p> Fest Date :{{Event.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - All Students ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+</div>
+
+{{!-- print side --}}
+<div hidden id="print-containe">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+
+                        {{#if AllStudents.[0]}}
+                        {{#each AllStudents}}
+                        <table class="   print-Table">
+                            <thead>
+                                <tr></tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="studentHead">
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" rowspan="4">Chest no:<br> <span
+                                            style="font-size: 35px; font-weight: bold;">{{this.ChestNo}}</span></td>
+                                    <td colspan="4" style="text-align: start;"> Full name : {{this.FullName}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="2" style="text-align: start;">CIC no: {{this.CicNo}}</td>
+                                    <td colspan="2" style="text-align: start;">{{SessionName}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">Group Name : ( {{this.GroupId}} )</td>
+                                </tr>
+                                {{#if ../EventLimit.GeneralStageEventCount}}
+                                <tr class="studentHead">
+                                    <td style="display: none;"></td>
+                                    <td colspan="6">
+                                        <p> <span style="font-weight: 600;">Non general</span> | Stage event :
+                                            {{../EventLimit.StageEventCount}} | Offstage
+                                            event :
+                                            {{../EventLimit.OffStageEventCount}}</p>
+                                    </td>
+                                </tr>
+                                <tr class="studentHead">
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">
+                                        <p> <span style="font-weight: 600;">General</span> | Stage event :
+                                            {{../EventLimit.GeneralStageEventCount}}
+                                            |
+                                            Offstage
+                                            event :
+                                            {{../EventLimit.GeneralOffStageEventCount}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                <tr class="studentHead">
+                                    <td style="display: none;"></td>
+                                    <td colspan="4" style="text-align: start;">
+                                        <p>Stage event : {{../EventLimit.StageEventCount}} |
+                                            Offstage
+                                            event :{{../EventLimit.OffStageEventCount}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                {{/if}}
+
+
+                                <tr>
+                                    <th class="StudentsTable-TR-Slno">Sl no</th>
+                                    <th class="StudentsTable-TR-ChestNo">Event ID</th>
+                                    <th class="StudentsTable-TR-CIC">Event </th>
+                                    <th class="StudentsTable-TR-Name">Category</th>
+                                    <th class="StudentsTable-TR-Control">point category</th>
+
+                                </tr>
+
+
+                                {{#each this.StageEvents}}
+                                <tr>
+                                    <td class="StudentsTable-TD-Slno"></td>
+                                    <td class="StudentsTable-TD-ChestNo">{{this.EventId}}</td>
+                                    <td class="StudentsTable-TD-CIC">{{this.EventName}}</td>
+                                    <td class="StudentsTable-TD-Name">STAGE</td>
+                                    <td class="StudentsTable-TD-Name">{{this.PointCategoryName}}</td>
+
+                                </tr>
+                                {{/each}}
+                                {{#each this.OffStageEvents}}
+                                <tr>
+                                    <td class="StudentsTable-TD-Slno"></td>
+                                    <td class="StudentsTable-TD-ChestNo">{{this.EventId}}</td>
+                                    <td class="StudentsTable-TD-CIC">{{this.EventName}}</td>
+                                    <td class="StudentsTable-TD-Name">OFF STAGE</td>
+                                    <td class="StudentsTable-TD-Name">{{this.PointCategoryName}}</td>
+
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                        <div style="height: 20px;"></div>
+                        {{/each}}
+                        {{else}}
+                        <div class="pointTable-nodataDiv">
+                            <p style="text-align: center;">No data available...</p>
+                        </div>
+                        {{/if}}
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{Event.EventId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{Event.FestName}} </h2>
+                    <h4>EventId : {{Event.EventId}}</h4>
+                    <p> Fest Date :{{Event.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - All Student's Events ( {{GroupDetails.GroupName}} / {{SessionName}} ) - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#AllStudents').DataTable();
+    });
+</script>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('groups').className = "sidebarmenus sidebarmenus-active"
+
+</script>

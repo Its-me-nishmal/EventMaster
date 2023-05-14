@@ -6,7 +6,7 @@
                         alt="union logo"> </a>
             </div>
             <div class="admin-header-buttons">
-                {{#if festHeader}}
+                {{#if eventHeader}}
                 <a id="festHeader" class="sidebarMenueButton" onclick="showSidebar()" style="text-decoration: none;">
                     <div class="admin-header-login ">
                         <i class="bi bi-layout-sidebar-inset"></i>
@@ -16,10 +16,10 @@
                 {{/if}}
 
                 {{#if admin}}
-                <a href="/admin/create-fest-page1" id="create-fest-button" style="text-decoration: none;">
-                    <div class="create-fest-button-border" onclick="return confirm('Are you want create new fest ?')">
+                <a href="/event/create-page1" id="create-fest-button" style="text-decoration: none;">
+                    <div class="create-fest-button-border" onclick="return confirm('Do you want to create a new event?')">
                         <i class="bi bi-plus-lg"></i>
-                        <h4 class="create-fest">Create fest</h4>
+                        <h4 class="create-fest">Create</h4>
                     </div>
                 </a>
 
@@ -31,18 +31,7 @@
                     </div>
                     <div  id="dorpdown-content"  class="dropdown-pop">
                         <a href="/admin" id="home"><i class="bi bi-house-door-fill"></i> Home</a>
-                        <a href="/admin/account" id="account"><i class="bi bi-person-circle"></i>{{#if adminDetails.pro}}
-                        Pro a{{else}} A{{/if}}ccount</a>
-                        {{#if adminDetails.pro}}
-                        <a href="/admin/create-admin-account" id="create-admin"><i
-                                class="bi bi-person-plus-fill"></i> Create admin</a>
-                        {{else}}
-                        <a href="/admin/change-password" id="change-password"><i class="bi bi-lock-fill"></i>
-                            Change password</a>
-                        {{/if}}
-                        <a href="/admin/all-admins" id="all-admins"><i
-                                class="bi bi-people-fill"></i> All admins</a>
-
+                        <a href="/admin/account" id="account"><i class="bi bi-person-circle"></i>Account</a>
                         <a href="/admin/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
                     </div>
                 </div>
@@ -55,14 +44,7 @@
                         <h4 class="create-fest">Home</h4>
                     </div>
                 </a>
-                {{else}}
-
-                <a href="/admin/login" style="text-decoration: none;">
-                    <div class="admin-header-login">
-                        <i class="bi bi-door-open"></i>
-                        <h4 class="create-fest">LogIn</h4>
-                    </div>
-                </a>
+               
                 {{/if}}{{/if}}
             </div>
 

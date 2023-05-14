@@ -1,0 +1,46 @@
+    <section>
+        <div class="group-container">
+            <div class="allGroupStudents-mainDiv">
+                <div class="GroupAllCategory-header">
+                    <h4 class="adminHome-sectin-one-SubHeading"><a href="/group/students/{{Category}}"><span class="back-button" style="background-color: var(--color-blueDark2);"><i class="bi bi-chevron-left"></i> Back</span></a>Add {{Category}} students</h4>
+                    <hr class="GroupallCategoryheader-hr">
+                </div>
+                <div class="AddGroupStudents-content">
+                    {{#if GroupDetails.CreateStudent }}
+                     <div class="AddGroupStudetns-Div">
+                        <form action="/group/students/{{Category}}/add-students" method="POST">
+                            <div class="addStudetns-form">
+                                <div> <label for="">CIC No :</label></div>
+                                <div><input type="number" name="CicNo" autofocus required></div>
+                            </div>
+                            <div class="addStudetns-form">
+                                <div> <label for="">Full name :</label></div>
+                                <div><input type="text" name="Name" required></div>
+                            </div>
+                            <div class="addStudetns-form-Button">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    {{else}}
+                    <div class="GroupStudentsZero">
+                        <div class="pointTabel-div">
+                            <div class="pointTable-IconDiv">
+                              <i class="bi bi-hourglass-bottom"></i>
+                            </div>
+                            <p>Time end</p>
+                        </div>
+                    </div>
+                   
+                </div>
+                {{/if}}
+               
+            </div>
+        </div>
+    </section>
+
+    {{!-- active button --}}
+    <script>
+        var current = document.getElementById('G-Students').className = "nav-links-a nav-links-active"
+
+    </script>

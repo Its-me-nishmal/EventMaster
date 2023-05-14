@@ -1,0 +1,165 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/mark/{{Category}}-{{SubCategory}}"><span class="back-button"><i
+                                class="bi bi-chevron-left"></i>
+                            Back</span></a>{{Category}} / {{SubCategory}} /
+                    {{ItemName}} / Add mark</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="addMarkBorder">
+                    {{#if ItemStudents.[0]}}
+
+                    <div class="inputsDiv">
+                        <table>
+                            {{#each ItemStudents}}
+                            <tr>
+                                <form
+                                    action="/event/{{../Event.EventId}}/mark/{{../Category}}-{{../SubCategory}}/Individual/{{../ItemId}}-{{../ItemName}}/add-mark"
+                                    method="POST">
+                                    <td class="chestNoTd"> <input type="text" name="ChestNo" value="{{this.ChestNo}}"
+                                            readonly> </td>
+                                    <input type="text" name="GroupId" value="{{this.GroupId}}" hidden>
+
+                                    <td class="GradeOneTd"> <select style="" id="" name="places"
+                                            onchange="changeValue('{{this.ChestNo}}')" required>
+
+                                            <option value="">Place</option>
+                                            <option {{#if (eq this.Item.Place 'One' )}} selected {{/if}} value="One">1st
+                                            </option>
+                                            <option {{#if (eq this.Item.Place 'Two' )}} selected {{/if}} value="Two">2nd
+                                            </option>
+                                            <option {{#if (eq this.Item.Place 'Three' )}} selected {{/if}} value="Three">3rd
+                                            </option>
+                                            <option value="null">null</option>
+                                        </select>
+
+
+                                    </td>
+                                    <td class="GradeTwoTd"> <select style="" name="grades"
+                                            onchange="changeValue('{{this.ChestNo}}')" required>
+                                            <option value="">Grades</option>
+                                            <option {{#if (eq this.Item.Grade 'A' )}} selected {{/if}} value="A">A
+                                            </option>
+                                            <option {{#if (eq this.Item.Grade 'B' )}} selected {{/if}} value="B">B
+                                            </option>
+                                            <option {{#if (eq this.Item.Grade 'C' )}} selected {{/if}} value="C">C
+                                            </option>
+                                            <option value="null">null</option>
+                                        </select>
+
+                                    </td>
+                                    {{#if this.Item.Mark}}
+                                    <td class="markSubmitButton" id="TikTd{{this.ChestNo}}"
+                                        style="background-color: rgb(0, 57, 179);">
+                                        <button id="button{{this.ChestNo}}" type="button"><i class="bi bi-check-lg"></i>
+                                        </button>
+                                    </td>
+                                    {{else}}
+                                    <td class="markSubmitButton">
+                                        <button type="submit"> <i class="bi bi-arrow-right"></i></button>
+                                    </td>
+                                    {{/if}}
+                                </form>
+                            </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+
+                    {{!-- <div class="inputsDiv">
+                        <table>
+                            {{#each EventStudents}}
+                            <input type="text" name="ChestNo" value="{{this.ChestNo}}" hidden readonly>
+                            {{/each}}
+                            {{#each AllGroups}}
+                            {{#if this.student}}
+                            <tr>
+                                <form
+                                    action="/admin/{{../Event.EventId}}/mark/{{../Session}}-{{../Event.Category}}/Group/{{../EventId}}-{{../ItemName}}/add-mark"
+                                    method="POST">
+                                    <td class="chestNoTd"> <input type="text" name="GroupId" value="{{this.GroupId}}"
+                                            readonly>
+                                        <input type="text" name="pointCategory"
+                                            value="{{../pointCategory.categoryName}}" hidden>
+                                    </td>
+
+                                    <td class="GradeOneTd"> <select id="" name="places"
+                                            onchange="changeValue('{{this.GroupId}}')" required>
+                                            <option value="">Place</option>
+                                            <option {{#if this.student.event.One}} selected {{/if}} value="1st">1st
+                                            </option>
+                                            <option {{#if this.student.event.Two}} selected {{/if}} value="2nd">2nd
+                                            </option>
+                                            <option {{#if this.student.event.Three}} selected {{/if}} value="3rd">3rd
+                                            </option>
+                                            <option {{#if this.student.event.four}} selected {{/if}}>Nill</option>
+                                        </select>
+                                    </td>
+                                    <td class="GradeTwoTd"> <select id="number-group" name="grades"
+                                            onchange="changeValue('{{this.GroupId}}')" required>
+                                            <option value="">Grades</option>
+                                            <option {{#if this.student.event.A}} selected {{/if}} value="A">A</option>
+                                            <option {{#if this.student.event.B}} selected {{/if}} value="B">B</option>
+                                            <option {{#if this.student.event.C}} selected {{/if}} value="C">C</option>
+                                            <option {{#if this.student.event.D}} selected {{/if}}>Nill</option>
+                                        </select>
+
+                                    </td>
+                                    <td class="markSubmitButton">
+                                        {{#if this.student.event.Mark}}
+                                        <button id="TikButton{{this.GroupId}}"><i id="TikIcon{{this.GroupId}}"
+                                                class="bi bi-check-lg action"></i>
+                                            {{else}}
+                                            <button type="submit"> <i class="bi bi-arrow-right action"></i></button>
+                                            {{/if}}
+                                    </td>
+                                </form>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div> --}}
+
+                    {{else}}
+                    <div class="pointTable-nodataDiv">
+                        <div class="pointTabel-div">
+                            <div class="pointTable-IconDiv">
+                                <i class="bi bi-exclamation-circle"></i>
+                            </div>
+                            <p>No Students</p>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('add-mark').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+{{!-- change button on submit --}}
+<script>
+
+    function changeValue(ChestNo) {
+
+        const TikButton = document.getElementById('button' + ChestNo);
+        const tikTd = document.getElementById('TikTd' + ChestNo);
+        TikButton.type = 'submit'
+        TikButton.innerHTML = '<i class="bi bi-arrow-right"></i>'
+        tikTd.style.backgroundColor = 'rgb(0, 134, 11)'
+
+    }
+</script>
+
+<script>
+    function changePlaceAndGrade(ChestNo) {
+
+    }
+</script>

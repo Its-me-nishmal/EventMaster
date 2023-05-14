@@ -1,108 +1,40 @@
 <section>
     <div class="container">
-        <div class="adminHome-section-one">
-            <h4 class="adminHome-sectin-one-SubHeading">Latest fest - ({{CurrentYear}})</h4>
-            <p hidden id="LoginFestFestId">{{LoginFest.FestId}}</p>
-            <hr>
-            <div class="adminHome-div">
-                {{#each latestFest}}
-                <div class="adminHome-section-one-Fest">
-
-                    <div class="adminHome-section-one-Div-main" onclick="festLogin('{{this.FestId}}')">
-                        <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
-                            onerror="this.onerror=null;callfun(this);" alt="fest-logo">
-                        <div class="adminHome-section-one-discription">
-                            <h4>{{this.FestName}}{{#if this.festStatus}} <i
-                                    style=" color: rgb(16, 139, 0); font-size:18px;" title="Fest Completed"
-                                    class="bi bi-check-circle-fill"></i>{{/if}} </h4>
-                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
-                            </p>
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-                {{/each}}
-                {{#if latestFestZero}}
-                <div class="emptyFest">
-                    <h3><i class="bi bi-inbox-fill"></i> Latest fests empty</h3>
-                </div>
-                {{/if}}
-            </div>
-        </div>
-
-       
-
-
         <div id="FestLoginPopup">
 
         </div>
-        {{#if festLoginErr}}
-        <div id="close" class="Alert-box-border">
-            <div>
-                <div class="Alert-box-close-button">
-                    <i class="bi bi-x-lg" onclick="closeAlet()"></i>
-                </div>
-                <div class="Alert-box-header">
-                    <i class="bi bi-exclamation-circle"></i>
-                    <h4>Login failed !</h4>
-                </div>
-                <div class="alert-box-content">
-                    <h5>{{festLoginErr}}</h5>
-                </div>
-
-                <audio autoplay hidden src="/audio/alert/error alert.mp3"></audio>
-            </div>
-        </div>
-        {{/if}}
         <div class="adminHome-section-one">
-            <h4 class="adminHome-sectin-one-SubHeading">All Fests</h4>
+            <h4 class="adminHome-sectin-one-SubHeading">All Event</h4>
             <hr>
+            <p id="LoginEventId" hidden>{{LoginEvent.EventId}}</p>
             <div class="adminHome-div">
 
-                {{#each allFest}}
+                {{#if allEvent.[0]}}
+                {{#each allEvent}}
                 <div class="adminHome-section-one-Fest">
 
-
-                    <div class="adminHome-section-one-Div-main" onclick="festLogin('{{this.FestId}}')">
-                        <img class="adminHome-section-one-Image" src="/images/fest-logo/{{this.FestId}}.jpg"
+                    <div class="adminHome-section-one-Div-main" onclick="festLogin('{{this.EventId}}')">
+                        <img class="adminHome-section-one-Image" src="/images/event-logo/{{this.EventId}}.jpg"
                             onerror="this.onerror=null;callfun(this);" alt="fest-logo">
                         <div class="adminHome-section-one-discription">
-                            <h4>{{this.FestName}} {{#if this.festStatus}} <i
-                                    style=" color: rgb(16, 139, 0); font-size:18px;" title="Fest Completed"
-                                    class="bi bi-check-circle-fill"></i>{{/if}}</h4>
-                            <p>{{this.FestDate}} <span style="font-style: italic; color:gray">({{this.FestId}})</span>
+                            <h4>{{this.Name}} {{#if this.Status}} <i style=" color: rgb(16, 139, 0); font-size:18px;"
+                                    title="Event Completed" class="bi bi-check-circle-fill"></i>{{/if}}</h4>
+                            <p><span style="font-style: italic; color:gray">{{this.EventId}}</span>
                             </p>
                         </div>
 
                     </div>
                 </div>
                 {{/each}}
-                {{#if allFestZero}}
+                {{else}}
                 <div class="emptyFest">
-                    <h3><i class="bi bi-inbox-fill"></i> No fests</h3>
+                    <h3><i class="bi bi-inbox-fill"></i> No Event</h3>
                 </div>
                 {{/if}}
 
             </div>
         </div>
     </div>
-
-    
-
-
-
-    {{!-- <div id="pre-loader"></div> --}}
-    {{!--
-    <script>
-        var loader = document.getElementById("pre-loader");
-        window.addEventListener("load", function () {
-            loader.style.display = 'none'
-
-        })
-    </script> --}}
 </section>
 
 
@@ -110,10 +42,10 @@
 
 {{!-- fest login popup --}}
 <script>
-    function festLogin(FestId) {
+    function festLogin(EventId) {
 
         const mainDiv = document.getElementById('FestLoginPopup');
-        const loginFest = document.getElementById('LoginFestFestId').innerHTML
+        const loginFest = document.getElementById('LoginEventId').innerHTML
         const borderDiv = document.createElement("div")
         const ImageDiv = document.createElement("div")
         const Image = document.createElement("img")
@@ -125,6 +57,7 @@
         const formDiv2 = document.createElement("div")
         const label = document.createElement("label")
         const input = document.createElement("input")
+        const input2 = document.createElement("input")
         const i = document.createElement("i")
         const button = document.createElement("button")
         const CloseIcon = document.createElement("i")
@@ -133,8 +66,8 @@
         const forget = document.createElement("a");
         var loginFestId = parseInt(loginFest)
 
-        if (FestId == loginFest) {
-            location.href = "/admin/" + FestId + "/home";
+        if (EventId == loginFest) {
+            location.href = "/event/" + EventId + "/dashboard";
 
         } else {
             mainDiv.innerHTML = null
@@ -144,10 +77,10 @@
             Image.src = "/images/images/nsa-online-ping.png";
             Image.alt = "Union-Logo";
             h3.className = "admin-login-head";
-            h3.innerHTML = "Fest login";
+            h3.innerHTML = "Event login";
             hr.className = "admin-login-hr";
             ContentDiv.className = "admin-login-content";
-            form.action = "/admin/" + FestId + "/home";
+            form.action = "/event/login";
             form.method = "POST";
             formDiv1.className = "admin-login-form";
             formDiv2.className = "admin-login-form";
@@ -157,6 +90,9 @@
             input.id = "Password";
             input.autofocus = "true"
             input.required = "true"
+            input2.name = 'EventId'
+            input2.value= EventId
+            input2.hidden = true
             i.id = "Icon";
             i.className = "bi bi-eye-fill";
             button.type = "submit";
@@ -164,7 +100,7 @@
             CloseIcon.className = "bi bi-x-lg festLogin-closeIcon"
             forget.innerHTML = "Forgot password ?"
             forget.className = 'festForgetClass'
-            forget.href = "/admin/fest-forgot-password/45554" + FestId + "/5485454"
+            forget.href = "/event/forgot-password"
             i.onclick = function () {
                 var x = document.getElementById("Password");
                 var i = document.getElementById("Icon");
@@ -196,15 +132,12 @@
             ContentDiv.appendChild(form)
             form.appendChild(formDiv1)
             form.appendChild(formDiv2)
-            formDiv1.appendChild(label)
+            formDiv1.appendChild(label) 
             formDiv1.appendChild(input)
+            formDiv1.appendChild(input2)
             formDiv1.appendChild(i)
-            formDiv1.appendChild(forget)
+          //  formDiv1.appendChild(forget)
             formDiv2.appendChild(button)
-
-
-
-
         }
 
 

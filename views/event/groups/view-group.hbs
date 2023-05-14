@@ -1,0 +1,33 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/groups"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i>
+                            Back</span></a>{{GroupDetails.GroupName}} - Category</h4>
+                <hr>
+            </div>
+            <div class="groups-content">
+                <div class="allCategory-content">
+                    {{#each GroupDetails.Category}}
+                    {{#if this.Status}}
+                    <a id="mainDiv"
+                        href="/event/{{../Event.EventId}}/groups/{{../GroupDetails.GroupId}}/{{this.CategoryName}}/students">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.CategoryName}}</h4>
+                            <p style="background-color: var(--color-two);">{{this.StudentsCount}}</p>
+                        </div>
+                    </a>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('groups').className = "sidebarmenus sidebarmenus-active"
+
+</script>

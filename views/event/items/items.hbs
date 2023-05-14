@@ -1,0 +1,45 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">All events</h4>
+                <hr>
+            </div>
+            <div class="events-content">
+                {{#if PointsCount.not}}
+                <div class="pointTable-nodataDiv">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-emoji-frown"></i>
+                        </div>
+                        <p>You have not created any point category...</p>
+                        <a href="/event/{{Event.EventId}}/points/add-table">
+                            <button><i class="bi bi-plus-circle-dotted"></i> Create </button>
+                        </a>
+                    </div>
+                </div>
+
+                {{else}}
+
+                {{#each allItemCategorys}}
+                <div class="events-content">
+                    {{#each this.Sub}}
+                    <a href="/event/{{../../Event.EventId}}/event-items/{{../this.CategoryName}}-{{this.Title}}">
+                        <div class="eventHeaderDiv">
+                            <h4>{{../this.CategoryName}} - {{this.Title}}</h4>
+                            <span>{{this.Count}}</span>
+                        </div>
+                    </a>
+                    {{/each}}
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>

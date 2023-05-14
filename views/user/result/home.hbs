@@ -1,0 +1,298 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
+
+
+<section>
+    <div class="group-container">
+        <div id="ResultMaintDiv" class="evets-MainDiv">
+           
+            {{!-- search bottom butten --}}
+            <div id="myBtn" onclick="window.location.reload()" class="searchBottomButton">
+                <i class="bi bi-arrow-clockwise"></i>
+            </div>
+
+
+            {{!-- --}}
+            <div class="">
+                <h2 class="fest-titlet-user">{{eventDetails.Name}}
+                    {{#if (eq eventDetails.Type 'Fest') }}Fest{{else}}Sports{{/if}}</h2>
+            </div>
+            <div id="SessionChart">
+                <div class="resultCountent">
+                    {{!-- Result Status --}}
+                    <div class="fivteen">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv">
+                                    <div class="graphOneDiv">
+                                        <div>
+                                            <section>
+                                                <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862"
+                                                    width="145" height="145">
+                                                    <circle class="circle-chart__background" stroke="#efefef"
+                                                        stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431"
+                                                        r="15.91549431" />
+                                                    <circle class="circle-chart__circle" stroke="#00acc1"
+                                                        stroke-width="2"
+                                                        stroke-dasharray="{{TotalItemCount.PublishedPercentage}},100"
+                                                        stroke-linecap="round" fill="none" cx="16.91549431"
+                                                        cy="16.91549431" r="15.91549431" />
+                                                    <g class="circle-chart__info">
+                                                        <text style="" class="circle-chart__percent" x="16.91549431"
+                                                            y="17" alignment-baseline="central" text-anchor="middle"
+                                                            font-size="8">{{TotalItemCount.PublishedPercentage}}%</text>
+
+                                                    </g>
+                                                </svg>
+                                            </section>
+
+                                        </div>
+                                    </div>
+                                    <div class="graphTwoDiv">
+                                        <div>
+                                            <div>
+                                                <p>Total Items : <span>{{TotalItemCount.TotalItems}}</span></p>
+                                                <p>Published : <span>{{TotalItemCount.PublishedItems}}</span></p>
+                                                <p>Pending : <span>{{Pendig}}</span></p>
+                                                <a
+                                                    href="/e/{{eventDetails.EventId}}/catgory-baise-result-published-status"><button
+                                                        class="button RTotalButton">Category baise</button></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>Result published status</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Percentage View --}}
+                    <div class="fivteen">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv" style="width: 100%;  justify-content:center">
+                                    <div style="">
+                                        <canvas id="myChart" style="width:300px;"></canvas>
+
+                                    </div>
+
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>Percentage View</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Group baise marks --}}
+                    <div class="group-baise-mark scrollbar-result">
+                        {{#each totalGroupsMark}}
+                        <div class="Twenty-five" style="width:100%;">
+                            <div class="resultBorder">
+                                <div class="resultContentBoreder">
+                                    <div class="normel-div ">
+                                        <div style="text-align: center;">
+                                            <h4>Total point</h4>
+                                            <h1>{{this.TotalMark}}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="headerDiv">
+                                        <h4>{{this.GroupName}}</h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+
+
+                    </div>
+                    {{!-- Category Baise chart --}}
+                    <div class="fivteen" style="width: 100%; ">
+                        <div class="resultBorder " style="height:fit-content;">
+                            <div class="resultContentBoreder">
+                                <div id="chart_div" style=" height: 300px;"></div>
+                                <div class="headerDiv">
+                                    <h4>Category Baise Table</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Items baise result --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/e/{{eventDetails.EventId}}/item-baise">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Items baise result</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Student base result --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/e/{{eventDetails.EventId}}/student-baise">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-pie-chart-fill"></i> Students baise result</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    {{!-- Grand winner (Student) --}}
+                    <div class="fivteen">
+                        <div class="resultBorder" style="height: auto;">
+                            <a href="/e/{{eventDetails.EventId}}/grand-winner-student">
+                                <div class="resultContentBoreder">
+                                    <div class="headdingmodel">
+                                        <h4><i class="bi bi-trophy-fill"></i> Grand winner (Student)</h4>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Next Header --}}
+                    <div class="pointTable-header" style="width:100%">
+                        <h4 class="adminHome-sectin-one-SubHeading">Group baise result</h4>
+                        <hr>
+                    </div>
+
+                    {{!-- Group baise Full Result --}}
+                    {{#each totalGroupsMark}}
+                    <div class="fivteen" style="width: 100%;">
+                        <div class="resultBorder">
+                            <div class="resultContentBoreder">
+                                <div class="graphDiv">
+                                    {{!-- Session Define --}}
+                                    {{#each this.Category}}
+                                    <div class="fivteen ResultGroupFullDiv">
+                                        <h4>{{this.CategoryName}}</h4>
+                                        <div class="ResultGroupFullContent">
+                                            {{#each this.Sub}}
+                                            <h4>{{this.Title}} total : <span>{{this.TotalMark}}</span></h4>
+                                            {{/each}}
+                                        </div>
+                                        <div class="ResultGRoupFullBottom">
+                                            <h4>Total Mark :</h4>
+                                            <h3>{{this.TotalMark}}</h3>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+
+                                </div>
+                                <div class="headerDiv">
+                                    <h4>{{this.GroupName}}</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                    {{!-- --}}
+
+
+
+                </div>
+             
+
+            </div>
+           
+        </div>
+    </div>
+    </div>
+
+
+
+</section>
+
+
+{{!-- NEw From Admin --}}
+<script type="text/javascript">
+
+    let totalGroupsMark = {{{ json totalGroupsMark }}}
+    let group = ['Group']
+    let arr = []
+    for (let i = 0; i < totalGroupsMark.length; i++) {
+        group.push(totalGroupsMark[i].GroupName)
+        for (let j = 0; j < totalGroupsMark[i].Category.length; j++) {
+            let arr2 = [];
+            if (i === 0) {
+                arr2.push(totalGroupsMark[i].Category[j].CategoryName)
+                arr2.push(totalGroupsMark[i].Category[j].TotalMark)
+            }
+            if (i === 0) {
+                arr.push(arr2)
+            } else {
+                arr[j].push(totalGroupsMark[i].Category[j].TotalMark)
+            }
+        }
+    }
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            group,
+            ...arr
+        ]);
+
+        var options = {
+
+            curveType: 'function',
+            // legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+
+
+    // Percentage View Graph
+    let xValues = [];
+    let yValues = [];
+    for (let i = 0; i < totalGroupsMark.length; i++) {
+        xValues.push(totalGroupsMark[i].GroupName)
+        yValues.push(totalGroupsMark[i].TotalMark)
+    }
+    const barColors = [
+        "#f15854",
+        "#faa43a",
+        "#60bd68",
+        "#5da5da",
+        "#b276b2",
+        "#003f5c",
+    ];
+
+    new Chart("myChart", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        }
+
+    });
+</script>

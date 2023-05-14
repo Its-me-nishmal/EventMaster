@@ -1,0 +1,39 @@
+<section>
+    <div class="group-container">
+        <div class="allGroupStudents-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading"> {{Category}} / Eidt students</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+            <div class="AddGroupStudents-content">
+
+                <div class="AddGroupStudetns-Div">
+                    <form action="/group/students/{{Category}}/{{student.ChestNo}}/edit" method="POST">
+                        <div class="addStudetns-form">
+                            <div> <label for="">Chset no :</label></div>
+                            <div><input style="cursor:not-allowed; background-color:rgb(202, 202, 202)" type="text"
+                                    name="ChestNo" value="{{student.ChestNo}}" readonly></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">CIC No :</label></div>
+                            <div><input type="number" name="CicNo" value="{{student.CicNo}}" required></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Full name :</label></div>
+                            <div><input type="text" name="Name" value="{{student.Name}}" required></div>
+                        </div>
+                        <div class="addStudetns-form-Button">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Students').className = "nav-links-a nav-links-active"
+
+</script>

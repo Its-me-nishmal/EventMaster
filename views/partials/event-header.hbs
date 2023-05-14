@@ -1,0 +1,59 @@
+<head>
+    <div id="sidebar" class="sidebarborder">
+        <div class="sidebarheader">
+            <div class="sidebarheaderlogoDiv">
+                <img class="sidebarheaderLogo" style="height: 110px;" src="/images/event-logo/{{Event.EventId}}.jpg"
+                    onerror="this.onerror=null;callfun(this);" alt="fest-logo">
+            </div>
+            <h3 class="sidebarheader-festName">{{Event.Name}}</h3>
+            <p class="sidebarheader-festID">Event ID : {{Event.EventId}}</p>
+            <i id="closeIcon" onclick="closeButton()" class="bi bi-x-lg sidebarheaderCloseIcon"></i>
+        </div>
+        <hr class="sidebarheader-hr">
+        <div class="sidebarcontent">
+            <div id="sidebarmenus-div" class="sidebarcontent-border">
+                <a id="home" class="sidebarmenus" href="/event/{{Event.EventId}}/dashboard"><i class="bi bi-house-fill"></i>
+                    Dashboard</a>
+                <a id="event" class="sidebarmenus" href="/event/{{Event.EventId}}/event-items"><i
+                        class="bi bi-calendar2-event-fill"></i> Event Items</a>
+                <a id="point-table" class="sidebarmenus" href="/event/{{Event.EventId}}/points"><i
+                        class="bi bi-table"></i> Points</a>
+                <a id="groups" class="sidebarmenus" href="/event/{{Event.EventId}}/groups"><i class="bi bi-slack"></i>
+                    Groups</a>
+                <a id="add-mark" class="sidebarmenus" href="/event/{{Event.EventId}}/mark"><i class="bi bi-plus-lg"></i>
+                    Upload mark</a>
+                <a id="result" class="sidebarmenus" href="/event/{{Event.EventId}}/result"><i
+                        class="bi bi-bar-chart-line-fill"></i> Result</a>
+                <a id="control-panel" class="sidebarmenus" href="/event/{{Event.EventId}}/control-panel"><i
+                        class="bi bi-toggles"></i> Control panel</a>
+          
+                <a id="settings" class="sidebarmenus" href="/event/{{Event.EventId}}/more"><i
+                        class="bi bi-gear-wide-connected"></i> More</a>
+                {{!-- <a class="sidebarmenus" href=""><i class="bi bi-house-fill"></i> About</a>
+                <a class="sidebarmenus" href=""><i class="bi bi-house-fill"></i> Account</a> --}}
+
+            </div>
+        </div>
+    </div>
+</head>
+
+<script>
+    function closeButton() {
+        var sidebar = document.getElementById('sidebar')
+        var festHeader = document.getElementById('festHeader')
+        var closeButton = document.getElementById('closeIcon')
+
+
+        sidebar.className = "sidebarboarder-onClick-close";
+        closeButton.className = "bi bi-x-lg sidebarheaderCloseIcon-onClick-close"
+        festHeader.className = "sidebarMenueButton-onClick-close"
+    }
+</script>
+
+
+<script>
+    function callfun(obj) {
+        var noimg = "/images/images/fest logo demo.jpg";
+        obj.src = noimg;
+    }
+</script>

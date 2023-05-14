@@ -1,0 +1,275 @@
+<section>
+    <div id="fest-container" class="fest-container">
+        <div class="fest-home">
+            {{!-- Alert --}}
+            {{#if PointCategory.not}}
+            <div class="alert-fest-home">
+                <div class="alert">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <h4>Create the points category before creating an event !</h4>
+                </div>
+            </div>
+            {{/if}}
+            {{#if isStudentLimit}}{{else}}
+            <div class="alert-fest-home">
+                <div class="alert">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <h4>Student's item select limit is not setup !</h4>
+                </div>
+            </div>
+            {{/if}}
+            {{#if isGroupActive}}
+            <div class="alert-fest-home">
+                <div class="alert">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <h4>{{isGroupActive}} Groups Activation is Pending !</h4>
+                </div>
+            </div>
+            {{/if}}
+            {{#if Event.Mobile}}{{else}}
+            <div class="alert-fest-home">
+                <div class="alert" style="background-color: rgb(255, 187, 187); border-color:rgb(197, 1, 1); ">
+                    <i class="bi bi-exclamation-triangle-fill" style="color:rgb(197, 1, 1);"></i>
+                    <h4 style="color:rgb(197, 1, 1);">Must add a mobile number ! (For add : More > Event settings > Event details)</h4>
+                </div>
+            </div>
+            {{/if}}
+          
+            {{!-- Header --}}
+            <div class="header-fest-home">
+                <div class="groupProfileborder" style="background: none; margin-top:25px">
+                    <div class="Content" style="padding: 0;">
+                        <div class="festContent">
+                            <div class="festContentBorder" style="border-color: var(--color-two);">
+                                <h3 style="background-color: white;">Event details</h3>
+                                <div class="header">
+                                    <p>Tittle </p>
+                                    <p>Event ID </p>
+                                    <p>Convener </p>
+                                    <p>Date </p>
+
+                                </div>
+                                <div class="answer">
+                                    <p>: {{Event.Name}}</p>
+                                    <p>: {{Event.EventId}}</p>
+                                    <p>: {{Event.Convener}}</p>
+                                    <p>: <span id="nowFestDate">{{Event.Date}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- Status --}}
+            <div class="status-fest-home">
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Event Status</h4>
+                                {{#if EventDetails.Launch}}
+                                <button style=" " class="button">Launched</button>
+                                {{else}}
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">Hide</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Results Status</h4>
+                                {{#if EventDetails.ResultPublish}}
+                                <button style="" class="button">Published</button>
+                                {{else}}
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">Not published</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Upload Mark Status</h4>
+                                {{#if EventDetails.MarkStatus}}
+                                <button
+                                    style="color: rgb(0, 86, 156); background-color:rgb(189, 226, 255); border-color:rgb(0, 86, 156)"
+                                    class="button">Active</button>
+                                {{else}}
+                                <button
+                                    style="color: var(--color-delete); background-color:rgb(255, 187, 184); border-color:var(--color-delete)"
+                                    class="button">Deactive</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fivteen" style="padding:5px">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; border:solid black 1px; border-radius:10px;">
+                        <div class="resultContentBoreder">
+                            <div class="boarder">
+                                <h4>Student Items limit </h4>
+
+                                <a href="/event/{{Event.EventId}}/group-category">
+
+                                    <button
+                                        style="color: rgb(255, 255, 255); background-color:rgb(0, 0, 0); border-color:rgb(0, 0, 0);"
+                                        class="button"><i class="bi bi-arrow-right"></i></button>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Content --}}
+
+            <div class="content-fest-home" style="margin-top: 10px;">
+
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 48, 104); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{Event.GroupsCount}}<i class="bi bi-slack"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Groups</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 100, 70); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{Event.CategoryCount}}<i class="bi bi-subtract"></i></h1>
+                            </div>
+                            <div class="content"
+                                style="display: flex; align-items:center; justify-content:space-between;">
+                                <h4>Total Category </h4>
+                                <span style="font-size: 12px; font-style:italic; opacity:.5;">Without General</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(146, 2, 2); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{StudentsCount.total}}<i class="bi bi-people-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Students</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(55, 0, 92); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{ItemCount.TotalItems}}<i class="bi bi-calendar2-event-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Total Items</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 68, 9); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{PointCategory.count}}<i class="bi bi-bookmarks-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Point category</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(148, 0, 57); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{ItemCount.PublishedItems}}<i class="bi bi-bar-chart-line-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Published results<span style="margin-left: 10px; color:rgb(0, 230, 0);"><i
+                                            class="bi bi-chevron-double-up"></i>{{ItemCount.PublishedPercentage}}%</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Twenty-five">
+                    <div class="resultBorder"
+                        style="height: auto; box-shadow: none; background-color: rgb(0, 87, 122); border-radius:10px;">
+                        <div class="fest-content-div">
+                            <div class="count">
+                                <h1>{{ItemCount.MarkAddedItems}}<i class="bi bi-stoplights-fill"></i></h1>
+                            </div>
+                            <div class="content">
+                                <h4>Mark added Items<span style="margin-left: 10px; color:rgb(0, 230, 0);"><i
+                                            class="bi bi-chevron-double-up"></i>{{ItemCount.MarkAddedPercentage}}%</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Twenty-five" style="cursor: pointer;">
+                    <a href="/event/{{Event.EventId}}/student/student-without-items">
+                        <div class="resultBorder"
+                            style="height: auto; box-shadow: none; background-color: rgb(80, 82, 83); border-radius:10px;">
+                            <div class="fest-content-div">
+                                <div class="count">
+                                    <h1>{{StudentsCount.unItem}}<i class="bi bi-folder-x"></i></h1>
+                                </div>
+                                <div class="content">
+                                    <h4>Student without items</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{!-- <div style="display: none;" id="notAllow" class="pointTable-nodataDiv">
+            <div class="pointTabel-div">
+                <div class="pointTable-IconDiv">
+
+                    <i class="bi bi-phone"></i>
+                </div>
+
+                <p>Not Allow Mobile</p>
+
+            </div>
+        </div> --}}
+
+    </div>
+
+</section>
+
+<script>
+    var current = document.getElementById('home').className = "sidebarmenus sidebarmenus-active"
+
+</script>

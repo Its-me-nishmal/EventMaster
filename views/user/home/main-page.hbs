@@ -1,0 +1,40 @@
+<section>
+    <div class="container">
+        <div id="FestLoginPopup">
+
+        </div>
+        <div class="adminHome-section-one">
+            <h4 class="adminHome-sectin-one-SubHeading">All Event</h4>
+            <hr style="border-top: rgb(0, 133, 66) solid 1px;">
+            <div class="adminHome-div">
+
+                {{#if allEvents.[0]}}
+                {{#each allEvents}}
+                {{#if this.Launch}}
+                <div class="adminHome-section-one-Fest">
+                    <a href="/e/{{this.EventId}}">
+                        <div class="adminHome-section-one-Div-main">
+                            <img class="adminHome-section-one-Image" src="/images/event-logo/{{this.EventId}}.jpg"
+                                onerror="this.onerror=null;callfun(this);" alt="fest-logo">
+                            <div class="adminHome-section-one-discription">
+                                <h4>{{this.Name}} {{#if this.Status}} <i
+                                        style=" color: rgb(16, 139, 0); font-size:18px;" title="Event Completed"
+                                        class="bi bi-check-circle-fill"></i>{{/if}}</h4>
+                                <p><span style="font-style: italic; color:gray">{{this.EventId}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/each}}
+                {{else}}
+                <div class="emptyFest">
+                    <h3><i class="bi bi-inbox-fill"></i> No Event</h3>
+                </div>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+</section>

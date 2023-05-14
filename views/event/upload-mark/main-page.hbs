@@ -1,0 +1,51 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Upload mark</h4>
+                <hr>
+            </div>
+            <div class="events-content">
+                {{#if Event.MarkStatus}}
+                {{#each ItemCategorys}}
+                <div class="events-content">
+                    {{#each this.Sub}}
+                    <a href="/event/{{../../Event.EventId}}/mark/{{../this.CategoryName}}-{{this.Title}}">
+                        <div class="eventHeaderDiv">
+                            <h4>{{../this.CategoryName}} - {{this.Title}}</h4>
+                            <span>{{this.Count}}</span>
+                        </div>
+                    </a>
+                    {{/each}}
+                </div>
+                {{/each}}
+
+                {{else}}
+                <div class="pointTable-nodataDiv">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <p style="color: rgb(116, 116, 116); font-style:italic;">Activating the upload mark will
+                            interfere with<br>
+                            controlling events and the students. Activate upload mark <br>
+                            only after students and events control is over.
+                        </p>
+                        <div style="display: flex; justify-content:center; margin-top:10px">
+                            <a href="/event/{{Event.EventId}}/mark/active-upload" style="margin: 0;" onclick="return confirm('Active Upload mark')" >
+                                <button 
+                                    style="margin: 0; margin:0 5px; background-color:rgb(0, 96, 175);">Active</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('add-mark').className = "sidebarmenus sidebarmenus-active"
+
+</script>

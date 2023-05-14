@@ -1,0 +1,60 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/{{ItemId}}-{{ItemName}}/all-students">
+                        <span class="back-button"><i class="bi bi-chevron-left"></i> Back</span>
+                    </a>{{Category}} / {{SubCategory}} / Add
+                    student
+                </h4>
+                <hr>
+            </div>
+
+            <div>
+                <div class="AddGroupStudetns-Div">
+                    <form
+                        action="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/{{ItemId}}-{{ItemName}}/add-students"
+                        method="POST">
+                        <div class="addStudetns-form">
+                            <div> <label for="">Event ID :</label></div>
+                            <div><input type="text" name="ItemId" value="{{ItemId}}" readonly
+                                    style="cursor: not-allowed;  background-color:rgb(211, 211, 211)"></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Event :</label></div>
+                            <div><input type="text" value="{{ItemName}}" readonly
+                                    style="cursor: not-allowed;  background-color:rgb(211, 211, 211)"></div>
+                        </div>
+
+                        <div class="addStudetns-form">
+                            <div> <label for="groupId">Group ID :</label></div>
+                            <div><select name="GroupId" id="groupId">
+                                    {{#each GroupList}}
+                                    {{#if this.PasswordFor}}
+                                    <option value="{{this.GroupId}}">{{this.GroupName}}</option>
+                                    {{/if}}
+                                    {{/each}}
+                                </select></div>
+
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Chest No :</label></div>
+                            <div><input type="number" name="ChestNo" placeholder="type here..." required></div>
+                        </div>
+                        <div class="addStudetns-form-Button">
+                            <button style="background-color: var(--color-two);" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>

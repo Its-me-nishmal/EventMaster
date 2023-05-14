@@ -1,0 +1,98 @@
+<section>
+    <div class="fest-container">
+        <div class="addpointtable-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Edit Item</h4>
+                <hr>
+            </div>
+            <div class="addPointTable-content">
+                <form action="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/edit-item"
+                    method="POST">
+                    <div id="create-fest-page2">
+
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Item ID</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{result.ItemId}}" readonly name="ItemId" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Name</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{result.Name}}" name="Name" required>
+                            </div>
+                        </div>
+                        <input type="text" hidden value="{{result.CategoryName}}" name="itemCategory">
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Point category</label>
+                            </div>
+                            <div class="inputDiv">
+                                <select style="" id="number-group" name="CategoryName" required>
+                                    {{#each pointCategoryOptions}}
+                                    <option {{#if this.index}} selected {{/if}} value="{{this.CategoryName}}">
+                                        {{this.CategoryName}} category</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Type </label>
+                            </div>
+                            <div class="inputDiv">
+                                <select style="" id="number-group" name="Type" required>
+                                    <option value="">Choose...</option>
+                                    {{#if result.Group}}
+                                    <option value="Individual">Individual type</option>
+                                    <option selected value="Group">Group type</option>
+                                    {{else}}
+                                    <option selected value="Individual">Individual type</option>
+                                    <option value="Group">Group type</option>
+                                    {{/if}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Limit of student</label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="number" value="{{result.Limit}}" name="Limit" required>
+                            </div>
+                        </div>
+
+
+
+                        <div class="CFsessionOneNext">
+                            <button onclick="changeLoading()" id="submitButton" type="submit"
+                                class="CFsessionOneNextButton"><i class="bi bi-check-lg"></i> Submit
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+<script>
+    function changeLoading() {
+        document.getElementById('submitButton').innerHTML = `<img src="/images/images/loading2.gif" style="width: 20px; hight: 20px;" alt="" srcset=""> Submit`
+    }
+</script>

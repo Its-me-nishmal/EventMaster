@@ -1,0 +1,177 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Items baise result</h4>
+                <hr>
+            </div>
+        </div>
+        <div class="event-baise-result-Div">
+           
+            <div class="CFsessionOne">
+                <div class="inputDiv">
+                    <input id="searchInput" type="text" placeholder="Search Item name or Item ID..."
+                        name="CategoryName">
+                    <i id="searchIcon" onclick="SearchEvent('{{Event.EventId}}')"
+                        style="top: 5px; right:2px; color:white" class="bi bi-search searchIcon-resultPage"></i>
+                </div>
+            </div>
+          
+
+            <div id="SessionChart" class="events-content" style="margin-top: 15px;  ">
+             
+                {{#each ItemCategorys}}
+                <div class="events-content">
+                    {{#each this.Sub}}
+                    <a href="/event/{{../../Event.EventId}}/result/item-baise/{{../this.CategoryName}}/{{this.Title}}">
+                        <div class="eventHeaderDiv">
+                            <h4>{{../this.CategoryName}} - {{this.Title}}</h4>
+                            <span>{{this.Count}}</span>
+                        </div>
+                    </a>
+                    {{/each}}
+                </div>
+                {{/each}}
+
+
+                {{!-- {{/if}} --}}
+            </div>
+            <div id="searchResultDiv" class="searchResultDiv" style="display:none;">
+                <div class="searchResultHeader">
+                    <h3 id="foundResultCount">Found 0 results</h3>
+                    <p onclick="closeResult()"><i class="bi bi-x-lg"></i></p>
+                </div>
+                <div id="searchContent">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</section>
+
+
+<script>
+
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+{{!-- Search Event --}}
+
+<script>
+
+    var boarderDiv = document.getElementById('searchResultDiv')
+    var mainDiv = document.getElementById('searchContent')
+    var Session = document.getElementById('SessionChart')
+    var resultCount = document.getElementById('foundResultCount')
+    var Input = document.getElementById('searchInput')
+
+
+    // no such result
+    const nunBorder = document.createElement("div");
+    const h2 = document.createElement("h2")
+
+    nunBorder.className = "noSuchResult";
+
+    nunBorder.appendChild(h2)
+
+    // Full Result
+
+
+    function SearchEvent(EventId) {
+        let serchIcon = document.getElementById('searchIcon')
+        serchIcon.className = "searchIcon-resultPage"
+        serchIcon.innerHTML = `<div class="lds-dual-ring"></div>`
+        let searchValue = document.getElementById("searchInput").value
+        $.ajax({
+            url: '/event/result/search-item-result',
+            data: {
+                EventId,
+                searchValue
+            },
+            method: 'post',
+            success: (searchResult) => {
+                serchIcon.innerHTML = ''
+                serchIcon.className = "bi bi-search searchIcon-resultPage"
+                let arr = []
+                for (let i = 0; i < searchResult.length; i++) {
+                    for (let j = 0; j < searchResult[i].Sub.length; j++) {
+                        for (let k = 0; k < searchResult[i].Sub[j].Items.length; k++) {
+                            searchResult[i].Sub[j].Items[k].ItemCategory = searchResult[i].CategoryName
+                            searchResult[i].Sub[j].Items[k].ItemSubCategory = searchResult[i].Sub[j].Title
+                            arr.push(searchResult[i].Sub[j].Items[k])
+                        }
+                    }
+                }
+
+                if (arr[0]) {
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    resultCount.innerHTML = "Found " + arr.length + " results"
+                    mainDiv.innerHTML = null
+
+                    arr.forEach(myFunction)
+                    function myFunction(item, index) {
+                        const a = document.createElement("a")
+                        const R_BoarderDiv = document.createElement("div")
+                        const R_Header = document.createElement("div")
+                        const h3 = document.createElement("h3")
+                        const h4_1 = document.createElement("h4")
+                        const h4_2 = document.createElement("h4")
+                        const R_Bottom = document.createElement("div")
+
+
+
+                        a.href = "/event/" + EventId + "/result/item-baise/" + item.ItemCategory + "/" + item.ItemSubCategory + "/" + item.Type + "/" + item.ItemId + "-" + item.Name
+                        R_BoarderDiv.className = "searchResultOne"
+                        R_Header.className = "header"
+                        R_Bottom.className = "Bottom"
+                        h3.innerHTML = item.Name
+                        if (!item.MarkAdded) {
+                            h4_1.innerHTML = "Mark not Added"
+                        }
+                        h4_2.innerHTML = item.ItemCategory + " / " + item.ItemSubCategory + " / " + item.Type + " - ( " + item.ItemId + " )"
+
+                        mainDiv.appendChild(a)
+                        a.appendChild(R_BoarderDiv)
+                        R_BoarderDiv.appendChild(R_Header)
+                        R_Header.appendChild(h3)
+                        R_Header.appendChild(h4_1)
+                        R_BoarderDiv.appendChild(R_Bottom)
+                        R_Bottom.appendChild(h4_2)
+
+
+                    }
+
+                } else if (arr === 0) {
+                    resultCount.innerHTML = "Found 0 results"
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    mainDiv.innerHTML = null
+                    mainDiv.appendChild(nunBorder)
+                    h2.innerHTML = "Search something"
+                } else {
+                    resultCount.innerHTML = "Found 0 results"
+                    Session.style.display = 'none'
+                    boarderDiv.style.display = 'block'
+                    mainDiv.innerHTML = null
+                    mainDiv.appendChild(nunBorder)
+                    h2.innerHTML = "No such result"
+
+                }
+            }
+        })
+    }
+
+    function closeResult() {
+        Session.style.display = 'block'
+        boarderDiv.style.display = 'none'
+        Input.value = ""
+    }
+</script>

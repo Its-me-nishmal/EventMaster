@@ -1,0 +1,95 @@
+<section>
+    <div class="group-container">
+        <div class="allGroupStudents-mainDiv">
+            <div class="GroupAllCategory-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/group/items">
+                        <span class="back-button" style="background-color: var(--color-blueDark2);"><i
+                                class="bi bi-chevron-left"></i> Back</span></a>{{Category}} / {{SubCategory}}</h4>
+                <hr class="GroupallCategoryheader-hr">
+            </div>
+        </div>
+
+
+        <div class="GroupAllStudents-content">
+
+            {{#if GroupDetails.ChooseItem}}
+
+            <div class="GroupEvents-All-content " style="box-sizing: border-box;">
+                {{#if allItems.[0]}}
+                {{#each allItems}}
+                <a id="mainDiv"
+                    href="/group/items/{{../Category}}/{{../SubCategory}}/all-items/{{this.ItemId}}-{{this.Name}}/all-students">
+                    <div style="background-color: rgb(182, 224, 248);" class="allGroupCatetory-items">
+                        <h4>{{this.Name}} <span class="EventIdSpan">({{this.ItemId}})</span> -
+                            ({{this.CategoryName}}) </h4>
+                        <p>{{this.StudentsCount}}/{{this.Limit}}</p>
+                    </div>
+                </a>
+                {{/each}}
+
+                {{else}}
+                <div class="GroupStudentsZero">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-emoji-frown"></i>
+                        </div>
+                        <p> No Items ! </p>
+
+                    </div>
+                </div>
+                {{/if}}
+
+            </div>
+            {{else}}
+            <div class="GroupStudentsZero">
+                <div class="pointTabel-div">
+                    <div class="pointTable-IconDiv">
+                        <i class="bi bi-hourglass-top"></i>
+                    </div>
+                    <p>Pleace Wait... <br> Choose Item Option not Enabled</p>
+                </div>
+            </div>
+            {{/if}}
+
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .EventIdSpan {
+        font-size: 15px;
+        font-weight: normal;
+        color: rgb(82, 81, 81);
+        font-style: italic;
+    }
+</style>
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('G-Events').className = "nav-links-a nav-links-active"
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#AllStudents').DataTable();
+    });
+</script>
+
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    .auto-index td:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>

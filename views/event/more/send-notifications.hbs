@@ -1,0 +1,61 @@
+<section>
+    <div class="fest-container">
+        <div class="AdminNotification-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/more"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Send Message</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="notificationBoarder">
+                    <div class="multi">
+                        <label for="">Select Groups :</label>
+
+                    </div>
+                    <form action="/event/{{Event.EventId}}/notifications/send" method="POST">
+                        <div id="groupName" style="margin-top: 10px;" class="chooseGroup">
+                            <div class="">
+                                {{#each AllGroups}}
+                                {{#if this.GroupId}}
+                                <input type="checkbox" id="vehicle1" name="GroupId" value="{{this.GroupId}}">
+                                <label for="vehicle1">{{this.GroupId}} - {{this.GroupName}}</label><br>
+                                {{/if}}
+                                {{/each}}
+                            </div>
+                            <p style="font-style: italic; color:rgb(28, 191, 255)"><i
+                                    class="bi bi-info-circle-fill"></i> Select groups to send message to specific group.
+                            </p>
+                            <p style="font-style: italic; color:rgb(28, 191, 255); margin-top:-10px"><i
+                                    class="bi bi-info-circle-fill"></i> If you do not select any, all
+                                groups will be selected</p>
+                        </div>
+
+
+
+                        <div style="margin-top: 20px;" class="notificationConternt">
+                            <p>Message content</p>
+                            <div>
+                                <input type="text" name="Subject" placeholder="Subject *" required>
+                                <textarea name="Content" id="" cols="30" rows="10" placeholder="Message... *"
+                                    required></textarea>
+                                <input type="text" name="Link" placeholder="If any Link">
+                                <div>
+                                    <button type="submit" class="button"><i class="bi bi-envelope"></i> Send
+                                        Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>

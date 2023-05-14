@@ -1,0 +1,93 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/mark"><span
+                            class="back-button">
+                            <i class="bi bi-chevron-left"></i> Back</span></a>{{Category}} / {{SubCategory}} / All items
+                </h4>
+                <hr>
+            </div>
+            <div class="GroupAllStudents-content">
+
+
+
+
+                <div class="GroupEvents-All-content " style="box-sizing: border-box;">
+                    {{#if allItems.Items.[0]}}
+                    {{#each allItems.Items}}
+                    <a id="mainDiv"
+                        href="/event/{{../Event.EventId}}/mark/{{../Category}}-{{../SubCategory}}/{{this.Type}}/{{this.ItemId}}-{{this.Name}}/add-mark">
+                        <div class="allGroupCatetory-items">
+                            <h4>{{this.Name}} <span style="font-style: italic; color:gray; ">({{this.ItemId}})</span>
+                            </h4>
+                            <div>
+                                {{#if this.MarkAdded}}
+                                <div style="display: flex; align-items:center;">
+                                    <div class="cPanel-checkboxWrapper"
+                                        title="On the button to publish the result publicly ">
+                                        <input type="checkbox"
+                                            onclick="resultPublish('{{../Event.EventId}}','{{this.ResultPublish}}','{{this.ItemId}}','{{../Category}}','{{../SubCategory}}')"
+                                            id="userActivated{{this.ItemId}}" {{#if this.ResultPublish}} checked
+                                            {{/if}} />
+                                        <label for="userActivated{{this.ItemId}}">
+                                            <svg class="cPanel-cross" width="30" height="30">
+                                            </svg>
+                                            <svg class="cPanel-checkmark" width="30" height="30">
+                                            </svg>
+                                        </label>
+                                    </div>
+                                    <p style="background: none; color:black; "><i class="bi bi-chevron-right"></i></p>
+                                </div>
+                                {{else}}
+                                <p style="background: none; color:black"><i class="bi bi-chevron-right"></i></p>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </a>
+                    {{/each}}
+
+                    {{else}}
+                    <div class="GroupStudentsZero">
+                        <div class="pointTabel-div">
+                            <div class="pointTable-IconDiv">
+                                <i class="bi bi-emoji-frown"></i>
+                            </div>
+                            <p> No Items ! </p>
+
+                        </div>
+                    </div>
+                    {{/if}}
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('add-mark').className = "sidebarmenus sidebarmenus-active"
+
+
+    function resultPublish(EventId, ResultPublish, ItemId, Category, SubCategory) {
+       
+        $.ajax({
+            url: '/event/mark/change-result-status',
+            data: {
+                EventId,
+                ResultPublish,
+                ItemId,
+                Category,
+                SubCategory
+
+            },
+            method: 'post',
+            success: (result) => {
+                location.reload()
+            }
+        })
+    }
+
+</script>

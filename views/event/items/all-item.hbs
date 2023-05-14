@@ -1,0 +1,243 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+
+            <div class="events-content">
+
+            </div>
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/event-items"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i>
+                            Back</span></a>{{Category}} / {{SubCategory}} List
+                </h4>
+                <hr>
+            </div>
+            {{#if allItems.Items.[0]}}
+            
+            <div class="pointTable-addButton">
+                <p>Create new event :</p>
+                <a href="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/add-event">
+                    <button><i class="bi bi-plus-circle-dotted"></i> Add</button>
+                </a>
+            </div>
+           
+            <div class="allEventDiv">
+                <table id="allEvent-table" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>Sl no</th>
+                            <th>Name</th>
+                            <th>Item ID</th>
+                            <th>Point Category</th>
+                            <th>Type </th>
+                            <th>Limit of Student</th>
+                            <th>Students</th>
+                             {{#if Event.MarkStatus}}{{else}}
+                            <th>Control</th>
+                            {{/if}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each allItems.Items}}
+                        <tr>
+                            <td></td>
+                            <!--leave it blank-->
+                            <td>{{this.Name}}</td>
+                            <td>{{this.ItemId}}</td>
+                            <td>{{this.CategoryName}}</td>
+                            <td>{{this.Type}}</td>
+                            <td>{{this.Limit}}</td>
+                            <td><a
+                                    href="/event/{{../Event.EventId}}/event-items/{{../Category}}-{{../SubCategory}}/{{this.ItemId}}-{{this.Name}}/all-students">
+                                    <button class="pointCateoryDeletButton"
+                                        style="background-color: rgb(59, 59, 59); font-size:15px;">View</button>
+                                </a>
+                            </td>
+                            {{#if ../Event.MarkStatus}}{{else}}
+                            <td>
+                                <a
+                                    href="/event/{{../Event.EventId}}/event-items/{{../Category}}-{{../SubCategory}}/{{this.ItemId}}/edit-item">
+                                    <button style="background-color: var(--color-blueDark2);"
+                                        class="pointCateoryDeletButton"> <i class="bi bi-pencil-fill"></i></button></a>
+                                <a href="/event/{{../Event.EventId}}/event-items/{{../Category}}-{{../SubCategory}}/{{this.ItemId}}/delete-item?itemCategory={{this.CategoryName}}"
+                                    onclick="return confirm('Are you want to delete this item ?')"><button
+                                        class="pointCateoryDeletButton"> <i class="bi bi-trash"></i></button></a>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="pointTable-printbutton">
+                <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                        class="bi bi-printer-fill"></i>
+                    Print</button>
+            </div>
+            {{else}}
+            <div class="pointTable-nodataDiv">
+                <div class="pointTabel-div">
+                    <div class="pointTable-IconDiv">
+                        <i class="bi bi-emoji-frown"></i>
+                    </div>
+                    <p>You have not created any events...</p>
+                    <a href="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/add-event">
+                        <button style="margin-left: 40px;"><i class="bi bi-plus-circle-dotted"></i> Create
+                            event</button>
+                    </a>
+                </div>
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+                        {{#if allItems.Items.[0]}}
+
+                        <table class="auto-index print-Table">
+                           
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Event name</th>
+                                    <th>Event ID</th>
+                                    <th>Point category</th>
+                                    <th>Type</th>
+                                    <th>Limit of Student</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each allItems.Items}}
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.Name}}</td>
+                                    <td>{{this.ItemId}}</td>
+                                    <td>{{this.CategoryName}}</td>
+                                    <td>{{this.Type}}</td>
+                                    <td>{{this.Limit}}</td>
+
+                                </tr>
+                                {{/each}}
+                               
+                            </tbody>
+                    
+
+                        </table>
+                        {{else}}
+                        <div class="pointTable-nodataDiv">
+                            <p style="text-align: center;">No data available...</p>
+                        </div>
+                        {{/if}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{Event.EventId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{Event.Name}} </h2>
+                    <h4>EventId : {{Event.EventId}}</h4>
+                    <p> Fest Date :{{Event.Date}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - All Events ({{Category}} / {{SubCategory}} ) - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+
+
+
+</div>
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+
+<script>
+
+    function checkEventnamedot() {
+        var a = "'"
+        var form = document.getElementById('eventAddForm')
+        var eventInptValue = document.getElementById('eventNameInput').value
+
+        for (let i = 0; i < eventInptValue.length; i++) {
+            if (eventInptValue[i] === a) {
+                alert('Apostrophe are not allowed')
+                return false;
+                break;
+
+            }
+
+        }
+    }
+</script>

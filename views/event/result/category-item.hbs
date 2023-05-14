@@ -1,0 +1,52 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Items baise result / {{Category}} / {{SubCategory}}</h4>
+                <hr>
+            </div>
+        </div>
+        <div class="groups-content">
+            <div class="allCategory-content">
+                {{#if allItems.Items.[0]}}
+                {{#each allItems.Items}}
+
+                <a id="mainDiv"
+                    href="/event/{{../Event.EventId}}/result/item-baise/{{../Category}}/{{../SubCategory}}/{{this.Type}}/{{this.ItemId}}-{{this.Name}}">
+                    <div class="allGroupCatetory-items">
+                        <h4>{{this.Name}} <span style="font-style: italic; color:rgb(88, 88, 88); "
+                                class="EventIdSpan">({{this.ItemId}})</span> - ({{this.CategoryName}}) </h4>
+                        <div style="display: flex; align-items:center;">
+                            {{#if this.MarkAdded}}
+                            {{else}}
+                            <p class="resultPublishedStatus"
+                                style="margin-right: 5px; background:none; font-size:16px; color:rgb(65, 65, 65); font-style:italic;">
+                                <i title="This Item Mark not Added" class="bi bi-info-circle-fill"></i>
+                            </p>
+                            {{/if}}
+                            <p style="background-color: var(--color-two);"><i class="bi bi-arrow-right"></i></p>
+                        </div>
+                    </div>
+                </a>
+                {{/each}}
+                {{else}}
+                <div class="pointTable-nodataDiv">
+                    <div class="pointTabel-div">
+                        <div class="pointTable-IconDiv">
+                            <i class="bi bi-emoji-frown"></i>
+                        </div>
+                        <p>Items not available...</p>
+                      
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+
+</script>

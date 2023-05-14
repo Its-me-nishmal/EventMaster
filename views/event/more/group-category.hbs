@@ -1,0 +1,149 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/more"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>Group Category</h4>
+                <hr>
+            </div>
+            <div class="sessions-settings-content">
+                <div class="controlPanel-ItemDiv">
+                    <div class="controlpanel-subhead">
+                        <i class="bi bi-arrow-right"></i>
+                        <h4>Limit of items students can choose from</h4>
+                    </div>
+                    <div class="controlpanel-session-content">
+
+                        {{#each allItemCategory}}
+                        {{#if this.Type}}
+                        <div class="controlPane-Group-subDiv">
+                            <div style="margin-top: 5px;" class="controlpanel-subhead">
+                                <i style="color: rgb(253, 68, 161);" class="bi bi-caret-right-fill"></i>
+                                <h4 id="SessionName" style="color: rgb(253, 68, 161);">{{this.CategoryName}}</h4>
+                            </div>
+
+                            <form action="/event/{{../Event.EventId}}/group-category/edit-limit" method="POST">
+                                <input type="text" value="{{this.CategoryName}}" name="CategoryName" hidden>
+                                {{#each this.Sub}}
+                                <div class="controlpanel-session-content">
+
+                                    <div class="cotrolpanel-items">
+
+                                        <label for=""> {{this.Title}} / student
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <input type="text" hidden name="{{@index}}" value="{{this.Title}}" />
+                                            <input type="number" name="{{@index}}" required value="{{this.Limit}}"
+                                                placeholder="Nill" onchange="handleChange('{{../this.CategoryName}}')">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                {{/each}}
+                                <div id="generalControll{{this.CategoryName}}" {{#if this.Sub.[0].GeneralLimit}}{{else}}
+                                    style="display:none" {{/if}}>
+
+                                    {{#each this.Sub}}
+                                    <div class="controlpanel-session-content">
+
+                                        <div class="cotrolpanel-items">
+
+                                            <label for=""> General {{this.Title}} / student
+                                            </label>
+                                            <div class="Students-setting-Input-Event">
+                                                <input type="number" name="{{@index}}"
+                                                    class="input{{../this.CategoryName}}" value="{{this.GeneralLimit}}"
+                                                    placeholder="Nill"
+                                                    onchange="handleChange('{{../this.CategoryName}}')">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    {{/each}}
+                                </div>
+                                {{#if ../Event.MarkStatus}}{{else}}
+                                <div class="controlpanel-session-content">
+
+                                    <div class="cotrolpanel-items">
+
+                                        <label for=""> Whether to include general events ?
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <div class="cPanel-checkboxWrapper">
+                                                <input type="checkbox" onclick="onGeneralCount('{{this.CategoryName}}')"
+                                                    id="input{{this.CategoryName}}" {{#if this.Sub.[0].GeneralLimit}}
+                                                    checked {{/if}} onchange="handleChange('{{this.CategoryName}}')" />
+                                                <label for="input{{this.CategoryName}}">
+                                                    <svg class="cPanel-cross" width="30" height="30">
+                                                    </svg>
+                                                    <svg class="cPanel-checkmark" width="30" height="30">
+                                                    </svg>
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                              
+                                <div class="controlpanel-session-content">
+
+                                    <div style="border: none;" class="cotrolpanel-items">
+                                        <label for="">
+                                        </label>
+                                        <div class="Students-setting-Input-Event">
+                                            <button style="display: none;" id="button{{this.CategoryName}}"
+                                                type="submit" onclick="alertShow()">Save Changes</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {{/if}}
+                            </form>
+                        </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+<script>
+
+    function onGeneralCount(Category) {
+       
+        const mainDiv = document.getElementById('generalControll' + Category)
+        const input = document.getElementsByClassName('input' + Category)
+
+        if (mainDiv.style.display === "none") {
+            mainDiv.style.display = "block"
+
+        } else {
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = false
+            }
+            mainDiv.style.display = "none"
+        }
+    }
+    function handleChange(Category) {
+        document.getElementById('button' + Category).style.display = "block"
+    }
+</script>
+
+<script>
+    function alertShow() {
+        alert('save changes')
+    }
+</script>

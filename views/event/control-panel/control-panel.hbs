@@ -1,0 +1,259 @@
+<section>
+    <div class="fest-container">
+        <div class="contrlPanel-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Control panel </h4>
+                <hr>
+            </div>
+        </div>
+        <div class="controlPanel-content">
+            <div class="controlPanel-ItemDi">
+                <div class="controlpanel-subhead">
+                    <i class="bi bi-arrow-right"></i>
+                    <h4>Event</h4>
+                </div>
+                <div class="controlpanel-session-content">
+                    <div class="cotrolpanel-items">
+                        <label for=""> Launch to Public </label>
+                        <div class="cPanel-checkboxWrapper">
+                            <input type="checkbox" onclick="launchEvent('{{Event.EventId}}',{{EventDetails.Launch}})"
+                                id="userActivated" {{#if EventDetails.Launch}} checked {{/if}} />
+                            <label for="userActivated">
+                                <svg class="cPanel-cross" width="30" height="30">
+                                </svg>
+                                <svg class="cPanel-checkmark" width="30" height="30">
+                                </svg>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="cotrolpanel-items">
+                        <label for=""> Publish result to Public </label>
+                        <div class="cPanel-checkboxWrapper">
+                            <input type="checkbox"
+                                onclick="resultPublish('{{Event.EventId}}',{{EventDetails.ResultPublish}})"
+                                id="resultActivated" {{#if EventDetails.ResultPublish}} checked {{/if}} />
+                            <label for="resultActivated">
+                                <svg class="cPanel-cross" width="30" height="30">
+                                </svg>
+                                <svg class="cPanel-checkmark" width="30" height="30">
+                                </svg>
+                            </label>
+
+                        </div>
+                    </div>
+                    {{#if EventDetails.MarkStatus}}
+                    <div class="cotrolpanel-items">
+                        <label for=""> Upload Marks </label>
+                        <small style="font-style: italic;color:rgb(228, 126, 11);">Should always be on, not off
+                            unnecessarily</small>
+                        <div class="cPanel-checkboxWrapper">
+                            <input type="checkbox"
+                                onclick="uploadMarks('{{Event.EventId}}',{{EventDetails.MarkStatus}})" id="uploadMark"
+                                {{#if EventDetails.MarkStatus}} checked {{/if}} />
+                            <label for="uploadMark">
+                                <svg class="cPanel-cross" width="30" height="30">
+                                </svg>
+                                <svg class="cPanel-checkmark" width="30" height="30">
+                                </svg>
+                            </label>
+
+                        </div>
+                    </div>
+                    {{/if}}
+
+
+                </div>
+            </div>
+            <div class="controlPanel-ItemDiv">
+                <div class="controlpanel-subhead">
+                    <i class="bi bi-arrow-right"></i>
+                    <h4>Groups</h4>
+                </div>
+                <div class="controlpanel-session-content">
+                    {{#each allGroups}}
+                    <div class="controlPane-Group-subDiv">
+                        <div style="margin-top: 5px;" class="controlpanel-subhead">
+                            <i style="color: rgb(253, 68, 161);" class="bi bi-caret-right-fill"></i>
+                            <h4 style="color: rgb(253, 68, 161);">{{this.GroupName}}</h4>
+                        </div>
+
+
+                        {{#if this.GroupId}}
+
+                        <div class="cotrolpanel-items">
+                            <label for="">Create Students <span>({{#if this.CreateStudent}} Enable {{else}} Disable
+                                    {{/if}} )</span></label>
+                            <div class="cPanel-checkboxWrapper">
+                                <input type="checkbox"
+                                    onclick="OnStudents('{{this.EventId}}','{{this.GroupId}}','{{this.CreateStudent}}')"
+                                    id="{{this.GroupName}}" {{#if this.CreateStudent}} checked {{/if}} />
+                                <label for="{{this.GroupName}}">
+                                    <svg class="cPanel-cross" width="30" height="30">
+                                    </svg>
+                                    <svg class="cPanel-checkmark" width="30" height="30">
+                                    </svg>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="cotrolpanel-items">
+                            <label for="">Choose Items <span>({{#if this.ChooseItem}} Enable {{else}} Disable {{/if}}
+                                    )</span></label>
+                            <div class="cPanel-checkboxWrapper">
+                                <input type="checkbox" onclick="OnEvents('{{this.EventId}}','{{this.GroupId}}','{{this.ChooseItem}}')"
+                                    id="{{this.GroupName}}2" {{#if this.ChooseItem}} checked {{/if}} />
+                                <label for="{{this.GroupName}}2">
+                                    <svg class="cPanel-cross" width="30" height="30">
+                                    </svg>
+                                    <svg class="cPanel-checkmark" width="30" height="30">
+                                    </svg>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="cotrolpanel-items">
+                            <label for="">Edit Students <span>({{#if this.EditStudent}} Enable {{else}} Disable
+                                    {{/if}}
+                                    )</span></label>
+                            <div class="cPanel-checkboxWrapper">
+                                <input type="checkbox" onclick="ShowEditOption('{{this.EventId}}','{{this.GroupId}}','{{this.EditStudent}}')"
+                                    id="{{this.GroupName}}3" {{#if this.EditStudent}} checked {{/if}} />
+                                <label for="{{this.GroupName}}3">
+                                    <svg class="cPanel-cross" width="30" height="30">
+                                    </svg>
+                                    <svg class="cPanel-checkmark" width="30" height="30">
+                                    </svg>
+                                </label>
+
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="cotrolpanel-items">
+                            <label style="color: rgb(134, 134, 134); font-style: italic;" for=""><i
+                                    style="margin-right: 3px;" class="bi bi-info-circle-fill"></i>This group not
+                                activated</label>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('control-panel').className = "sidebarmenus sidebarmenus-active"
+</script>
+
+<script>
+    function OnStudents(EventId, GroupId, Status) {
+
+        $.ajax({
+            url: '/event/OnStudents',
+            data: {
+                EventId,
+                GroupId,
+                Status
+            },
+            method: 'post',
+            success: (response) => {
+                location.reload()
+            }
+        })
+    }
+</script>
+
+<script>
+    function OnEvents(EventId, GroupId,Status) {
+
+        $.ajax({
+            url: '/event/OnEvents',
+            data: {
+                EventId,
+                GroupId,
+                Status
+            },
+            method: 'post',
+            success: (result) => {
+                location.reload()
+            }
+        })
+    }
+</script>
+
+<script>
+    function ShowEditOption(EventId, GroupId,Status) {
+
+        $.ajax({
+            url: '/event/ShowEditOption',
+            data: {
+                EventId,
+                GroupId, Status
+            },
+            method: 'post',
+            success: (response) => {
+                location.reload()
+            }
+        })
+    }
+</script>
+
+<script>
+    function launchEvent(EventId, Status) {
+
+        $.ajax({
+            url: '/event/launch-event',
+            data: {
+                EventId,
+                Status
+
+            },
+            method: 'post',
+            success: (result) => {
+                location.reload()
+            }
+        })
+    }
+
+    function resultPublish(EventId, Status) {
+
+        $.ajax({
+            url: '/event/result-publish',
+            data: {
+                EventId,
+                Status
+            },
+            method: 'post',
+            success: (result) => {
+                location.reload()
+            }
+        })
+    }
+
+    function uploadMarks(EventId, Status) {
+        let ok = confirm('There is a possibility of changes in the results. Are you sure to change the mark status?')
+        if (ok) {
+            $.ajax({
+                url: '/event/change-mark-status',
+                data: {
+                    EventId,
+                    Status
+                },
+                method: 'post',
+                success: (result) => {
+                    location.reload()
+                }
+            })
+        } else {
+            location.reload()
+        }
+    }
+</script>

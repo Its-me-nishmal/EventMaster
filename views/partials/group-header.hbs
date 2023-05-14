@@ -3,8 +3,8 @@
         <input type="checkbox" id="nav-check">
         <div class="nav-header">
             <a href="/group">
-                 <img class="nav-title-logo" src="/images/images/nsa-online.png" alt="union logo"> 
-               
+                <img class="nav-title-logo" src="/images/images/nsa-online.png" alt="union logo">
+
 
             </a>
         </div>
@@ -20,10 +20,10 @@
         <div class="nav-links">
             <a id="G-Home" class="nav-links-a" href="/group">Home</a>
             <a id="G-Students" class="nav-links-a" href="/group/students">Students</a>
-            <a id="G-Events" class="nav-links-a" href="/group/events">Events</a>
+            <a id="G-Events" class="nav-links-a" href="/group/items">Items</a>
             <a id="G-Notification" style="position: relative;" class="nav-links-a"
-                href="/group/notification">Notification {{#if NewNotifi_Count}} <span id="NotificationCount"
-                    class="NotificationCount">{{NewNotifi_Count}}</span>{{/if}}</a>
+                href="/group/notification">Notification <span id="NotificationCount" style="display: none;"
+                    class="NotificationCount"></span></a>
             <a id="G-Other" class="nav-links-a" href="/group/other">Other</a>
 
         </div>
@@ -34,5 +34,27 @@
 </section>
 
 <script>
-   
+    let notifi = document.getElementById('NotificationCount');
+    let group = {{{ json Group }}}
+    function getNotificationCount() {
+
+        $.ajax({
+            url: '/group/get-new-notification-count',
+            data: {
+                EventId: group.EventId,
+                GroupId: group.GroupId
+            },
+            method: 'post',
+            success: (response) => {
+                if(response?.count === null){
+                notifi.style.display = 'none'
+                }else{
+                notifi.style.display = 'block'
+                notifi.innerHTML = response.count
+                }
+            }
+        })
+
+    }
+    getNotificationCount()
 </script>

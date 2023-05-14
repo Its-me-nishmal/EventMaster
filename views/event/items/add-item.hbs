@@ -1,0 +1,75 @@
+<section>
+    <div class="fest-container">
+        <div class="addpointtable-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}">
+                        <span class="back-button"><i class="bi bi-chevron-left"></i> Back</span></a>{{Category}} / {{SubCategory}}
+                     / Add Item</h4>
+                <hr>
+            </div>
+            <div class="addPointTable-content">
+                <form action="/event/{{Event.EventId}}/event-items/{{Category}}-{{SubCategory}}/add-event"
+                    method="POST">
+                    <div id="create-fest-page2">
+
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Item name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" name="Name" autofocus id="eventNameInput" placeholder="Name"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Point category </label>
+                            </div>
+                            <div class="inputDiv">
+                                <select style="" id="number-group" name="CategoryName" required>
+                                    {{#each pointCategoryOptions}}
+                                    <option value="{{this.CategoryName}}">{{this.CategoryName}} Category</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Type of event </label>
+                            </div>
+                            <div class="inputDiv">
+                                <select style="" id="number-group" name="Type" required>
+                                    <option value="Individual">Individual type</option>
+                                    <option value="Group">Group type</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Limit of students </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input title="" type="number" name="Limit"
+                                    placeholder="Limitation of students who can attend" required>
+                            </div>
+                        </div>
+
+                        <div class="CFsessionOneNext">
+                            <button type="submit" class="CFsessionOneNextButton"><i class="bi bi-check-lg"></i> Submit
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('event').className = "sidebarmenus sidebarmenus-active"
+
+</script>

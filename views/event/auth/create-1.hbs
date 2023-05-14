@@ -1,0 +1,205 @@
+<section>
+    <div class="container">
+        <div class="create-fest-border">
+            <div>
+                <h3 class="create-fest-heading">Create Event</h3>
+                <div class="create-fest-session-count">
+                    <div>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">1</span>
+                        <span id="conter2" class="create-fest-session-counter">2</span>
+                        <span class="create-fest-session-counter">3</span>
+                        <span class="create-fest-session-counter">4</span>
+
+                        <span class="create-fest-session-line1"><span id="line2"
+                                class="create-fest-session-line2"></span></span>
+
+
+                    </div>
+                    <hr class="create-fest-header-hr">
+                </div>
+                <div class="create-fest-content">
+                    <form action="/event/create-page2" method="POST" onsubmit="return sessionOneInputs()"
+                        id="sessionOneForm">
+                        <div id="create-fest-page2" class="create-fest-sessionOne">
+                            <h3 class="CFsessionOne-header">Event details</h3>
+                            <div class="createGrop-infermathion">
+                                <p><span>*</span> General is not a Category</p>
+                                <p><span>*</span> All inputs are required</p>
+                                <p><span>*</span> Select the event type to identify the event</p>
+
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Event type</label>
+                                </div>
+                                <div class="inputDiv" style="margin-right: -20px;">
+
+                                    <select id="number-group" name="Type" required>
+
+                                        <option value="Fest">Fest</option>
+                                        <option value="Sports">Sports</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Event Name</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="text" name="Name" id="fest-name" minlength="3" required>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Event Date</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="date" name="Date" id="fest-date" min="2020-01-01" max="2050-12-31">
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Converner</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="text" name="Convener" id="fest-convener" minlength="3" required>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Number of Groups</label>
+                                </div>
+                                <div class="inputDiv" style="margin-right: -20px;">
+
+                                    <select id="number-group" name="GroupsCount" required>
+
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Foure</option>
+                                        <option value="5">Five</option>
+                                        <option value="6">Six</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Number of Category</label>
+                                </div>
+                                <div class="inputDiv" style="margin-right: -20px;">
+
+                                    <select id="number-group" name="CategoryCount" required>
+
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Foure</option>
+                                        <option value="5">Five</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Email ID</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="email" name="EmailId" id="fest-name"  required>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Password</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="Password" name="Password" id="password" minlength="6" maxlength="12"
+                                        required>
+                                    <i id="Icon1" class="bi bi-eye-fill" onclick="showPassword()"></i>
+
+                                </div>
+                            </div>
+                            <div class="CFsessionOne">
+                                <div class="label">
+                                    <label for="">Confiem password</label>
+                                </div>
+                                <div class="inputDiv">
+                                    <input type="Password" id="c-password">
+                                    <i id="Icon2" class="bi bi-eye-fill" onclick="showCPassword()"></i>
+
+                                </div>
+                            </div>
+
+                            <div class="CFsessionOneNext">
+                                <button type="submit" class="CFsessionOneNextButton">Next <i
+                                        class="bi bi-chevron-right"></i></button>
+                            </div>
+
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{{!-- password validate --}}
+<script>
+    const form = document.getElementById('sessionOneForm');
+    const password = document.getElementById('password');
+    const cpassword = document.getElementById('c-password');
+    function sessionOneInputs() {
+        const passwordValue = password.value;
+        const cpasswordValue = cpassword.value;
+        if (passwordValue !== cpasswordValue) {
+
+            alert('Passwords does not match')
+            return false;
+        } else {
+            setSuccessFor(cpassword);
+        }
+    }
+
+
+
+</script>
+
+{{!-- show password --}}
+<script>
+    function showPassword() {
+        var x = document.getElementById("password");
+        var i = document.getElementById("Icon1");
+
+        if (x.type === "password") {
+            x.type = "text"
+            i.className = "bi bi-eye-slash-fill"
+
+        } else {
+            x.type = "password"
+            i.className = "bi bi-eye-fill"
+        }
+    }
+    function showCPassword() {
+        var x = document.getElementById("c-password");
+        var i = document.getElementById("Icon2");
+
+        if (x.type === "password") {
+            x.type = "text"
+            i.className = "bi bi-eye-slash-fill"
+
+        } else {
+            x.type = "password"
+            i.className = "bi bi-eye-fill"
+        }
+    }
+</script>

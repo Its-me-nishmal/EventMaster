@@ -1,0 +1,202 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="events-content">
+
+            </div>
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Student without Items
+                </h4>
+                <hr>
+            </div>
+            {{#if Students.[0]}}
+
+            <div class="allEventDiv">
+                <table id="allEvent-table" class="auto-index">
+                    <thead>
+                        <tr>
+                            <th>Sl no</th>
+                            <th>Chest no</th>
+                            <th>Full name</th>
+                            <th>Group Id</th>
+                            <th>Session </th>
+                            <th>Profile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Students}}
+                        <tr>
+                            <td></td>
+
+
+                            <!--leave it blank-->
+                            <td>{{this.ChestNo}}</td>
+                            <td>{{this.Name}}</td>
+                            <td>{{this.GroupId}}</td>
+                            <td>{{this.Category}}</td>
+
+                            <td class="StudentsTable-TD-Control"><a
+                                    href="/event/{{../Event.EventId}}/groups/{{this.GroupId}}/{{this.Category}}/students/{{this.ChestNo}}/view"><i
+                                        class="bi bi-eye-fill"></i>
+                                    View</a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="pointTable-printbutton">
+                <button class="print-button" onclick="PrintDiv('print-container','nsaonline.in')"><i
+                        class="bi bi-printer-fill"></i>
+                    Print</button>
+            </div>
+            {{else}}
+            <div class="pointTable-nodataDiv">
+                <div class="pointTabel-div">
+                    <div class="pointTable-IconDiv">
+                        <i class="bi bi-bag-x-fill"></i>
+                    </div>
+                    <p>Empty students</p>
+
+                </div>
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+</section>
+
+
+{{!-- print side --}}
+<div hidden id="print-container">
+
+    <head>
+        <link rel='stylesheet' href='/stylesheets/admin/print.css' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    </head>
+    <table class="printTable-border">
+        <thead>
+            <tr>
+                <td>
+                    <div class="printHeader">
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="printContent">
+                       {{#if totalStudentsDetails.StudentwithoutProgram.[0]}}
+                        
+                        <table class="auto-index print-Table">
+
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Chest no</th>
+                                    <th>Full name</th>
+                                    <th>Group name</th>
+                                    <th>Session </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each totalStudentsDetails.StudentwithoutProgram}}
+                                <tr>
+                                    <td></td>
+
+
+                                    <!--leave it blank-->
+                                    <td>{{this.ChestNo}}</td>
+                                    <td>{{this.FullName}}</td>
+                                    <td>{{this.GroupName}}</td>
+                                    <td>{{this.SessionName}}</td>
+
+
+
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+
+
+
+                        </table>
+                        {{else}}
+                            <div class="pointTable-nodataDiv">
+                            <p style="text-align: center;">No data available...</p>
+                        </div>
+                        {{/if}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <div class="printFooter">
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="print-header-space">
+        <div class="print-header-conternt">
+            <div>
+                <img src="/images/fest-logo/{{FestDetails.FestId}}.jpg" onerror="this.onerror=null;callfun(this);"
+                    alt="Fest Logo">
+                <div>
+                    <h2>{{FestDetails.FestName}} </h2>
+                    <h4>FestID : {{FestDetails.FestId}}</h4>
+                    <p> Fest Date :{{FestDetails.FestDate}} </p>
+                </div>
+            </div>
+            <div class="sessionTwo">
+                <div>
+                    <p style="font-weight: bold;"> NOORUL HUDA STUDENTS ASSOCIATION (NSA) </p>
+                    <p> Run by: Majma'a Wafy College - Kavanur </p>
+                    <p style="font-size: 14px;"> Rahmath nagar, Kavanur P.O, Areekode</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-page-headline">
+            <h4> - Student without program - </h4>
+        </div>
+    </div>
+
+    <div class="print-footer-space">
+        <i class="bi bi-globe"></i>
+        <p>www.nsaonline.in</p>
+        <i class="bi bi-envelope"></i>
+        <p>nsamajmaakvr@gmail.com</p>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-youtube"></i>
+        <i class="bi bi-telegram"></i>
+        <p>/follow us</p>
+    </div>
+
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#allEvent-table').DataTable();
+    });
+</script>
+
+
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>

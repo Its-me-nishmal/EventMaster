@@ -1,0 +1,201 @@
+<section>
+    <div class="container">
+        <div class="create-fest-border">
+            <div>
+                <h3 class="create-fest-heading">Create Event</h3>
+                <div class="create-fest-session-count">
+                    <div>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">1</span>
+                        <span style=" color:white; background-color: rgb(92, 148, 3) ; "
+                            class="create-fest-session-counter">2</span>
+                        <span class="create-fest-session-counter">3</span>
+                        <span class="create-fest-session-counter">4</span>
+
+                        <span class="create-fest-session-line1"><span style="width: 100px;"
+                                class="create-fest-session-line2"></span></span>
+
+
+                    </div>
+                    <hr class="create-fest-header-hr">
+                </div>
+                <div class="create-fest-content">
+                    <form action="/event/create-page3" method="POST" id="sessionOneForm">
+                        <input type="text" name="EventId" id="FestId" value="{{EventId}}" hidden>
+
+                        <p id="GroupCount" hidden>{{GroupsCount}} </p>
+                        <div id="create-fest-sessionTwo" class="create-fest-sessionTwo">
+                            <div id="create-fest-sessionOne" class="create-fest-sessionOne">
+
+                                <h3 class="CFsessionOne-header">Group details</h3>
+                                <div class="createGrop-infermathion">
+                                    <p><span>*</span> The group name is considered the group ID, so do not create two
+                                        groups with the same name</p>
+                                    <p><span>*</span> This information is valuable and you will not be able to edit it
+                                        once Fest is created</p>
+                                </div>
+                                <div class="CFsessionTwo">
+
+                                    <table class="auto-index">
+                                        <thead>
+                                            <tr>
+                                                <th class="CFsessionTwogroupNumberTDHead">Add {{GroupsCount}} Groups</th>
+                                                <th class="CFsessionTwoInputTDHead"><input type="text"
+                                                        id="inputTextHeader" placeholder="Enter group name here...">
+                                                </th>
+                                                <th class="CFsessionTwoAddButtonTD" onclick="newElement()"><i
+                                                        class="bi bi-plus-lg"></i>
+                                                    Add
+                                                </th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody id="tbody">
+
+
+                                        </tbody>
+                                    </table>
+
+
+                                    <br>
+
+
+                                </div>
+                                
+                                <div class="CFsessionOneNext">
+                                    <button type="button" id="nextButton" class="CFsessionOneNextButton"
+                                        onclick="clickcheck()">Next <i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+        var tr = document.createElement("tr");
+        var numberTd = document.createElement("td");
+        var inputTd = document.createElement("td");
+        var input = document.createElement("input");
+        var inputValue = document.getElementById('inputTextHeader').value;
+        var deleteTD = document.createElement("td");
+        var iconI = document.createElement("i");
+
+
+
+
+
+
+        tr.id = "trTage"
+        numberTd.className = "CFsessionTwoNumberTD";
+        inputTd.className = "CFsessionTwoInputResaltTD";
+        deleteTD.className = "CFsessionTwoDeleteButtonTD";
+        iconI.className = "bi bi-x-lg";
+        input.type = "text";
+        input.placeholder = "Null";
+        input.value = inputValue;
+        input.name = "GroupName";
+        input.readOnly = 'true'
+
+        deleteTD.onclick = function () {
+            var div = this.parentElement;
+            div.remove();
+
+
+
+        }
+
+
+        tr.appendChild(numberTd);
+        tr.appendChild(inputTd);
+        inputTd.appendChild(input);
+        tr.appendChild(deleteTD);
+        deleteTD.appendChild(iconI);
+
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("tbody").appendChild(tr);
+
+        }
+        document.getElementById('inputTextHeader').value = "";
+
+    }
+
+    // check click group name 
+
+    function clickcheck() {
+        var tbody = document.getElementById("tbody");
+        var childNotdLenth = tbody.childNodes.length;
+        var childInputLength = childNotdLenth - 1
+
+        var NextButton = document.getElementById('nextButton');
+        var GroupCount = document.getElementById('GroupCount').innerText
+        var CountInit = parseInt(GroupCount)
+
+
+        if (childInputLength === CountInit) {
+            NextButton.type = "submit";
+
+        } else if (childInputLength === 0) {
+            alert("You have not even created a group !")
+        } else if (childInputLength > CountInit) {
+            alert("You cannot create more than " + CountInit + " groups")
+
+        } else if (childInputLength < CountInit) {
+            alert("You must create " + CountInit + " groups")
+
+        } else {
+            alert("Create " + CountInit + "groups...")
+
+        }
+
+    }
+
+</script>
+
+
+
+
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    .auto-index tbody tr td:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>

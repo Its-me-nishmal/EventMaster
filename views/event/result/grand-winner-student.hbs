@@ -1,0 +1,42 @@
+<section>
+    <div class="fest-container">
+        <div class="evets-MainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Grand winner (Student)</h4>
+                <hr>
+            </div>
+        </div>
+        <div>
+
+            {{!-- Session1 --}}
+            {{#each result}}
+            <div class="group-baise-mark scrollbar-result" style="padding-top: 10px;">
+                {{#each this.students}}
+                <div class="Twenty-five" style="width:100%; margin-top:20px;">
+                    <div style="position: relative; z-index:-1;  min-width:250px"
+                        class="resultBorder">
+                        <div  class="winnerTitle">
+                            <h4>{{../this.CategoryName}} baise</h4>
+                        </div>
+                       
+                        <div class="winnerContent">
+                            <h1 >{{this.TotalMark}}</h1>
+                            <h2>{{this.Name}}</h2>
+                            <h4>Chest NO : {{this.ChestNo}}</h4>
+                            <h4 style="color:rgb(78, 78, 78); font-style:italic; ">{{this.GroupName}} </h4>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('result').className = "sidebarmenus sidebarmenus-active"
+
+</script>

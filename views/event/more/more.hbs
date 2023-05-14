@@ -1,0 +1,87 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">More Menus</h4>
+                <hr>
+            </div>
+            <div class="settings-content">
+                <a href="/event/{{Event.EventId}}/event-settings">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-palette-fill"></i> Event Settings </h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="/event/{{Event.EventId}}/group-category">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-subtract"></i> Group Category</h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+                <a href="/event/{{Event.EventId}}/student/student-without-items">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-folder-x"></i> Students without items </h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+                <a href="/event/{{Event.EventId}}/upload-files">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-file-earmark-arrow-up-fill"></i> Upload Files</h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+                <a href="/event/{{Event.EventId}}/notifications/send">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-chat-right-text-fill"></i> Send notification </h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+                <a href="/event/{{Event.EventId}}/notifications">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-folder-fill"></i> All notifications</h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+                {{!-- <a href="/event/{{Event.EventId}}/settings/grand-topper">
+                    <div class="settings-items">
+                        <h4><i class="bi bi-ui-checks-grid"></i> Build grand topper <span style="color: rgb(80, 80, 80); font-style:italic; font-size:small;">( Beta 1.0.2 )</span></h4>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a> --}}
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+
+</script>
+
+
+
+<script>
+    function refreshPage(EventId) {
+
+        let loading = document.getElementById('refreshLoading')
+        loading.style.display = 'block'
+        $.ajax({
+            url: '/event/' + EventId + '/settings/refresh',
+            data: {
+                EventId
+            },
+            method: 'post',
+            success: (result) => {
+                location.reload()
+            }
+        })
+    }
+</script>

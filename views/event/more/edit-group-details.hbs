@@ -1,0 +1,52 @@
+<section>
+    <div class="fest-container">
+        <div class="settings-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading">Event Settings / Edit Group</h4>
+                <hr>
+            </div>
+            <div class="addPointTable-content">
+                <form action="/event/{{Event.EventId}}/event-settings/edit-group" method="POST">
+                    <div id="create-fest-page2">
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Group ID </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input style="background-color: gainsboro; cursor:not-allowed" type="text"
+                                    value="{{GroupDetails.GroupId}}" readonly name="GroupId">
+                            </div>
+                        </div>
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Group name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{GroupDetails.GroupName}}" name="GroupName" required>
+                            </div>
+                        </div>
+
+                        <div class="CFsessionOne">
+                            <div class="label">
+                                <label for="">Converner name </label>
+                            </div>
+                            <div class="inputDiv">
+                                <input type="text" value="{{GroupDetails.Convener}}" name="Convener" required>
+                            </div>
+                        </div>
+                        <div class="CFsessionOneNext">
+                            <button type="submit" class="CFsessionOneNextButton"><i class="bi bi-check-lg"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+</script>

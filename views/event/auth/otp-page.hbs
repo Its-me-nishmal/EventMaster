@@ -1,0 +1,32 @@
+<section>
+    <div class="container">
+        <div class="forgotMainDiv">
+            <div class="forgotborder">
+                <div class="forgotHeader">
+                    <h2>Forgot password ?</h2>
+                </div>
+                <form action="/event/forgot-password/otp/{{mobile}}" method="post">
+                    <div class="forgotContent">
+                        <div>
+                            <p style="font-style: italic;">Otp Sended to Event mobile number ------{{mobileSlice}}
+                            </p>
+                        </div>
+                        <div>
+                            <input hidden type="text" value="{{mobile}}" name="Mobile">
+                            <label for="">Enter OTP</label>
+                            <input type="number" name="otp" required>
+                            <small style="color: red; font-style:italic;">{{Error}}</small>
+                        </div>
+                    </div>
+
+                    <div class="forgotFooter">
+                        <div class="fotgotButtons">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

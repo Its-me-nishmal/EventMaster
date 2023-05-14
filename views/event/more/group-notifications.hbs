@@ -1,0 +1,117 @@
+<section>
+    <div class="fest-container">
+        <div class="AdminNotification-mainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a href="/event/{{Event.EventId}}/notifications"><span
+                            class="back-button">
+                            <i class="bi bi-chevron-left"></i> Back</span></a>All Notifications /
+                    {{Notifications.GroupName}}</h4>
+                <hr>
+            </div>
+            <div>
+                <div class="notificationBoarder">
+                    <div class="allGroupsTableDiv">
+                        <table id="allGroup-table" class="auto-index">
+                            <thead>
+                                <tr>
+                                    <th>Sl no</th>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {{#each Notifications.Notifications}}
+
+                                <p class="MessageId" hidden>{{this.MessageId}}</p>
+                                <tr>
+                                    <td></td>
+                                    <!--leave it blank-->
+                                    <td>{{this.Date}}</td>
+                                    <td>{{this.Subject}}</td>
+                                    <p id="MType{{this.MessageId}}" hidden>{{this.Type}}</p>
+                                    <td id="typeTD{{this.MessageId}}"></td>
+                                    <td class="AllNotificationViewTd">
+                                        {{#if this.Read}}
+                                        <i title="Seen" style="color: rgb(0, 157, 219);" class="bi bi-check2-all"></i>
+                                        {{else}}
+                                        <i title="Not seen" style="color: rgb(0, 0, 0);" class="bi bi-check2-all"></i>
+                                        {{/if}}
+                                    </td>
+                                    <td>
+                                        <a id="ViewButton{{this.MessageId}}" title="user view"
+                                            href="/event/{{../Event.EventId}}/notifications/{{this.MessageId}}/view"><button
+                                                style="background-color: var(--color-view);"
+                                                class="pointCateoryDeletButton"> <i
+                                                    class="bi bi-eye-fill"></i></button></a>
+                                    </td>
+                                    <td>
+                                       
+                                        {{#if (eq this.Type 'Notifi_One')}}
+                                        <a id="DeleteButton{{this.MessageId}}"
+                                            href="/event/{{../Event.EventId}}/notifications/{{../GroupId}}/{{this.MessageId}}/delete-one"
+                                            onclick="return confirm('Are you want to delete this message from this group ?')"><button
+                                                class="pointCateoryDeletButton">From Group</button></a>
+                                        {{else}}
+                                        {{#if (eq this.Type 'Notifi_Group')}}
+                                        <a id="DeleteButton{{this.MessageId}}"
+                                            href="/event/{{../Event.EventId}}/notifications/{{../GroupId}}/{{this.MessageId}}/delete-all"
+                                            onclick="return confirm('Are you want to delete this message from all group ?')"><button
+                                                class="pointCateoryDeletButton">Form All</i></button></a>
+                                        {{/if}}{{/if}}
+
+                                    </td>
+
+
+                                </tr>
+
+                                {{/each}}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var current = document.getElementById('settings').className = "sidebarmenus sidebarmenus-active"
+</script>
+
+{{!-- table jqury --}}
+<script>
+    $(document).ready(function () {
+        $('#allGroup-table').DataTable();
+    });
+</script>
+
+<script>
+    var id = document.getElementsByClassName('MessageId')
+    for (let i = 0; i < id.length; i++) {
+        var thisId = id[i].outerText
+        var Mtype = document.getElementById('MType' + thisId).innerHTML
+        var TypeTD = document.getElementById('typeTD' + thisId)
+        var ViewButton = document.getElementById('ViewButton' + thisId)
+        var DeleteButton = document.getElementById('DeleteButton' + thisId)
+
+        if (Mtype === "Notifi_One") {
+
+            TypeTD.innerHTML = `<i title = "Personal" class="bi bi-person-fill"></i>`
+        } else if (Mtype === "Notifi_Group") {
+            TypeTD.innerHTML = `<i title = "Group" class="bi bi-people-fill"></i>`
+
+        } else {
+            TypeTD.innerHTML = `<i title = "Auto" class="bi bi-bell-fill"></i>`
+        }
+
+    }
+</script>

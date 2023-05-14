@@ -1,0 +1,43 @@
+<section>
+    <div class="fest-container">
+        <div class="groupsmainDiv">
+            <div class="pointTable-header">
+                <h4 class="adminHome-sectin-one-SubHeading"><a
+                        href="/event/{{Event.EventId}}/groups/{{GroupDetails.GroupId}}/{{Category}}/students"><span
+                            class="back-button"><i class="bi bi-chevron-left"></i>
+                            Back</span></a>{{GroupDetails.GroupName}} / {{Category}} / Add students
+                </h4>
+                <hr>
+            </div>
+            <div class="AddGroupStudents-content">
+                <div class="AddGroupStudetns-Div">
+                    <form
+                        action="/event/{{Event.EventId}}/groups/{{GroupDetails.GroupId}}/{{Category}}/students/add-student"
+                        method="POST">
+                        <div class="addStudetns-form">
+                            <div> <label for="">CIC No :</label></div>
+                            <div><input type="text" name="CicNo" autofocus required></div>
+                        </div>
+                        <div class="addStudetns-form">
+                            <div> <label for="">Full name :</label></div>
+                            <div><input type="text" name="Name" required></div>
+                        </div>
+
+                        <div class="addStudetns-form-Button">
+                            <button style="background-color: var(--color-two);" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+
+{{!-- active button --}}
+<script>
+    var current = document.getElementById('groups').className = "sidebarmenus sidebarmenus-active"
+
+</script>
