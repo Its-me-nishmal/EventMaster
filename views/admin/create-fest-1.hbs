@@ -42,7 +42,7 @@
                                     <label for="">Fest Date </label>
                                 </div>
                                 <div class="inputDiv">
-                                    <input type="date" name="FestDate" id="fest-date"  min="2020-01-01" max="2200-12-31" required >
+                                    <input type="date" name="FestDate" id="fest-date"  min="2020-01-01" max="2200-12-31"  >
 
                                 </div>
                             </div>
@@ -92,8 +92,7 @@
                             </div>
                             
                             
-                            <input type="text" name="FestId" id="fest-id" hidden>
-
+                         
 
                             
                             <div class="CFsessionOne">
@@ -184,22 +183,4 @@
     }
 </script>
 
-{{!-- random Id create --}}
-<script>
-
-    var festIdInput = document.getElementById('fest-id');
-    
-    create_random_id(7)
-    function create_random_id(sting_length) {
-        var randomString = '';
-        var numbers = '123456789A'
-        for (var i, i = 0; i < sting_length; i++) {
-            randomString += numbers.charAt(Math.floor(Math.random() * numbers.length))
-        }
-
-        festIdInput.value = "F"+randomString
-
-
-    }
-</script>
 

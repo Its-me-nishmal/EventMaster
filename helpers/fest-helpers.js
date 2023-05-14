@@ -3,6 +3,7 @@ var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 var ObjectId = require('mongodb').ObjectId;
 const { response } = require('express');
+const { createRandomId } = require('./function-helpers')
 
 
 
@@ -45,15 +46,16 @@ module.exports = {
     },
 
     sessionOneStore: (sessionOneDetails) => {
-        var FestId = sessionOneDetails.FestId
-        var CreatedDate = new Date()
+        const FestId = createRandomId(7, 'F', 'number')
+        const CreatedDate = new Date()
 
         sessionOneDetails.CreatedDate = CreatedDate
-        sessionOneDetails.NumberGroups = parseInt(sessionOneDetails.NumberGroups)
-        sessionOneDetails.NumberSessions = parseInt(sessionOneDetails.NumberSessions)
-        sessionOneDetails.GroupSlNo = parseInt(0)
+        sessionOneDetails.NumberGroups = Number(sessionOneDetails.NumberGroups)
+        sessionOneDetails.NumberSessions = Number(sessionOneDetails.NumberSessions)
+        sessionOneDetails.GroupSlNo = 0
+        sessionOneDetails.FestId = FestId
 
-        var GroupCount = sessionOneDetails.NumberGroups
+        const GroupCount = sessionOneDetails.NumberGroups
 
         let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         let Year = parseInt(sessionOneDetails.FestDate.slice(0, 4))
@@ -74,580 +76,74 @@ module.exports = {
     },
 
     sessionTwoStore: (sessionTwoDetails) => {
-        var festId = sessionTwoDetails.FestId
-        var inputDeatails = sessionTwoDetails
 
-
-        var GroupName1 = inputDeatails.GroupName[0]
-        var GroupName2 = inputDeatails.GroupName[1]
-        var GroupName3 = inputDeatails.GroupName[2]
-        var GroupName4 = inputDeatails.GroupName[3]
-        var GroupName5 = inputDeatails.GroupName[4]
-        var GroupName6 = inputDeatails.GroupName[5]
-
+        const festId = sessionTwoDetails.FestId
+        const inputDeatails = sessionTwoDetails
 
         return new Promise(async (resolve, reject) => {
-
+            let allGroup = []
 
             let NumberSessionsFest = await db.get().collection(collection.FEST_COLLECTION).findOne({ FestId: festId })
             let NumberSessionCount = NumberSessionsFest.NumberSessions
-
-
-            if (!GroupName1 == "") {
-
-                let obj1 = {
-                    GroupName: GroupName1,
+            for (let i = 0; i < inputDeatails.GroupName.length; i++) {
+                console.log('hi');
+                let obj = {
+                    GroupName: inputDeatails.GroupName[i],
                     FestId: festId,
                     GroupId: "",
                     Convener: "",
                     Password: ""
                 }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj1).then((response) => {
-                    resolve({ festId, NumberSessionCount })
-                })
-
+                allGroup.push(obj)
             }
-            if (!GroupName2 == "") {
-
-                let obj2 = {
-                    GroupName: GroupName2,
-                    FestId: festId,
-                    GroupId: "",
-                    Convener: "",
-                    Password: ""
-                }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj2).then((response) => {
-                    resolve()
-                })
-
-            }
-            if (!GroupName3 == "") {
-
-                let obj3 = {
-                    GroupName: GroupName3,
-                    FestId: festId,
-                    GroupId: "",
-                    Convener: "",
-                    Password: ""
-                }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj3).then((response) => {
-                    resolve()
-                })
-
-            }
-            if (!GroupName4 == "") {
-
-                let obj4 = {
-                    GroupName: GroupName4,
-                    FestId: festId,
-                    GroupId: "",
-                    Convener: "",
-                    Password: ""
-                }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj4).then((response) => {
-                    resolve()
-                })
-
-            }
-            if (!GroupName5 == "") {
-
-                let obj5 = {
-                    GroupName: GroupName5,
-                    FestId: festId,
-                    GroupId: "",
-                    Convener: "",
-                    Password: ""
-                }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj5).then((response) => {
-                    resolve()
-                })
-
-            }
-            if (!GroupName6 == "") {
-
-                let obj6 = {
-                    GroupName: GroupName6,
-                    FestId: festId,
-                    GroupId: "",
-                    Convener: "",
-                    Password: ""
-                }
-
-                db.get().collection(collection.GROUP_COLLECTION).insertOne(obj6).then((response) => {
-                    resolve()
-                })
-
-            }
-
-
+            console.log(allGroup, 'grou[');
+            await db.get().collection(collection.GROUP_COLLECTION).insertMany(allGroup).then((response) => {
+                resolve({ festId, NumberSessionCount })
+            }).catch((error) => {
+                console.log(error, 'erro');
+            })
         })
 
     },
 
     sessionThreeStore: (sessionThreeDetails) => {
-
-        var FestId = sessionThreeDetails.FestId
-        var sessionName = sessionThreeDetails.SessionName
-        var status = sessionThreeDetails.Status
-        var session = typeof sessionThreeDetails.SessionName
-        var statusType = typeof status
-        var sessionString = session === "string"
-        var sessionLength = sessionName.length
-
-
-        var session1 = sessionName[0]
-        var session2 = sessionName[1]
-        var session3 = sessionName[2]
-        var session4 = sessionName[3]
-        var session5 = sessionName[4]
-        var session6 = sessionName[5]
-        var status1 = status[0]
-        var status2 = status[1]
-        var status3 = status[2]
-        var status4 = status[3]
-        var status5 = status[4]
-        var status6 = status[5]
+        console.log(sessionThreeDetails, 'three');
+        const FestId = sessionThreeDetails.FestId
+        const sessionName = typeof sessionThreeDetails.SessionName === 'string' ? [sessionThreeDetails.SessionName] : sessionThreeDetails.SessionName
+        const status = typeof sessionThreeDetails.Status === 'string' ? [sessionThreeDetails.Status] : sessionThreeDetails.Status
+        const session = typeof sessionThreeDetails.SessionName
 
 
         return new Promise(async (resolve, reject) => {
-
-            if (sessionString) {
-                var sessionItemObj = {
+            let toGroupObj = {}
+            let toItemObj = []
+            for (let i = 0; i < sessionName.length; i++) {
+                toGroupObj['Session' + [i + 1]] = {
+                    SessionName: sessionName[i],
+                    Students_SlNo: 1,
+                    StudentsCount: 0,
+                    status: status[i] ? status[i] : null
+                }
+                let obj = {
                     FestId: FestId,
-                    SessionName: sessionName,
+                    SessionName: sessionName[i],
                     Category1: "Stage",
                     StageItem: [],
                     Category2: "Off Stage",
                     OffstageItem: [],
                     StageCount: parseInt(0),
                     OffStageCount: parseInt(0),
-
                 }
+                toItemObj.push(obj)
 
-                await db.get().collection(collection.GROUP_COLLECTION).update({ FestId: FestId }, {
-                    $set: {
-                        Session1: {
-                            SessionName: sessionName,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status
-                        }
-                    }
-                }).then((response) => {
-                    db.get().collection(collection.ITEM_COLLECTION).insertOne(sessionItemObj).then((resopnse) => {
-                        resolve(FestId)
-                    })
-                })
-
-
-            } else if (sessionLength === 2) {
-                if (statusType === "string") {
-                    db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: FestId }, {
-                        $set: {
-                            Session1: {
-                                SessionName: session1,
-                                Students_SlNo: parseInt(1),
-                                StudentsCount: parseInt(0),
-                                status: status
-
-                            },
-                            Session2: {
-                                SessionName: session2,
-                                Students_SlNo: parseInt(1),
-                                StudentsCount: parseInt(0),
-                                status: null
-                            }
-
-                        }
-                    }).then((response) => {
-
-                        db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                            FestId: FestId,
-                            SessionName: session1,
-                            Category1: "Stage",
-                            StageItem: [],
-                            Category2: "Off Stage",
-                            OffstageItem: [],
-                            StageCount: parseInt(0),
-                            OffStageCount: parseInt(0),
-                        }, {
-                            FestId: FestId,
-                            SessionName: session2,
-                            Category1: "Stage",
-                            StageItem: [],
-                            Category2: "Off Stage",
-                            OffstageItem: [],
-                            StageCount: parseInt(0),
-                            OffStageCount: parseInt(0),
-                        }]).then((resoponse) => {
-                            resolve(FestId)
-                        })
-                    })
-                } else {
-                    db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: FestId }, {
-                        $set: {
-                            Session1: {
-                                SessionName: session1,
-                                Students_SlNo: parseInt(1),
-                                StudentsCount: parseInt(0),
-                                status: status1
-
-                            },
-                            Session2: {
-                                SessionName: session2,
-                                Students_SlNo: parseInt(1),
-                                StudentsCount: parseInt(0),
-                                status: status2
-                            }
-
-                        }
-                    }).then((response) => {
-
-                        db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                            FestId: FestId,
-                            SessionName: session1,
-                            Category1: "Stage",
-                            StageItem: [],
-                            Category2: "Off Stage",
-                            OffstageItem: [],
-                            StageCount: parseInt(0),
-                            OffStageCount: parseInt(0),
-                        }, {
-                            FestId: FestId,
-                            SessionName: session2,
-                            Category1: "Stage",
-                            StageItem: [],
-                            Category2: "Off Stage",
-                            OffstageItem: [],
-                            StageCount: parseInt(0),
-                            OffStageCount: parseInt(0),
-                        }]).then((resoponse) => {
-                            resolve(FestId)
-                        })
-                    })
-                }
-
-            } else if (sessionLength === 3) {
-                db.get().collection(collection.GROUP_COLLECTION).updateMany({ FestId: FestId }, {
-                    $set: {
-                        Session1: {
-                            SessionName: session1,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status1
-
-                        },
-                        Session2: {
-                            SessionName: session2,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status2
-                        },
-                        Session3: {
-                            SessionName: session3,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status3
-                        }
-                    }
-                }).then((response) => {
-                    db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                        FestId: FestId,
-                        SessionName: session1,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session2,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session3,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }
-                    ]).then((resoponse) => {
-                        resolve(FestId)
-                    })
-                })
-            } else if (sessionLength === 4) {
-                db.get().collection(collection.GROUP_COLLECTION).update({ FestId: FestId }, {
-                    $set: {
-                        Session1: {
-                            SessionName: session1,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status1
-
-                        },
-                        Session2: {
-                            SessionName: session2,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status2
-                        },
-                        Session3: {
-                            SessionName: session3,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status3
-                        },
-                        Session4: {
-                            SessionName: session4,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status4
-                        }
-                    }
-                }).then((response) => {
-                    db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                        FestId: FestId,
-                        SessionName: session1,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session2,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session3,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session4,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }
-                    ]).then((resoponse) => {
-                        resolve(FestId)
-                    })
-                })
-            } else if (sessionLength === 5) {
-                db.get().collection(collection.GROUP_COLLECTION).update({ FestId: FestId }, {
-                    $set: {
-                        Session1: {
-                            SessionName: session1,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status1
-
-                        },
-                        Session2: {
-                            SessionName: session2,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status2
-                        },
-                        Session3: {
-                            SessionName: session3,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status3
-                        },
-                        Session4: {
-                            SessionName: session4,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status4
-                        },
-                        Session5: {
-                            SessionName: session5,
-                            Students: [],
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status5
-                        }
-                    }
-                }).then((response) => {
-                    db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                        FestId: FestId,
-                        SessionName: session1,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session2,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session3,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session4,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session5,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }
-                    ]).then((resoponse) => {
-                        resolve(FestId)
-                    })
-                })
-            } else if (sessionLength === 6) {
-                db.get().collection(collection.GROUP_COLLECTION).update({ FestId: FestId }, {
-                    $set: {
-                        Session1: {
-                            SessionName: session1,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status1
-
-                        },
-                        Session2: {
-                            SessionName: session2,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status2
-                        },
-                        Session3: {
-                            SessionName: session3,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status3
-                        },
-                        Session4: {
-                            SessionName: session4,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status4
-                        },
-                        Session5: {
-                            SessionName: session5,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status5
-                        },
-                        Session6: {
-                            SessionName: session6,
-                            Students_SlNo: parseInt(1),
-                            StudentsCount: parseInt(0),
-                            status: status6
-                        }
-                    }
-                }).then((response) => {
-                    db.get().collection(collection.ITEM_COLLECTION).insertMany([{
-                        FestId: FestId,
-                        SessionName: session1,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session2,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session3,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session4,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session5,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }, {
-                        FestId: FestId,
-                        SessionName: session6,
-                        Category1: "Stage",
-                        StageItem: [],
-                        Category2: "Off Stage",
-                        OffstageItem: [],
-                        StageCount: parseInt(0),
-                        OffStageCount: parseInt(0),
-                    }
-                    ]).then((resoponse) => {
-                        resolve(FestId)
-                    })
-                })
             }
+            await db.get().collection(collection.GROUP_COLLECTION).update({ FestId: FestId }, {
+                $set: toGroupObj
+            }).then((response) => {
+                db.get().collection(collection.ITEM_COLLECTION).insertMany(toItemObj).then((resopnse) => {
+                    resolve(FestId)
+                })
+            })
         })
     },
 
@@ -1103,9 +599,16 @@ module.exports = {
     },
 
     activateGroupSession: (body) => {
-
+        console.log(body, 'acitive goru[ sessio');
         return new Promise(async (resolve, reject) => {
             let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: body.GroupId })
+            if (Group.Session1) {
+
+                for (let i = 0; i < 6; i++) {
+
+
+                }
+            }
 
             if (Group.Session1) {
                 if (Group.Session1.SlNo === null || Group.Session1.SlNo === undefined) {
@@ -2616,7 +2119,7 @@ module.exports = {
                 body.FestId = FestId
 
             }
-           
+
             db.get().collection(collection.GRAND_TOPPER_COLLECTION).insertOne(body).then(() => {
                 resolve()
             })
@@ -2632,15 +2135,15 @@ module.exports = {
     forEditGrandTopper: (allPointCategory, FestId, TopperId) => {
         return new Promise(async (resolve, reject) => {
             let Topper = await db.get().collection(collection.GRAND_TOPPER_COLLECTION).findOne({ FestId, TopperId })
-            
-            
-                for (let i = 0; i < Topper.PointCategory.length; i++){
-                    for(let j = 0; j<allPointCategory.length; j++){
-                        if(Topper.PointCategory[i] == allPointCategory[j].CategoryName){
-                            allPointCategory[j].tik = true
-                        }
+
+
+            for (let i = 0; i < Topper.PointCategory.length; i++) {
+                for (let j = 0; j < allPointCategory.length; j++) {
+                    if (Topper.PointCategory[i] == allPointCategory[j].CategoryName) {
+                        allPointCategory[j].tik = true
                     }
                 }
+            }
 
             // }else{
             //     for(let j = 0; j<allPointCategory.length; j++){
@@ -2650,8 +2153,8 @@ module.exports = {
             //     }
             // }
             console.log(allPointCategory);
-            resolve(Topper,allPointCategory)
-            
+            resolve(Topper, allPointCategory)
+
 
         })
     }

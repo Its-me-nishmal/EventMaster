@@ -51,9 +51,7 @@ const getAccount = async (req, res) => {
         res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, "passwordChangeSuccess": req.session.passwordChangeSuccess, footer: true })
         req.session.passwordChangeSuccess = false
     } else {
-
         res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
-
     }
 }
 
@@ -65,9 +63,7 @@ const postChangePassword = (req, res) => {
         } else {
             req.session.passwordChangeErr = "Incorrect Corrent password"
             res.redirect('/admin/change-password')
-
         }
-
     })
 }
 

@@ -3,7 +3,7 @@ const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
 const ObjectId = require('mongodb').ObjectId;
-
+const { createRandomId } = require('./function-helpers')
 
 module.exports = {
 
@@ -66,7 +66,7 @@ module.exports = {
 
                 }
             }).then((response) => {
-                let tnew = db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
+                const tnew = db.get().collection(collection.ADMIN_COLLECTION).findOne({ UserName: body.UserName })
                 resolve(tnew)
             })
         });
@@ -101,7 +101,7 @@ module.exports = {
                                 $set: {
                                     Password: passwordNew
                                 }
-                            }).then((response) => {
+                            }).then(() => {
 
                                 resolve({ passwordSuccess: true })
 
@@ -138,7 +138,7 @@ module.exports = {
             } else {
                 body.Password = await bcrypt.hash(body.Password, 10)
                 db.get().collection(collection.ADMIN_COLLECTION).insertOne(body).then((response) => {
-                    resolve(response)
+                    resolve(response) 
                 })
             }
         })
@@ -149,23 +149,15 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ EmailId: body.EmailId })
             if (admin) {
-                let otp = null
-                var tranasporter = nodemailer.createTransport({
+                let otp = createRandomId(4, '', 'number')
+                const tranasporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {
                         user: "dreamsart3@gmail.com",
                         pass: "8089228324"
                     }
                 });
-                create_random_id(4)
-                function create_random_id(sting_length) {
-                    var randomString = '';
-                    var numbers = '123456789'
-                    for (var i, i = 0; i < sting_length; i++) {
-                        randomString += numbers.charAt(Math.floor(Math.random() * numbers.length))
-                    }
-                    otp = randomString
-                }
+              
                 var mailOptions = {
                     from: 'dreamsart3@gmail.com',
                     to: admin.EmailId,
@@ -237,7 +229,4 @@ module.exports = {
         })
 
     }
-
-
-
 }

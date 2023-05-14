@@ -1,32 +1,41 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require('express-session');
-var MongoDBSession = require('connect-mongodb-session')(session);
-var MongoURI = "mongodb://localhost:27017/sessions"
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
 const dotenv = require('dotenv').config()
+const hbs = require('express-handlebars');
+const handlebarsHelpers = require('handlebars-helpers')();
 
-var userRouter = require('./routes/user');
-var adminRouter = require('./routes/admin');
-var groupRouter = require('./routes/group');
-const festRouter = require('./routes/fest')
-var hbs = require('express-handlebars');
-var app = express();
-var fileupload = require('express-fileupload');
-var db = require('./config/connection')
+const userRouter = require('./routes/user');
+const adminRouter = require('./routes/admin');
+const groupRouter = require('./routes/group');
+const eventRouter = require('./routes/event')
+const app = express();
+const fileupload = require('express-fileupload');
+const db = require('./config/db')
+const { store } = require('./config/session')
 
-var store = new MongoDBSession({
-  uri: MongoURI,
-  collection: 'Sessions',
 
-})
 
 // view engine setup
+const hbsEngine = hbs.create({
+  extname: 'hbs',
+  defaultLayout: 'layout',
+  layoutsDir: __dirname + '/views/layout/',
+  partialsDir: __dirname + '/views/partials/',
+  helpers: {
+    eq: handlebarsHelpers.eq, // register the 'eq' helper
+    json: function (context) {
+      return JSON.stringify(context);
+    }
+  }
+});
+
 app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', hbsEngine.engine)
 app.set('view engine', 'hbs');
-app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials/' }))
 
 
 
@@ -37,7 +46,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload());
 app.use(session({
-  secret: "key",
+  secret: process.env.SESSION_KEY,
   resave: false,
   saveUninitialized: false,
   store: store,
@@ -52,7 +61,7 @@ db.connect((err) => {
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 app.use('/group', groupRouter);
-app.use('/fest', festRouter)
+app.use('/event', eventRouter)
 
 
 // catch 404 and forward to error handler
