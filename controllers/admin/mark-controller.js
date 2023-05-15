@@ -80,11 +80,11 @@ const getAddGroupMarkPage = async (req, res) => {
 }
 
 const postAddGroupMarkPage = (req, res) => {  
-    var Event = req.session.event
-    var Category = req.params.Category
-    var SubCategory = req.params.SubCategory
-    var ItemId = req.params.ItemId
-    var ItemName = req.params.ItemName
+    const Event = req.session.event
+    const Category = req.params.Category
+    const SubCategory = req.params.SubCategory
+    const ItemId = req.params.ItemId
+    const ItemName = req.params.ItemName
 
     markHelpers.addGroupMark(req.body, Event.EventId, Category, SubCategory, ItemId).then(() => {
         res.redirect('/event/' + Event.EventId + '/mark/' + Category + '-' + SubCategory + '/Group/' + ItemId + '-' + ItemName + '/add-mark')

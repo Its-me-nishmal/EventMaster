@@ -1,6 +1,6 @@
 {
   "name": "event",
-  "version": "2.1.2",
+  "version": "2.1.",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"

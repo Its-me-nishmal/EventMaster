@@ -1,5 +1,5 @@
-var db = require('../config/db')
-var collection = require('../config/collections')
+const db = require('../config/db')
+const collection = require('../config/collections')
 
 
 module.exports = {
@@ -45,10 +45,10 @@ module.exports = {
                 } else {
     
                     let searchValue = body.searchValue;
-                    var myPattern = new RegExp('(\\w*' + searchValue + '\\w*)', 'gi');
+                    const myPattern = new RegExp('(\\w*' + searchValue + '\\w*)', 'gi');
     
                     for (let b = 0; b < AllStudents.length; b++) {
-                        var Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: AllStudents[b].GroupId })
+                        const Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ FestId: body.FestId, GroupId: AllStudents[b].GroupId })
                        
                         let searchName = AllStudents[b].FullName.split(/\s/)
                         let NameString = null
@@ -57,8 +57,8 @@ module.exports = {
                                 NameString = searchName[c].slice(0, searchValue.length).match(myPattern)
                             } 
                         }
-                        var searchChestNo = AllStudents[b].ChestNo.slice(0, searchValue.length).match(myPattern);
-                        var searchCIC = AllStudents[b].CicNo.slice(0, searchValue.length).match(myPattern);
+                        const searchChestNo = AllStudents[b].ChestNo.slice(0, searchValue.length).match(myPattern);
+                        const searchCIC = AllStudents[b].CicNo.slice(0, searchValue.length).match(myPattern);
                         
                         let student = {}
                         student.GroupName = Group.GroupName

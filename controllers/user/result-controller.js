@@ -92,8 +92,8 @@ const getStudentBaiseSubPage = async (req, res) => {
 }
 
 const getStudentBaiseList = async (req, res) => {
-    var eventDetails = req.session.e
-    var GroupId = req.params.GroupId
+    const eventDetails = req.session.e
+    const GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, eventDetails.EventId)
     let Category = req.params.Category
     let AllStudents = await studentHelpers.getAllStudentsInGroup(eventDetails.EventId, GroupId, Category)
@@ -103,8 +103,8 @@ const getStudentBaiseList = async (req, res) => {
 }
 
 const getStudentBaiseItems = async (req, res) => {
-    var eventDetails = req.session.e
-    var GroupId = req.params.GroupId
+    const eventDetails = req.session.e
+    const GroupId = req.params.GroupId
     let Category = req.params.Category
     let ChestNo = req.params.ChestNo
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, eventDetails.EventId)

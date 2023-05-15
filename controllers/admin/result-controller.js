@@ -28,7 +28,7 @@ const getCategoryBaisePublishedStatus = async (req, res) => {
 
 const getItemBaiseResultPage = async (req, res) => {   
     let Event = req.session.event
-    var ItemCategorys = await itemHelpers.getAllItemCategory(Event.EventId)
+    const ItemCategorys = await itemHelpers.getAllItemCategory(Event.EventId)
 
     res.render('event/result/item-baise', {
         title: Event.Name, eventHeader: true, Event, createAccout: true, adminHeader: true,
@@ -44,9 +44,9 @@ const searchItemBaise = (req, res) => {
 
 const getItemBaiseSubPage = async (req, res) => {   
     let Event = req.session.event
-    var Category = req.params.Category
-    var SubCategory = req.params.SubCategory
-    var allItems = await itemHelpers.getAllItems(Event.EventId, Category, SubCategory)
+    const Category = req.params.Category
+    const SubCategory = req.params.SubCategory
+    const allItems = await itemHelpers.getAllItems(Event.EventId, Category, SubCategory)
 
     res.render('event/result/category-item', {
         title: Event.Name, eventHeader: true, Event, createAccout: true, adminHeader: true, SubCategory, Category,
@@ -83,8 +83,8 @@ const getItemBaiseGroupStudents = async (req, res) => {
 }
 
 const getStudentBaiseResultPage = async (req, res) => {   
-    var Event = req.session.event
-    var AllGroups = await groupHelpers.getAllGroups(Event.EventId)
+    const Event = req.session.event
+    const AllGroups = await groupHelpers.getAllGroups(Event.EventId)
 
     res.render('event/result/student-baise', { title: Event.Name, eventHeader: true, Event, createAccout: true, adminHeader: true, AllGroups })
 }
@@ -106,8 +106,8 @@ const getStudentBaiseSubPage = async (req, res) => {
 }
 
 const getStudentBaiseList = async (req, res) => {   
-    var Event = req.session.event
-    var GroupId = req.params.GroupId
+    const Event = req.session.event
+    const GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
     let Category = req.params.Category
     let AllStudents = await studentHelpers.getAllStudentsInGroup(Event.EventId, GroupId, Category)
@@ -119,8 +119,8 @@ const getStudentBaiseList = async (req, res) => {
 }
 
 const getStudentBaiseItems = async (req, res) => {   
-    var Event = req.session.event
-    var GroupId = req.params.GroupId
+    const Event = req.session.event
+    const GroupId = req.params.GroupId
     let Category = req.params.Category
     let ChestNo = req.params.ChestNo
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)

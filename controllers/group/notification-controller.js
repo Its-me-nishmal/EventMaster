@@ -45,7 +45,7 @@ const readAllNotifi = (req, res) => {
 
 const viewNotifi = async (req, res) => { 
   let Group = req.session.group
-  var EventDetails = await eventHelpers.getEventDetails(Group.EventId)
+  const EventDetails = await eventHelpers.getEventDetails(Group.EventId)
   let MessageId = req.params.MessageId
   let Message = await notificationHelpers.getOneMessage(Group.EventId, Group.GroupId, MessageId)
   res.render('group/notifi/view-notification', {

@@ -1,5 +1,5 @@
-var db = require('../config/db')
-var collection = require('../config/collections')
+const db = require('../config/db')
+const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const { createRandomId } = require('./function-helpers')
 

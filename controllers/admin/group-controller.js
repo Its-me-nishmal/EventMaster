@@ -35,8 +35,8 @@ const getGroupViewPage = async (req, res) => {
 }
 
 const getGroupStudentsList = async (req, res) => {   
-    var Event = req.session.event
-    var GroupId = req.params.GroupId
+    const Event = req.session.event
+    const GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
     let Category = req.params.Category
     let EventLimit = await itemHelpers.findOneItemInCategory(Event.EventId, Category)
@@ -51,7 +51,7 @@ const getGroupStudentsList = async (req, res) => {
 }
 
 const getAddStudentPage = async (req, res) => {   
-    var Event = req.session.event
+    const Event = req.session.event
     let GroupDetails = await groupHelpers.getGroupDetails(req.params.GroupId, Event.EventId)
     let Category = req.params.Category
 
@@ -93,9 +93,9 @@ const postAddStudent = async (req, res) => {
 }
 
 const deleteStudent = (req, res) => {   
-    var EventId = req.session.event.EventId
-    var GroupId = req.params.GroupId
-    var Category = req.params.Category
+    const EventId = req.session.event.EventId
+    const GroupId = req.params.GroupId
+    const Category = req.params.Category
     let ChestNo = req.params.ChestNo
     studentHelpers.removeStudent(EventId, GroupId, ChestNo, Category).then((response) => {
         res.redirect('/event/' + EventId + '/groups/' + GroupId + '/' + Category + '/students')
@@ -127,9 +127,9 @@ const getStudentsEventPage = async (req, res) => {
 }
 
 const deleteItemFormStudent = async (req, res) => {   
-    var EventId = req.session.event.EventId
-    var GroupId = req.params.GroupId
-    var Category = req.params.Category
+    const EventId = req.session.event.EventId
+    const GroupId = req.params.GroupId
+    const Category = req.params.Category
     let ChestNo = req.params.ChestNo
     let ItemId = req.params.ItemId
 

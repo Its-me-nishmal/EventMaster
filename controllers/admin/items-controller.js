@@ -47,7 +47,7 @@ const getAddItemPage = async (req, res) => {
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
-    var pointCategoryOptions = await eventHelpers.getPointCategoryOptions(Event.EventId)
+    const pointCategoryOptions = await eventHelpers.getPointCategoryOptions(Event.EventId)
    
     if (req.session.Success) {
         res.render('event/items/add-item', {

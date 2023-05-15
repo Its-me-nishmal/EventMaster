@@ -88,7 +88,7 @@ const getStudentViewpage = async (req, res) => {
     let Category = req.params.Category
     let Group = req.session.group
     let ChestNo = req.params.ChestNo
-    var Event = await eventHelpers.getEventDetails(Group.EventId)
+    const Event = await eventHelpers.getEventDetails(Group.EventId)
     let Student = await studentHelpers.getOneStudentItems(Group.EventId, ChestNo)
     let EventLimit = await itemHelpers.findOneItemInCategory(Group.EventId, Category)
 
@@ -142,8 +142,8 @@ const postStudentEditPage = (req, res) => {
     })
 }
 const deleteStudent = (req, res) => { 
-    var Group = req.session.group
-    var Category = req.params.Category
+    const Group = req.session.group
+    const Category = req.params.Category
     let ChestNo = req.params.ChestNo
     studentHelpers.removeStudent(Group.EventId, Group.GroupId, ChestNo, Category).then((response) => {
         res.redirect('/group/students/' + Category)
@@ -151,7 +151,7 @@ const deleteStudent = (req, res) => {
 }
 
 const getStudentWithOutItem = async (req, res) => { 
-    var Group = req.session.group
+    const Group = req.session.group
     studentHelpers.GroupBaiseStudentWithOutItems(Group.EventId, Group.GroupId).then((Students) => {
         res.render('group/students/student-without-item', { title: Group.GroupName, group: true, groupHeader: true, Group, Students })
     })

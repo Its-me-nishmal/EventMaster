@@ -48,7 +48,7 @@ const getItemStudents = async (req, res) => {
     let SubCategory = req.params.SubCategory
     let ItemId = req.params.ItemId
     let ItemName = req.params.ItemName
-    var Event = await eventHelpers.getEventDetails(Group.EventId)
+    const Event = await eventHelpers.getEventDetails(Group.EventId)
     let ItemStudents = await itemHelpers.getItemStudentsFromOneGroup(Group.EventId, Group.GroupId, ItemId)
     let GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.EventId)
     if (req.session.Success) {
