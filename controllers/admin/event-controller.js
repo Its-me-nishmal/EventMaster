@@ -5,33 +5,33 @@ const { dosms, otpVerify } = require('../../helpers/otp-helpers')
 const studentHelpers = require("../../helpers/student-helpers")
 
 // Create Event
-const getPageOne = (req, res) => {  ////
+const getPageOne = (req, res) => {   
     res.render('event/auth/create-1', { title: 'Create event', createAccout: true, adminHeader: true })
 }
 
-const postPageOne = (req, res) => {  ////
+const postPageOne = (req, res) => {   
     eventHelpers.sessionOneStore(req.body).then((data) => {
         res.render('event/auth/create-2', { title: 'Create event', createAccout: true, adminHeader: true, ...data })
     })
 }
-const postPageTwo = (req, res) => {  ////
+const postPageTwo = (req, res) => {   
     eventHelpers.sessionTwoStore(req.body).then((data) => {
         res.render('event/auth/create-3', { title: 'Create event', createAccout: true, adminHeader: true, ...data })
     })
 }
-const postPageThree = (req, res) => {  ////  
+const postPageThree = (req, res) => {     
     eventHelpers.sessionThreeStore(req.body).then((EventId) => {
         res.render('event/auth/create-4', { title: 'Create event', createAccout: true, adminHeader: true, EventId })
     })
 }
-const postPageFour = (req, res) => {  ////
+const postPageFour = (req, res) => {   
     eventHelpers.sessionFourStore(req.body).then(() => {
         res.redirect('/admin')
     })
 }
 
 // Login Event
-const getEventLogin = (req, res) => {  ////
+const getEventLogin = (req, res) => {   
     if (req.session.admin) {
         res.redirect('/admin')
     } else if (req.session.Error) {
@@ -42,7 +42,7 @@ const getEventLogin = (req, res) => {  ////
     }
 }
 
-const postEventLogin = (req, res) => {  ////
+const postEventLogin = (req, res) => {   
     let { EventId } = req.body
     eventHelpers.EventLogin(req.body).then((response) => {
         if (response.event) {
@@ -62,7 +62,7 @@ const postEventLogin = (req, res) => {  ////
     })
 }
 
-const getEventLogOut = (req, res) => {  ////
+const getEventLogOut = (req, res) => {   
     const EventId = req.params.EventId
     if (req.session.event.EventId === EventId) {
         req.session.event = false
@@ -74,7 +74,7 @@ const getEventLogOut = (req, res) => {  ////
 
 
 // Forgot Password
-const getForgotPasswordPage = (req, res) => {  ////
+const getForgotPasswordPage = (req, res) => {   
     if (req.session.Error) {
         res.render('event/auth/forgot-password', { title: 'College Fest', admin: true, adminHeader: true, "Error": req.session.Error })
         req.session.Error = false
@@ -83,7 +83,7 @@ const getForgotPasswordPage = (req, res) => {  ////
     }
 }
 
-const postForgotPassword = (req, res) => {  ////
+const postForgotPassword = (req, res) => {   
 
     eventHelpers.getEventDetails(req.body.EventId).then((Details) => {
       
@@ -108,7 +108,7 @@ const postForgotPassword = (req, res) => {  ////
 
 }
 
-const getForgotPasswordOtpPage = (req, res) => {  ////
+const getForgotPasswordOtpPage = (req, res) => {   
     let mobileSlice = req.session.ForgotMobile.slice(6)
     let mobile = req.session.ForgotMobile
     if (req.session.Error) {
@@ -119,7 +119,7 @@ const getForgotPasswordOtpPage = (req, res) => {  ////
     }
 }
 
-const postForgotPasswordOtpPage = (req, res) => {  ////
+const postForgotPasswordOtpPage = (req, res) => {   
     let mobile = req.params.mobile
     let otp = req.body.otp
     otpVerify(otp, mobile).then((response) => {
@@ -132,7 +132,7 @@ const postForgotPasswordOtpPage = (req, res) => {  ////
     })
 }
 
-const getForgotpasswordSetPage = (req, res) => {  ////
+const getForgotpasswordSetPage = (req, res) => {   
     let EventId = req.session?.ForgotEventId
     if (EventId) {
         res.render('event/auth/new-password', { title: 'College Fest', admin: true, adminHeader: true, mobileSlice, mobile })
@@ -145,7 +145,7 @@ const getForgotpasswordSetPage = (req, res) => {  ////
 
 // Dashboard
 
-const getDashboard = async (req, res) => {  ////
+const getDashboard = async (req, res) => {   
     const Event = JSON.parse(JSON.stringify(req.session.event))
    
     // Checking  

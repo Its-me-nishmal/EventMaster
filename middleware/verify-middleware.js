@@ -23,7 +23,7 @@ const verifyActiveEvent = async (req, res, next) => {
     }
 };
 
-const verifyGroupLogin = async (req, res, next) => {////
+const verifyGroupLogin = async (req, res, next) => { 
 
     if (req.session.group) {
         let Group = req.session.group
@@ -40,7 +40,7 @@ const verifyGroupLogin = async (req, res, next) => {////
     }
 };
 
-const verifyAdminLogin = (req, res, next) => {   ////
+const verifyAdminLogin = (req, res, next) => {    
     if (req.session.admin) {
         next()
     } else {
@@ -48,7 +48,7 @@ const verifyAdminLogin = (req, res, next) => {   ////
     }
 };
 
-const verifyEventLogin = (req, res, next) => {  ////
+const verifyEventLogin = (req, res, next) => {   
     if (req.session.event) {
         next()
     } else {

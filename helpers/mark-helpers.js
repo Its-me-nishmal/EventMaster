@@ -6,7 +6,7 @@ const itemHelpers = require('./item-helpers');
 
 module.exports = {
 
-    activeUploadMark: (EventId) => {////*
+    activeUploadMark: (EventId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                 $set: {
@@ -18,7 +18,7 @@ module.exports = {
         })
     },
 
-    deactiveUploadMark: ({ EventId, Status }) => { ////*
+    deactiveUploadMark: ({ EventId, Status }) => {  
         return new Promise(async (resolve, reject) => {
             if (Status === 'true') {
                 db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
@@ -35,7 +35,7 @@ module.exports = {
 
     },
     
-    changeResultStatus: ({ EventId, ResultPublish, ItemId, Category, SubCategory }) => {////*
+    changeResultStatus: ({ EventId, ResultPublish, ItemId, Category, SubCategory }) => { 
 
         return new Promise((resolve, reject) => {
             if (ResultPublish === "true") {
@@ -80,7 +80,7 @@ module.exports = {
         })
     },
 
-    addIndividualMark: (body, EventId, Category, SubCategory, ItemId) => { ////*
+    addIndividualMark: (body, EventId, Category, SubCategory, ItemId) => {  
     
         return new Promise(async (resolve, reject) => {
             let oldMark = await studentHelpers.getStudentOneItem(EventId, body.ChestNo, ItemId)
@@ -123,7 +123,7 @@ module.exports = {
 
     },
 
-    addGroupMark: (body, EventId, Category, SubCategory, ItemId) => {////*
+    addGroupMark: (body, EventId, Category, SubCategory, ItemId) => { 
         return new Promise(async (resolve, reject) => {
 
             let oldMark = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, GroupId: body.GroupId, "GroupItems.ItemId": ItemId },
@@ -178,7 +178,7 @@ module.exports = {
 
     },
 
-    getGroupItemMarksFromAllGroup: (EventId, ItemId) => {////*
+    getGroupItemMarksFromAllGroup: (EventId, ItemId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).aggregate([
                 {

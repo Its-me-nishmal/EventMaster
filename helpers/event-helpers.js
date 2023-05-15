@@ -8,7 +8,7 @@ const { createRandomId } = require('./function-helpers')
 module.exports = {
 
     // Create Event
-    sessionOneStore: (data) => {  ////*
+    sessionOneStore: (data) => {   
 
         const EventId = createRandomId(7, data.Type === 'Fest' ? "F" : "S", 'number')
 
@@ -31,7 +31,7 @@ module.exports = {
         })
     },
 
-    sessionTwoStore: (data) => {  ////*
+    sessionTwoStore: (data) => {   
         const EventId = data.EventId
 
         return new Promise(async (resolve, reject) => {
@@ -66,7 +66,7 @@ module.exports = {
 
     },
 
-    sessionThreeStore: (data) => {   ////*
+    sessionThreeStore: (data) => {    
 
         const EventId = data.EventId
         const CategoryName = typeof data.CategoryName === 'string' ? [data.CategoryName] : data.CategoryName
@@ -163,7 +163,7 @@ module.exports = {
         })
     },
 
-    sessionFourStore: ({ EventId }) => {  ////*
+    sessionFourStore: ({ EventId }) => {   
         return new Promise((resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                 $set: {
@@ -176,7 +176,7 @@ module.exports = {
     },
 
     // Dashboard
-    getPointsCount: (EventId) => { ////*
+    getPointsCount: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let data = {}
             let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
@@ -193,7 +193,7 @@ module.exports = {
     },
 
     // Event
-    allEvents: () => {  ////*
+    allEvents: () => {   
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).find().sort({ CreatedDate: -1 })
                 .toArray().then((allEvent) => {
@@ -202,7 +202,7 @@ module.exports = {
         })
     },
 
-    EventLogin: ({ EventId, Password }) => {  ////*
+    EventLogin: ({ EventId, Password }) => {   
         let responses = {}
         return new Promise(async (resolve, reject) => {
             let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId })
@@ -225,7 +225,7 @@ module.exports = {
         })
     },
 
-    getEventDetails: (EventId) => {  ////*
+    getEventDetails: (EventId) => {   
         return new Promise((resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId }, { projection: { Password: 0 } }).then((event) => {
                 resolve(event)
@@ -234,7 +234,7 @@ module.exports = {
     },
 
     // Points Category
-    getPoints: (EventId) => {   ////*
+    getPoints: (EventId) => {    
         return new Promise(async (resolve, reject) => {
             let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
             if (!Points[0]) {
@@ -245,7 +245,7 @@ module.exports = {
 
     },
 
-    addPoints: (data) => { ////*
+    addPoints: (data) => {  
 
 
         return new Promise(async (resolve, reject) => {
@@ -280,7 +280,7 @@ module.exports = {
 
     },
 
-    deletePoint: (EventId, CategoryName) => { ////*
+    deletePoint: (EventId, CategoryName) => {  
 
         return new Promise(async (resolve, reject) => {
 
@@ -297,7 +297,7 @@ module.exports = {
         })
     },
 
-    getAllItemCategoryWithItems: (EventId) => { ////*
+    getAllItemCategoryWithItems: (EventId) => {  
 
         return new Promise(async (resolve, reject) => {
             let allItemCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId }).toArray()
@@ -306,7 +306,7 @@ module.exports = {
 
     },
 
-    findOneItemInSubCategory: (EventId, CategoryName, SubCategory) => { ////+
+    findOneItemInSubCategory: (EventId, CategoryName, SubCategory) => {  
 
         return new Promise(async (resolve, reject) => {
             let allItemSubCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId, CategoryName, 'Sub.Title': SubCategory })
@@ -317,14 +317,14 @@ module.exports = {
         })
     },
 
-    getPointCategoryOptions: (EventId) => { ////*
+    getPointCategoryOptions: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             const PointOptions = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
             resolve(PointOptions)
         });
     },
     
-    getOnePointDetails: (EventId, CategoryName) => {////*
+    getOnePointDetails: (EventId, CategoryName) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ EventId, CategoryName }).then((point) => {
                 resolve(point)
@@ -332,7 +332,7 @@ module.exports = {
         })
     },
 
-    editEventDetails: (body) => { ////*
+    editEventDetails: (body) => {  
 
         return new Promise((resolve, reject) => {
             body.Date = new Date(body.Date);
@@ -350,7 +350,7 @@ module.exports = {
 
     },
 
-    changePassword: (body) => {////*
+    changePassword: (body) => { 
 
         return new Promise(async (resolve, reject) => {
             let Event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId: body.EventId })
@@ -382,7 +382,7 @@ module.exports = {
 
     },
 
-    deleteEvent: (EventId) => {////*
+    deleteEvent: (EventId) => { 
         return new Promise(async (resolve, reject) => {
             await db.get().collection(collection.STUDENTS_COLLECTION).deleteMany({ EventId })
             await db.get().collection(collection.POINT_CATEGORY_COLLECTION).deleteMany({ EventId })
@@ -395,7 +395,7 @@ module.exports = {
 
     },
 
-    launchEvent: ({ EventId, Status }) => { ////*
+    launchEvent: ({ EventId, Status }) => {  
         return new Promise(async (resolve, reject) => {
             if (Status === 'true') {
                 db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
@@ -418,7 +418,7 @@ module.exports = {
         })
     },
 
-    publishResult: ({ EventId, Status }) => {  ////*
+    publishResult: ({ EventId, Status }) => {   
         return new Promise(async (resolve, reject) => {
             if (Status === 'true') {
                 db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
@@ -442,7 +442,7 @@ module.exports = {
 
     },
 
-    uploadFiles: (body, EventId) => {////*
+    uploadFiles: (body, EventId) => { 
         return new Promise(async (resolve, reject) => {
             let Item = {
                 Title: body.title,
@@ -462,7 +462,7 @@ module.exports = {
 
     },
 
-    getAllUploadedFiles: (EventId) => {////*
+    getAllUploadedFiles: (EventId) => { 
         return new Promise(async (resolve, reject) => {
             let Files = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId }, {
                 projection: { Files: 1, EventId: 1, _id: 0 }
@@ -472,7 +472,7 @@ module.exports = {
 
     },
 
-    deleteUploadFile: (FileId, EventId) => {////*
+    deleteUploadFile: (FileId, EventId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                 $pull: {
@@ -485,7 +485,7 @@ module.exports = {
 
     },
 
-    statusViewEvent: (EventId) => { ////*
+    statusViewEvent: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId })
             let status = {}

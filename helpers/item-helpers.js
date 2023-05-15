@@ -5,7 +5,7 @@ const eventHelpers = require('./event-helpers');
 const { createRandomId } = require('./function-helpers');
 
 module.exports = {
-    getAllItemCategory: (EventId) => { ////*
+    getAllItemCategory: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let allItemCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId })
                 .project({ "Sub.Items": 0 }).toArray()
@@ -14,7 +14,7 @@ module.exports = {
 
     },
 
-    searchItem: (body) => {  ////*
+    searchItem: (body) => {   
         return new Promise(async (resolve, reject) => {
             let searchResult = []
 
@@ -92,7 +92,7 @@ module.exports = {
 
     },
 
-    AllItemCount: (EventId) => { ////*
+    AllItemCount: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.ITEM_COLLECTION).aggregate([
                 // Match documents with non-empty Sub arrays
@@ -225,7 +225,7 @@ module.exports = {
         })
     },
 
-    changeChooseItemsStatus: ({ EventId, GroupId, Status }) => {////*
+    changeChooseItemsStatus: ({ EventId, GroupId, Status }) => { 
         return new Promise(async (resolve, reject) => {
 
             if (Status == 'false') {
@@ -251,7 +251,7 @@ module.exports = {
 
     },
 
-    findOneItemInCategory: (EventId, CategoryName) => { ////*
+    findOneItemInCategory: (EventId, CategoryName) => {  
 
         return new Promise(async (resolve, reject) => {
             let allItemCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId, CategoryName })
@@ -260,7 +260,7 @@ module.exports = {
         })
     },
 
-    getAllItems: (EventId, Category, SubCategory) => { ////*
+    getAllItems: (EventId, Category, SubCategory) => {  
 
         return new Promise(async (resolve, reject) => {
             let getCategory = await db.get().collection(collection.ITEM_COLLECTION).findOne({ EventId, CategoryName: Category, "Sub.Title": SubCategory },
@@ -272,7 +272,7 @@ module.exports = {
 
     },
 
-    getAllItemsForGroup: (EventId, GroupId, Category, SubCategory) => {  ////*
+    getAllItemsForGroup: (EventId, GroupId, Category, SubCategory) => {   
         return new Promise(async (resolve, reject) => {
 
             db.get().collection(collection.ITEM_COLLECTION).aggregate([
@@ -325,7 +325,7 @@ module.exports = {
         })
     },
 
-    addItem: (body, EventId, Category, SubCategory) => { ////*
+    addItem: (body, EventId, Category, SubCategory) => {  
 
         return new Promise(async (resolve, reject) => {
 
@@ -354,7 +354,7 @@ module.exports = {
 
     },
 
-    getOneItemDetails: (EventId, Category, SubCategory, ItemId) => { ////*
+    getOneItemDetails: (EventId, Category, SubCategory, ItemId) => {  
         return new Promise(async (resolve, reject) => {
 
             await db.get().collection(collection.ITEM_COLLECTION).aggregate([
@@ -371,7 +371,7 @@ module.exports = {
 
     },
 
-    editItemDetails: (EventId, Category, SubCategory, body) => { ////*
+    editItemDetails: (EventId, Category, SubCategory, body) => {  
         return new Promise(async (resolve, reject) => {
             body.Limit = parseInt(body.Limit)
             await db.get().collection(collection.ITEM_COLLECTION).update({ EventId, CategoryName: Category, "Sub.Title": SubCategory, "Sub.Items.ItemId": body.ItemId },
@@ -412,7 +412,7 @@ module.exports = {
 
     },
 
-    deleteItem: (EventId, Category, SubCategory, ItemId, itemCategory) => { ////*
+    deleteItem: (EventId, Category, SubCategory, ItemId, itemCategory) => {  
         return new Promise(async (resolve, reject) => {
             let students = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, "Items.ItemId": ItemId })
             if (students) {
@@ -452,7 +452,7 @@ module.exports = {
 
     },
 
-    getItemStudentsFromOneGroup: (EventId, GroupId, ItemId) => {////*
+    getItemStudentsFromOneGroup: (EventId, GroupId, ItemId) => { 
         return new Promise(async (resolve, reject) => {
             let Students = await db.get().collection(collection.STUDENTS_COLLECTION)
                 .find({ EventId, GroupId, "Items.ItemId": ItemId }).toArray()
@@ -462,7 +462,7 @@ module.exports = {
         })
     },
     
-    getItemStudentsFromAllGroup: (EventId, ItemId) => {////*
+    getItemStudentsFromAllGroup: (EventId, ItemId) => { 
         return new Promise(async (resolve, reject) => {
             let Students = await db.get().collection(collection.STUDENTS_COLLECTION).aggregate([
                 {
@@ -502,7 +502,7 @@ module.exports = {
         })
     },
 
-    addItemToStudent: (EventId, Category, SubCategory, body) => { ////*
+    addItemToStudent: (EventId, Category, SubCategory, body) => {  
         return new Promise(async (resolve, reject) => {
             // Check valid Chest No
             const checkStudent = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, GroupId: body.GroupId, ChestNo: body.ChestNo })

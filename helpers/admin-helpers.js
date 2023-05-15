@@ -1,6 +1,6 @@
 module.exports = {
 
-    adminLogin: (body) => {  ////*
+    adminLogin: (body) => {   
 
         return new Promise(async (resolve, reject) => {
             let response = {}

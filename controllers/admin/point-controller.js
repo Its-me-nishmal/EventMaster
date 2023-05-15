@@ -1,7 +1,7 @@
 const eventHelpers = require('../../helpers/event-helpers')
 
 
-const getPointsPage = async (req, res) => { ////
+const getPointsPage = async (req, res) => {  
     const Event = req.session.event
     const Points = await eventHelpers.getPoints(Event.EventId)
     if (req.session.Error) {
@@ -20,12 +20,12 @@ const getPointsPage = async (req, res) => { ////
 
 }
 
-const getAddPoints = (req, res) => { ////
+const getAddPoints = (req, res) => {  
     const Event = req.session.event
     res.render('event/points/add-pointTable', { title: Event.Name, eventHeader: true, createAccout: true, adminHeader: true, Event })
 }
 
-const postAddPoints = (req, res) => { ////
+const postAddPoints = (req, res) => {  
     const Event = req.session.event
     eventHelpers.addPoints(req.body).then((response) => {
 
@@ -39,7 +39,7 @@ const postAddPoints = (req, res) => { ////
     })
 }
 
-const deletePoint = (req, res) => { ////
+const deletePoint = (req, res) => {  
     const EventId = req.params.EventId
     const categoryName = req.params.categoryName
     eventHelpers.deletePoint(EventId, categoryName).then((event) => {

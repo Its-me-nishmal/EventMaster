@@ -1,7 +1,7 @@
 const groupHelpers = require('../../helpers/group-helpers')
 
 // Auth
-const getLogin = (req, res) => {////
+const getLogin = (req, res) => { 
     if (req.session.group) {
         res.redirect('/group')
     } else if (req.session.Error) {
@@ -12,7 +12,7 @@ const getLogin = (req, res) => {////
     }
 }
 
-const postLogin = (req, res) => {////
+const postLogin = (req, res) => { 
     groupHelpers.doLogin(req.body).then((response) => {
         if (response?.GroupId) {
             req.session.group = response
@@ -24,7 +24,7 @@ const postLogin = (req, res) => {////
     })
 }
 
-const getLogOut = (req, res) => {////
+const getLogOut = (req, res) => { 
     req.session.group = null
     res.redirect('/group/login')
 }

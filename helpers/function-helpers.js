@@ -1,5 +1,5 @@
 
-function createRandomId(sting_length, addition = "", type = null) {  ////*
+function createRandomId(sting_length, addition = "", type = null) {   
     const symbolWord = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*-=/?.,'
     const nomal = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     const number = '123456789'

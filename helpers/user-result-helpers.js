@@ -5,7 +5,7 @@ const studentHelpers = require('./student-helpers')
 
 module.exports = {
 
-    totalMarkAllGroups: (EventId) => { ////+++
+    totalMarkAllGroups: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let TotalMark = []
             // 1. Get Group Details
@@ -93,7 +93,7 @@ module.exports = {
 
     },
 
-    GrandWinnerStudent: (EventId) => { ////+++
+    GrandWinnerStudent: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).aggregate([
                 {

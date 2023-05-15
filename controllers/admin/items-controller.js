@@ -6,7 +6,7 @@ const studentHelpers = require("../../helpers/student-helpers")
 
 // Event Item
 
-const getEventItemPage = async (req, res) => { ////
+const getEventItemPage = async (req, res) => {  
     const Event = req.session.event
     const PointsCount = await eventHelpers.getPointsCount(Event.EventId)
     const allItemCategorys = await eventHelpers.getAllItemCategoryWithItems(Event.EventId)
@@ -17,7 +17,7 @@ const getEventItemPage = async (req, res) => { ////
     })
 }
 
-const getItemListPage = async (req, res) => { ////
+const getItemListPage = async (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -43,7 +43,7 @@ const getItemListPage = async (req, res) => { ////
     }
 }
 
-const getAddItemPage = async (req, res) => { ////
+const getAddItemPage = async (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -63,7 +63,7 @@ const getAddItemPage = async (req, res) => { ////
     }
 }
 
-const postAddItem = (req, res) => { ////
+const postAddItem = (req, res) => {  
     const EventId = req.params.EventId
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -77,7 +77,7 @@ const postAddItem = (req, res) => { ////
     })
 }
 
-const getEditItem = async (req, res) => { ////
+const getEditItem = async (req, res) => {  
     const EventId = req.params.EventId
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -104,7 +104,7 @@ const getEditItem = async (req, res) => { ////
     })
 }
 
-const postEditItem = (req, res) => { ////
+const postEditItem = (req, res) => {  
 
     let EventId = req.params.EventId
     let Category = req.params.Category
@@ -116,7 +116,7 @@ const postEditItem = (req, res) => { ////
     })
 }
 
-const deleteItem = (req, res) => { ////
+const deleteItem = (req, res) => {  
     const EventId = req.params.EventId
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -133,7 +133,7 @@ const deleteItem = (req, res) => { ////
     })
 }
 
-const getItemAllStudents = async (req, res) => { ////
+const getItemAllStudents = async (req, res) => {  
     let Event = req.session.event
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory
@@ -155,7 +155,7 @@ const getItemAllStudents = async (req, res) => { ////
     }
 }
 
-const getAddStudentToItemPage = async (req, res) => { ////
+const getAddStudentToItemPage = async (req, res) => {  
 
     let Event = req.session.event
     let Category = req.params.Category
@@ -186,7 +186,7 @@ const getAddStudentToItemPage = async (req, res) => { ////
     }
 }
 
-const postAddStudentToItem = (req, res) => { ////
+const postAddStudentToItem = (req, res) => {  
     let Event = req.session.event
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory
@@ -205,7 +205,7 @@ const postAddStudentToItem = (req, res) => { ////
     })
 }
 
-const deleteStudentFromItem = (req, res) => { ////
+const deleteStudentFromItem = (req, res) => {  
     let Event = req.session.event
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory

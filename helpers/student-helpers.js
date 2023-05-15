@@ -2,7 +2,7 @@ const db = require('../config/db')
 const collection = require('../config/collections')
 
 module.exports = {
-    totalStudentsCount: (EventId) => { ////*
+    totalStudentsCount: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).find({ EventId }).toArray().then((students) => {
                 let obj = {
@@ -18,7 +18,7 @@ module.exports = {
 
     },
 
-    getAllStudentsInGroup: (EventId, GroupId, Category) => { ////*
+    getAllStudentsInGroup: (EventId, GroupId, Category) => {  
         return new Promise(async (resolve, reject) => {
             let AllStudents = await db.get().collection(collection.STUDENTS_COLLECTION).find({ EventId, GroupId, Category }).toArray()
             resolve(AllStudents)
@@ -26,7 +26,7 @@ module.exports = {
 
     },
 
-    createStudent: (EventId, GroupId, Category, body) => {  ////*
+    createStudent: (EventId, GroupId, Category, body) => {   
 
         return new Promise(async (resolve, reject) => {
             let CheckCICno = await db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, CicNo: body.CicNo })
@@ -66,7 +66,7 @@ module.exports = {
         })
     },
 
-    removeStudent: (EventId, GroupId, ChestNo, Category) => {////*
+    removeStudent: (EventId, GroupId, ChestNo, Category) => { 
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).deleteOne({ EventId, ChestNo }).then(() => {
                 db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId, GroupId, "Category.CategoryName": Category }, {
@@ -81,7 +81,7 @@ module.exports = {
 
     },
 
-    GroupBaiseStudentWithOutItems: (EventId, GroupId) => { ////*
+    GroupBaiseStudentWithOutItems: (EventId, GroupId) => {  
      
         return new Promise((resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).find({ EventId, GroupId }).toArray().then((students) => {
@@ -93,7 +93,7 @@ module.exports = {
         })
     },
 
-    deleteStudentItem: (EventId, ChestNo, ItemId) => { ////*
+    deleteStudentItem: (EventId, ChestNo, ItemId) => {  
 
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).updateOne({ EventId, ChestNo }, {
@@ -110,7 +110,7 @@ module.exports = {
 
     },
 
-    editStudentDetails: (EventId, ChestNo, body) => {  ////*
+    editStudentDetails: (EventId, ChestNo, body) => {   
 
         return new Promise(async (resolve, reject) => {
             let CicNo = body.CicNo
@@ -132,7 +132,7 @@ module.exports = {
 
     },
 
-    getOneStudentWithOutItem: (EventId, ChestNo) => { ////*
+    getOneStudentWithOutItem: (EventId, ChestNo) => {  
         return new Promise((resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, ChestNo }, {
                 projection: { Items: 0 }
@@ -142,7 +142,7 @@ module.exports = {
         })
     },
 
-    getOneStudentItems: (EventId, ChestNo) => { ////*
+    getOneStudentItems: (EventId, ChestNo) => {  
         return new Promise(async (resolve, reject) => {
             let studentEvents = await db.get().collection(collection.STUDENTS_COLLECTION).aggregate([
                 {
@@ -228,7 +228,7 @@ module.exports = {
 
     },
 
-    addGroupCategoryLimit: (EventId, body) => {////*
+    addGroupCategoryLimit: (EventId, body) => { 
        
         return new Promise(async (resolve, reject) => {
             for (const key in body) {
@@ -245,7 +245,7 @@ module.exports = {
 
     },
 
-    getStudentOneItem: (EventId, ChestNo, ItemId) => {////*
+    getStudentOneItem: (EventId, ChestNo, ItemId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).findOne({ EventId, ChestNo, "Items.ItemId": ItemId },
                 { projection: { Items: { $elemMatch: { ItemId } } } }).then((item) => {
@@ -254,7 +254,7 @@ module.exports = {
         })
     },
 
-    getItemStudentsGroupBasis: (EventId, GroupId, ItemId) => {////
+    getItemStudentsGroupBasis: (EventId, GroupId, ItemId) => { 
         return new Promise(async (resolve, reject) => {
             let Students = await db.get().collection(collection.STUDENTS_COLLECTION).find({ EventId, GroupId, "Items.ItemId": ItemId })
                 .project({ Items: 0 }).toArray()
@@ -265,7 +265,7 @@ module.exports = {
 
     },
 
-    getAllStudentItems: (EventId) => { ////*
+    getAllStudentItems: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let studentEvents = await db.get().collection(collection.STUDENTS_COLLECTION).aggregate([
                 {
@@ -350,7 +350,7 @@ module.exports = {
 
     },
 
-    changeAddStudentsStatus: ({ EventId, GroupId, Status }) => { ////*
+    changeAddStudentsStatus: ({ EventId, GroupId, Status }) => {  
         return new Promise(async (resolve, reject) => {
 
             if (Status == 'false') {
@@ -379,7 +379,7 @@ module.exports = {
         })
 
     },
-    changeEditStudentsStatus: ({ EventId, GroupId, Status }) => { ////*
+    changeEditStudentsStatus: ({ EventId, GroupId, Status }) => {  
         return new Promise(async (resolve, reject) => {
 
             if (Status == 'false') {
@@ -405,7 +405,7 @@ module.exports = {
 
     },
 
-    getAllStudentsWithOutPrograme: (EventId) => { ////*
+    getAllStudentsWithOutPrograme: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.STUDENTS_COLLECTION).find({ EventId }).toArray().then((students) => {
 
@@ -417,7 +417,7 @@ module.exports = {
 
     },
 
-    searchStudent: (body) => { ////*
+    searchStudent: (body) => {  
         return new Promise(async (resolve, reject) => {
             if (body.searchValue == "") {
                 resolve(searchResult.empty = 0)

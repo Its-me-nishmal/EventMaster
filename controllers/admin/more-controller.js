@@ -6,13 +6,13 @@ const itemHelpers = require('../../helpers/item-helpers');
 const studentHelpers = require('../../helpers/student-helpers');
 const notificationHelpers = require('../../helpers/notification-helpers');
 
-const getSettingsPage = (req, res) => {  ////
+const getSettingsPage = (req, res) => {   
     const Event = req.session.event
     res.render('event/more/more', { title: Event.Name, eventHeader: true, Event, createAccout: true, adminHeader: true })
 }
 
 // Group Category
-const getGroupCategoryLimit = async (req, res) => {  ////
+const getGroupCategoryLimit = async (req, res) => {   
     let Event = req.session.event
     let allItemCategory = await itemHelpers.getAllItemCategory(Event.EventId)
 
@@ -21,7 +21,7 @@ const getGroupCategoryLimit = async (req, res) => {  ////
     })
 }
 
-const postGroupCategoryLimit = (req, res) => {  ////
+const postGroupCategoryLimit = (req, res) => {   
     let EventId = req.params.EventId
     studentHelpers.addGroupCategoryLimit(EventId, req.body).then(() => {
         res.redirect('/event/' + EventId + '/group-category')
@@ -29,7 +29,7 @@ const postGroupCategoryLimit = (req, res) => {  ////
 }
 
 // Event
-const getEventSettingsPage = async (req, res) => {  ////
+const getEventSettingsPage = async (req, res) => {   
     let Event = req.session.event
     let AllGroups = await groupHelpers.getAllGroups(Event.EventId)
 
@@ -56,14 +56,14 @@ const getEventSettingsPage = async (req, res) => {  ////
     }
 }
 
-const uploadEventImage = (req, res) => {  ////
+const uploadEventImage = (req, res) => {   
     let EventId = req.params.EventId
     let image = req.files.profile
     image.mv('./public/images/event-logo/' + EventId + '.jpg')
     res.redirect('/event/' + EventId + '/event-settings')
 }
 
-const editEventDetails = (req, res) => {  ////
+const editEventDetails = (req, res) => {   
     let EventId = req.params.EventId
     eventHelpers.editEventDetails(req.body).then(() => {
 
@@ -76,7 +76,7 @@ const editEventDetails = (req, res) => {  ////
     })
 }
 
-const changeEventPassword = (req, res) => {  ////
+const changeEventPassword = (req, res) => {   
     let EventId = req.params.EventId
     eventHelpers.changePassword(req.body).then((response) => {
 
@@ -90,7 +90,7 @@ const changeEventPassword = (req, res) => {  ////
     })
 }
 
-const getEditGroupDetails = async (req, res) => {  ////
+const getEditGroupDetails = async (req, res) => {   
     let Event = req.session.event
     let GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
@@ -101,7 +101,7 @@ const getEditGroupDetails = async (req, res) => {  ////
     })
 }
 
-const postEditGroupDetails = (req, res) => {  ////
+const postEditGroupDetails = (req, res) => {   
     let EventId = req.params.EventId
     groupHelpers.editGroupDetails(EventId, req.body).then((response) => {
         notificationHelpers.sendMessage(EventId,
@@ -113,7 +113,7 @@ const postEditGroupDetails = (req, res) => {  ////
     })
 }
 
-const deleteEvent = (req, res) => {  ////
+const deleteEvent = (req, res) => {   
     let EventId = req.params.EventId
 
     eventHelpers.deleteEvent(EventId).then(() => {
@@ -130,7 +130,7 @@ const deleteEvent = (req, res) => {  ////
 }
 
 //   Students WithOut Programme
-const getStudentsWithOutPrograme = async (req, res) => {  ////
+const getStudentsWithOutPrograme = async (req, res) => {   
     let Event = req.session.event
     let Students = await studentHelpers.getAllStudentsWithOutPrograme(Event.EventId)
 
@@ -141,7 +141,7 @@ const getStudentsWithOutPrograme = async (req, res) => {  ////
 }
 
 // Upload File
-const getUploadFilePage = async (req, res) => {  ////
+const getUploadFilePage = async (req, res) => {   
     let Event = req.session.event
     let EventDetails = await eventHelpers.getAllUploadedFiles(Event.EventId)
   
@@ -151,7 +151,7 @@ const getUploadFilePage = async (req, res) => {  ////
     })
 }
 
-const postUploadFile = (req, res) => {  ////
+const postUploadFile = (req, res) => {   
     const Event = req.session.event
 
     eventHelpers.uploadFiles(req.body, Event.EventId).then(({ FileId }) => {
@@ -171,7 +171,7 @@ const postUploadFile = (req, res) => {  ////
     })
 }
 
-const deleteUploadFile = (req, res) => {  ////
+const deleteUploadFile = (req, res) => {   
 
     let Event = req.session.event
     let Title = req.params.Title
@@ -187,7 +187,7 @@ const deleteUploadFile = (req, res) => {  ////
     })
 }
 
-const getNotificationSendPage = async (req, res) => {  ////
+const getNotificationSendPage = async (req, res) => {   
     let Event = req.session.event
     let AllGroups = await groupHelpers.getAllGroups(Event.EventId)
     if (req.session.Success) {
@@ -204,7 +204,7 @@ const getNotificationSendPage = async (req, res) => {  ////
     }
 }
 
-const postNotificationSend = (req, res) => {  ////
+const postNotificationSend = (req, res) => {   
     let Event = req.session.event
     req.body.GroupId = typeof req.body?.GroupId === 'string' ? [req.body.GroupId] : req.body.GroupId
     notificationHelpers.sendMessage(Event.EventId, req.body.GroupId, req.body.Subject, req.body.Content, req.body.Link).then((response) => {
@@ -218,7 +218,7 @@ const postNotificationSend = (req, res) => {  ////
     })
 }
 
-const getAllNotifications = async (req, res) => {  ////
+const getAllNotifications = async (req, res) => {   
     const Event = req.session.event
     const AllGroups = await groupHelpers.getAllGroups(Event.EventId)
     res.render('event/more/all-notifications', {
@@ -227,7 +227,7 @@ const getAllNotifications = async (req, res) => {  ////
     })
 }
 
-const getGroupBaiseNotifications = async (req, res) => {  ////
+const getGroupBaiseNotifications = async (req, res) => {   
     const Event = req.session.event
     const GroupId = req.params.GroupId
     const GroupName = req.params.GroupName
@@ -238,7 +238,7 @@ const getGroupBaiseNotifications = async (req, res) => {  ////
     })
 }
 
-const viewOneNotification = async (req, res) => {  ////
+const viewOneNotification = async (req, res) => {   
     const Event = req.session.event
     const MessageId = req.params.MessageId
     const Message = await notificationHelpers.getOneMessageWithOutGroupId(Event.EventId, MessageId)
@@ -247,7 +247,7 @@ const viewOneNotification = async (req, res) => {  ////
     })
 }
 
-const deleteMessageFromAll = (req, res) => {  ////
+const deleteMessageFromAll = (req, res) => {   
     const Event = req.session.event
     const MessageId = req.params.MessageId
     const GroupId = req.params.GroupId
@@ -257,7 +257,7 @@ const deleteMessageFromAll = (req, res) => {  ////
 
 }
 
-const deleteMessageFromOne = (req, res) => {  ////
+const deleteMessageFromOne = (req, res) => {   
     const Event = req.session.event
     const MessageId = req.params.MessageId
     const GroupId = req.params.GroupId

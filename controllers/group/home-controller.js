@@ -2,7 +2,7 @@ const groupHelpers = require('../../helpers/group-helpers')
 const eventHelpers = require('../../helpers/event-helpers');
 const notificationHelpers = require('../../helpers/notification-helpers')
 
-const getHomePage = async function (req, res) {////
+const getHomePage = async function (req, res) { 
     const Group = req.session.group
     const EventDetails = await eventHelpers.getEventDetails(Group.EventId)
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -18,7 +18,7 @@ const getHomePage = async function (req, res) {////
     })
 }
 
-const getNewNotifiCount = (req, res) => {////
+const getNewNotifiCount = (req, res) => { 
     notificationHelpers.getNewNotificaionCount(req.body.EventId, req.body.GroupId).then((response) => {
         res.json(response)
     })

@@ -6,7 +6,7 @@ const resultHelpers = require("../../helpers/result-helpers")
 const studentHelpers = require("../../helpers/student-helpers")
 
 
-const getResultHomePage = async (req, res) => {  ////
+const getResultHomePage = async (req, res) => {   
     const Event = req.session.event
     let TotalItemCount = await itemHelpers.AllItemCount(Event.EventId)
     let totalGroupsMark = await resultHelpers.totalMarkAllGroups(Event.EventId)
@@ -17,7 +17,7 @@ const getResultHomePage = async (req, res) => {  ////
     })
 }
 
-const getCategoryBaisePublishedStatus = async (req, res) => {  ////
+const getCategoryBaisePublishedStatus = async (req, res) => {   
     let Event = req.session.event
     let TotalItemCount = await itemHelpers.AllItemCount(Event.EventId)
     res.render('event/result/published-status', {
@@ -26,7 +26,7 @@ const getCategoryBaisePublishedStatus = async (req, res) => {  ////
     })
 }
 
-const getItemBaiseResultPage = async (req, res) => {  ////
+const getItemBaiseResultPage = async (req, res) => {   
     let Event = req.session.event
     var ItemCategorys = await itemHelpers.getAllItemCategory(Event.EventId)
 
@@ -36,13 +36,13 @@ const getItemBaiseResultPage = async (req, res) => {  ////
     })
 }
 
-const searchItemBaise = (req, res) => {  ////
+const searchItemBaise = (req, res) => {   
     itemHelpers.searchItem(req.body).then((searchResult) => {
         res.json(searchResult)
     })
 }
 
-const getItemBaiseSubPage = async (req, res) => {  ////
+const getItemBaiseSubPage = async (req, res) => {   
     let Event = req.session.event
     var Category = req.params.Category
     var SubCategory = req.params.SubCategory
@@ -54,7 +54,7 @@ const getItemBaiseSubPage = async (req, res) => {  ////
     })
 }
 
-const getItemBaiseIndividualStudents = async (req, res) => {  ////
+const getItemBaiseIndividualStudents = async (req, res) => {   
     let Event = req.session.event
     const SubCategory = req.params.SubCategory
     const Category = req.params.Category
@@ -68,7 +68,7 @@ const getItemBaiseIndividualStudents = async (req, res) => {  ////
     })
 }
 
-const getItemBaiseGroupStudents = async (req, res) => {  ////
+const getItemBaiseGroupStudents = async (req, res) => {   
     let Event = req.session.event
     const SubCategory = req.params.SubCategory
     const Category = req.params.Category
@@ -82,20 +82,20 @@ const getItemBaiseGroupStudents = async (req, res) => {  ////
     })
 }
 
-const getStudentBaiseResultPage = async (req, res) => {  ////
+const getStudentBaiseResultPage = async (req, res) => {   
     var Event = req.session.event
     var AllGroups = await groupHelpers.getAllGroups(Event.EventId)
 
     res.render('event/result/student-baise', { title: Event.Name, eventHeader: true, Event, createAccout: true, adminHeader: true, AllGroups })
 }
 
-const searchStudentsBaise = (req, res) => {  ////
+const searchStudentsBaise = (req, res) => {   
     studentHelpers.searchStudent(req.body).then((searchResult) => {
         res.json(searchResult)
     })
 }
 
-const getStudentBaiseSubPage = async (req, res) => {  ////
+const getStudentBaiseSubPage = async (req, res) => {   
     const Event = req.session.event
     const GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
@@ -105,7 +105,7 @@ const getStudentBaiseSubPage = async (req, res) => {  ////
     })
 }
 
-const getStudentBaiseList = async (req, res) => {  ////
+const getStudentBaiseList = async (req, res) => {   
     var Event = req.session.event
     var GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
@@ -118,7 +118,7 @@ const getStudentBaiseList = async (req, res) => {  ////
     })
 }
 
-const getStudentBaiseItems = async (req, res) => {  ////
+const getStudentBaiseItems = async (req, res) => {   
     var Event = req.session.event
     var GroupId = req.params.GroupId
     let Category = req.params.Category
@@ -138,7 +138,7 @@ const getStudentBaiseItems = async (req, res) => {  ////
     })
 }
 
-const getGrandWinnerStudents = async (req, res) => {  ////
+const getGrandWinnerStudents = async (req, res) => {   
     let Event = req.session.event
     let result = await resultHelpers.GrandWinnerStudent(Event.EventId)
     res.render('event/result/grand-winner-student', {

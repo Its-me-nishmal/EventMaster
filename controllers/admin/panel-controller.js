@@ -5,7 +5,7 @@ const markHelpers = require('../../helpers/mark-helpers')
 const notificationHelpers = require('../../helpers/notification-helpers')
 const studentHelpers = require('../../helpers/student-helpers')
 
-const getControllPanelPage = async (req, res) => { ////
+const getControllPanelPage = async (req, res) => {  
     let Event = req.session.event
     let allGroups = await groupHelpers.getAllGroups(Event.EventId)
     let EventDetails = await eventHelpers.getEventDetails(Event.EventId)
@@ -23,21 +23,21 @@ const getControllPanelPage = async (req, res) => { ////
     }
 }
 
-const launchEvent = (req, res) => { ////
+const launchEvent = (req, res) => {  
     eventHelpers.launchEvent(req.body).then((result) => {
         req.session.Success = result.Status ? 'Event Launched to Public' : 'Event Hide from Public'
         res.json(result)
     })
 }
 
-const publishResult = (req, res) => { ////
+const publishResult = (req, res) => {  
     eventHelpers.publishResult(req.body).then((result) => {
         req.session.Success = result.Status ? 'Result Published' : 'Result Hide from Public'
         res.json(result)
     })
 }
 
-const changeMarkStatus = (req, res) => { ////
+const changeMarkStatus = (req, res) => {  
     markHelpers.deactiveUploadMark(req.body).then((result) => {
         req.session.event.MarkStatus = result.Status ? req.session.event.MarkStatus : false
         req.session.Success = result.Status ? "Can't Update Mark Status" : 'Mark Status Updated'
@@ -45,7 +45,7 @@ const changeMarkStatus = (req, res) => { ////
     })
 }
 
-const changeAddStudentStatus = (req, res) => { ////
+const changeAddStudentStatus = (req, res) => {  
     studentHelpers.changeAddStudentsStatus(req.body).then((response) => {
         if (response.Status) {
             notificationHelpers.sendMessage(req.body.EventId,
@@ -65,7 +65,7 @@ const changeAddStudentStatus = (req, res) => { ////
     })
 }
 
-const changeEditStudentStatus = (req, res, next) => { ////
+const changeEditStudentStatus = (req, res, next) => {  
     studentHelpers.changeEditStudentsStatus(req.body).then((response) => {
 
         if (response.Status) {
@@ -86,7 +86,7 @@ const changeEditStudentStatus = (req, res, next) => { ////
     })
 }
 
-const changeChooseItemStatus = (req, res, next) => { ////
+const changeChooseItemStatus = (req, res, next) => {  
     itemHelpers.changeChooseItemsStatus(req.body).then((response) => {
 
         if (response.Status) {

@@ -2,7 +2,7 @@ const eventHelpers = require('../../helpers/event-helpers');
 const itemHelpers = require('../../helpers/item-helpers');
 const markHelpers = require('../../helpers/mark-helpers');
 
-const getMainPage = async (req, res) => { ////
+const getMainPage = async (req, res) => {  
     const Event = req.session.event
     const ItemCategorys = await itemHelpers.getAllItemCategory(Event.EventId)
    
@@ -12,7 +12,7 @@ const getMainPage = async (req, res) => { ////
     })
 }
 
-const activeUploadMark = (req, res) => { ////
+const activeUploadMark = (req, res) => {  
     const EventId = req.params.EventId
     markHelpers.activeUploadMark(EventId).then(() => {
         req.session.event.MarkStatus = true
@@ -20,7 +20,7 @@ const activeUploadMark = (req, res) => { ////
     })
 }
 
-const getItemListOfMark = async (req, res) => { ////
+const getItemListOfMark = async (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -32,13 +32,13 @@ const getItemListOfMark = async (req, res) => { ////
     })
 }
 
-const changeResultStatus = (req, res) => { ////
+const changeResultStatus = (req, res) => {  
     markHelpers.changeResultStatus(req.body).then(() => {
         res.json({ Status: true })
     })
 }
 
-const getAddIndividualMarkPage = async (req, res) => { ////
+const getAddIndividualMarkPage = async (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -52,7 +52,7 @@ const getAddIndividualMarkPage = async (req, res) => { ////
     })
 }
 
-const postAddIndividualMarkPage = (req, res) => { ////
+const postAddIndividualMarkPage = (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -65,7 +65,7 @@ const postAddIndividualMarkPage = (req, res) => { ////
     })
 }
 
-const getAddGroupMarkPage = async (req, res) => { ////
+const getAddGroupMarkPage = async (req, res) => {  
     const Event = req.session.event
     const Category = req.params.Category
     const SubCategory = req.params.SubCategory
@@ -79,7 +79,7 @@ const getAddGroupMarkPage = async (req, res) => { ////
     })
 }
 
-const postAddGroupMarkPage = (req, res) => { ////
+const postAddGroupMarkPage = (req, res) => {  
     var Event = req.session.event
     var Category = req.params.Category
     var SubCategory = req.params.SubCategory

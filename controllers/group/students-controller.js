@@ -3,7 +3,7 @@ const eventHelpers = require('../../helpers/event-helpers');
 const itemHelpers = require('../../helpers/item-helpers');
 const studentHelpers = require('../../helpers/student-helpers');
 
-const getStudentsMainPage = async (req, res) => {////
+const getStudentsMainPage = async (req, res) => { 
     const Group = req.session.group
     let NullItemStudents = await studentHelpers.GroupBaiseStudentWithOutItems(Group.EventId, Group.GroupId)
     NullItemStudents = NullItemStudents.length
@@ -16,7 +16,7 @@ const getStudentsMainPage = async (req, res) => {////
     })
 }
 
-const getStudentsListPage = async (req, res) => {////
+const getStudentsListPage = async (req, res) => { 
 
     const Category = req.params.Category
     const Group = req.session.group
@@ -43,7 +43,7 @@ const getStudentsListPage = async (req, res) => {////
     }
 }
 
-const getCreateStudent = async (req, res) => {////
+const getCreateStudent = async (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     let GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.EventId)
@@ -68,7 +68,7 @@ const getCreateStudent = async (req, res) => {////
     }
 }
 
-const postCreateStudent = (req, res) => {////
+const postCreateStudent = (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     studentHelpers.createStudent(Group.EventId, Group.GroupId, Category, req.body).then((response) => {
@@ -83,7 +83,7 @@ const postCreateStudent = (req, res) => {////
     })
 }
 
-const getStudentViewpage = async (req, res) => {////
+const getStudentViewpage = async (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     let ChestNo = req.params.ChestNo
@@ -96,7 +96,7 @@ const getStudentViewpage = async (req, res) => {////
     })
 }
 
-const deleteItem = (req, res) => {////
+const deleteItem = (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     let ChestNo = req.params.ChestNo
@@ -106,7 +106,7 @@ const deleteItem = (req, res) => {////
     })
 }
 
-const getStudentEditPage = async (req, res) => {////
+const getStudentEditPage = async (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     let ChestNo = req.params.ChestNo
@@ -126,7 +126,7 @@ const getStudentEditPage = async (req, res) => {////
     }
 }
 
-const postStudentEditPage = (req, res) => {////
+const postStudentEditPage = (req, res) => { 
     let Category = req.params.Category
     let Group = req.session.group
     let ChestNo = req.params.ChestNo
@@ -140,7 +140,7 @@ const postStudentEditPage = (req, res) => {////
         }
     })
 }
-const deleteStudent = (req, res) => {////
+const deleteStudent = (req, res) => { 
     var Group = req.session.group
     var Category = req.params.Category
     let ChestNo = req.params.ChestNo
@@ -149,7 +149,7 @@ const deleteStudent = (req, res) => {////
     })
 }
 
-const getStudentWithOutItem = async (req, res) => {////
+const getStudentWithOutItem = async (req, res) => { 
     var Group = req.session.group
     studentHelpers.GroupBaiseStudentWithOutItems(Group.EventId, Group.GroupId).then((Students) => {
         res.render('group/students/student-without-item', { title: Group.GroupName, group: true, groupHeader: true, Group, Students })

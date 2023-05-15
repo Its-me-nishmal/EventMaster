@@ -1,12 +1,12 @@
 const groupHelpers = require("../../helpers/group-helpers")
 
 
-const getMainPage = async (req, res) => {////
+const getMainPage = async (req, res) => { 
     let Group = req.session.group
     res.render('group/other/main-page', { title: Group.GroupName, group: true, groupHeader: true, Group })
 }
 
-const getChangePasswordPage = async (req, res) => {////
+const getChangePasswordPage = async (req, res) => { 
     let Group = req.session.group
 
     if (req.session.Success) {
@@ -20,7 +20,7 @@ const getChangePasswordPage = async (req, res) => {////
     }
 }
 
-const postChangePassword = (req, res) => {////
+const postChangePassword = (req, res) => { 
     groupHelpers.changePassword(req.body).then((response) => {
       if (response) {
         req.session.Success = "Password Changed"
@@ -32,7 +32,7 @@ const postChangePassword = (req, res) => {////
     })
   }
 
-  const fetchData = (req, res) => {////
+  const fetchData = (req, res) => { 
     groupHelpers.fetchData(req.body).then((result) => {
       if (result) {
         req.session.group = null

@@ -4,7 +4,7 @@ const itemHelpers = require('./item-helpers');
 
 module.exports = {
 
-    getItemStudentsFromAllGroup: (EventId, Category, SubCategory, ItemId) => {////+++
+    getItemStudentsFromAllGroup: (EventId, Category, SubCategory, ItemId) => { 
         return new Promise(async (resolve, reject) => {
             let ItemDetails = await itemHelpers.getOneItemDetails(EventId, Category, SubCategory, ItemId)
             let Students = []
@@ -71,7 +71,7 @@ module.exports = {
         })
     },
 
-    getGroupItemMarksFromAllGroup: (EventId, Category, SubCategory, ItemId) => {////+++
+    getGroupItemMarksFromAllGroup: (EventId, Category, SubCategory, ItemId) => { 
         return new Promise(async (resolve, reject) => {
             let ItemDetails = await itemHelpers.getOneItemDetails(EventId, Category, SubCategory, ItemId)
             let result = []

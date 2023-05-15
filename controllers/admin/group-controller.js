@@ -5,14 +5,14 @@ const studentHelpers = require('../../helpers/student-helpers')
 
 
 
-const getGroupsList = async (req, res) => {  ////  
+const getGroupsList = async (req, res) => {     
     const Event = req.session.event
     const AllGroups = await groupHelpers.getAllGroups(Event.EventId)
 
     res.render('event/groups/groups-list', { title: Event.Name, eventHeader: true, createAccout: true, adminHeader: true, Event, AllGroups })
 }
 
-const postActiveGroup = (req, res) => {  ////
+const postActiveGroup = (req, res) => {   
     const EventId = req.params.EventId
     const GroupName = req.params.GroupName
 
@@ -21,7 +21,7 @@ const postActiveGroup = (req, res) => {  ////
     })
 }
 
-const getGroupViewPage = async (req, res) => {  ////
+const getGroupViewPage = async (req, res) => {   
     const Event = req.session.event
     const GroupId = req.params.GroupId
     const GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
@@ -34,7 +34,7 @@ const getGroupViewPage = async (req, res) => {  ////
 
 }
 
-const getGroupStudentsList = async (req, res) => {  ////
+const getGroupStudentsList = async (req, res) => {   
     var Event = req.session.event
     var GroupId = req.params.GroupId
     let GroupDetails = await groupHelpers.getGroupDetails(GroupId, Event.EventId)
@@ -50,7 +50,7 @@ const getGroupStudentsList = async (req, res) => {  ////
 
 }
 
-const getAddStudentPage = async (req, res) => {  ////
+const getAddStudentPage = async (req, res) => {   
     var Event = req.session.event
     let GroupDetails = await groupHelpers.getGroupDetails(req.params.GroupId, Event.EventId)
     let Category = req.params.Category
@@ -76,7 +76,7 @@ const getAddStudentPage = async (req, res) => {  ////
     }
 }
 
-const postAddStudent = async (req, res) => {  ////
+const postAddStudent = async (req, res) => {   
     const Event = req.session.event
     const GroupId = req.params.GroupId
     const Category = req.params.Category
@@ -92,7 +92,7 @@ const postAddStudent = async (req, res) => {  ////
     })
 }
 
-const deleteStudent = (req, res) => {  ////
+const deleteStudent = (req, res) => {   
     var EventId = req.session.event.EventId
     var GroupId = req.params.GroupId
     var Category = req.params.Category
@@ -102,7 +102,7 @@ const deleteStudent = (req, res) => {  ////
     })
 
 }
-const getStudentsEventPage = async (req, res) => {  ////
+const getStudentsEventPage = async (req, res) => {   
     const Event = req.session.event
     const GroupDetails = await groupHelpers.getGroupDetails(req.params.GroupId, Event.EventId)
     const Category = req.params.Category
@@ -126,7 +126,7 @@ const getStudentsEventPage = async (req, res) => {  ////
 
 }
 
-const deleteItemFormStudent = async (req, res) => {  ////
+const deleteItemFormStudent = async (req, res) => {   
     var EventId = req.session.event.EventId
     var GroupId = req.params.GroupId
     var Category = req.params.Category

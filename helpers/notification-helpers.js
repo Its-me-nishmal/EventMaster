@@ -3,7 +3,7 @@ const collection = require('../config/collections')
 const { createRandomId } = require('./function-helpers')
 
 module.exports = {
-    sendMessage: (EventId, GroupId, Subject, Content, Link = '', Type = '') => {////*
+    sendMessage: (EventId, GroupId, Subject, Content, Link = '', Type = '') => { 
         return new Promise(async (resolve, reject) => {
             GroupId = GroupId === undefined ? null : GroupId
             let MessageId = createRandomId(10, "")
@@ -44,7 +44,7 @@ module.exports = {
 
     },
 
-    getOneMessageWithOutGroupId: (EventId, MessageId) => {////*
+    getOneMessageWithOutGroupId: (EventId, MessageId) => { 
 
         return new Promise(async (resolve, reject) => {
             let messages = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, 'Notifications.MessageId': MessageId },
@@ -56,7 +56,7 @@ module.exports = {
 
     },
 
-    deleteNotificationFromAll: (EventId, MessageId) => {  ////*
+    deleteNotificationFromAll: (EventId, MessageId) => {   
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateMany({ EventId }, {
                 $pull: {
@@ -71,7 +71,7 @@ module.exports = {
 
     },
 
-    deleteNotificationFormOne: (EventId, GroupId, MessageId) => {  ////*
+    deleteNotificationFormOne: (EventId, GroupId, MessageId) => {   
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId, GroupId }, {
                 $pull: {
@@ -86,7 +86,7 @@ module.exports = {
 
     },
 
-    getNewNotificaionCount: (EventId, GroupId) => { ////*
+    getNewNotificaionCount: (EventId, GroupId) => {  
         return new Promise(async (resolve, reject) => {
             let Notification = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, GroupId }, {
                 projection: { Notifications: 1 }
@@ -104,7 +104,7 @@ module.exports = {
 
     },
 
-    sawNotification: (body, EventId) => {  ////*
+    sawNotification: (body, EventId) => {   
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId: EventId, GroupId: body.GroupId }, {
                 $set: {
@@ -118,7 +118,7 @@ module.exports = {
 
     },
 
-    readOneNotification: (body, EventId) => {////*
+    readOneNotification: (body, EventId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({
                 EventId, GroupId: body.GroupId,
@@ -138,7 +138,7 @@ module.exports = {
 
     },
 
-    clearOneNotification: (body, EventId) => {////*
+    clearOneNotification: (body, EventId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({
                 EventId, GroupId: body.GroupId
@@ -155,7 +155,7 @@ module.exports = {
         })
     },
 
-    readFullNotification: (body, EventId) => {////*
+    readFullNotification: (body, EventId) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateOne({ EventId, GroupId: body.GroupId }, {
                 $set: {
@@ -169,7 +169,7 @@ module.exports = {
 
     },
 
-    getOneMessage: (EventId, GroupId, MessageId) => {////*
+    getOneMessage: (EventId, GroupId, MessageId) => { 
         return new Promise(async (resolve, reject) => {
             let message = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, GroupId }, {
                 projection: { Notifications: { $elemMatch: { MessageId } } }

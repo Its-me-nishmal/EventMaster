@@ -3,7 +3,7 @@ const eventHelpers = require('../../helpers/event-helpers');
 const studentHelpers = require('../../helpers/student-helpers');
 const itemHelpers = require('../../helpers/item-helpers');
 
-const getItemMainPage = async (req, res) => {////
+const getItemMainPage = async (req, res) => { 
     let Group = req.session.group
     let allItemCategorys = await itemHelpers.getAllItemCategory(Group.EventId)
 
@@ -13,7 +13,7 @@ const getItemMainPage = async (req, res) => {////
     })
 }
 
-const getItemListPage = async (req, res) => {////
+const getItemListPage = async (req, res) => { 
     let Group = req.session.group
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory
@@ -42,7 +42,7 @@ const getItemListPage = async (req, res) => {////
     }
 }
 
-const getItemStudents = async (req, res) => { ////
+const getItemStudents = async (req, res) => {  
     let Group = req.session.group
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory
@@ -73,7 +73,7 @@ const getItemStudents = async (req, res) => { ////
     }
 }
 
-const getChooseItemPage = async (req, res) => {////
+const getChooseItemPage = async (req, res) => { 
     let Group = req.session.group
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory
@@ -87,7 +87,7 @@ const getChooseItemPage = async (req, res) => {////
     })
 }
 
-const postChooseItemPage = (req, res) => {////
+const postChooseItemPage = (req, res) => { 
 
     itemHelpers.addItemToStudent(req.body.EventId, req.body.Category, req.body.SubCategory, req.body).then((response) => {
 
@@ -102,7 +102,7 @@ const postChooseItemPage = (req, res) => {////
     })
 }
 
-const deleteStudentItem = (req, res) => {////
+const deleteStudentItem = (req, res) => { 
     let Group = req.session.group
     let Category = req.params.Category
     let SubCategory = req.params.SubCategory

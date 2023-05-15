@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const { createRandomId } = require('./function-helpers')
 
 module.exports = {
-    doLogin: (body) => {////*
+    doLogin: (body) => { 
         return new Promise(async (resolve, reject) => {
 
             let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId: body.GroupId })
@@ -32,7 +32,7 @@ module.exports = {
 
     },
 
-    getGroupDetails: (GroupId, EventId) => { ////*
+    getGroupDetails: (GroupId, EventId) => {  
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId, EventId }).then((response) => {
                 delete response.Password
@@ -43,7 +43,7 @@ module.exports = {
 
     },
 
-    editGroupDetails: (EventId, body) => {  ////*
+    editGroupDetails: (EventId, body) => {   
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).updateMany({ EventId, GroupId: body.GroupId }, {
                 $set: {
@@ -56,7 +56,7 @@ module.exports = {
         })
     },
 
-    changePassword: (body) => { ////*
+    changePassword: (body) => {  
         return new Promise(async (resolve, reject) => {
             let Group = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId: body.EventId, GroupId: body.GroupId })
             bcrypt.compare(body.CurrentPassword, Group.Password).then(async (status) => {
@@ -81,7 +81,7 @@ module.exports = {
     },
 
     // Notification
-    getGroupNotifications: (EventId, GroupId) => { ////*
+    getGroupNotifications: (EventId, GroupId) => {  
         return new Promise(async (resolve, reject) => {
             let Notifi = await db.get().collection(collection.GROUP_COLLECTION).findOne({ EventId, GroupId }, {
                 projection: { _id: 0, Notifications: 1, GroupId: 1, GroupName: 1 }
@@ -101,7 +101,7 @@ module.exports = {
 
     },
 
-    isAllGroupActive: (EventId) => { ////*
+    isAllGroupActive: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             try {
                 let groups = await db.get().collection(collection.GROUP_COLLECTION).find({ EventId }).toArray()
@@ -118,7 +118,7 @@ module.exports = {
         })
     },
 
-    ActivateGroup: (EventId, GroupName, body) => { ////*
+    ActivateGroup: (EventId, GroupName, body) => {  
         return new Promise(async (resolve, reject) => {
             body.GroupId = createRandomId(5, "G", 'number')
             body.PasswordFor = createRandomId(10, "", 'symbol')
@@ -154,14 +154,14 @@ module.exports = {
 
     },
 
-    getAllGroups: (EventId) => { ////*
+    getAllGroups: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let allGroups = await db.get().collection(collection.GROUP_COLLECTION).find({ EventId }).toArray()
             resolve(allGroups)
         })
     },
 
-    getAllGroupsGroupItem: (EventId) => { ////*
+    getAllGroupsGroupItem: (EventId) => {  
         return new Promise(async (resolve, reject) => {
             let studentEvents = await db.get().collection(collection.GROUP_COLLECTION).aggregate([
                 {
@@ -247,7 +247,7 @@ module.exports = {
 
     },
 
-    fetchData: ({ GroupId }) => {////*
+    fetchData: ({ GroupId }) => { 
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId }).then((response) => {
                 delete response.Password

@@ -1,7 +1,7 @@
 const adminHelpers = require('../../helpers/admin-helpers')
 const eventHelpers = require('../../helpers/event-helpers')
 
-const getLoginPage = (req, res) => {  ////
+const getLoginPage = (req, res) => {   
 
     if (req.session.admin) {
         res.redirect('/admin')
@@ -15,7 +15,7 @@ const getLoginPage = (req, res) => {  ////
         res.render('admin/login', { adminHeader: true, title: 'Admin login' })
     }
 }
-const postLogin = (req, res) => {  ////
+const postLogin = (req, res) => {   
 
     adminHelpers.adminLogin(req.body).then((response) => {
         if (response.admin) {
@@ -30,14 +30,14 @@ const postLogin = (req, res) => {  ////
         }
     })
 }
-const getLogOut = (req, res) => {  ////
+const getLogOut = (req, res) => {   
     req.session.admin = null
     req.session.event = null
     res.redirect('/admin/login')
 }
 
 // Account
-const getAccount = async (req, res) => {   ////
+const getAccount = async (req, res) => {    
 
     const adminDetails = req.session.admin
     res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
@@ -47,7 +47,7 @@ const getAccount = async (req, res) => {   ////
 
 // Home
 
-const getHomePage = async (req, res) => {   ////
+const getHomePage = async (req, res) => {    
 
     let allEvent = await eventHelpers.allEvents()
     let LoginEvent = req.session.event
