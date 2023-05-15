@@ -35,8 +35,8 @@ module.exports = {
     getGroupDetails: (GroupId, EventId) => {  
         return new Promise((resolve, reject) => {
             db.get().collection(collection.GROUP_COLLECTION).findOne({ GroupId, EventId }).then((response) => {
-                delete response.Password
-                delete response.PasswordFor
+                delete response?.Password
+                delete response?.PasswordFor
                 resolve(response)
             })
         })

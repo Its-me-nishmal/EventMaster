@@ -76,10 +76,10 @@ const getEventLogOut = (req, res) => {
 // Forgot Password
 const getForgotPasswordPage = (req, res) => {   
     if (req.session.Error) {
-        res.render('event/auth/forgot-password', { title: 'College Fest', admin: true, adminHeader: true, "Error": req.session.Error })
+        res.render('event/auth/forgot-password', { title: 'NSA Online', admin: true, adminHeader: true, "Error": req.session.Error })
         req.session.Error = false
     } else {
-        res.render('event/auth/forgot-password', { title: 'College Fest', admin: true, adminHeader: true })
+        res.render('event/auth/forgot-password', { title: 'NSA Online', admin: true, adminHeader: true })
     }
 }
 
@@ -112,10 +112,10 @@ const getForgotPasswordOtpPage = (req, res) => {
     let mobileSlice = req.session.ForgotMobile.slice(6)
     let mobile = req.session.ForgotMobile
     if (req.session.Error) {
-        res.render('event/auth/otp-page', { title: 'College Fest', admin: true, adminHeader: true, mobileSlice, mobile, "Error": req.session.Error })
+        res.render('event/auth/otp-page', { title: 'NSA Online', admin: true, adminHeader: true, mobileSlice, mobile, "Error": req.session.Error })
         req.session.Error = false
     } else {
-        res.render('event/auth/otp-page', { title: 'College Fest', admin: true, adminHeader: true, mobileSlice, mobile })
+        res.render('event/auth/otp-page', { title: 'NSA Online', admin: true, adminHeader: true, mobileSlice, mobile })
     }
 }
 
@@ -135,7 +135,7 @@ const postForgotPasswordOtpPage = (req, res) => {
 const getForgotpasswordSetPage = (req, res) => {   
     let EventId = req.session?.ForgotEventId
     if (EventId) {
-        res.render('event/auth/new-password', { title: 'College Fest', admin: true, adminHeader: true, mobileSlice, mobile })
+        res.render('event/auth/new-password', { title: 'NSA Online', admin: true, adminHeader: true, mobileSlice, mobile })
     } else {
         res.redirect('/event/forgot-password')
     }

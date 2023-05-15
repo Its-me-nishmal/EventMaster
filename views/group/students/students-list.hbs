@@ -52,10 +52,12 @@
                                         style="background-color: var(--color-edit);opacity:0.3;cursor: not-allowed; "><i
                                             class="bi bi-pencil-square"></i></a>
                                     {{/if}}
+                                    {{#if ../eventDetails.MarkStatus}}{{else}}
                                     <a title="Delete student"
                                         onclick="return confirm('Are you want to delete - {{this.Name}} ?')"
                                         href="/group/students/{{../Category}}/{{this.ChestNo}}/delete"
                                         style="background-color:var(--color-delete)"><i class="bi bi-trash"></i></a>
+                                    {{/if}}
                                 </td>
                             </tr>
                             {{/each}}

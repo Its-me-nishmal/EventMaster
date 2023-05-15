@@ -22,22 +22,23 @@ const getStudentsListPage = async (req, res) => {
     const Group = req.session.group
     const AllStudents = await studentHelpers.getAllStudentsInGroup(Group.EventId, Group.GroupId, Category)
     const GroupDetails = await groupHelpers.getGroupDetails(Group.GroupId, Group.EventId)
-
+    const eventDetails = await eventHelpers.getEventDetails(Group.EventId)
     if (req.session.Success) {
         res.render('group/students/students-list', {
             title: Group.GroupName, group: true, groupHeader: true, AllStudents, Group, GroupDetails, Category,
-            "Success": req.session.Success
+            "Success": req.session.Success, eventDetails
         })
         req.session.Success = false
     } else if (req.session.Error) {
         res.render('group/students/students-list', {
             title: Group.GroupName, group: true, groupHeader: true, AllStudents, Group, GroupDetails, Category,
-            "Error": req.session.Error
+            "Error": req.session.Error, eventDetails
         })
         req.session.Error = false
     } else {
         res.render('group/students/students-list', {
-            title: Group.GroupName, group: true, groupHeader: true, AllStudents, Group, GroupDetails, Category
+            title: Group.GroupName, group: true, groupHeader: true, AllStudents, Group, GroupDetails, Category,
+            eventDetails
         })
 
     }

@@ -32,7 +32,9 @@
                                     <th class="StudentsTable-TR-ChestNo">Chest no</th>
                                     <th class="StudentsTable-TR-ChestNo">CIC no</th>
                                     <th class="StudentsTable-TR-CIC">Full name </th>
+                                    {{#if Event.MarkStatus}}{{else}}
                                     <th class="StudentsTable-TR-Control">Delete</th>
+                                    {{/if}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,11 +45,13 @@
                                     <td class="StudentsTable-TD-ChestNo">{{this.ChestNo}}</td>
                                     <td class="StudentsTable-TD-CIC">{{this.CicNo}}</td>
                                     <td class="StudentsTable-TD-Name">{{this.Name}}</td>
+                                    {{#if ../Event.MarkStatus}}{{else}}
                                     <td><a href="/group/items/{{../Category}}/{{../SubCategory}}/all-items/{{../ItemId}}-{{../ItemName}}/all-students/{{this.ChestNo}}/delete-item"
                                             onclick="return confirm('Are you want to delete - {{this.Name}} - this event ?')"><button
                                                 class="pointCateoryDeletButton"> <i
                                                     class="bi bi-trash"></i></button></a>
                                     </td>
+                                    {{/if}}
                                 </tr>
                                 {{/each}}
 
@@ -70,7 +74,8 @@
 
                             <p>You have not added any students this item ...</p>
                             {{#if GroupDetails.ChooseItem}}
-                            <a href="/group/items/{{Category}}/{{SubCategory}}/all-items/{{ItemId}}-{{ItemName}}/choose-item">
+                            <a
+                                href="/group/items/{{Category}}/{{SubCategory}}/all-items/{{ItemId}}-{{ItemName}}/choose-item">
                                 <button style="margin-left: 70px;"><i class="bi bi-plus-circle-dotted"></i> Add
                                     students</button>
                             </a>

@@ -40,7 +40,7 @@ const getLogOut = (req, res) => {
 const getAccount = async (req, res) => {    
 
     const adminDetails = req.session.admin
-    res.render('admin/admin-account', { title: 'College fest', admin: true, adminHeader: true, adminDetails, footer: true })
+    res.render('admin/admin-account', { title: 'NSA Online', admin: true, adminHeader: true, adminDetails, footer: true })
 
 }
 
@@ -54,17 +54,17 @@ const getHomePage = async (req, res) => {
 
     if (req.session.Error) {
         res.render('admin/home', {
-            title: 'College Fest', admin: true, adminHeader: true, allEvent,
+            title: 'NSA Online', admin: true, adminHeader: true, allEvent,
             "Error": req.session.Error, footer: true
         })
         req.session.Error = false
     } else if (req.session.event) {
         res.render('admin/home', {
-            title: 'College Fest', admin: true, adminHeader: true, allEvent,
+            title: 'NSA Online', admin: true, adminHeader: true, allEvent,
             LoginEvent, footer: true
         })
     } else {
-        res.render('admin/home', { title: 'College Fest', admin: true, adminHeader: true, allEvent, footer: true })
+        res.render('admin/home', { title: 'NSA Online', admin: true, adminHeader: true, allEvent, footer: true })
     }
 }
 
