@@ -213,7 +213,6 @@ allEvents: () => {
       resolve(events);
     } catch (error) {
       console.error('Error in allEvents:', error);
-      reject(new Error('Failed to fetch all events.')); // Reject the promise with the error
     }
   });
 },
