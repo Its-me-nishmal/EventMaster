@@ -590,3 +590,4 @@ statusViewEvent: (EventId) => {
         }
     });
 }
+};
