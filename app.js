@@ -46,7 +46,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload());
 app.use(session({
-  secret: process.env.SESSION_KEY,
+  secret: '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',
   resave: false,
   saveUninitialized: false,
   store: store,
