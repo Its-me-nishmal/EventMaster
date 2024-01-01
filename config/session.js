@@ -1,6 +1,6 @@
 const session = require('express-session');
 const MongoDBSession = require('connect-mongodb-session')(session);
-const MongoURI = "mongodb://localhost:27017/sessions"
+const MongoURI = "mongodb+srv://alltrackerx:Nichuvdr%40786@cluster0.zqjk0it.mongodb.net/Event?retryWrites=true&w=majority"
 
 
 // Session
