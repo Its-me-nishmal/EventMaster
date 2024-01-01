@@ -589,6 +589,4 @@ statusViewEvent: (EventId) => {
             reject(new Error('Failed to fetch event view status.'));
         }
     });
-},
-
-// ... (end of modifications)
+}
