@@ -175,22 +175,29 @@ module.exports = {
         })
     },
 
-    Dashboard
-    getPointsCount: (EventId) => {  
-        return new Promise(async (resolve, reject) => {
-            let data = {}
-            let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
-            if (Points[0]) {
-                data.count = Points.length;
-                data.not = false
-            } else {
-                data.count = 0;
-                data.not = true
-            }
-            resolve(data)
-        })
+Dashboard: {
+  getPointsCount: async (EventId) => {
+    try {
+      let data = {};
+      let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray();
 
-    },
+      if (!isEmpty(Points)) {
+        data.count = Points.length;
+        data.not = false;
+      } else {
+        data.count = 0;
+        data.not = true;
+      }
+
+      return data;
+    } catch (error) {
+      // Handle the error appropriately, log it, and potentially reject the promise
+      console.error('Error in getPointsCount:', error);
+      throw error;
+    }
+  },
+},
+
 
     // Event
     allEvents: () => {   
