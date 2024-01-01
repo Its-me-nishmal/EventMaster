@@ -199,15 +199,25 @@ Dashboard: {
 },
 
 
-    // Event
-    allEvents: () => {   
-        return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.EVENT_COLLECTION).find().sort({ CreatedDate: -1 })
-                .toArray().then((allEvent) => {
-                    resolve(allEvent)
-                })
-        })
-    },
+ // Event
+allEvents: () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const events = await db
+        .get()
+        .collection(collection.EVENT_COLLECTION)
+        .find()
+        .sort({ CreatedDate: -1 })
+        .toArray();
+
+      resolve(events);
+    } catch (error) {
+      console.error('Error in allEvents:', error);
+      reject(error); // Reject the promise with the error
+    }
+  });
+},
+
 
     EventLogin: ({ EventId, Password }) => {   
         let responses = {}
