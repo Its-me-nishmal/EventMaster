@@ -176,21 +176,21 @@ module.exports = {
     },
 
     // Dashboard
-    getPointsCount: (EventId) => {  
-        return new Promise(async (resolve, reject) => {
-            let data = {}
-            let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
-            if (Points[0]) {
-                data.count = Points.length;
-                data.not = false
-            } else {
-                data.count = 0;
-                data.not = true
-            }
-            resolve(data)
-        })
+    // getPointsCount: (EventId) => {  
+    //     return new Promise(async (resolve, reject) => {
+    //         let data = {}
+    //         let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
+    //         if (Points[0]) {
+    //             data.count = Points.length;
+    //             data.not = false
+    //         } else {
+    //             data.count = 0;
+    //             data.not = true
+    //         }
+    //         resolve(data)
+    //     })
 
-    },
+    // },
 
     // Event
     allEvents: () => {   
