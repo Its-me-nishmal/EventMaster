@@ -145,25 +145,31 @@ const getForgotpasswordSetPage = (req, res) => {
 
 // Dashboard
 
-const getDashboard = async (req, res) => {   
-    const Event = JSON.parse(JSON.stringify(req.session.event))
-   
-    // Checking  
-    const PointCategory = await eventHelpers.getPointsCount(Event.EventId)
-    const isGroupActive = await groupHelpers.isAllGroupActive(Event.EventId)
-    let isStudentLimit = await itemHelpers.getAllItemCategory(Event.EventId)  
-    isStudentLimit = isStudentLimit[0].Sub[0].Limit === 0 ? false : true
-    let statusViewEvent = await eventHelpers.statusViewEvent(Event.EventId)
-    let EventDetails = await eventHelpers.getEventDetails(Event.EventId)
-    const StudentsCount = await studentHelpers.totalStudentsCount(Event.EventId)
-    const ItemCount = await itemHelpers.AllItemCount(Event.EventId)
-    Event.Date = new Date(Event.Date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+const getDashboard = async (req, res) => {
+    try {
+        const Event = JSON.parse(JSON.stringify(req.session.event));
 
-    res.render('event/dashboard/dashboard', {
-        title: Event.Name, Event, eventHeader: true, createAccout: true, adminHeader: true,
-        PointCategory, isGroupActive, statusViewEvent, isStudentLimit, EventDetails, StudentsCount, ItemCount
-    })
-}
+        // Checking  
+        const PointCategory = await eventHelpers.Dashboard.getPointsCount(Event.EventId);
+        const isGroupActive = await groupHelpers.isAllGroupActive(Event.EventId);
+        let isStudentLimit = await itemHelpers.getAllItemCategory(Event.EventId);
+        isStudentLimit = isStudentLimit[0].Sub[0].Limit === 0 ? false : true;
+        let statusViewEvent = await eventHelpers.statusViewEvent(Event.EventId);
+        let EventDetails = await eventHelpers.getEventDetails(Event.EventId);
+        const StudentsCount = await studentHelpers.totalStudentsCount(Event.EventId);
+        const ItemCount = await itemHelpers.AllItemCount(Event.EventId);
+        Event.Date = new Date(Event.Date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+        res.render('event/dashboard/dashboard', {
+            title: Event.Name, Event, eventHeader: true, createAccout: true, adminHeader: true,
+            PointCategory, isGroupActive, statusViewEvent, isStudentLimit, EventDetails, StudentsCount, ItemCount
+        });
+    } catch (error) {
+        console.error('Error in getDashboard:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 module.exports = {
     getForgotPasswordPage, postForgotPassword, getForgotPasswordOtpPage, postForgotPasswordOtpPage,
     getForgotpasswordSetPage, getPageOne, postPageOne, postPageTwo, postPageThree, postPageFour,
