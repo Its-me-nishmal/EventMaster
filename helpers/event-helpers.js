@@ -193,7 +193,7 @@ Dashboard: {
     } catch (error) {
       // Handle the error appropriately, log it, and potentially reject the promise
       console.error('Error in getPointsCount:', error);
-      throw error;
+      reject(error);
     }
   },
 },
