@@ -8,7 +8,7 @@ const state = {
 
 module.exports.connect = function (done) {
     const url = 'mongodb+srv://alltrackerx:Nichuvdr%40786@cluster0.zqjk0it.mongodb.net/NSA?retryWrites=true&w=majority'
-    const dbname = 'event'
+    const dbname = 'NSA'
 
 
 
