@@ -198,7 +198,6 @@ Dashboard: {
   },
 },
 
-
 // Event
 allEvents: () => {
   return new Promise(async (resolve, reject) => {
@@ -213,6 +212,7 @@ allEvents: () => {
       resolve(events);
     } catch (error) {
       console.error('Error in allEvents:', error);
+      reject(error); // Reject the promise with the error
     }
   });
 },
