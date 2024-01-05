@@ -3,7 +3,9 @@ const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const { createRandomId } = require('./function-helpers')
 
-
+const isEmpty = (obj) => {
+  return obj === null || obj === undefined || (Array.isArray(obj) && obj.length === 0) || (typeof obj === 'object' && Object.keys(obj).length === 0);
+};
 
 module.exports = {
 
