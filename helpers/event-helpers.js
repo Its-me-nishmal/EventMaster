@@ -3,9 +3,7 @@ const collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const { createRandomId } = require('./function-helpers')
 
-const isEmpty = (obj) => {
-  return obj === null || obj === undefined || (Array.isArray(obj) && obj.length === 0) || (typeof obj === 'object' && Object.keys(obj).length === 0);
-};
+
 
 module.exports = {
 
@@ -177,130 +175,87 @@ module.exports = {
         })
     },
 
-Dashboard: {
-  getPointsCount: (EventId) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = {};
-        let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray();
+    // Dashboard
+    getPointsCount: (EventId) => {  
+        return new Promise(async (resolve, reject) => {
+            let data = {}
+            let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
+            if (Points[0]) {
+                data.count = Points.length;
+                data.not = false
+            } else {
+                data.count = 0;
+                data.not = true
+            }
+            resolve(data)
+        })
 
-        if (!isEmpty(Points)) {
-          data.count = Points.length;
-          data.not = false;
-        } else {
-          data.count = 0;
-          data.not = true;
-        }
+    },
 
-        resolve(data);
-      } catch (error) {
-        // Log the error
-        console.error('Error in getPointsCount:', error);
-        
-        // Reject the promise with the error
-        reject(error);
-      }
-    });
-  },
-},
+    // Event
+    allEvents: () => {   
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.EVENT_COLLECTION).find().sort({ CreatedDate: -1 })
+                .toArray().then((allEvent) => {
+                    resolve(allEvent)
+                })
+        })
+    },
 
-
-// Event
-allEvents: () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const events = await db
-        .get()
-        .collection(collection.EVENT_COLLECTION)
-        .find()
-        .sort({ CreatedDate: -1 })
-        .toArray();
-
-      resolve(events);
-    } catch (error) {
-      console.error('Error in allEvents:', error);
-      reject(error); // Reject the promise with the error
-    }
-  });
-},
-
-EventLogin: ({ EventId, Password }) => {   
-    let responses = {};
-    return new Promise(async (resolve, reject) => {
-        try {
-            let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId });
+    EventLogin: ({ EventId, Password }) => {   
+        let responses = {}
+        return new Promise(async (resolve, reject) => {
+            let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId })
 
             if (event) {
                 bcrypt.compare(Password, event.Password).then((response) => {
                     if (response) {
-                        delete event.Password;
-                        responses.event = event;
-                        resolve(responses);
+                        delete event.Password
+                        responses.event = event
+                        resolve(responses)
                     } else {
-                        responses.PasswordErr = true;
-                        resolve(responses);
+                        response.PasswordErr = true
+                        resolve(response)
                     }
-                });
+                })
             } else {
-                responses.EventIdErr = true;
-                resolve(responses);
+                response.EventIdErr = true
+                resolve(response)
             }
-        } catch (error) {
-            console.error('Error in EventLogin:', error);
-            reject(new Error('Failed to perform event login.'));
-        }
-    });
-},
+        })
+    },
 
-// ... (similar modifications for other functions)
-
-// ... (previous code)
-
-getEventDetails: (EventId) => {
-    return new Promise((resolve, reject) => {
-        const database = db.get();
-        if (!database) {
-            // Handle the case where the database connection is not properly initialized
-            console.error('Error: Database connection is not properly initialized');
-            reject(new Error('Failed to fetch event details.'));
-            return;
-        }
-
-        database.collection(collection.EVENT_COLLECTION).findOne({ EventId }, { projection: { Password: 0 } })
-            .then((event) => {
-                resolve(event);
+    getEventDetails: (EventId) => {   
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId }, { projection: { Password: 0 } }).then((event) => {
+                resolve(event)
             })
-            .catch((error) => {
-                console.error('Error in getEventDetails:', error);
-                reject(new Error('Failed to fetch event details.'));
-            });
-    });
-},
+        })
+    },
 
-
-getPoints: (EventId) => {    
-    return new Promise(async (resolve, reject) => {
-        try {
-            let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray();
+    // Points Category
+    getPoints: (EventId) => {    
+        return new Promise(async (resolve, reject) => {
+            let Points = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
             if (!Points[0]) {
-                Points = false;
+                Points = false
             }
-            resolve(Points);
-        } catch (error) {
-            console.error('Error in getPoints:', error);
-            reject(new Error('Failed to fetch points.'));
-        }
-    });
-},
+            resolve(Points)
+        })
 
-addPoints: (data) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
+    },
+
+    addPoints: (data) => {  
+
+
+        return new Promise(async (resolve, reject) => {
+
+
             const check = await db.get().collection(collection.POINT_CATEGORY_COLLECTION)
-                .findOne({ EventId: data.EventId, CategoryName: data.CategoryName });
+                .findOne({ EventId: data.EventId, CategoryName: data.CategoryName })
 
             if (!check) {
-                await db.get().collection(collection.POINT_CATEGORY_COLLECTION).insertOne({
+                db.get().collection(collection.POINT_CATEGORY_COLLECTION).insertOne({
                     EventId: data.EventId,
                     CategoryName: data.CategoryName,
                     Places: {
@@ -314,96 +269,72 @@ addPoints: (data) => {
                         C: Number(data.C)
                     },
                     Count: 0
-                });
-                resolve();
+
+                }).then((response) => {
+                    resolve()
+                })
             } else {
-                resolve({ categoryNameErr: true });
+                resolve({ categoryNameErr: true })
             }
-        } catch (error) {
-            console.error('Error in addPoints:', error);
-            reject(new Error('Failed to add points.'));
-        }
-    });
-},
-
-deletePoint: (EventId, CategoryName) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
-            const result = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ EventId, CategoryName });
-            if (result?.Count > 0) {
-                resolve({ event: true });
-            } else {
-                await db.get().collection(collection.POINT_CATEGORY_COLLECTION).deleteOne({ EventId, CategoryName });
-                resolve();
-            }
-        } catch (error) {
-            console.error('Error in deletePoint:', error);
-            reject(new Error('Failed to delete point.'));
-        }
-    });
-},
-
-getAllItemCategoryWithItems: (EventId) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
-            let allItemCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId }).toArray();
-            resolve(allItemCategory);
-        } catch (error) {
-            console.error('Error in getAllItemCategoryWithItems:', error);
-            reject(new Error('Failed to fetch all item categories with items.'));
-        }
-    });
-},
-
-// ... (similar modifications for other functions)
-
-// ... (previous code)
-
-findOneItemInSubCategory: (EventId, CategoryName, SubCategory) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
-            let allItemSubCategory = await db.get().collection(collection.ITEM_COLLECTION)
-                .find({ EventId, CategoryName, 'Sub.Title': SubCategory })
-                .project({ Sub: { $elemMatch: { Title: SubCategory } } })
-                .toArray();
-            allItemSubCategory = allItemSubCategory[0].Sub[0];
-            delete allItemSubCategory.Items;
-            resolve(allItemSubCategory);
-        } catch (error) {
-            console.error('Error in findOneItemInSubCategory:', error);
-            reject(new Error('Failed to find item in subcategory.'));
-        }
-    });
-},
-
-getPointCategoryOptions: (EventId) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
-            const PointOptions = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray();
-            resolve(PointOptions);
-        } catch (error) {
-            console.error('Error in getPointCategoryOptions:', error);
-            reject(new Error('Failed to fetch point category options.'));
-        }
-    });
-},
-
-getOnePointDetails: (EventId, CategoryName) => { 
-    return new Promise((resolve, reject) => {
-        db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ EventId, CategoryName })
-        .then((point) => {
-            resolve(point);
         })
-        .catch((error) => {
-            console.error('Error in getOnePointDetails:', error);
-            reject(new Error('Failed to fetch point details.'));
-        });
-    });
-},
 
-editEventDetails: (body) => {  
-    return new Promise((resolve, reject) => {
-        try {
+    },
+
+    deletePoint: (EventId, CategoryName) => {  
+
+        return new Promise(async (resolve, reject) => {
+
+            db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ EventId, CategoryName }).then((result) => {
+                if (result?.Count > 0) {
+                    resolve({ event: true })
+                } else {
+                    db.get().collection(collection.POINT_CATEGORY_COLLECTION).deleteOne({ EventId, CategoryName }).then(() => {
+                        resolve()
+                    })
+                }
+            })
+
+        })
+    },
+
+    getAllItemCategoryWithItems: (EventId) => {  
+
+        return new Promise(async (resolve, reject) => {
+            let allItemCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId }).toArray()
+            resolve(allItemCategory)
+        })
+
+    },
+
+    findOneItemInSubCategory: (EventId, CategoryName, SubCategory) => {  
+
+        return new Promise(async (resolve, reject) => {
+            let allItemSubCategory = await db.get().collection(collection.ITEM_COLLECTION).find({ EventId, CategoryName, 'Sub.Title': SubCategory })
+                .project({ Sub: { $elemMatch: { Title: SubCategory } } }).toArray()
+            allItemSubCategory = allItemSubCategory[0].Sub[0]
+            delete allItemSubCategory.Items
+            resolve(allItemSubCategory)
+        })
+    },
+
+    getPointCategoryOptions: (EventId) => {  
+        return new Promise(async (resolve, reject) => {
+            const PointOptions = await db.get().collection(collection.POINT_CATEGORY_COLLECTION).find({ EventId }).toArray()
+            resolve(PointOptions)
+        });
+    },
+    
+    getOnePointDetails: (EventId, CategoryName) => { 
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.POINT_CATEGORY_COLLECTION).findOne({ EventId, CategoryName }).then((point) => {
+                resolve(point)
+            })
+        })
+    },
+
+    editEventDetails: (body) => {  
+
+        return new Promise((resolve, reject) => {
             body.Date = new Date(body.Date);
             db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId: body.EventId }, {
                 $set: {
@@ -412,197 +343,160 @@ editEventDetails: (body) => {
                     Convener: body.Convener,
                     Mobile: body.Mobile
                 }
+            }).then(() => {
+                resolve()
             })
-            .then(() => {
-                resolve();
-            })
-            .catch((error) => {
-                console.error('Error in editEventDetails:', error);
-                reject(new Error('Failed to edit event details.'));
-            });
-        } catch (error) {
-            console.error('Error in editEventDetails (outer):', error);
-            reject(new Error('Failed to edit event details.'));
-        }
-    });
-},
+        })
 
-changePassword: (body) => { 
-    return new Promise(async (resolve, reject) => {
-        try {
-            let Event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId: body.EventId });
+    },
+
+    changePassword: (body) => { 
+
+        return new Promise(async (resolve, reject) => {
+            let Event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId: body.EventId })
 
             if (Event) {
                 bcrypt.compare(body.Password, Event.Password).then(async (status) => {
+
                     if (status) {
-                        passwordNew = await bcrypt.hash(body.NewPassword, 10);
+
+                        passwordNew = await bcrypt.hash(body.NewPassword, 10)
 
                         db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId: body.EventId },
                             {
                                 $set: {
                                     Password: passwordNew
                                 }
-                            })
-                            .then(() => {
-                                resolve({ passwordSuccess: true });
-                            })
-                            .catch((error) => {
-                                console.error('Error in changePassword (inner):', error);
-                                reject(new Error('Failed to change password.'));
+                            }).then((response) => {
+
+                                resolve(passwordSuccess = true)
+
                             });
+
                     } else {
-                        resolve();
+                        resolve()
                     }
-                });
+                })
             }
-        } catch (error) {
-            console.error('Error in changePassword (outer):', error);
-            reject(new Error('Failed to change password.'));
-        }
-    });
-},
+        })
 
-// ... (similar modifications for other functions)
+    },
 
-// ... (previous code)
+    deleteEvent: (EventId) => { 
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.STUDENTS_COLLECTION).deleteMany({ EventId })
+            await db.get().collection(collection.POINT_CATEGORY_COLLECTION).deleteMany({ EventId })
+            await db.get().collection(collection.GROUP_COLLECTION).deleteMany({ EventId })
+            await db.get().collection(collection.ITEM_COLLECTION).deleteMany({ EventId })
+            await db.get().collection(collection.EVENT_COLLECTION).deleteOne({ EventId }).then(() => {
+                resolve()
+            })
+        })
 
-deleteEvent: (EventId) => { 
-    return new Promise(async (resolve, reject) => {
-        try {
-            await db.get().collection(collection.STUDENTS_COLLECTION).deleteMany({ EventId });
-            await db.get().collection(collection.POINT_CATEGORY_COLLECTION).deleteMany({ EventId });
-            await db.get().collection(collection.GROUP_COLLECTION).deleteMany({ EventId });
-            await db.get().collection(collection.ITEM_COLLECTION).deleteMany({ EventId });
-            await db.get().collection(collection.EVENT_COLLECTION).deleteOne({ EventId });
-            resolve();
-        } catch (error) {
-            console.error('Error in deleteEvent:', error);
-            reject(new Error('Failed to delete event.'));
-        }
-    });
-},
+    },
 
-launchEvent: ({ EventId, Status }) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
+    launchEvent: ({ EventId, Status }) => {  
+        return new Promise(async (resolve, reject) => {
             if (Status === 'true') {
-                await db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
+                db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                     $set: {
                         Launch: false,
                         ResultPublish: false
                     }
-                });
-                resolve({ Status: false });
+                }).then(() => {
+                    resolve({ Status: false })
+                })
             } else {
-                await db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
+                db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                     $set: {
                         Launch: true
                     }
-                });
-                resolve({ Status: true });
+                }).then(() => {
+                    resolve({ Status: true })
+                })
             }
-        } catch (error) {
-            console.error('Error in launchEvent:', error);
-            reject(new Error('Failed to update event launch status.'));
-        }
-    });
-},
+        })
+    },
 
-publishResult: ({ EventId, Status }) => {   
-    return new Promise(async (resolve, reject) => {
-        try {
+    publishResult: ({ EventId, Status }) => {   
+        return new Promise(async (resolve, reject) => {
             if (Status === 'true') {
-                await db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
+                db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                     $set: {
                         ResultPublish: false
                     }
-                });
-                resolve({ Status: false });
+                }).then(() => {
+                    resolve({ Status: false })
+                })
             } else {
-                await db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
+                db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                     $set: {
                         ResultPublish: true,
                         Launch: true
                     }
-                });
-                resolve({ Status: true });
+                }).then(() => {
+                    resolve({ Status: true })
+                })
             }
-        } catch (error) {
-            console.error('Error in publishResult:', error);
-            reject(new Error('Failed to update result publish status.'));
-        }
-    });
-},
+        })
 
-uploadFiles: (body, EventId) => { 
-    return new Promise(async (resolve, reject) => {
-        try {
+    },
+
+    uploadFiles: (body, EventId) => { 
+        return new Promise(async (resolve, reject) => {
             let Item = {
                 Title: body.title,
                 FileId: null
             }
 
-            Item.FileId = createRandomId(6, "");
+            Item.FileId = createRandomId(6, "")
 
             await db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                 $push: {
                     Files: Item
                 }
-            });
-            resolve({ FileId: Item.FileId });
-        } catch (error) {
-            console.error('Error in uploadFiles:', error);
-            reject(new Error('Failed to upload files.'));
-        }
-    });
-},
+            }).then(() => {
+                resolve({ FileId: Item.FileId })
+            })
+        })
 
-getAllUploadedFiles: (EventId) => { 
-    return new Promise(async (resolve, reject) => {
-        try {
+    },
+
+    getAllUploadedFiles: (EventId) => { 
+        return new Promise(async (resolve, reject) => {
             let Files = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId }, {
                 projection: { Files: 1, EventId: 1, _id: 0 }
-            });
-            resolve(Files);
-        } catch (error) {
-            console.error('Error in getAllUploadedFiles:', error);
-            reject(new Error('Failed to fetch uploaded files.'));
-        }
-    });
-},
+            })
+            resolve(Files)
+        })
 
-deleteUploadFile: (FileId, EventId) => { 
-    return new Promise((resolve, reject) => {
-        try {
+    },
+
+    deleteUploadFile: (FileId, EventId) => { 
+        return new Promise((resolve, reject) => {
             db.get().collection(collection.EVENT_COLLECTION).updateOne({ EventId }, {
                 $pull: {
                     Files: { FileId }
                 }
-            });
-            resolve();
-        } catch (error) {
-            console.error('Error in deleteUploadFile:', error);
-            reject(new Error('Failed to delete uploaded file.'));
-        }
-    });
-},
+            }).then(() => {
+                resolve()
+            })
+        })
 
-statusViewEvent: (EventId) => {  
-    return new Promise(async (resolve, reject) => {
-        try {
-            let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId });
-            let status = {};
+    },
+
+    statusViewEvent: (EventId) => {  
+        return new Promise(async (resolve, reject) => {
+            let event = await db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId })
+            let status = {}
             if (event?.eventViewStatus) {
-                status.user = true;
+                status.user = true
             }
             if (event?.resultViewStatus) {
-                status.result = true;
+                status.result = true
             }
-            resolve(status);
-        } catch (error) {
-            console.error('Error in statusViewEvent:', error);
-            reject(new Error('Failed to fetch event view status.'));
-        }
-    });
+            resolve(status)
+        })
+    },
+
 }
-};
