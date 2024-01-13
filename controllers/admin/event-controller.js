@@ -150,7 +150,7 @@ const getDashboard = async (req, res) => {
         const Event = JSON.parse(JSON.stringify(req.session.event));
 
         // Checking  
-        const PointCategory = await eventHelpers.Dashboard.getPointsCount(Event.EventId);
+        const PointCategory = await eventHelpers.getPointsCount(Event.EventId);
         const isGroupActive = await groupHelpers.isAllGroupActive(Event.EventId);
         let isStudentLimit = await itemHelpers.getAllItemCategory(Event.EventId);
         isStudentLimit = isStudentLimit[0].Sub[0].Limit === 0 ? false : true;
@@ -166,9 +166,7 @@ const getDashboard = async (req, res) => {
         });
     } catch (error) {
         console.error('Error in getDashboard:', error);
-        res.render('event/dashboard/dashboard', {
-            title: Event.Name, Event, eventHeader: true, createAccout: true, adminHeader: true, isGroupActive, statusViewEvent, isStudentLimit, EventDetails, StudentsCount, ItemCount
-        });
+        
     }
 };
 
