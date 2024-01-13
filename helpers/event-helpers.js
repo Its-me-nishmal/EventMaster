@@ -256,18 +256,27 @@ EventLogin: ({ EventId, Password }) => {
 
 // ... (previous code)
 
-getEventDetails: (EventId) => {   
+getEventDetails: (EventId) => {
     return new Promise((resolve, reject) => {
-        db.get().collection(collection.EVENT_COLLECTION).findOne({ EventId }, { projection: { Password: 0 } })
-        .then((event) => {
-            resolve(event);
-        })
-        .catch((error) => {
-            console.error('Error in getEventDetails:', error);
+        const database = db.get();
+        if (!database) {
+            // Handle the case where the database connection is not properly initialized
+            console.error('Error: Database connection is not properly initialized');
             reject(new Error('Failed to fetch event details.'));
-        });
+            return;
+        }
+
+        database.collection(collection.EVENT_COLLECTION).findOne({ EventId }, { projection: { Password: 0 } })
+            .then((event) => {
+                resolve(event);
+            })
+            .catch((error) => {
+                console.error('Error in getEventDetails:', error);
+                reject(new Error('Failed to fetch event details.'));
+            });
     });
 },
+
 
 getPoints: (EventId) => {    
     return new Promise(async (resolve, reject) => {
