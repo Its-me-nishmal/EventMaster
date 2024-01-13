@@ -166,7 +166,9 @@ const getDashboard = async (req, res) => {
         });
     } catch (error) {
         console.error('Error in getDashboard:', error);
-        res.status(500).send('Internal Server Error');
+        res.render('event/dashboard/dashboard', {
+            title: Event.Name, Event, eventHeader: true, createAccout: true, adminHeader: true, isGroupActive, statusViewEvent, isStudentLimit, EventDetails, StudentsCount, ItemCount
+        });
     }
 };
 
